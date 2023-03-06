@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2022-06-06
 inline: true
 ---
 
-A simple inline announcement.
+Excited to join Bloomberg AI team as an Research Engineer!
