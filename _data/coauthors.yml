@@ -1,34 +1,39 @@
-"Adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"Guo":
+  - firstname: ["Wenbo", "W."]
+    url: https://henrygwb.github.io/
 
-"Podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"Xu":
+  - firstname: ["Dongkuan", "D.", "D.K."]
+    url: http://www.personal.psu.edu/dux19/
 
-"Rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"Wei":
+  - firstname: ["Hua", "H."]
+    url: https://web.njit.edu/~hw32/
 
-"Bach": 
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"Chen": 
+  - firstname: ["Chacha", "C."]
+    url: https://chacha-chen.github.io/
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"Honavar":
+  - firstname: ["Vasant","V."]
+    url: http://faculty.ist.psu.edu/vhonavar/
 
-"Przibram":
-  - firstname: ["Karl"]
-    url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"Wang":
+  - firstname: ["Gang","G."]
+    url: https://gangw.cs.illinois.edu/
 
-"Schrödinger":
-  - firstname: ["Erwin"]
-    url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+"Xing":
+  - firstname: ["Xinyu", "X."]
+    url: http://xinyuxing.org/
 
-"Lorentz":
-  - firstname: ["Hendrik Antoon"]
-    url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"Hu":
+  - firstname: ["Jinlong", "J."]
+    url: https://largeapp.github.io/
 
-"Planck":
-  - firstname: ["Max"]
-    url: https://en.wikipedia.org/wiki/Max_Planck
+"Dong":
+  - firstname: ["Shoubin", "S."]
+    url: https://scholar.google.com/citations?user=08PaseUAAAAJ&hl=en
+
+"Wu":
+  - firstname: ["Yanting", "Y."]
+    url: https://www.linkedin.com/in/ytt/

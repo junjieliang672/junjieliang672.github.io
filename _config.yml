@@ -39,7 +39,7 @@ repo_theme_dark: dark           # https://github.com/anuraghazra/github-readme-s
 # will use title and url fields
 # Take a look to https://github.com/jekyll/jekyll-feed for more customization
 
-rss_icon: true
+# rss_icon: true
 
 # -----------------------------------------------------------------------------
 # Layout
@@ -66,57 +66,57 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # -----------------------------------------------------------------------------
 
 github_username: junjieliang672 # your GitHub user name
-gitlab_username: # your GitLab user name
-twitter_username: # your Twitter handle
-mastodon_username: # your mastodon instance+username in the format instance.tld/@username
+# gitlab_username: # your GitLab user name
+# twitter_username: # your Twitter handle
+# mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 linkedin_username: junjie-liang # your LinkedIn user name
-telegram_username: # your Telegram user name
+# telegram_username: # your Telegram user name
 scholar_userid: Yf-KBEIAAAAJ # your Google Scholar ID
-semanticscholar_id: # your Semantic Scholar ID
-whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
-orcid_id: # your ORCID ID
-medium_username: # your Medium username
-quora_username: # your Quora username
-publons_id: # your ID on Publons
-osf_id: # your OSF ID
-research_gate_profile: # your profile on ResearchGate
-blogger_url: # your blogger URL
+# semanticscholar_id: # your Semantic Scholar ID
+# whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
+# orcid_id: # your ORCID ID
+# medium_username: # your Medium username
+# quora_username: # your Quora username
+# publons_id: # your ID on Publons
+# osf_id: # your OSF ID
+# research_gate_profile: # your profile on ResearchGate
+# blogger_url: # your blogger URL
 work_url: https://www.bloomberg.com/company/values/tech-at-bloomberg/artificial-intelligence-ai/ # work page URL
-keybase_username: # your keybase user name
-wikidata_id: # your wikidata id
-wikipedia_id: # your wikipedia id (Case sensitive)
-dblp_url: # your DBLP profile url
-stackoverflow_id: # your stackoverflow id
-kaggle_id: # your kaggle id
-lastfm_id: # your lastfm id
-spotify_id: # your spotify id
-pinterest_id: # your pinterest id
-unsplash_id: # your unsplash id
-instagram_id: # your instagram id
-facebook_id: # your facebook id
-youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
-discord_id: # your discord id (18-digit unique numerical identifier)
+# keybase_username: # your keybase user name
+# wikidata_id: # your wikidata id
+# wikipedia_id: # your wikipedia id (Case sensitive)
+# dblp_url: # your DBLP profile url
+# stackoverflow_id: # your stackoverflow id
+# kaggle_id: # your kaggle id
+# lastfm_id: # your lastfm id
+# spotify_id: # your spotify id
+# pinterest_id: # your pinterest id
+# unsplash_id: # your unsplash id
+# instagram_id: # your instagram id
+# facebook_id: # your facebook id
+# youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
+# discord_id: # your discord id (18-digit unique numerical identifier)
 
 contact_note: >
-  Feel free to reach me out through <a href="mailto:jokitlueng@hotmail.com">email</a>.
+  Feel free to reach me through <a href="mailto:jokitlueng@hotmail.com">email</a>.
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
 # -----------------------------------------------------------------------------
 
-google_analytics:  # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
-panelbear_analytics:  # panelbear analytics site ID (format: XXXXXXXXX)
+# google_analytics:  # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
+# panelbear_analytics:  # panelbear analytics site ID (format: XXXXXXXXX)
 
-google_site_verification:  # your google-site-verification ID (Google Search Console)
-bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
+# google_site_verification:  # your google-site-verification ID (Google Search Console)
+# bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 
 # -----------------------------------------------------------------------------
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
+blog_name:  # blog_name will be displayed in your blog page
 blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: a simple whitespace theme for academics
+blog_description: The Art of Rethinking
 permalink: /blog/:year/:title/
 
 # Pagination
@@ -248,7 +248,8 @@ jekyll-archives:
     tag: '/blog/tag/:name/'
     category: '/blog/category/:name/'
 
-display_tags: ['formatting', 'images', 'links', 'math', 'code'] # this tags will be dispalyed on the front page of your blog
+# display_tags: ['formatting', 'images', 'links', 'math', 'code'] # this tags will be dispalyed on the front page of your blog
+display_tags: ['ML4Fun'] # this tags will be dispalyed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
