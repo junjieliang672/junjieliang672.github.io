@@ -13,7 +13,7 @@ profile:
   #   <p>New York, NY 10022</p>
 
 news: true  # includes a list of news items
-selected_papers: true # includes a list of papers marked as "selected={true}"
+# selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
@@ -23,8 +23,8 @@ Put your address / P.O. box / other info right below your picture. You can also 
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
 
-Hi, I'm an AI Research Engineer working at [Bloomberg AI](https://www.bloomberg.com/company/values/tech-at-bloomberg/artificial-intelligence-ai/). I got my Ph.D. from [Penn State](https://ist.psu.edu/), adviced by [Dr. Vasant G. Honavar](http://faculty.ist.psu.edu/vhonavar/). Before that, I was a research assistant at [AI Lab](https://ailab.ist.psu.edu/index.html). During my masters, I worked with [Dr. Jinlong Hu](https://largeapp.github.io/) at [South China University of Technology](http://www2.scut.edu.cn/cs_en/). 
+Hi, I'm an AI Research Engineer working at [Bloomberg AI](https://www.bloomberg.com/company/values/tech-at-bloomberg/artificial-intelligence-ai/). I got my Ph.D. from [Penn State](https://ist.psu.edu/), advised by [Dr. Vasant G. Honavar](http://faculty.ist.psu.edu/vhonavar/). Before that, I was a research assistant at [AI Lab](https://ailab.ist.psu.edu/index.html). During my master's, I worked with [Dr. Jinlong Hu](https://largeapp.github.io/) at [South China University of Technology](http://www2.scut.edu.cn/cs_en/). 
 
-My research interests span across Longitudinal Data Anlaysis, Natural Language Understanding, Statistical Machine Learning and Information Retrieval. 
+My research interests span Longitudinal Data Anlaysis, Natural Language Understanding, Statistical Machine Learning and Information Retrieval. 
 
-I like to have fun and stay fit! I'm into badminton, snowboarding, weight training, math and RTS games! My all time favourite games are AOE2 and Don't Starve Together.
+I like to have fun and stay fit! I'm into badminton, snowboarding, weight training, math and RTS games! My all-time favorite games are AOE2 and Don't Starve Together.
