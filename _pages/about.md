@@ -27,4 +27,4 @@ Hi, I'm an AI Research Engineer working at [Bloomberg AI](https://www.bloomberg.
 
 My research interests span Longitudinal Data Anlaysis, Natural Language Understanding, Statistical Machine Learning and Information Retrieval. 
 
-I like to have fun and stay fit! I'm into badminton, snowboarding, weight training, math and RTS games! My all-time favorite games are AOE2 and Don't Starve Together.
+I like to have fun and stay fit! I'm into snowboarding, badminton, weight training, math and RTS games! My all-time favorite games are [AOE2](https://www.ageofempires.com/games/aoeiide/) and [Don't Starve Together](https://www.klei.com/games/dont-starve-together).
