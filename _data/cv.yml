@@ -29,9 +29,13 @@
 - title: Experience
   type: time_table
   contents:
+    - title: Security Research Engineer
+      institution: ByteDance Inc.
+      year: 2025 - present
+
     - title: AI Research Engineer
       institution: Bloomberg L.P.
-      year: 2022 - Present
+      year: 2022 - 2025
 #       description:
 #         - Description 1.
 #         - Description 2.

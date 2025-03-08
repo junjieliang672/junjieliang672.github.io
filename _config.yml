@@ -81,7 +81,7 @@ scholar_userid: Yf-KBEIAAAAJ # your Google Scholar ID
 # osf_id: # your OSF ID
 # research_gate_profile: # your profile on ResearchGate
 # blogger_url: # your blogger URL
-work_url: https://www.bloomberg.com/company/values/tech-at-bloomberg/artificial-intelligence-ai/ # work page URL
+work_url: https://www.bytedance.com/en/ # work page URL
 # keybase_username: # your keybase user name
 # wikidata_id: # your wikidata id
 # wikipedia_id: # your wikipedia id (Case sensitive)
@@ -114,18 +114,22 @@ contact_note: >
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name:  # blog_name will be displayed in your blog page
-blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: The Art of Rethinking
-permalink: /blog/:year/:title/
+# blog_name:  # blog_name will be displayed in your blog page
+# blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
+# blog_description: The Art of Rethinking
+# permalink: /blog/:year/:title/
 
-# Pagination
-pagination:
-  enabled: true
+# # Pagination
+# pagination:
+#   enabled: true
 
-related_blog_posts:
-  enabled: true
-  max_related: 5
+# related_blog_posts:
+#   enabled: true
+#   max_related: 5
+
+# -----------------------------------------------------------------------------
+# End of Blog
+# -----------------------------------------------------------------------------
 
 # Giscus comments (RECOMMENDED)
 # Follow instructions on https://giscus.app/ to setup for your repo to fill out

@@ -23,8 +23,8 @@ Put your address / P.O. box / other info right below your picture. You can also 
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
 
-Hi, I'm an AI Research Engineer working at [Bloomberg AI](https://www.bloomberg.com/company/values/tech-at-bloomberg/artificial-intelligence-ai/). I got my Ph.D. from [Penn State](https://ist.psu.edu/), advised by [Dr. Vasant G. Honavar](http://faculty.ist.psu.edu/vhonavar/). Before that, I was a research assistant at [AI Lab](https://ailab.ist.psu.edu/index.html). During my master's, I worked with [Dr. Jinlong Hu](https://largeapp.github.io/) at [South China University of Technology](http://www2.scut.edu.cn/cs_en/). 
+Hi! I’m currently a Security Research Engineer at [ByteDance](https://www.bytedance.com/en/). Before that, I spent three wonderful years as a Research Engineer with the amazing team at [Bloomberg AI](https://www.bloomberg.com/company/values/tech-at-bloomberg/artificial-intelligence-ai/). I earned my Ph.D. from [Penn State](https://ist.psu.edu/), where I was lucky to be advised by [Dr. Vasant G. Honavar](http://faculty.ist.psu.edu/vhonavar/) and worked as a research assistant at the [AI Lab](https://ailab.ist.psu.edu/index.html). Prior to my Ph.D., I collaborated with [Dr. Jinlong Hu](https://largeapp.github.io/) at [South China University of Technology](http://www2.scut.edu.cn/cs_en/) during my master’s degree.
 
-My research interests span Longitudinal Data Anlaysis, Natural Language Understanding, Statistical Machine Learning and Information Retrieval. 
+My research interests span Longitudinal Data Anlaysis, Natural Language Understanding, LLM Security and Information Retrieval. 
 
 I like to have fun and stay fit! I'm into snowboarding, badminton, weight training, math and RTS games! My all-time favorite games are [AOE2](https://www.ageofempires.com/games/aoeiide/) and [Don't Starve Together](https://www.klei.com/games/dont-starve-together).
