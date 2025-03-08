@@ -1,3 +1,4 @@
+FROM ruby:3.4.2
 FROM bitnami/minideb:latest
 Label MAINTAINER Amir Pourmand
 RUN apt-get update -y
