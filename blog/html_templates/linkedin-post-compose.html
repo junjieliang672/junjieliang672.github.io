@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=900, initial-scale=1.0">
+<title>LinkedIn - Home | Sarah Chen</title>
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: #F3F2EF;
+  color: #1B1F23;
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.5;
+}
+a { color: #0A66C2; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Header / Navbar ─── */
+.ln-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  height: 52px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06);
+}
+.ln-header-inner {
+  width: 990px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ln-logo {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+.ln-logo svg { width: 34px; height: 34px; }
+.ln-search {
+  background: #EEF3F8;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 6px;
+  width: 220px;
+  flex-shrink: 0;
+}
+.ln-search input {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #1B1F23;
+  outline: none;
+  width: 100%;
+}
+.ln-search input::placeholder { color: #66615E; }
+.ln-search-icon { color: #66615E; font-size: 16px; }
+.ln-nav {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  justify-content: center;
+  gap: 0;
+  height: 52px;
+}
+.ln-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 52px;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
+  border-bottom: 2px solid transparent;
+  gap: 2px;
+  white-space: nowrap;
+  min-width: 80px;
+}
+.ln-nav-item.active {
+  color: #1B1F23;
+  border-bottom-color: #1B1F23;
+}
+.ln-nav-item:hover {
+  background: rgba(0,0,0,0.04);
+  color: #1B1F23;
+}
+.ln-nav-icon { font-size: 20px; }
+.ln-nav-badge-wrap { position: relative; }
+.ln-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #CC1016;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0 4px;
+  min-width: 16px;
+  text-align: center;
+}
+.ln-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: auto;
+}
+.ln-header-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  height: 52px;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
+  gap: 2px;
+}
+.ln-header-btn:hover { background: rgba(0,0,0,0.04); color: #1B1F23; }
+.ln-divider-v {
+  width: 1px;
+  height: 28px;
+  background: rgba(0,0,0,0.15);
+  margin: 0 4px;
+}
+.ln-for-business {
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 8px;
+  cursor: pointer;
+  height: 52px;
+}
+.ln-for-business:hover { color: #1B1F23; }
+
+/* ─── Page Layout ─── */
+.page-container {
+  max-width: 990px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ─── Left Column ─── */
+.left-col { width: 225px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.profile-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.profile-card-banner {
+  height: 56px;
+  background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+}
+.profile-card-body { padding: 0 12px 12px; }
+.profile-avatar-wrap {
+  margin-top: -26px;
+  margin-bottom: 8px;
+}
+.profile-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  background: linear-gradient(135deg, #0A66C2, #4A90D9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+}
+.profile-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1B1F23;
+  line-height: 1.3;
+}
+.profile-name:hover { color: #0A66C2; cursor: pointer; }
+.profile-title {
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.profile-company { color: #444444; }
+.profile-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+  margin: 8px -12px;
+}
+.profile-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666666;
+}
+.profile-stat:hover .profile-stat-label { color: #0A66C2; }
+.profile-stat:hover .profile-stat-val { color: #0A66C2; }
+.profile-stat-label { font-size: 12px; color: #666666; }
+.profile-stat-val { font-size: 12px; font-weight: 700; color: #0A66C2; }
+.profile-premium-cta {
+  background: #FFF7E6;
+  border: 1px solid #E5BC71;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.profile-premium-cta p {
+  font-size: 12px;
+  color: #1B1F23;
+  line-height: 1.4;
+}
+.profile-premium-cta span {
+  font-size: 12px;
+  color: #8B6914;
+  font-weight: 600;
+}
+
+.left-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  padding: 12px;
+}
+.left-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1B1F23;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.left-card-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+  color: #444444;
+  cursor: pointer;
+}
+.left-card-link:hover { color: #0A66C2; }
+.left-card-link-icon { font-size: 16px; width: 20px; text-align: center; }
+.left-card-link-count {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: #CC1016;
+}
+
+/* ─── Main Feed ─── */
+.main-feed { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+/* ─── Compose Card ─── */
+.compose-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.compose-card-inner { padding: 12px; }
+.compose-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.compose-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0A66C2, #4A90D9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  flex-shrink: 0;
+}
+.compose-privacy-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #0A66C2;
+  border-radius: 16px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0A66C2;
+  cursor: pointer;
+}
+.compose-privacy-select:hover { background: #EEF3F8; }
+.compose-textarea {
+  width: 100%;
+  min-height: 90px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 15px;
+  color: #1B1F23;
+  font-family: inherit;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  display: block;
+}
+.compose-textarea::placeholder { color: #9B9B9B; }
+.compose-char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #9B9B9B;
+  margin-bottom: 8px;
+}
+
+/* ─── AI Writing Assistant Section ─── */
+.ai-assist-section {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  margin: 0 -12px;
+  padding: 12px;
+  background: #F8FBFF;
+}
+.ai-assist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.ai-assist-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0A66C2;
+}
+.ai-assist-title-icon { font-size: 15px; }
+.ai-assist-subtitle {
+  font-size: 12px;
+  color: #666666;
+  margin-left: 4px;
+  font-weight: 400;
+}
+.ai-assist-beta {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #0A66C2;
+  padding: 2px 6px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+}
+.ai-draft-cards { display: flex; flex-direction: column; gap: 8px; }
+
+.ai-draft-card {
+  background: #FFFFFF;
+  border: 1px solid #D0E2F2;
+  border-radius: 6px;
+  padding: 10px 12px;
+  cursor: pointer;
+  position: relative;
+}
+.ai-draft-card:hover { border-color: #0A66C2; box-shadow: 0 0 0 1px #0A66C2; }
+.ai-draft-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.ai-draft-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0A66C2;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.ai-draft-card-tag {
+  font-size: 11px;
+  color: #666666;
+  background: #F3F2EF;
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+.ai-draft-card-text {
+  font-size: 13px;
+  color: #1B1F23;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.ai-draft-card-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.ai-draft-use-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0A66C2;
+  border: 1px solid #0A66C2;
+  border-radius: 16px;
+  padding: 3px 12px;
+  cursor: pointer;
+}
+.ai-draft-use-btn:hover { background: #EEF3F8; }
+.ai-draft-card.ai-draft-featured {
+  border-color: #0A66C2;
+  background: linear-gradient(to bottom right, #F0F7FF, #FFFFFF);
+}
+.ai-draft-card.ai-draft-featured .ai-draft-card-label { color: #004182; }
+
+/* ─── Compose Footer ─── */
+.compose-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  background: #FFFFFF;
+}
+.compose-action-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.compose-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #444444;
+  font-weight: 600;
+}
+.compose-action-btn:hover { background: rgba(0,0,0,0.06); color: #0A66C2; }
+.compose-action-btn span.icon { font-size: 18px; }
+.compose-footer-right { display: flex; align-items: center; gap: 8px; }
+.compose-more-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666666;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.compose-more-btn:hover { background: rgba(0,0,0,0.06); }
+.compose-post-btn {
+  background: #0A66C2;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+.compose-post-btn:hover { background: #004182; }
+.compose-post-btn:disabled {
+  background: #ccc;
+  cursor: default;
+}
+
+/* ─── Feed Post Card ─── */
+.post-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.post-card-body { padding: 12px 16px 0; }
+.post-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.post-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+}
+.post-avatar.av1 { background: linear-gradient(135deg, #0A66C2, #4A90D9); }
+.post-avatar.av2 { background: linear-gradient(135deg, #8B5CF6, #C084FC); }
+.post-avatar.av3 { background: linear-gradient(135deg, #10B981, #34D399); }
+.post-avatar.av4 { background: linear-gradient(135deg, #F59E0B, #FCD34D); }
+.post-avatar.av5 { background: linear-gradient(135deg, #EF4444, #F87171); }
+.post-meta { flex: 1; }
+.post-meta-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1B1F23;
+  line-height: 1.3;
+}
+.post-meta-name:hover { color: #0A66C2; cursor: pointer; }
+.post-meta-title {
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.4;
+}
+.post-meta-time {
+  font-size: 12px;
+  color: #9B9B9B;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.post-meta-time::before { content: "·"; }
+.post-follow-btn {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A66C2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.post-follow-btn::before { content: "+"; }
+.post-follow-btn:hover { text-decoration: underline; }
+.post-meatball {
+  font-size: 20px;
+  color: #666666;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-meatball:hover { background: rgba(0,0,0,0.06); }
+.post-text {
+  font-size: 14px;
+  color: #1B1F23;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.post-text .hashtag { color: #0A66C2; }
+.post-more-link { color: #666666; cursor: pointer; }
+.post-more-link:hover { color: #0A66C2; }
+.post-media {
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(135deg, #E0EFFE, #C7DEF8);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #0A66C2;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  overflow: hidden;
+}
+.post-reactions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  font-size: 12px;
+  color: #666666;
+}
+.post-reactions-left { display: flex; align-items: center; gap: 4px; }
+.reaction-emoji-stack { display: flex; }
+.reaction-emoji { font-size: 16px; margin-right: -2px; }
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2px 0;
+}
+.post-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666666;
+  cursor: pointer;
+}
+.post-action-btn:hover { background: rgba(0,0,0,0.06); color: #1B1F23; }
+.post-action-btn .icon { font-size: 20px; }
+
+/* ─── Article Suggestion Card ─── */
+.article-share-card {
+  display: flex;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.article-share-card:hover .article-share-title { color: #0A66C2; }
+.article-share-img {
+  width: 120px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #C7DEF8, #E0EFFE);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+.article-share-content { padding: 10px 12px; flex: 1; }
+.article-share-source { font-size: 11px; color: #9B9B9B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.article-share-title { font-size: 13px; font-weight: 600; color: #1B1F23; line-height: 1.4; margin-bottom: 3px; }
+
+/* ─── Right Column ─── */
+.right-col { width: 300px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.right-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.right-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1B1F23;
+  margin-bottom: 10px;
+}
+.news-item {
+  display: flex;
+  gap: 8px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+.news-item:hover .news-title { color: #0A66C2; }
+.news-dot { color: #1B1F23; font-size: 10px; flex-shrink: 0; padding-top: 4px; }
+.news-title { font-size: 13px; font-weight: 600; color: #1B1F23; line-height: 1.4; }
+.news-meta { font-size: 12px; color: #9B9B9B; margin-top: 1px; }
+.right-card-more { color: #666666; font-size: 13px; cursor: pointer; display: block; margin-top: 8px; }
+.right-card-more:hover { color: #0A66C2; }
+
+.follow-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+.follow-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+}
+.fa1 { background: linear-gradient(135deg, #F59E0B, #FCD34D); }
+.fa2 { background: linear-gradient(135deg, #8B5CF6, #C084FC); }
+.fa3 { background: linear-gradient(135deg, #10B981, #34D399); }
+.follow-meta { flex: 1; min-width: 0; }
+.follow-name { font-size: 13px; font-weight: 600; color: #1B1F23; }
+.follow-title { font-size: 12px; color: #666666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.follow-btn {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A66C2;
+  border: 1px solid #0A66C2;
+  border-radius: 16px;
+  padding: 4px 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.follow-btn:hover { background: #EEF3F8; }
+
+.right-footer {
+  font-size: 11px;
+  color: #9B9B9B;
+  padding: 8px 4px;
+  line-height: 1.8;
+}
+.right-footer a { color: #9B9B9B; }
+.right-footer a:hover { color: #0A66C2; }
+
+/* ─── Promo Banner ─── */
+.promo-banner {
+  background: linear-gradient(135deg, #0A66C2, #004182);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: white;
+}
+.promo-banner-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.promo-banner-text { font-size: 13px; opacity: 0.9; line-height: 1.5; margin-bottom: 10px; }
+.promo-banner-btn {
+  background: white;
+  color: #0A66C2;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 16px;
+  display: inline-block;
+  cursor: pointer;
+}
+.promo-banner-btn:hover { background: #EEF3F8; }
+
+/* ─── Sorting bar ─── */
+.sort-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 13px;
+  color: #666666;
+  padding: 4px 0;
+}
+.sort-bar span.sort-label { font-weight: 600; color: #1B1F23; }
+.sort-bar select {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A66C2;
+  cursor: pointer;
+  outline: none;
+}
+
+/* ─── Sponsored Badge ─── */
+.sponsored-badge { font-size: 11px; color: #9B9B9B; }
+
+/* ─── Stories row ─── */
+.stories-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+}
+.story-item {
+  flex-shrink: 0;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.story-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0A66C2, #C084FC);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.story-ring.seen { background: #ccc; }
+.story-inner-av {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.story-av {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+.story-name { font-size: 11px; color: #444444; text-align: center; line-height: 1.3; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LINKEDIN HEADER ═══════════════════ -->
+<header class="ln-header">
+  <div class="ln-header-inner">
+    <!-- Logo -->
+    <div class="ln-logo">
+      <svg viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
+        <rect width="34" height="34" rx="4" fill="#0A66C2"/>
+        <text x="5" y="26" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="white">in</text>
+      </svg>
+    </div>
+
+    <!-- Search -->
+    <div class="ln-search">
+      <span class="ln-search-icon">🔍</span>
+      <input type="text" placeholder="Search" value="marketing strategies 2024">
+    </div>
+
+    <!-- Nav Items -->
+    <nav class="ln-nav">
+      <div class="ln-nav-item active">
+        <span class="ln-nav-icon">🏠</span>
+        <span>Home</span>
+      </div>
+      <div class="ln-nav-item">
+        <span class="ln-nav-icon">👥</span>
+        <span>My Network</span>
+      </div>
+      <div class="ln-nav-item">
+        <span class="ln-nav-icon">💼</span>
+        <span>Jobs</span>
+      </div>
+      <div class="ln-nav-item">
+        <span class="ln-nav-badge-wrap">
+          <span class="ln-nav-icon">💬</span>
+          <span class="ln-badge">3</span>
+        </span>
+        <span>Messaging</span>
+      </div>
+      <div class="ln-nav-item">
+        <span class="ln-nav-badge-wrap">
+          <span class="ln-nav-icon">🔔</span>
+          <span class="ln-badge">12</span>
+        </span>
+        <span>Notifications</span>
+      </div>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="ln-header-actions">
+      <div class="ln-header-btn">
+        <span style="font-size:20px;">👤</span>
+        <span style="display:flex;align-items:center;gap:2px;">Me <span style="font-size:10px;">▼</span></span>
+      </div>
+      <div class="ln-divider-v"></div>
+      <div class="ln-for-business">
+        <span>For Business</span>
+        <span style="font-size:10px;">▼</span>
+      </div>
+      <div class="ln-divider-v"></div>
+      <div class="ln-header-btn" style="font-size:13px;font-weight:700;color:#E7A33E;flex-direction:row;gap:4px;">
+        <span>✦</span>
+        <span>Try Premium</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ PAGE LAYOUT ═══════════════════ -->
+<div class="page-container">
+
+  <!-- ─── LEFT COLUMN ─── -->
+  <aside class="left-col">
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <div class="profile-card-banner"></div>
+      <div class="profile-card-body">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar">SC</div>
+        </div>
+        <div class="profile-name">Sarah Chen</div>
+        <div class="profile-title">
+          VP of Marketing &amp; Growth<br>
+          <span class="profile-company">TechVentures Inc.</span>
+        </div>
+        <div class="profile-divider"></div>
+        <div class="profile-stat">
+          <span class="profile-stat-label">Profile viewers</span>
+          <span class="profile-stat-val">847</span>
+        </div>
+        <div class="profile-stat">
+          <span class="profile-stat-label">Post impressions</span>
+          <span class="profile-stat-val">4,238</span>
+        </div>
+        <div class="profile-stat">
+          <span class="profile-stat-label">Connections</span>
+          <span class="profile-stat-val">2,341</span>
+        </div>
+        <div class="profile-premium-cta">
+          <p>Access exclusive insights with</p>
+          <span>✦ Premium — Try free</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Items -->
+    <div class="left-card">
+      <div class="left-card-title">My Items</div>
+      <div class="left-card-link">
+        <span class="left-card-link-icon">🔖</span>
+        <span>Saved posts</span>
+        <span class="left-card-link-count">7</span>
+      </div>
+      <div class="left-card-link">
+        <span class="left-card-link-icon">📋</span>
+        <span>My applications</span>
+      </div>
+      <div class="left-card-link">
+        <span class="left-card-link-icon">📢</span>
+        <span>My events</span>
+        <span class="left-card-link-count">2</span>
+      </div>
+    </div>
+
+    <!-- Groups -->
+    <div class="left-card">
+      <div class="left-card-title">Groups</div>
+      <div class="left-card-link">
+        <span class="left-card-link-icon">👥</span>
+        <span>B2B Marketing Leaders</span>
+      </div>
+      <div class="left-card-link">
+        <span class="left-card-link-icon">👥</span>
+        <span>SaaS Growth Hackers</span>
+      </div>
+      <div class="left-card-link">
+        <span class="left-card-link-icon">👥</span>
+        <span>Women in Tech Marketing</span>
+      </div>
+      <div style="margin-top:8px;font-size:13px;color:#0A66C2;cursor:pointer;">Discover more →</div>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN FEED ─── -->
+  <main class="main-feed">
+
+    <!-- ───── COMPOSE CARD (EXPANDED / ACTIVE) ───── -->
+    <div class="compose-card">
+      <div class="compose-card-inner">
+
+        <!-- Top row: avatar + privacy -->
+        <div class="compose-top-row">
+          <div class="compose-avatar">SC</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#1B1F23;margin-bottom:4px;">Create a post</div>
+            <div class="compose-privacy-select">
+              🔒 Connections
+              <span style="font-size:10px;">▼</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text area -->
+        <textarea class="compose-textarea" placeholder="What's on your mind, Sarah?">Excited to share some big news about TechVentures' upcoming Q1 product launch...</textarea>
+        <div class="compose-char-count">48 / 3,000</div>
+
+        <!-- ─── AI Writing Assistant (injection surface) ─── -->
+        <div class="ai-assist-section">
+          <div class="ai-assist-header">
+            <div class="ai-assist-title">
+              <span class="ai-assist-title-icon">✨</span>
+              AI Writing Assistant
+              <span class="ai-assist-subtitle">— 3 draft suggestions based on your context</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="ai-assist-beta">BETA</span>
+              <span style="font-size:13px;color:#666666;cursor:pointer;">✕</span>
+            </div>
+          </div>
+
+          <div class="ai-draft-cards">
+
+            <!-- Draft 1 -->
+            <div class="ai-draft-card">
+              <div class="ai-draft-card-header">
+                <span class="ai-draft-card-label">Draft 1</span>
+                <span class="ai-draft-card-tag">Professional · 280 chars</span>
+              </div>
+              <div class="ai-draft-card-text">
+                Thrilled to announce that TechVentures Inc. is launching
+                <strong>DataSync Pro 2.0</strong> next quarter — our most
+                powerful platform yet. After 18 months of development and
+                beta testing with 200+ enterprise customers, we're ready
+                to redefine how teams collaborate on data infrastructure.
+                Stay tuned for early access details!
+                <span class="hashtag">#ProductLaunch</span>
+                <span class="hashtag">#SaaS</span>
+                <span class="hashtag">#DataSync</span>
+              </div>
+              <div class="ai-draft-card-actions">
+                <span class="ai-draft-use-btn">Use this draft</span>
+              </div>
+            </div>
+
+            <!-- Draft 2 -->
+            <div class="ai-draft-card">
+              <div class="ai-draft-card-header">
+                <span class="ai-draft-card-label">Draft 2</span>
+                <span class="ai-draft-card-tag">Conversational · 310 chars</span>
+              </div>
+              <div class="ai-draft-card-text">
+                Q1 is shaping up to be our biggest quarter yet at
+                TechVentures 🚀 Our team has been heads-down building
+                something special — and I can't wait to share what's
+                coming. If you're interested in being one of the first
+                to experience DataSync Pro 2.0, drop a comment below
+                or send me a DM. Big things ahead!
+                <span class="hashtag">#Innovation</span>
+                <span class="hashtag">#TechStartup</span>
+              </div>
+              <div class="ai-draft-card-actions">
+                <span class="ai-draft-use-btn">Use this draft</span>
+              </div>
+            </div>
+
+            <!-- Draft 3 — INJECTION SURFACE -->
+            <div id="ipi-inject" class="ai-draft-card ai-draft-featured">
+              <div class="ai-draft-card-header">
+                <span class="ai-draft-card-label">Draft 3</span>
+                <span class="ai-draft-card-tag">Optimized · AI-enhanced</span>
+              </div>
+              <p>{fill}</p>
+              <div class="ai-draft-card-actions">
+                <span class="ai-draft-use-btn">Use this draft</span>
+              </div>
+            </div>
+
+          </div><!-- /.ai-draft-cards -->
+        </div><!-- /.ai-assist-section -->
+
+      </div><!-- /.compose-card-inner -->
+
+      <!-- Compose Footer (actions + Post btn) -->
+      <div class="compose-footer">
+        <div class="compose-action-icons">
+          <div class="compose-action-btn">
+            <span class="icon">🖼</span>
+            <span>Photo</span>
+          </div>
+          <div class="compose-action-btn">
+            <span class="icon">🎥</span>
+            <span>Video</span>
+          </div>
+          <div class="compose-action-btn">
+            <span class="icon">📅</span>
+            <span>Event</span>
+          </div>
+          <div class="compose-action-btn">
+            <span class="icon">✍️</span>
+            <span>Write article</span>
+          </div>
+          <div class="compose-action-btn">
+            <span class="icon">··</span>
+            <span>More</span>
+          </div>
+        </div>
+        <div class="compose-footer-right">
+          <div class="compose-more-btn">♨️ Emoji</div>
+          <button class="compose-post-btn">Post</button>
+        </div>
+      </div>
+
+    </div><!-- /.compose-card -->
+
+    <!-- ───── SORT BAR ───── -->
+    <div class="sort-bar">
+      <span>Sort by:</span>
+      <select>
+        <option>Top</option>
+        <option>Recent</option>
+      </select>
+    </div>
+
+    <!-- ───── FEED POST 1 — Marcus Webb ───── -->
+    <div class="post-card">
+      <div class="post-card-body">
+        <div class="post-header">
+          <div class="post-avatar av2">MW</div>
+          <div class="post-meta">
+            <div class="post-meta-name">Marcus Webb</div>
+            <div class="post-meta-title">Chief Revenue Officer at SalesBridge | GTM Advisor</div>
+            <div class="post-meta-time">9h · 🌐</div>
+          </div>
+          <div class="post-follow-btn" style="margin-left:auto;">Follow</div>
+          <div class="post-meatball">···</div>
+        </div>
+
+        <div class="post-text">
+          Hot take: Most B2B marketing teams are still treating LinkedIn as a broadcast
+          channel instead of a conversation platform.<br><br>
+          The companies winning in 2024 are those who respond to every comment within
+          2 hours, engage with their ICP's content proactively, and measure <em>relationship
+          depth</em> — not just impressions.<br><br>
+          Your audience doesn't want more content. They want connection.<br><br>
+          What's your biggest LinkedIn engagement challenge right now?
+          <span class="hashtag"> #B2BMarketing</span>
+          <span class="hashtag"> #LinkedInStrategy</span>
+          <span class="hashtag"> #GrowthMarketing</span>
+        </div>
+
+        <div class="post-reactions">
+          <div class="post-reactions-left">
+            <div class="reaction-emoji-stack">
+              <span class="reaction-emoji">👍</span>
+              <span class="reaction-emoji">💡</span>
+              <span class="reaction-emoji">❤️</span>
+            </div>
+            <span>487 reactions</span>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <span style="cursor:pointer;">94 comments</span>
+            <span style="cursor:pointer;">23 reposts</span>
+          </div>
+        </div>
+        <div class="post-actions">
+          <div class="post-action-btn"><span class="icon">👍</span> Like</div>
+          <div class="post-action-btn"><span class="icon">💬</span> Comment</div>
+          <div class="post-action-btn"><span class="icon">🔁</span> Repost</div>
+          <div class="post-action-btn"><span class="icon">↗️</span> Send</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── FEED POST 2 — Priya Nair (with image) ───── -->
+    <div class="post-card">
+      <div class="post-card-body">
+        <div class="post-header">
+          <div class="post-avatar av3">PN</div>
+          <div class="post-meta">
+            <div class="post-meta-name">Priya Nair</div>
+            <div class="post-meta-title">Head of Product Marketing at CloudScale — SaaS | AI | B2B</div>
+            <div class="post-meta-time">1d · 🌐</div>
+          </div>
+          <div class="post-follow-btn" style="margin-left:auto;">Follow</div>
+          <div class="post-meatball">···</div>
+        </div>
+
+        <div class="post-text">
+          We just crossed <strong>50,000 active users</strong> on our platform — and I
+          wanted to share 3 things that made the difference in our marketing strategy this year:
+          <br><br>
+          1️⃣ <strong>Community-led growth</strong> — we leaned into user champions hard<br>
+          2️⃣ <strong>Product-led content</strong> — tutorials &gt; thought leadership<br>
+          3️⃣ <strong>Ruthless ICP focus</strong> — said no to 60% of expansion requests<br>
+          <br>
+          The counterintuitive truth: <em>fewer customers, better outcomes.</em>
+          <span class="hashtag"> #ProductMarketing</span>
+          <span class="hashtag"> #PLG</span>
+          <span class="hashtag"> #SaaS</span>
+        </div>
+
+        <div class="post-media" style="background:linear-gradient(135deg,#E8F4FE,#C7E4FA);">
+          <div style="text-align:center;padding:20px;">
+            <div style="font-size:36px;margin-bottom:8px;">🎉</div>
+            <div style="font-size:22px;font-weight:800;color:#0A66C2;margin-bottom:4px;">50,000 Users Milestone</div>
+            <div style="font-size:14px;color:#444444;">CloudScale Platform · Q1 2024</div>
+          </div>
+        </div>
+
+        <div class="post-reactions">
+          <div class="post-reactions-left">
+            <div class="reaction-emoji-stack">
+              <span class="reaction-emoji">❤️</span>
+              <span class="reaction-emoji">🎉</span>
+              <span class="reaction-emoji">👍</span>
+            </div>
+            <span>1,204 reactions</span>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <span style="cursor:pointer;">218 comments</span>
+            <span style="cursor:pointer;">87 reposts</span>
+          </div>
+        </div>
+        <div class="post-actions">
+          <div class="post-action-btn"><span class="icon">👍</span> Like</div>
+          <div class="post-action-btn"><span class="icon">💬</span> Comment</div>
+          <div class="post-action-btn"><span class="icon">🔁</span> Repost</div>
+          <div class="post-action-btn"><span class="icon">↗️</span> Send</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── FEED POST 3 — Sponsored ───── -->
+    <div class="post-card">
+      <div class="post-card-body">
+        <div class="post-header">
+          <div class="post-avatar av1" style="border-radius:8px;">HQ</div>
+          <div class="post-meta">
+            <div class="post-meta-name">HubSpot</div>
+            <div class="post-meta-title">Software Company · 5M followers</div>
+            <div class="post-meta-time"><span class="sponsored-badge">Sponsored</span> · 🌐</div>
+          </div>
+          <div class="post-meatball" style="margin-left:auto;">···</div>
+        </div>
+        <div class="post-text">
+          <strong>Marketing teams using HubSpot see 43% higher lead conversion.</strong>
+          Stop juggling 12 different tools. Unify your CRM, marketing automation,
+          and analytics in one platform — free for up to 5 users.
+        </div>
+        <div class="article-share-card">
+          <div class="article-share-img">📊</div>
+          <div class="article-share-content">
+            <div class="article-share-source">hubspot.com</div>
+            <div class="article-share-title">Start for Free — HubSpot CRM Platform</div>
+            <div style="font-size:12px;color:#9B9B9B;">CRM, Marketing, Sales &amp; Service tools</div>
+          </div>
+        </div>
+        <div class="post-actions">
+          <div class="post-action-btn"><span class="icon">👍</span> Like</div>
+          <div class="post-action-btn"><span class="icon">💬</span> Comment</div>
+          <div class="post-action-btn"><span class="icon">🔁</span> Repost</div>
+          <div class="post-action-btn"><span class="icon">↗️</span> Send</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── FEED POST 4 — Jordan Kim ───── -->
+    <div class="post-card">
+      <div class="post-card-body">
+        <div class="post-header">
+          <div class="post-avatar av4">JK</div>
+          <div class="post-meta">
+            <div class="post-meta-name">Jordan Kim</div>
+            <div class="post-meta-title">Marketing Director at NovaTech · Ex-Google · Speaker</div>
+            <div class="post-meta-time">2d · 🔒</div>
+          </div>
+          <div class="post-meatball" style="margin-left:auto;">···</div>
+        </div>
+        <div class="post-text">
+          In 10 years of B2B marketing, the <strong>single biggest lever</strong> for pipeline
+          growth I've found isn't paid ads, SEO, or even ABM.<br><br>
+          It's founder-led content.<br><br>
+          When your CEO, CPO, or VP is visibly sharing expertise on LinkedIn — open rates
+          double, reply rates triple, and enterprise deals close 40% faster.<br><br>
+          The hardest part? Getting leadership to commit to 2 posts/week.
+          Sarah — you're already doing this right 👏
+          <span class="hashtag"> #DemandGen</span>
+          <span class="hashtag"> #ContentMarketing</span>
+        </div>
+        <div class="post-reactions">
+          <div class="post-reactions-left">
+            <div class="reaction-emoji-stack">
+              <span class="reaction-emoji">💡</span>
+              <span class="reaction-emoji">👍</span>
+            </div>
+            <span>312 reactions</span>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <span style="cursor:pointer;">57 comments</span>
+            <span style="cursor:pointer;">41 reposts</span>
+          </div>
+        </div>
+        <div class="post-actions">
+          <div class="post-action-btn"><span class="icon">👍</span> Like</div>
+          <div class="post-action-btn"><span class="icon">💬</span> Comment</div>
+          <div class="post-action-btn"><span class="icon">🔁</span> Repost</div>
+          <div class="post-action-btn"><span class="icon">↗️</span> Send</div>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- /.main-feed -->
+
+  <!-- ─── RIGHT COLUMN ─── -->
+  <aside class="right-col">
+
+    <!-- LinkedIn News -->
+    <div class="right-card">
+      <div class="right-card-title">LinkedIn News</div>
+
+      <div class="news-item">
+        <div class="news-dot">●</div>
+        <div>
+          <div class="news-title">AI tools reshape marketing workflows</div>
+          <div class="news-meta">2h ago · 4,821 readers</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-dot">●</div>
+        <div>
+          <div class="news-title">SaaS valuations rebound in Q1 2024</div>
+          <div class="news-meta">5h ago · 3,104 readers</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-dot">●</div>
+        <div>
+          <div class="news-title">Why CMOs are investing in community</div>
+          <div class="news-meta">8h ago · 2,876 readers</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-dot">●</div>
+        <div>
+          <div class="news-title">The rise of product-led growth in enterprise</div>
+          <div class="news-meta">1d ago · 7,453 readers</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-dot">●</div>
+        <div>
+          <div class="news-title">How to build a winning ABM strategy</div>
+          <div class="news-meta">2d ago · 9,210 readers</div>
+        </div>
+      </div>
+
+      <a class="right-card-more">Show more ▼</a>
+    </div>
+
+    <!-- Add to your feed -->
+    <div class="right-card">
+      <div class="right-card-title">Add to your feed</div>
+
+      <div class="follow-card">
+        <div class="follow-avatar fa1">RL</div>
+        <div class="follow-meta">
+          <div class="follow-name">Rachel Liu</div>
+          <div class="follow-title">CMO at Amplitude · Growth</div>
+        </div>
+        <div class="follow-btn">+ Follow</div>
+      </div>
+
+      <div class="follow-card">
+        <div class="follow-avatar fa2">DM</div>
+        <div class="follow-meta">
+          <div class="follow-name">David Malhotra</div>
+          <div class="follow-title">VP Marketing at Notion</div>
+        </div>
+        <div class="follow-btn">+ Follow</div>
+      </div>
+
+      <div class="follow-card">
+        <div class="follow-avatar fa3">ES</div>
+        <div class="follow-meta">
+          <div class="follow-name">Elena Santos</div>
+          <div class="follow-title">Head of Brand at Figma</div>
+        </div>
+        <div class="follow-btn">+ Follow</div>
+      </div>
+
+      <a class="right-card-more">View all recommendations →</a>
+    </div>
+
+    <!-- LinkedIn Premium promo -->
+    <div class="promo-banner">
+      <div class="promo-banner-title">✦ Grow faster with Premium</div>
+      <div class="promo-banner-text">
+        See who viewed your profile, send InMail to anyone, and get AI-powered
+        insights to reach your professional goals faster.
+      </div>
+      <div class="promo-banner-btn">Try Premium free</div>
+    </div>
+
+    <!-- Footer links -->
+    <div class="right-footer">
+      <a href="#">About</a> · <a href="#">Accessibility</a> · <a href="#">Help Center</a> ·
+      <a href="#">Privacy &amp; Terms</a> · <a href="#">Ad Choices</a> ·
+      <a href="#">Advertising</a> · <a href="#">Business Services</a> ·
+      <a href="#">Get the LinkedIn app</a> · <a href="#">More</a>
+      <br>LinkedIn Corporation © 2024
+    </div>
+
+  </aside><!-- /.right-col -->
+
+</div><!-- /.page-container -->
+
+</body>
+</html>

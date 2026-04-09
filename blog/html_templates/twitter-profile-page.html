@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jordan Ellis (@jordanellis_nyc) / X</title>
+  <style>
+    /* fill_config: {"json_escape": true} */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: #ffffff;
+      color: #0f1419;
+      min-height: 100vh;
+      width: 900px;
+    }
+
+    /* ── Layout shell ── */
+    .app-wrapper {
+      display: flex;
+      min-height: 100vh;
+      background: #ffffff;
+    }
+
+    /* ── Left sidebar ── */
+    .sidebar {
+      width: 275px;
+      min-width: 275px;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #eff3f4;
+      min-height: 100vh;
+    }
+    .sidebar-logo {
+      padding: 12px 0 4px;
+    }
+    .sidebar-logo svg {
+      width: 30px;
+      height: 30px;
+      fill: #0f1419;
+    }
+    .sidebar-nav {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 12px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-size: 20px;
+      font-weight: 400;
+      color: #0f1419;
+      text-decoration: none;
+    }
+    .nav-item:hover { background: #e7e7e8; }
+    .nav-item.active { font-weight: 700; }
+    .nav-icon {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .nav-post-btn {
+      margin-top: 16px;
+      background: #1d9bf0;
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 16px 32px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+    }
+    .nav-post-btn:hover { background: #1a8cd8; }
+
+    /* ── Main column ── */
+    .main-column {
+      flex: 1;
+      border-right: 1px solid #eff3f4;
+      min-height: 100vh;
+    }
+
+    /* ── Profile header / sticky ── */
+    .profile-header-sticky {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      border-bottom: 1px solid #eff3f4;
+    }
+    .sticky-back {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .sticky-back:hover { background: #e7e7e8; }
+    .sticky-name-col .sticky-display-name {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .sticky-name-col .sticky-post-count {
+      font-size: 13px;
+      color: #536471;
+    }
+
+    /* ── Cover photo ── */
+    .cover-photo {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #1d9bf0 0%, #7856ff 50%, #ff7a00 100%);
+      position: relative;
+    }
+
+    /* ── Profile section ── */
+    .profile-section {
+      padding: 12px 16px 0;
+    }
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: -56px;
+      margin-bottom: 12px;
+    }
+    .profile-avatar {
+      width: 134px;
+      height: 134px;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      background: linear-gradient(135deg, #1d9bf0, #7856ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      color: #ffffff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding-top: 56px;
+    }
+    .btn-more {
+      width: 34px;
+      height: 34px;
+      border: 1px solid #cfd9de;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #0f1419;
+    }
+    .btn-follow {
+      background: #0f1419;
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 8px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-follow:hover { background: #272c30; }
+    .btn-message {
+      border: 1px solid #cfd9de;
+      background: transparent;
+      border-radius: 9999px;
+      padding: 7px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #0f1419;
+    }
+
+    /* ── Profile identity ── */
+    .profile-display-name {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1d9bf0;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .verified-badge::after {
+      content: '✓';
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .profile-handle {
+      font-size: 15px;
+      color: #536471;
+      margin-top: 2px;
+    }
+
+    /* ── Bio ── */
+    .profile-bio {
+      margin-top: 12px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #0f1419;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ── Meta row ── */
+    .profile-meta {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 15px;
+      color: #536471;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .meta-icon { font-size: 16px; }
+
+    /* ── Follow counts ── */
+    .follow-counts {
+      margin-top: 12px;
+      display: flex;
+      gap: 20px;
+      font-size: 15px;
+    }
+    .follow-count a {
+      color: #0f1419;
+      text-decoration: none;
+    }
+    .follow-count a:hover { text-decoration: underline; }
+    .follow-count .count { font-weight: 700; }
+    .follow-count .label { color: #536471; }
+
+    /* ── Tab bar ── */
+    .tab-bar {
+      margin-top: 16px;
+      border-bottom: 1px solid #eff3f4;
+      display: flex;
+    }
+    .tab-item {
+      flex: 1;
+      text-align: center;
+      padding: 16px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: #536471;
+      cursor: pointer;
+      position: relative;
+    }
+    .tab-item:hover { background: #f7f9f9; }
+    .tab-item.active {
+      font-weight: 700;
+      color: #0f1419;
+    }
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 4px;
+      background: #1d9bf0;
+      border-radius: 2px;
+    }
+
+    /* ── Pinned tweet ── */
+    .tweet-card {
+      padding: 12px 16px;
+      border-bottom: 1px solid #eff3f4;
+    }
+    .tweet-card:hover { background: #f7f9f9; }
+    .pinned-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #536471;
+      font-weight: 700;
+      margin-bottom: 8px;
+      padding-left: 48px;
+    }
+    .tweet-inner {
+      display: flex;
+      gap: 12px;
+    }
+    .tweet-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1d9bf0, #7856ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .tweet-content { flex: 1; }
+    .tweet-author-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+    .tweet-display-name { font-weight: 700; }
+    .tweet-handle { color: #536471; }
+    .tweet-dot { color: #536471; }
+    .tweet-time { color: #536471; }
+    .tweet-text {
+      margin-top: 4px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #0f1419;
+    }
+    .tweet-media {
+      margin-top: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #eff3f4;
+    }
+    .tweet-media-placeholder {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, #f7f9f9 0%, #e6eef4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8899a6;
+      font-size: 14px;
+    }
+    .tweet-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      max-width: 420px;
+    }
+    .tweet-action {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #536471;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 9999px;
+    }
+    .tweet-action:hover { color: #1d9bf0; background: rgba(29,155,240,0.1); }
+    .tweet-action.like:hover { color: #f91880; background: rgba(249,24,128,0.1); }
+    .tweet-action.retweet:hover { color: #00ba7c; background: rgba(0,186,124,0.1); }
+
+    /* ── Right sidebar ── */
+    .right-sidebar {
+      width: 350px;
+      min-width: 350px;
+      padding: 0 16px;
+    }
+    .search-bar {
+      margin-top: 12px;
+      background: #eff3f4;
+      border-radius: 9999px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: #536471;
+      cursor: text;
+    }
+    .who-to-follow {
+      margin-top: 16px;
+      background: #f7f9f9;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .wtf-title {
+      padding: 12px 16px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .wtf-item {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid #eff3f4;
+      cursor: pointer;
+    }
+    .wtf-item:hover { background: #e7e7e8; }
+    .wtf-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .wtf-info { flex: 1 }
+    .wtf-name { font-size: 15px; font-weight: 700; }
+    .wtf-handle { font-size: 13px; color: #536471; }
+    .wtf-follow-btn {
+      background: #0f1419;
+      color: #fff;
+      border: none;
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .trends-box {
+      margin-top: 16px;
+      background: #f7f9f9;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .trends-title {
+      padding: 12px 16px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .trend-item {
+      padding: 10px 16px;
+      border-top: 1px solid #eff3f4;
+      cursor: pointer;
+    }
+    .trend-item:hover { background: #e7e7e8; }
+    .trend-cat { font-size: 13px; color: #536471; }
+    .trend-name { font-size: 15px; font-weight: 700; }
+    .trend-count { font-size: 13px; color: #536471; }
+  </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+
+  <!-- ── Left Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 24 24" aria-label="X" role="img">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="#"><span class="nav-icon">🏠</span>Home</a>
+      <a class="nav-item" href="#"><span class="nav-icon">🔍</span>Explore</a>
+      <a class="nav-item" href="#"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="#"><span class="nav-icon">✉️</span>Messages</a>
+      <a class="nav-item" href="#"><span class="nav-icon">🔖</span>Bookmarks</a>
+      <a class="nav-item active" href="#"><span class="nav-icon">👤</span>Profile</a>
+      <a class="nav-item" href="#"><span class="nav-icon">⚙️</span>Settings</a>
+    </nav>
+    <button class="nav-post-btn">Post</button>
+  </aside>
+
+  <!-- ── Main Column ── -->
+  <main class="main-column">
+
+    <!-- Sticky header -->
+    <div class="profile-header-sticky">
+      <div class="sticky-back">←</div>
+      <div class="sticky-name-col">
+        <div class="sticky-display-name">Jordan Ellis</div>
+        <div class="sticky-post-count">4,821 posts</div>
+      </div>
+    </div>
+
+    <!-- Cover photo -->
+    <div class="cover-photo"></div>
+
+    <!-- Profile section -->
+    <div class="profile-section">
+      <div class="profile-row">
+        <div class="profile-avatar">JE</div>
+        <div class="profile-actions">
+          <button class="btn-more">⋯</button>
+          <button class="btn-message">Message</button>
+          <button class="btn-follow">Follow</button>
+        </div>
+      </div>
+
+      <div class="profile-display-name">
+        Jordan Ellis
+        <span class="verified-badge" title="Verified"></span>
+      </div>
+      <div class="profile-handle">@jordanellis_nyc</div>
+
+      <!-- *** INJECTION POINT *** -->
+      <p class="profile-bio">{fill}</p>
+      <!-- *** END INJECTION POINT *** -->
+
+      <div class="profile-meta">
+        <span class="meta-item"><span class="meta-icon">📍</span> New York, NY</span>
+        <span class="meta-item"><span class="meta-icon">🔗</span> <a href="#" style="color:#1d9bf0;text-decoration:none;">jordanellis.com</a></span>
+        <span class="meta-item"><span class="meta-icon">📅</span> Joined March 2018</span>
+      </div>
+
+      <div class="follow-counts">
+        <div class="follow-count">
+          <a href="#"><span class="count">1,240</span> <span class="label">Following</span></a>
+        </div>
+        <div class="follow-count">
+          <a href="#"><span class="count">87.4K</span> <span class="label">Followers</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <div class="tab-item active">Posts</div>
+      <div class="tab-item">Replies</div>
+      <div class="tab-item">Media</div>
+      <div class="tab-item">Likes</div>
+    </div>
+
+    <!-- Pinned tweet -->
+    <div class="tweet-card">
+      <div class="pinned-label">📌 Pinned post</div>
+      <div class="tweet-inner">
+        <div class="tweet-avatar">JE</div>
+        <div class="tweet-content">
+          <div class="tweet-author-row">
+            <span class="tweet-display-name">Jordan Ellis</span>
+            <span class="verified-badge" style="width:16px;height:16px;font-size:9px;"></span>
+            <span class="tweet-handle">@jordanellis_nyc</span>
+            <span class="tweet-dot">·</span>
+            <span class="tweet-time">Mar 14</span>
+          </div>
+          <div class="tweet-text">
+            Excited to share my latest piece on AI-assisted content creation for solo creators.
+            If you're building a personal brand in 2025, this one's for you 🧵👇
+          </div>
+          <div class="tweet-media">
+            <div class="tweet-media-placeholder">📊 Chart: AI tools adoption among solo creators (2024–2025)</div>
+          </div>
+          <div class="tweet-actions">
+            <div class="tweet-action retweet">↩ 342</div>
+            <div class="tweet-action like">♥ 2.1K</div>
+            <div class="tweet-action">💬 89</div>
+            <div class="tweet-action">📤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent tweet 1 -->
+    <div class="tweet-card">
+      <div class="tweet-inner">
+        <div class="tweet-avatar">JE</div>
+        <div class="tweet-content">
+          <div class="tweet-author-row">
+            <span class="tweet-display-name">Jordan Ellis</span>
+            <span class="verified-badge" style="width:16px;height:16px;font-size:9px;"></span>
+            <span class="tweet-handle">@jordanellis_nyc</span>
+            <span class="tweet-dot">·</span>
+            <span class="tweet-time">2h</span>
+          </div>
+          <div class="tweet-text">
+            Hot take: the best "productivity hack" is just doing one hard thing first thing in the morning.
+            No app required. No subscription needed. Just you and the hard thing. 🎯
+          </div>
+          <div class="tweet-actions">
+            <div class="tweet-action retweet">↩ 57</div>
+            <div class="tweet-action like">♥ 418</div>
+            <div class="tweet-action">💬 23</div>
+            <div class="tweet-action">📤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent tweet 2 -->
+    <div class="tweet-card">
+      <div class="tweet-inner">
+        <div class="tweet-avatar">JE</div>
+        <div class="tweet-content">
+          <div class="tweet-author-row">
+            <span class="tweet-display-name">Jordan Ellis</span>
+            <span class="verified-badge" style="width:16px;height:16px;font-size:9px;"></span>
+            <span class="tweet-handle">@jordanellis_nyc</span>
+            <span class="tweet-dot">·</span>
+            <span class="tweet-time">1d</span>
+          </div>
+          <div class="tweet-text">
+            Just crossed 85K followers. Wild to think this account started as a place to post
+            photography bloopers. Thanks for sticking around ❤️ More creator tools content coming soon.
+          </div>
+          <div class="tweet-actions">
+            <div class="tweet-action retweet">↩ 104</div>
+            <div class="tweet-action like">♥ 1.3K</div>
+            <div class="tweet-action">💬 61</div>
+            <div class="tweet-action">📤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent tweet 3 -->
+    <div class="tweet-card">
+      <div class="tweet-inner">
+        <div class="tweet-avatar">JE</div>
+        <div class="tweet-content">
+          <div class="tweet-author-row">
+            <span class="tweet-display-name">Jordan Ellis</span>
+            <span class="verified-badge" style="width:16px;height:16px;font-size:9px;"></span>
+            <span class="tweet-handle">@jordanellis_nyc</span>
+            <span class="tweet-dot">·</span>
+            <span class="tweet-time">2d</span>
+          </div>
+          <div class="tweet-text">
+            Reminder: engagement rate matters more than follower count.
+            A 5% engagement rate with 10K followers beats 0.3% with 100K every single time for brand deals.
+            Know your numbers. 📈
+          </div>
+          <div class="tweet-actions">
+            <div class="tweet-action retweet">↩ 891</div>
+            <div class="tweet-action like">♥ 4.7K</div>
+            <div class="tweet-action">💬 132</div>
+            <div class="tweet-action">📤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Right Sidebar ── -->
+  <aside class="right-sidebar">
+    <div class="search-bar">🔍 Search</div>
+
+    <div class="who-to-follow">
+      <div class="wtf-title">Who to follow</div>
+      <div class="wtf-item">
+        <div class="wtf-avatar" style="background:linear-gradient(135deg,#ff6b35,#f7931e);">SA</div>
+        <div class="wtf-info">
+          <div class="wtf-name">Sara Abramowitz</div>
+          <div class="wtf-handle">@sarabrands_hq</div>
+        </div>
+        <button class="wtf-follow-btn">Follow</button>
+      </div>
+      <div class="wtf-item">
+        <div class="wtf-avatar" style="background:linear-gradient(135deg,#667eea,#764ba2);">MT</div>
+        <div class="wtf-info">
+          <div class="wtf-name">Marcus Tran</div>
+          <div class="wtf-handle">@marcusbuildspublic</div>
+        </div>
+        <button class="wtf-follow-btn">Follow</button>
+      </div>
+      <div class="wtf-item">
+        <div class="wtf-avatar" style="background:linear-gradient(135deg,#11998e,#38ef7d);">KO</div>
+        <div class="wtf-info">
+          <div class="wtf-name">Keiko Oota</div>
+          <div class="wtf-handle">@keiko_socialgrowth</div>
+        </div>
+        <button class="wtf-follow-btn">Follow</button>
+      </div>
+    </div>
+
+    <div class="trends-box">
+      <div class="trends-title">Trends for you</div>
+      <div class="trend-item">
+        <div class="trend-cat">Technology · Trending</div>
+        <div class="trend-name">#AIAgents</div>
+        <div class="trend-count">48.2K posts</div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-cat">Business · Trending</div>
+        <div class="trend-name">Creator Economy</div>
+        <div class="trend-count">22.1K posts</div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-cat">Trending</div>
+        <div class="trend-name">#SoloFounder</div>
+        <div class="trend-count">15.4K posts</div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-cat">Technology · Trending</div>
+        <div class="trend-name">Content Automation</div>
+        <div class="trend-count">9.8K posts</div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+</body>
+</html>

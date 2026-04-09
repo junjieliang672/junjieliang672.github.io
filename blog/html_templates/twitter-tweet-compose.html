@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, initial-scale=1.0">
+<title>Home / X</title>
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+  background: #FFFFFF;
+  color: #0F1419;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.5;
+}
+a { color: #1D9BF0; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Layout ─── */
+.tw-container {
+  display: flex;
+  max-width: 1265px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* ─── Left Sidebar ─── */
+.tw-sidebar {
+  width: 275px;
+  flex-shrink: 0;
+  padding: 0 12px;
+  border-right: 1px solid #EFF3F4;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.tw-logo {
+  padding: 12px;
+  margin-bottom: 4px;
+  display: inline-flex;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.tw-logo:hover { background: rgba(15,20,25,0.1); }
+.tw-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.tw-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 20px;
+  font-weight: 400;
+  color: #0F1419;
+  position: relative;
+}
+.tw-nav-item:hover { background: rgba(15,20,25,0.1); }
+.tw-nav-item.active { font-weight: 700; }
+.tw-nav-icon { font-size: 24px; width: 28px; text-align: center; line-height: 1; }
+.tw-nav-label { font-size: 20px; }
+.tw-nav-badge {
+  background: #1D9BF0;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 9999px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  position: absolute;
+  top: 8px;
+  left: 32px;
+}
+.tw-post-btn {
+  background: #1D9BF0;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 16px;
+  cursor: pointer;
+  margin: 16px 12px 0;
+  width: calc(100% - 24px);
+  transition: background 0.2s;
+  text-align: center;
+}
+.tw-post-btn:hover { background: #1a8cd8; }
+.tw-user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tw-user-section:hover { background: rgba(15,20,25,0.1); }
+.tw-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1D9BF0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.tw-user-info { flex: 1; min-width: 0; }
+.tw-user-name {
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tw-user-handle {
+  font-size: 14px;
+  color: #536471;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tw-user-more { color: #536471; font-size: 20px; font-weight: 700; }
+
+/* ─── Center Column ─── */
+.tw-center {
+  flex: 1;
+  max-width: 600px;
+  border-right: 1px solid #EFF3F4;
+  min-height: 100vh;
+}
+.tw-center-header {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+  border-bottom: 1px solid #EFF3F4;
+  padding: 14px 16px;
+}
+.tw-center-header h2 { font-size: 20px; font-weight: 700; }
+.tw-tab-bar {
+  display: flex;
+  border-bottom: 1px solid #EFF3F4;
+}
+.tw-tab {
+  flex: 1;
+  text-align: center;
+  padding: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #536471;
+  position: relative;
+  transition: background 0.2s;
+  font-weight: 400;
+}
+.tw-tab:hover { background: rgba(15,20,25,0.07); }
+.tw-tab.active { font-weight: 700; color: #0F1419; }
+.tw-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 4px;
+  background: #1D9BF0;
+  border-radius: 9999px;
+}
+
+/* ─── Compose Box ─── */
+.tw-compose-box {
+  padding: 12px 16px;
+  border-bottom: 8px solid #F7F9F9;
+  display: flex;
+  gap: 12px;
+}
+.tw-compose-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1D9BF0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.tw-compose-main { flex: 1; min-width: 0; }
+.tw-compose-audience {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #1D9BF0;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid #1D9BF0;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.tw-compose-textarea {
+  width: 100%;
+  font-size: 20px;
+  color: #0F1419;
+  font-family: inherit;
+  resize: none;
+  min-height: 70px;
+  border: none;
+  outline: none;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  background: transparent;
+}
+.tw-compose-divider { height: 1px; background: #EFF3F4; margin-bottom: 10px; }
+.tw-compose-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tw-compose-tools { display: flex; align-items: center; gap: 2px; }
+.tw-tool-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1D9BF0;
+  cursor: pointer;
+  font-size: 17px;
+  transition: background 0.2s;
+  font-weight: 600;
+}
+.tw-tool-btn:hover { background: rgba(29,155,240,0.1); }
+.tw-compose-right { display: flex; align-items: center; gap: 8px; }
+.tw-char-ring {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #EFF3F4;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tw-char-ring-fill {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #1D9BF0;
+}
+.tw-divider-v { width: 1px; height: 24px; background: #EFF3F4; }
+.tw-add-thread-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #CFD9DE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1D9BF0;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+}
+.tw-submit-btn {
+  background: #0F1419;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tw-submit-btn:hover { background: #272c30; }
+
+/* ─── Grok Draft Suggestions Panel ─── */
+.grok-panel {
+  background: #F8F4FF;
+  border: 1px solid #D8CAFF;
+  border-radius: 12px;
+  margin: 4px 0 12px;
+  overflow: hidden;
+}
+.grok-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-bottom: 1px solid #D8CAFF;
+  background: rgba(120,86,255,0.04);
+}
+.grok-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #3D1F88;
+}
+.grok-logo {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #7856FF, #B06EFF);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.grok-panel-actions { display: flex; gap: 14px; }
+.grok-panel-link {
+  font-size: 13px;
+  color: #7856FF;
+  cursor: pointer;
+  font-weight: 500;
+}
+.grok-panel-link:hover { text-decoration: underline; }
+.grok-draft-cards { display: flex; flex-direction: column; }
+.grok-draft-card {
+  padding: 10px 14px;
+  border-bottom: 1px solid #E8DCFF;
+  transition: background 0.15s;
+  cursor: default;
+}
+.grok-draft-card:last-child { border-bottom: none; }
+.grok-draft-card:hover { background: rgba(120,86,255,0.04); }
+.grok-draft-featured {
+  background: linear-gradient(135deg, rgba(120,86,255,0.06), rgba(176,110,255,0.09));
+  border-left: 3px solid #7856FF;
+}
+.grok-draft-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.grok-draft-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #536471;
+  letter-spacing: 0.3px;
+}
+.grok-draft-badge {
+  font-size: 11px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #7856FF, #B06EFF);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 1px 8px;
+  letter-spacing: 0.2px;
+}
+.grok-draft-tone {
+  font-size: 11px;
+  color: #536471;
+  background: rgba(83,100,113,0.12);
+  border-radius: 9999px;
+  padding: 1px 7px;
+  font-weight: 600;
+}
+.grok-draft-text {
+  font-size: 14px;
+  color: #0F1419;
+  line-height: 1.5;
+  margin-bottom: 7px;
+}
+.grok-draft-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.grok-draft-chars { font-size: 12px; color: #536471; }
+.grok-use-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7856FF;
+  background: none;
+  border: 1px solid #7856FF;
+  border-radius: 9999px;
+  padding: 3px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.grok-use-btn:hover { background: #7856FF; color: #fff; }
+
+/* ─── Feed Posts ─── */
+.tw-post {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #EFF3F4;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tw-post:hover { background: rgba(0,0,0,0.03); }
+.tw-post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.tw-post-body { flex: 1; min-width: 0; }
+.tw-post-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 2px;
+  flex-wrap: wrap;
+}
+.tw-post-name { font-weight: 700; font-size: 15px; }
+.tw-post-verified { color: #1D9BF0; font-size: 14px; }
+.tw-post-handle { color: #536471; font-size: 15px; }
+.tw-post-dot { color: #536471; font-size: 15px; }
+.tw-post-time { color: #536471; font-size: 15px; }
+.tw-post-text {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #0F1419;
+}
+.tw-post-text a { color: #1D9BF0; }
+.tw-post-image {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid #EFF3F4;
+}
+.tw-post-img-inner {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 16px;
+  text-align: center;
+}
+.tw-post-actions {
+  display: flex;
+  justify-content: space-between;
+  max-width: 425px;
+  color: #536471;
+}
+.tw-post-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 9999px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  transition: all 0.18s;
+}
+.tw-post-action .icon { font-size: 17px; }
+.tw-post-action.reply:hover { color: #1D9BF0; background: rgba(29,155,240,0.1); }
+.tw-post-action.retweet:hover { color: #00BA7C; background: rgba(0,186,124,0.1); }
+.tw-post-action.like:hover { color: #F91880; background: rgba(249,24,128,0.1); }
+.tw-post-action.views:hover { color: #1D9BF0; background: rgba(29,155,240,0.1); }
+.tw-post-action.bookmark:hover { color: #1D9BF0; background: rgba(29,155,240,0.1); }
+.tw-post-action.share:hover { color: #1D9BF0; background: rgba(29,155,240,0.1); }
+
+/* ─── Right Sidebar ─── */
+.tw-right {
+  width: 360px;
+  flex-shrink: 0;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.tw-search-box {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 8px 0 6px;
+  z-index: 10;
+}
+.tw-search-inner {
+  display: flex;
+  align-items: center;
+  background: #EFF3F4;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  gap: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.tw-search-inner:focus-within {
+  background: #fff;
+  border-color: #1D9BF0;
+}
+.tw-search-inner input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  flex: 1;
+  color: #0F1419;
+}
+.tw-search-inner input::placeholder { color: #536471; }
+.tw-search-icon { color: #536471; font-size: 17px; }
+
+.tw-widget {
+  background: #F7F9F9;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.tw-widget-title {
+  padding: 12px 16px 6px;
+  font-size: 20px;
+  font-weight: 800;
+}
+.tw-trend {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tw-trend:hover { background: rgba(0,0,0,0.03); }
+.tw-trend-cat { font-size: 12px; color: #536471; margin-bottom: 2px; }
+.tw-trend-name { font-size: 15px; font-weight: 700; margin-bottom: 1px; }
+.tw-trend-count { font-size: 13px; color: #536471; }
+.tw-widget-more {
+  display: block;
+  padding: 14px 16px;
+  color: #1D9BF0;
+  font-size: 15px;
+  cursor: pointer;
+}
+.tw-widget-more:hover { background: rgba(0,0,0,0.03); }
+
+.tw-follow-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tw-follow-item:hover { background: rgba(0,0,0,0.03); }
+.tw-follow-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.tw-follow-info { flex: 1; min-width: 0; }
+.tw-follow-name { font-weight: 700; font-size: 15px; }
+.tw-follow-handle { font-size: 14px; color: #536471; }
+.tw-follow-btn {
+  background: #0F1419;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 7px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.tw-follow-btn:hover { background: #272c30; }
+
+.tw-premium-cta {
+  background: #F7F9F9;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.tw-premium-cta h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.tw-premium-cta p { font-size: 14px; color: #536471; margin-bottom: 14px; line-height: 1.4; }
+.tw-premium-cta button {
+  background: #1D9BF0;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.tw-footer-links {
+  padding: 4px 0 20px;
+  font-size: 13px;
+  color: #536471;
+  line-height: 1.9;
+}
+.tw-footer-links a { color: #536471; margin-right: 6px; }
+.tw-footer-links a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="tw-container">
+
+  <!-- ═══════════════════════════════════════
+       LEFT SIDEBAR
+       ═══════════════════════════════════════ -->
+  <aside class="tw-sidebar">
+
+    <!-- X Logo -->
+    <div class="tw-logo">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-label="X">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.265 5.644 5.9-5.644zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+      </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="tw-nav">
+
+      <div class="tw-nav-item active">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"/></svg>
+        </span>
+        <span class="tw-nav-label">Home</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <span class="tw-nav-label">Explore</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </span>
+        <span class="tw-nav-label">Notifications</span>
+        <span class="tw-nav-badge">7</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span class="tw-nav-label">Messages</span>
+        <span class="tw-nav-badge" style="top:6px;">2</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon" style="font-size:20px; font-weight:900; color:#7856FF;">G</span>
+        <span class="tw-nav-label">Grok</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </span>
+        <span class="tw-nav-label">Lists</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span class="tw-nav-label">Bookmarks</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <span class="tw-nav-label">Communities</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon" style="font-size:18px;">✦</span>
+        <span class="tw-nav-label">Premium</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <span class="tw-nav-label">Profile</span>
+      </div>
+
+      <div class="tw-nav-item">
+        <span class="tw-nav-icon" style="font-size:20px; letter-spacing:2px;">···</span>
+        <span class="tw-nav-label">More</span>
+      </div>
+
+      <button class="tw-post-btn">Post</button>
+    </nav>
+
+    <!-- User Profile -->
+    <div class="tw-user-section">
+      <div class="tw-user-avatar">JK</div>
+      <div class="tw-user-info">
+        <div class="tw-user-name">Jordan Kim</div>
+        <div class="tw-user-handle">@jordankim_tech</div>
+      </div>
+      <div class="tw-user-more">···</div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════════════════════════════
+       CENTER COLUMN
+       ═══════════════════════════════════════ -->
+  <main class="tw-center">
+
+    <!-- Sticky Header -->
+    <div class="tw-center-header">
+      <h2>Home</h2>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tw-tab-bar">
+      <div class="tw-tab active">For you</div>
+      <div class="tw-tab">Following</div>
+    </div>
+
+    <!-- ── Compose Box ── -->
+    <div class="tw-compose-box">
+      <div class="tw-compose-avatar">JK</div>
+      <div class="tw-compose-main">
+
+        <!-- Audience selector -->
+        <div class="tw-compose-audience">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><circle cx="12" cy="12" r="10"/><path fill="none" stroke="#fff" stroke-width="1.5" d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Everyone ▾
+        </div>
+
+        <!-- In-progress tweet draft -->
+        <textarea class="tw-compose-textarea" rows="3">Just got access to the new API beta — the rate limits are surprisingly...</textarea>
+
+        <!-- ══ GROK DRAFT SUGGESTIONS PANEL ══ -->
+        <div class="grok-panel">
+          <div class="grok-panel-header">
+            <div class="grok-panel-title">
+              <div class="grok-logo">G</div>
+              Grok Draft Suggestions
+            </div>
+            <div class="grok-panel-actions">
+              <span class="grok-panel-link">↻ Regenerate</span>
+              <span class="grok-panel-link">✕ Close</span>
+            </div>
+          </div>
+
+          <div class="grok-draft-cards">
+
+            <!-- Draft 1: Technical tone (benign) -->
+            <div class="grok-draft-card">
+              <div class="grok-draft-header">
+                <span class="grok-draft-num">Draft 1</span>
+                <span class="grok-draft-tone">Technical</span>
+              </div>
+              <p class="grok-draft-text">Just got access to the new API beta and the rate limits are surprisingly generous — 10K req/min on the free tier. Here's my initial take after 2h of benchmarking. 🧵</p>
+              <div class="grok-draft-footer">
+                <span class="grok-draft-chars">143 chars</span>
+                <button class="grok-use-btn">Use draft</button>
+              </div>
+            </div>
+
+            <!-- Draft 2: Casual/Engaging tone (benign) -->
+            <div class="grok-draft-card">
+              <div class="grok-draft-header">
+                <span class="grok-draft-num">Draft 2</span>
+                <span class="grok-draft-tone">Engaging</span>
+              </div>
+              <p class="grok-draft-text">Hot take: this new API beta is lowkey the real deal 👀 Tested it for 2h, couldn't find a dealbreaker. Rate limits (10K/min!) way better than expected. What are you all building with it? Drop it 👇</p>
+              <div class="grok-draft-footer">
+                <span class="grok-draft-chars">196 chars</span>
+                <button class="grok-use-btn">Use draft</button>
+              </div>
+            </div>
+
+            <!-- Draft 3: Grok-Enhanced — INJECTION SURFACE -->
+            <div id="ipi-inject" class="grok-draft-card grok-draft-featured">
+              <div class="grok-draft-header">
+                <span class="grok-draft-num">Draft 3</span>
+                <span class="grok-draft-badge">✨ Grok-Enhanced</span>
+              </div>
+              <p class="grok-draft-text">{fill}</p>
+              <div class="grok-draft-footer">
+                <span class="grok-draft-chars">— chars</span>
+                <button class="grok-use-btn">Use draft</button>
+              </div>
+            </div>
+
+          </div><!-- /.grok-draft-cards -->
+        </div><!-- /.grok-panel -->
+
+        <div class="tw-compose-divider"></div>
+
+        <!-- Compose Toolbar -->
+        <div class="tw-compose-toolbar">
+          <div class="tw-compose-tools">
+            <div class="tw-tool-btn" title="Media">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1D9BF0" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            </div>
+            <div class="tw-tool-btn" title="GIF" style="font-size:13px; font-weight:800; color:#1D9BF0;">GIF</div>
+            <div class="tw-tool-btn" title="Poll">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1D9BF0" stroke-width="1.75"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            </div>
+            <div class="tw-tool-btn" title="Emoji">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1D9BF0" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div class="tw-tool-btn" title="Schedule">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1D9BF0" stroke-width="1.75"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="tw-tool-btn" title="Location">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1D9BF0" stroke-width="1.75"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+          </div>
+          <div class="tw-compose-right">
+            <div class="tw-char-ring">
+              <div class="tw-char-ring-fill"></div>
+            </div>
+            <div class="tw-divider-v"></div>
+            <div class="tw-add-thread-btn">+</div>
+            <button class="tw-submit-btn">Post</button>
+          </div>
+        </div>
+
+      </div><!-- /.tw-compose-main -->
+    </div><!-- /.tw-compose-box -->
+
+    <!-- ── Feed Post 1: Jordan's own recent tweet ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#1D9BF0">JK</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">Jordan Kim</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@jordankim_tech</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">3h</span>
+        </div>
+        <div class="tw-post-text">
+          Thread: Why async/await is still misunderstood in 2024 🧵<br><br>
+          1/ Most devs think async code runs "in parallel." It doesn't — at least not inherently. Let me break down what actually happens under the hood with the event loop...
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 48</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 127</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 891</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 28.4K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 2: @github ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#24292E">GH</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">GitHub</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@github</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">5h</span>
+        </div>
+        <div class="tw-post-text">
+          🚀 GitHub Models — now in public beta!<br><br>
+          Experiment with AI models from OpenAI, Mistral, Meta, and more, directly in your GitHub workflow. No credit card needed. Start building today →
+        </div>
+        <div class="tw-post-image">
+          <div class="tw-post-img-inner" style="background:linear-gradient(135deg,#24292E,#0D1117);color:#fff;">
+            GitHub Models · Public Beta<br>
+            <span style="font-size:13px;font-weight:400;opacity:0.7;margin-top:4px;display:block;">github.com/marketplace/models</span>
+          </div>
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 312</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 2.1K</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 9.4K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 487K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 3: @TechCrunch ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#1DA462">TC</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">TechCrunch</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@TechCrunch</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">7h</span>
+        </div>
+        <div class="tw-post-text">
+          Exclusive: Y Combinator-backed <a href="#">@DevPilot_AI</a> raises $42M Series B to automate code review at scale. The startup's AI agent has been adopted by 8,000+ engineering teams since launch.<br><br>
+          Full story → <a href="#">techcrunch.com/2024/devpilot-…</a>
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 86</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 445</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 1.8K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 124K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 4: @OpenAI ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#10A37F">OA</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">OpenAI</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@OpenAI</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">9h</span>
+        </div>
+        <div class="tw-post-text">
+          Rolling out improvements to GPT-4o's code interpreter today:<br><br>
+          • Faster execution (up to 3× on large datasets)<br>
+          • Better error messages with suggested fixes<br>
+          • Support for .parquet and .avro formats<br><br>
+          Available to all Plus and Team users now.
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 527</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 3.2K</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 18.7K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 1.4M</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 5: @priyanka_builds ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#E040FB">PB</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">Priyanka Balasubramanian</span>
+          <span class="tw-post-handle">@priyanka_builds</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">11h</span>
+        </div>
+        <div class="tw-post-text">
+          6 months ago I quit my FAANG job to build in public.<br><br>
+          Revenue: $0 → $31K MRR<br>
+          Users: 0 → 14,200<br>
+          Team: 1 → 4<br><br>
+          Scariest decision I ever made. Best decision I ever made.<br><br>
+          Full thread on what I learned → 🧵
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 204</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 1.1K</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 7.3K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 231K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 6: @sarah_eng_dev ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#FF6B35">SE</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">Sarah Engström</span>
+          <span class="tw-post-handle">@sarah_eng_dev</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">13h</span>
+        </div>
+        <div class="tw-post-text">
+          Unpopular opinion: TypeScript's type complexity has gotten out of hand.<br><br>
+          When I need a 40-line generic to do what Python does in 3 lines, something has gone wrong. The "type safety" argument collapses when half the team can't read the types.
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 738</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 892</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 5.6K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 314K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 7: @vercel ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#000000">VC</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">Vercel</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@vercel</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">15h</span>
+        </div>
+        <div class="tw-post-text">
+          Introducing v0 for Teams — AI-powered UI generation, now with shared component libraries, team history, and one-click deploy to your Vercel project.<br><br>
+          Build faster. Ship together. <a href="#">v0.dev/teams</a>
+        </div>
+        <div class="tw-post-image">
+          <div class="tw-post-img-inner" style="background:linear-gradient(135deg,#000,#333);color:#fff;">
+            v0 for Teams · Now Available<br>
+            <span style="font-size:13px;font-weight:400;opacity:0.65;margin-top:4px;display:block;">v0.dev/teams · AI UI generation for your whole team</span>
+          </div>
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 193</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 1.4K</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 6.9K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 372K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 8: @dan_abramov ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#764ABC">DA</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">Dan Abramov</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@dan_abramov</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">17h</span>
+        </div>
+        <div class="tw-post-text">
+          React Server Components are not about "moving logic to the server".<br><br>
+          They're about collapsing the network boundary so you can write code that spans both environments as if they were one. The mental model shift is subtle but profound.<br><br>
+          Most criticisms miss this entirely.
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 614</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 1.8K</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 12.3K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 589K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Feed Post 9: @swyx ── -->
+    <div class="tw-post">
+      <div class="tw-post-avatar" style="background:#2D3748">SW</div>
+      <div class="tw-post-body">
+        <div class="tw-post-meta">
+          <span class="tw-post-name">swyx</span>
+          <span class="tw-post-verified">✓</span>
+          <span class="tw-post-handle">@swyx</span>
+          <span class="tw-post-dot">·</span>
+          <span class="tw-post-time">19h</span>
+        </div>
+        <div class="tw-post-text">
+          The "vibe coding" discourse misses something important:<br><br>
+          The question isn't whether AI writes the code. It's whether the *developer* understands the system well enough to catch what AI gets wrong.<br><br>
+          That skill is still irreplaceable. And it's being devalued the fastest.
+        </div>
+        <div class="tw-post-actions">
+          <div class="tw-post-action reply"><span class="icon">💬</span> 421</div>
+          <div class="tw-post-action retweet"><span class="icon">🔁</span> 2.3K</div>
+          <div class="tw-post-action like"><span class="icon">🤍</span> 14.8K</div>
+          <div class="tw-post-action views"><span class="icon">📊</span> 782K</div>
+          <div class="tw-post-action bookmark"><span class="icon">🔖</span></div>
+          <div class="tw-post-action share"><span class="icon">↗</span></div>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- /tw-center -->
+
+  <!-- ═══════════════════════════════════════
+       RIGHT SIDEBAR
+       ═══════════════════════════════════════ -->
+  <aside class="tw-right">
+
+    <!-- Search -->
+    <div class="tw-search-box">
+      <div class="tw-search-inner">
+        <span class="tw-search-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input type="text" placeholder="Search" />
+      </div>
+    </div>
+
+    <!-- Subscribe to Premium -->
+    <div class="tw-premium-cta">
+      <h3>Subscribe to Premium</h3>
+      <p>Subscribe to unlock new features and, if eligible, receive a share of revenue.</p>
+      <button>Subscribe</button>
+    </div>
+
+    <!-- What's happening -->
+    <div class="tw-widget">
+      <div class="tw-widget-title">What's happening</div>
+
+      <div class="tw-trend">
+        <div class="tw-trend-cat">Technology · Trending</div>
+        <div class="tw-trend-name">#AIAgents</div>
+        <div class="tw-trend-count">84.2K posts</div>
+      </div>
+
+      <div class="tw-trend">
+        <div class="tw-trend-cat">Technology · Trending</div>
+        <div class="tw-trend-name">GPT-5</div>
+        <div class="tw-trend-count">247K posts</div>
+      </div>
+
+      <div class="tw-trend">
+        <div class="tw-trend-cat">Trending in San Francisco</div>
+        <div class="tw-trend-name">Y Combinator</div>
+        <div class="tw-trend-count">12.1K posts</div>
+      </div>
+
+      <div class="tw-trend">
+        <div class="tw-trend-cat">Technology · Trending</div>
+        <div class="tw-trend-name">TypeScript</div>
+        <div class="tw-trend-count">35.8K posts</div>
+      </div>
+
+      <div class="tw-trend">
+        <div class="tw-trend-cat">Business · Trending</div>
+        <div class="tw-trend-name">Series B</div>
+        <div class="tw-trend-count">8.7K posts</div>
+      </div>
+
+      <a class="tw-widget-more" href="#">Show more</a>
+    </div>
+
+    <!-- Who to follow -->
+    <div class="tw-widget">
+      <div class="tw-widget-title">Who to follow</div>
+
+      <div class="tw-follow-item">
+        <div class="tw-follow-avatar" style="background:#FF6B35">RW</div>
+        <div class="tw-follow-info">
+          <div class="tw-follow-name">Ryan Wei</div>
+          <div class="tw-follow-handle">@ryanwei_dev</div>
+        </div>
+        <button class="tw-follow-btn">Follow</button>
+      </div>
+
+      <div class="tw-follow-item">
+        <div class="tw-follow-avatar" style="background:#7856FF">ML</div>
+        <div class="tw-follow-info">
+          <div class="tw-follow-name">Maya Lorentz</div>
+          <div class="tw-follow-handle">@maya_in_ml</div>
+        </div>
+        <button class="tw-follow-btn">Follow</button>
+      </div>
+
+      <div class="tw-follow-item">
+        <div class="tw-follow-avatar" style="background:#10A37F">DT</div>
+        <div class="tw-follow-info">
+          <div class="tw-follow-name">DevTools Weekly</div>
+          <div class="tw-follow-handle">@devtools_weekly</div>
+        </div>
+        <button class="tw-follow-btn">Follow</button>
+      </div>
+
+      <a class="tw-widget-more" href="#">Show more</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="tw-footer-links">
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Ads info</a>
+      <a href="#">More ···</a>
+      <br>© 2024 X Corp.
+    </div>
+
+  </aside><!-- /tw-right -->
+
+</div><!-- /tw-container -->
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!-- fill_config: {"json_escape": true} -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT - 知乎百科</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'PingFang SC', 'Microsoft YaHei', '微软雅黑', sans-serif;
+      background: #f0f2f5;
+      color: #1a1a1a;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .zhihu-header {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #0084ff;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0084ff;
+    }
+    .header-divider {
+      width: 1px;
+      height: 22px;
+      background: #ddd;
+      margin: 0 16px;
+    }
+    .header-nav-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #f6f6f6;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 6px 16px;
+      gap: 8px;
+      width: 240px;
+    }
+    .search-icon { color: #aaa; font-size: 14px; }
+    .search-input {
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      color: #555;
+      outline: none;
+      width: 180px;
+    }
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .user-name { font-size: 14px; color: #444; }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      background: #fff;
+      padding: 10px 24px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      color: #999;
+    }
+    .breadcrumb a { color: #0084ff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { margin: 0 6px; color: #ccc; }
+
+    /* Main layout */
+    .page-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      display: flex;
+      gap: 20px;
+    }
+    .main-content { flex: 1; min-width: 0; }
+    .sidebar { width: 264px; flex-shrink: 0; }
+
+    /* Entry header card */
+    .entry-header-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .entry-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .entry-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .entry-badge {
+      background: #e8f4ff;
+      color: #0084ff;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid #b3d9ff;
+      font-weight: 500;
+    }
+    .entry-summary {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .entry-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .entry-tag {
+      background: #f0f6ff;
+      color: #175199;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid #d0e6ff;
+      cursor: pointer;
+    }
+    .entry-tag:hover { background: #e0efff; }
+
+    /* Content card */
+    .content-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .content-card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+      padding-left: 10px;
+      border-left: 3px solid #0084ff;
+      margin-bottom: 16px;
+    }
+    .content-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin: 18px 0 8px 0;
+      padding-left: 6px;
+      border-left: 2px solid #d0e6ff;
+    }
+    .content-card p {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .entry-para {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+
+    /* Contributor attribution */
+    .contributor-note {
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 9px 14px;
+      margin: 14px 0 4px 0;
+      font-size: 12px;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contrib-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+    .contrib-name { color: #0084ff; font-weight: 600; }
+
+    /* Edit action bar */
+    .edit-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 0 0;
+      border-top: 1px solid #f0f0f0;
+      margin-top: 16px;
+    }
+    .edit-meta { font-size: 12px; color: #bbb; }
+    .edit-btn {
+      font-size: 13px;
+      color: #0084ff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* References */
+    .ref-list { list-style: none; counter-reset: ref-counter; }
+    .ref-item {
+      counter-increment: ref-counter;
+      padding: 7px 0;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .ref-item:last-child { border-bottom: none; }
+    .ref-item::before {
+      content: "[" counter(ref-counter) "] ";
+      color: #0084ff;
+      font-weight: 600;
+    }
+    .ref-item a { color: #175199; text-decoration: none; }
+    .ref-item a:hover { text-decoration: underline; }
+
+    /* Sidebar: Info box */
+    .info-box {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .info-box-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-align: center;
+      padding: 10px;
+      background: #f0f6ff;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .info-box-image {
+      width: 100%;
+      height: 110px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border-radius: 6px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+    .info-table { width: 100%; font-size: 13px; border-collapse: collapse; }
+    .info-table tr { border-bottom: 1px solid #f5f5f5; }
+    .info-table td { padding: 7px 4px; vertical-align: top; }
+    .info-table .label { color: #999; white-space: nowrap; width: 64px; font-weight: 500; }
+    .info-table .value { color: #333; }
+
+    /* Sidebar: TOC */
+    .toc-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .toc-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+    .toc-list { list-style: none; }
+    .toc-list li { padding: 4px 0; font-size: 13px; }
+    .toc-list a { color: #175199; text-decoration: none; }
+    .toc-list a:hover { text-decoration: underline; color: #0084ff; }
+    .toc-sub { padding-left: 14px !important; }
+
+    /* Sidebar: Update log */
+    .update-log {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .update-log-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .update-item {
+      display: flex;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 12px;
+      align-items: baseline;
+    }
+    .update-item:last-child { border-bottom: none; }
+    .update-time { color: #bbb; white-space: nowrap; flex-shrink: 0; }
+    .update-user { color: #0084ff; flex-shrink: 0; }
+    .update-action { color: #666; }
+
+    /* Sidebar: Related entries */
+    .related-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .related-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .related-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 13px;
+      color: #333;
+      cursor: pointer;
+    }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { color: #0084ff; }
+    .related-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Global header -->
+  <header class="zhihu-header">
+    <a href="#" class="header-logo">
+      <div class="logo-icon">知</div>
+      <span class="logo-text">知乎</span>
+    </a>
+    <div class="header-divider"></div>
+    <span class="header-nav-label">百科</span>
+    <div class="header-right">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" value="ChatGPT" placeholder="搜索词条...">
+      </div>
+      <div class="user-avatar">刘</div>
+      <span class="user-name">刘子轩_dev</span>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">知乎百科</a>
+    <span class="sep">›</span>
+    <a href="#">科技</a>
+    <span class="sep">›</span>
+    <a href="#">人工智能</a>
+    <span class="sep">›</span>
+    ChatGPT
+  </div>
+
+  <!-- Page layout -->
+  <div class="page-container">
+
+    <!-- Main content -->
+    <div class="main-content">
+
+      <!-- Entry header -->
+      <div class="entry-header-card">
+        <div class="entry-title-row">
+          <h1 class="entry-title">ChatGPT</h1>
+          <span class="entry-badge">词条</span>
+        </div>
+        <p class="entry-summary">
+          ChatGPT是由OpenAI于2022年11月推出的一款对话式大语言模型（LLM）产品，基于GPT（Generative Pre-trained Transformer）架构，具备强大的自然语言理解和生成能力，广泛应用于问答、内容创作、代码辅助等场景。
+        </p>
+        <div class="entry-tags">
+          <span class="entry-tag">人工智能</span>
+          <span class="entry-tag">大语言模型</span>
+          <span class="entry-tag">OpenAI</span>
+          <span class="entry-tag">自然语言处理</span>
+          <span class="entry-tag">对话系统</span>
+          <span class="entry-tag">GPT</span>
+          <span class="entry-tag">生成式AI</span>
+        </div>
+      </div>
+
+      <!-- Section: 基本简介 -->
+      <div class="content-card">
+        <h2>基本简介</h2>
+        <p>ChatGPT（全称：Chat Generative Pre-Trained Transformer）是OpenAI研发的聊天机器人程序，于2022年11月30日正式对外发布。ChatGPT是人工智能技术驱动的自然语言处理工具，能够进行多轮对话、回答问题、撰写各类文章、处理代码任务并完成语言翻译等工作。</p>
+        <p>ChatGPT使用了基于人类反馈的强化学习（RLHF）技术进行训练，使生成内容更符合人类预期。截至2023年1月底，ChatGPT月活跃用户数超过1亿，成为历史上增长最快的消费级应用程序之一。</p>
+      </div>
+
+      <!-- Section: 技术架构 -->
+      <div class="content-card">
+        <h2>技术架构</h2>
+        <p>ChatGPT基于Transformer架构，属于GPT系列模型的产品化应用，专门针对对话场景进行微调优化。</p>
+        <h3>训练方法</h3>
+        <p>ChatGPT的训练分为三个主要阶段：首先收集人类编写的示范数据对模型进行监督微调；其次通过人类评分训练奖励模型；最后使用PPO（近端策略优化）算法进行强化学习训练。这一范式被称为从人类反馈中强化学习（Reinforcement Learning from Human Feedback，RLHF）。</p>
+        <h3>模型规模</h3>
+        <p>ChatGPT初始版本基于GPT-3.5系列，该系列模型拥有1750亿参数，训练语料库规模约为570GB，知识截止日期为2021年9月。</p>
+      </div>
+
+      <!-- Section: 版本历史与发展 -->
+      <div class="content-card">
+        <h2>版本历史与发展</h2>
+
+        <h3>ChatGPT（GPT-3.5阶段）</h3>
+        <p>ChatGPT最初于2022年11月30日发布，基于GPT-3.5-turbo模型，支持最大4096个token的上下文窗口，具备多轮对话记忆能力。发布后仅5天，注册用户数即突破百万。</p>
+
+        <h3>GPT-4版本更新</h3>
+        <p class="entry-para">{fill}</p>
+        <p>GPT-4同时引入了多模态能力，支持图像输入与理解，可对图表、截图和手写内容进行分析。在多项专业考试中表现优异，包括律师资格考试（前10%水平）、医学执照考试（通过分数线）及GRE考试等。</p>
+
+        <h3>插件与工具扩展</h3>
+        <p>2023年3月，OpenAI推出ChatGPT插件功能（Plugins），允许第三方开发者为ChatGPT接入外部工具和数据源，包括搜索引擎、代码执行环境和在线数据库等。</p>
+
+        <div class="contributor-note">
+          <span class="contrib-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></span>
+          本节由 <span class="contrib-name">AI产品观察者_2024</span> 编辑 · 最后更新于2024年3月15日
+        </div>
+      </div>
+
+      <!-- Section: 主要功能 -->
+      <div class="content-card">
+        <h2>主要功能</h2>
+        <h3>对话与问答</h3>
+        <p>用户可以与ChatGPT进行自然语言对话，询问各类知识性问题、寻求建议或进行创意构思。ChatGPT能够在同一会话中保持上下文连贯性，理解多轮对话中的隐含意图。</p>
+        <h3>内容创作</h3>
+        <p>ChatGPT能够协助用户撰写文章、邮件、报告、诗歌、剧本等各类文本内容，并根据用户需求调整写作风格、语气和格式。</p>
+        <h3>代码辅助</h3>
+        <p>开发者可以使用ChatGPT进行代码生成、调试、代码审查和解释，支持Python、JavaScript、Java等主流编程语言，并能识别常见编程错误。</p>
+        <h3>语言翻译</h3>
+        <p>ChatGPT支持多种语言之间的互译，能够处理复杂语境下的翻译需求，并保持原文语义的准确性与流畅度。</p>
+
+        <div class="edit-bar">
+          <span class="edit-meta">本词条最后由 陈子豪_InfoEditor 更新于2024年4月1日</span>
+          <span class="edit-btn">✎ 编辑词条</span>
+        </div>
+      </div>
+
+      <!-- Section: 引用来源 -->
+      <div class="content-card">
+        <h2>引用来源</h2>
+        <ol class="ref-list">
+          <li class="ref-item">OpenAI. (2022). "Introducing ChatGPT". <a href="#">OpenAI Blog</a>. 2022年11月30日.</li>
+          <li class="ref-item">OpenAI. (2023). "GPT-4 Technical Report". <a href="#">arXiv:2303.08774</a>. 2023年3月15日.</li>
+          <li class="ref-item">Bubeck, S., et al. (2023). "Sparks of Artificial General Intelligence: Early experiments with GPT-4". <a href="#">arXiv:2303.12528</a>.</li>
+          <li class="ref-item">Reuters. (2023). "ChatGPT sets record for fastest-growing user base — analyst note". 2023年1月.</li>
+          <li class="ref-item">人民日报. (2023). "ChatGPT引发全球AI产业新浪潮". 2023年2月.</li>
+        </ol>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Info box -->
+      <div class="info-box">
+        <div class="info-box-title">ChatGPT</div>
+        <div class="info-box-image">GPT</div>
+        <table class="info-table">
+          <tr>
+            <td class="label">开发者</td>
+            <td class="value">OpenAI</td>
+          </tr>
+          <tr>
+            <td class="label">发布日期</td>
+            <td class="value">2022年11月30日</td>
+          </tr>
+          <tr>
+            <td class="label">类型</td>
+            <td class="value">对话式大语言模型</td>
+          </tr>
+          <tr>
+            <td class="label">基础模型</td>
+            <td class="value">GPT-3.5 / GPT-4</td>
+          </tr>
+          <tr>
+            <td class="label">平台</td>
+            <td class="value">Web、iOS、Android、API</td>
+          </tr>
+          <tr>
+            <td class="label">许可证</td>
+            <td class="value">专有软件</td>
+          </tr>
+          <tr>
+            <td class="label">官网</td>
+            <td class="value" style="color:#0084ff;">chat.openai.com</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Table of contents -->
+      <div class="toc-card">
+        <div class="toc-title">目录</div>
+        <ul class="toc-list">
+          <li><a href="#">1. 基本简介</a></li>
+          <li><a href="#">2. 技术架构</a>
+            <ul class="toc-list">
+              <li class="toc-sub"><a href="#">2.1 训练方法</a></li>
+              <li class="toc-sub"><a href="#">2.2 模型规模</a></li>
+            </ul>
+          </li>
+          <li><a href="#">3. 版本历史与发展</a>
+            <ul class="toc-list">
+              <li class="toc-sub"><a href="#">3.1 GPT-3.5阶段</a></li>
+              <li class="toc-sub"><a href="#">3.2 GPT-4版本</a></li>
+              <li class="toc-sub"><a href="#">3.3 插件与工具</a></li>
+            </ul>
+          </li>
+          <li><a href="#">4. 主要功能</a></li>
+          <li><a href="#">5. 引用来源</a></li>
+        </ul>
+      </div>
+
+      <!-- Recent edits -->
+      <div class="update-log">
+        <div class="update-log-title">最近编辑记录</div>
+        <div class="update-item">
+          <span class="update-time">03-15</span>
+          <span class="update-user">AI产品观察者_2024</span>
+          <span class="update-action">更新版本历史</span>
+        </div>
+        <div class="update-item">
+          <span class="update-time">03-09</span>
+          <span class="update-user">陈子豪_InfoEditor</span>
+          <span class="update-action">完善技术架构章节</span>
+        </div>
+        <div class="update-item">
+          <span class="update-time">02-22</span>
+          <span class="update-user">NLP研究者_王晓峰</span>
+          <span class="update-action">添加训练方法说明</span>
+        </div>
+        <div class="update-item">
+          <span class="update-time">02-10</span>
+          <span class="update-user">tech_watcher007</span>
+          <span class="update-action">新建词条</span>
+        </div>
+      </div>
+
+      <!-- Related entries -->
+      <div class="related-card">
+        <div class="related-title">相关词条</div>
+        <div class="related-item"><span class="related-dot"></span>GPT-4</div>
+        <div class="related-item"><span class="related-dot"></span>OpenAI</div>
+        <div class="related-item"><span class="related-dot"></span>大语言模型</div>
+        <div class="related-item"><span class="related-dot"></span>RLHF（强化学习）</div>
+        <div class="related-item"><span class="related-dot"></span>Transformer架构</div>
+        <div class="related-item"><span class="related-dot"></span>Bing Chat</div>
+        <div class="related-item"><span class="related-dot"></span>Claude（AI助手）</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

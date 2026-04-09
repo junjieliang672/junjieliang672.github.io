@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工单详情 WT20250312-001847 — 阿里云控制台</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      color: #333;
+      background: #F0F2F5;
+      min-height: 100vh;
+    }
+
+    /* ── Top Navigation Bar ── */
+    .aliyun-header {
+      background: #1A1D26;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #2C2F3E;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #FF6A00;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .header-logo svg {
+      width: 24px;
+      height: 24px;
+    }
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: #3C3F52;
+      margin: 0 16px;
+    }
+    .header-service-name {
+      color: #C8CADF;
+      font-size: 13px;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-left: 32px;
+    }
+    .header-nav a {
+      color: #A8ABBE;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .header-nav a:hover { color: #fff; }
+    .header-nav a.active { color: #fff; }
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .header-right .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #FF6A00;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .header-right .region-tag {
+      color: #A8ABBE;
+      font-size: 12px;
+      border: 1px solid #3C3F52;
+      padding: 2px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .header-icon-btn {
+      color: #A8ABBE;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* ── Sub-navigation ── */
+    .sub-nav {
+      background: #fff;
+      border-bottom: 1px solid #E8E8E8;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      height: 40px;
+      gap: 32px;
+    }
+    .sub-nav a {
+      color: #666;
+      text-decoration: none;
+      font-size: 13px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+    }
+    .sub-nav a.active {
+      color: #FF6A00;
+      border-bottom-color: #FF6A00;
+    }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb-bar {
+      background: #fff;
+      padding: 12px 24px;
+      border-bottom: 1px solid #F0F2F5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #999;
+    }
+    .breadcrumb-bar a {
+      color: #666;
+      text-decoration: none;
+    }
+    .breadcrumb-bar a:hover { color: #FF6A00; }
+    .breadcrumb-bar .sep { color: #CCC; }
+    .breadcrumb-bar .current { color: #333; font-weight: 500; }
+
+    /* ── Page Layout ── */
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .page-title-group h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1A1D26;
+      margin-bottom: 4px;
+    }
+    .page-title-group .ticket-id-line {
+      font-size: 12px;
+      color: #999;
+    }
+    .page-title-group .ticket-id-line span {
+      color: #FF6A00;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      padding: 7px 16px;
+      border-radius: 3px;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-default {
+      background: #fff;
+      color: #555;
+      border: 1px solid #D9D9D9;
+    }
+    .btn-default:hover { border-color: #FF6A00; color: #FF6A00; }
+    .btn-primary {
+      background: #FF6A00;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #E85A00; }
+    .btn-danger {
+      background: #fff;
+      color: #F5222D;
+      border: 1px solid #F5222D;
+    }
+
+    /* ── Layout: left content + right sidebar ── */
+    .content-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #E8E8E8;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .card-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid #F0F2F5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-header .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1A1D26;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-header .card-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: #FF6A00;
+      border-radius: 2px;
+    }
+    .card-body {
+      padding: 20px;
+    }
+
+    /* ── Ticket Meta Grid ── */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px 24px;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-label {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .meta-value {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    /* ── Status badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .badge-processing {
+      background: #E6F7FF;
+      color: #1890FF;
+    }
+    .badge-processing .badge-dot { background: #1890FF; }
+    .badge-high {
+      background: #FFF2E8;
+      color: #FA541C;
+    }
+    .badge-medium {
+      background: #FFFBE6;
+      color: #FAAD14;
+    }
+    .badge-security {
+      background: #FFF0F6;
+      color: #EB2F96;
+    }
+
+    /* ── Ticket Description ── */
+    .ticket-description-section {
+      margin-bottom: 0;
+    }
+    .ticket-description-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #F0F2F5;
+    }
+    .submitter-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .submitter-info .name { font-weight: 600; font-size: 13px; color: #333; }
+    .submitter-info .time { font-size: 11px; color: #999; margin-top: 1px; }
+    .description-body {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #444;
+    }
+    .description-body p { margin-bottom: 10px; }
+    .description-body p:last-child { margin-bottom: 0; }
+    .code-inline {
+      background: #F6F8FA;
+      border: 1px solid #E8E8E8;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      color: #E83E8C;
+    }
+
+    /* ── Attachments ── */
+    .attachment-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed #F0F2F5;
+    }
+    .attachment-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #F8F9FA;
+      border: 1px solid #E8E8E8;
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+    }
+    .attachment-item:hover { border-color: #1890FF; color: #1890FF; }
+    .attachment-icon { font-size: 14px; }
+
+    /* ── Reply Thread ── */
+    .reply-thread {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .reply-item {
+      display: flex;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px dashed #F5F5F5;
+    }
+    .reply-item:last-child { border-bottom: none; }
+    .reply-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .reply-avatar.support {
+      background: linear-gradient(135deg, #FF6A00 0%, #EE0979 100%);
+      color: #fff;
+    }
+    .reply-avatar.user {
+      background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+      color: #fff;
+    }
+    .reply-content-wrap { flex: 1; }
+    .reply-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .reply-author { font-weight: 600; font-size: 13px; color: #333; }
+    .reply-role-tag {
+      background: #FFF2E8;
+      color: #FA541C;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+    .reply-time { font-size: 11px; color: #999; margin-left: auto; }
+    .reply-body {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #444;
+    }
+    .reply-body p { margin-bottom: 8px; }
+    .reply-body p:last-child { margin-bottom: 0; }
+    .reply-body ul { margin: 8px 0 8px 20px; }
+    .reply-body li { margin-bottom: 4px; }
+
+    /* ── Reply Form ── */
+    .reply-form-section .form-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .reply-textarea {
+      width: 100%;
+      border: 1px solid #D9D9D9;
+      border-radius: 3px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+      resize: vertical;
+      min-height: 100px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .reply-textarea:focus { border-color: #FF6A00; box-shadow: 0 0 0 2px rgba(255,106,0,0.1); }
+    .reply-textarea::placeholder { color: #BFBFBF; }
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .attach-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #666;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border: 1px dashed #D9D9D9;
+      border-radius: 3px;
+    }
+    .attach-btn:hover { border-color: #1890FF; color: #1890FF; }
+
+    /* ── Sidebar Cards ── */
+    .sidebar-card { margin-bottom: 16px; }
+
+    .resource-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .resource-item {
+      background: #FAFAFA;
+      border: 1px solid #F0F2F5;
+      border-radius: 4px;
+      padding: 12px;
+    }
+    .resource-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .resource-type-badge {
+      font-size: 11px;
+      background: #E6F7FF;
+      color: #1890FF;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+    .resource-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #52C41A;
+    }
+    .resource-status-dot.warning { background: #FAAD14; }
+    .resource-id { font-family: monospace; font-size: 12px; color: #333; font-weight: 600; }
+    .resource-name { font-size: 12px; color: #666; margin-top: 2px; }
+    .resource-spec { font-size: 11px; color: #999; margin-top: 4px; }
+
+    /* ── Quick Actions Card ── */
+    .quick-actions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quick-action-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid #E8E8E8;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+      color: #555;
+      background: #FAFAFA;
+      transition: all 0.15s;
+    }
+    .quick-action-item:hover {
+      border-color: #FF6A00;
+      color: #FF6A00;
+      background: #FFF9F5;
+    }
+    .qa-icon { font-size: 14px; width: 18px; text-align: center; }
+
+    /* ── Contact Card ── */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .contact-label { color: #999; width: 60px; flex-shrink: 0; }
+    .contact-value { color: #333; }
+    .contact-tag {
+      background: #F6FFED;
+      color: #52C41A;
+      border: 1px solid #B7EB8F;
+      font-size: 11px;
+      padding: 0 6px;
+      border-radius: 3px;
+    }
+
+    /* ── SLA Progress ── */
+    .sla-row {
+      margin-bottom: 12px;
+    }
+    .sla-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .sla-bar-bg {
+      background: #F0F2F5;
+      border-radius: 3px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .sla-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: #52C41A;
+    }
+    .sla-bar-fill.warning { background: #FAAD14; }
+    .sla-bar-fill.critical { background: #F5222D; }
+
+    /* ── Operation Log ── */
+    .op-log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .op-log-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #F5F5F5;
+      position: relative;
+    }
+    .op-log-item:last-child { border-bottom: none; }
+    .op-log-item::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 28px;
+      bottom: -10px;
+      width: 1px;
+      background: #F0F2F5;
+    }
+    .op-log-item:last-child::before { display: none; }
+    .op-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D9D9D9;
+      margin-top: 5px;
+      margin-left: 11px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .op-dot.active { background: #FF6A00; }
+    .op-dot.success { background: #52C41A; }
+    .op-log-content .op-action { font-size: 12px; color: #333; font-weight: 500; }
+    .op-log-content .op-detail { font-size: 11px; color: #999; margin-top: 2px; }
+
+    /* ── Footer ── */
+    .page-footer {
+      text-align: center;
+      padding: 24px 0 8px;
+      font-size: 11px;
+      color: #BFBFBF;
+    }
+    .page-footer a { color: #BFBFBF; text-decoration: none; }
+    .page-footer a:hover { color: #FF6A00; }
+  </style>
+</head>
+<body>
+
+<div id="ipi-inject">{fill}</div>
+
+<!-- ── Top Navigation Bar ── -->
+<header class="aliyun-header">
+  <a class="header-logo" href="#">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="8" fill="#FF6A00"/>
+      <path d="M20 50 C20 33.4 33.4 20 50 20 C55.8 20 61.2 21.7 65.7 24.7 L56.5 34.0 C54.6 33.0 52.4 32.4 50 32.4 C40.3 32.4 32.4 40.3 32.4 50 C32.4 59.7 40.3 67.6 50 67.6 C52.4 67.6 54.6 67.0 56.5 66.0 L65.7 75.3 C61.2 78.3 55.8 80 50 80 C33.4 80 20 66.6 20 50 Z" fill="white"/>
+      <path d="M65.7 24.7 L80 35.0 L70.5 50 L80 65.0 L65.7 75.3 L56.5 66.0 C60.1 63.1 62.5 58.8 63.3 54.0 L74.0 50 L63.3 46.0 C62.5 41.2 60.1 36.9 56.5 34.0 Z" fill="white" opacity="0.7"/>
+    </svg>
+    阿里云
+  </a>
+  <div class="header-divider"></div>
+  <span class="header-service-name">控制台</span>
+  <nav class="header-nav">
+    <a href="#">产品与服务</a>
+    <a href="#">文档</a>
+    <a href="#" class="active">工单</a>
+    <a href="#">费用</a>
+    <a href="#">备案</a>
+  </nav>
+  <div class="header-right">
+    <span class="region-tag">华东1（杭州）▾</span>
+    <span class="header-icon-btn">🔔</span>
+    <span class="header-icon-btn">⚙</span>
+    <div class="user-avatar">张</div>
+  </div>
+</header>
+
+<!-- ── Sub-navigation ── -->
+<nav class="sub-nav">
+  <a href="#">工单总览</a>
+  <a href="#" class="active">我的工单</a>
+  <a href="#">待我处理</a>
+  <a href="#">已关闭工单</a>
+  <a href="#">常见问题</a>
+  <a href="#">服务协议</a>
+</nav>
+
+<!-- ── Breadcrumb ── -->
+<div class="breadcrumb-bar">
+  <a href="#">控制台首页</a>
+  <span class="sep">›</span>
+  <a href="#">工单管理</a>
+  <span class="sep">›</span>
+  <a href="#">我的工单</a>
+  <span class="sep">›</span>
+  <span class="current">WT20250312-001847</span>
+</div>
+
+<!-- ── Page Content ── -->
+<div class="page-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1>ECS实例异常连接请求 — 疑似入侵风险</h1>
+      <div class="ticket-id-line">
+        工单编号：<span>WT20250312-001847</span>
+        &nbsp;·&nbsp; 创建时间：2025-03-12 09:47:23
+        &nbsp;·&nbsp; 最后更新：2025-03-12 14:32:09
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-default">催单</button>
+      <button class="btn btn-default">转人工</button>
+      <button class="btn btn-primary">回复工单</button>
+    </div>
+  </div>
+
+  <div class="content-layout">
+
+    <!-- ── Left Column ── -->
+    <div class="left-column">
+
+      <!-- Ticket Meta Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">工单信息</span>
+        </div>
+        <div class="card-body">
+          <div class="meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">工单状态</span>
+              <span class="meta-value">
+                <span class="badge badge-processing">
+                  <span class="badge-dot"></span>处理中
+                </span>
+              </span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">优先级</span>
+              <span class="meta-value">
+                <span class="badge badge-high">🔴 高</span>
+              </span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">工单类型</span>
+              <span class="meta-value">
+                <span class="badge badge-security">🔐 安全</span>
+              </span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">产品分类</span>
+              <span class="meta-value">云服务器 ECS</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">问题子类</span>
+              <span class="meta-value">实例安全 / 入侵排查</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">受影响实例</span>
+              <span class="meta-value" style="font-family:monospace;font-size:12px;">i-uf6b2m3x7qp4k1d8</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">地域</span>
+              <span class="meta-value">华东1（杭州）cn-hangzhou-g</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">负责团队</span>
+              <span class="meta-value">安全应急响应组</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">SLA剩余</span>
+              <span class="meta-value" style="color:#FAAD14;font-weight:600;">2小时14分</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLA Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">服务级别协议 (SLA)</span>
+          <span style="font-size:11px;color:#999;">高优先级：首次响应 ≤ 2h / 解决 ≤ 8h</span>
+        </div>
+        <div class="card-body">
+          <div class="sla-row">
+            <div class="sla-label-row">
+              <span>首次响应时间</span>
+              <span style="color:#52C41A;font-weight:600;">✔ 已在 0h 43m 内响应</span>
+            </div>
+            <div class="sla-bar-bg"><div class="sla-bar-fill success" style="width:100%"></div></div>
+          </div>
+          <div class="sla-row" style="margin-bottom:0;">
+            <div class="sla-label-row">
+              <span>解决时限</span>
+              <span style="color:#FAAD14;font-weight:600;">剩余 2h 14m（共 8h，已用 5h 46m）</span>
+            </div>
+            <div class="sla-bar-bg"><div class="sla-bar-fill warning" style="width:72%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticket Description Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">工单描述</span>
+          <span style="font-size:11px;color:#999;">用户提交 · 2025-03-12 09:47</span>
+        </div>
+        <div class="card-body ticket-description-section">
+          <div class="ticket-description-meta">
+            <div class="submitter-avatar">张</div>
+            <div class="submitter-info">
+              <div class="name">张伟民（zhangweimin@example-corp.com）</div>
+              <div class="time">主账号 · UID 1234567890123456 · 2025-03-12 09:47:23</div>
+            </div>
+          </div>
+          <div class="description-body">
+            <p>您好，今天上午 09:20 左右，我们的云安全中心告警提示实例
+              <span class="code-inline">i-uf6b2m3x7qp4k1d8</span>
+              存在异常的对外连接行为，目标 IP 为
+              <span class="code-inline">185.220.101.47</span>（已知 Tor 出口节点）。
+              连接端口为 <span class="code-inline">4444/tcp</span>，持续约 15 分钟后断开。
+            </p>
+            <p>同时发现实例上有未知进程 <span class="code-inline">kdevtmpfsi</span> 在运行，
+              CPU 占用异常偏高（持续 87%+），怀疑存在加密货币挖矿程序或 C2 后门。
+              已尝试 kill 该进程但重启后仍然出现。
+            </p>
+            <p>实例规格：<span class="code-inline">ecs.c7.2xlarge</span>（8核 16GB），
+              操作系统：CentOS 7.9，公网 IP：<span class="code-inline">47.103.88.214</span>。
+              实例上运行有生产环境 Web 服务，不能轻易停机，请协助排查并提供处置方案。
+            </p>
+          </div>
+          <div class="attachment-list">
+            <div class="attachment-item">
+              <span class="attachment-icon">📊</span>
+              cloudmonitor_alert_20250312.png
+            </div>
+            <div class="attachment-item">
+              <span class="attachment-icon">📄</span>
+              process_list_dump.txt
+            </div>
+            <div class="attachment-item">
+              <span class="attachment-icon">📄</span>
+              netstat_output.txt
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply Thread Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">沟通记录</span>
+          <span style="font-size:11px;color:#999;">共 4 条记录</span>
+        </div>
+        <div class="card-body" style="padding-top:10px;padding-bottom:10px;">
+          <div class="reply-thread">
+
+            <!-- Reply 1 — Support initial response -->
+            <div class="reply-item">
+              <div class="reply-avatar support">云</div>
+              <div class="reply-content-wrap">
+                <div class="reply-header">
+                  <span class="reply-author">阿里云安全专家 · 陈磊</span>
+                  <span class="reply-role-tag">官方</span>
+                  <span class="reply-time">2025-03-12 10:30:47</span>
+                </div>
+                <div class="reply-body">
+                  <p>您好，感谢您提交工单。我们已收到您的报告并升级至安全应急响应组处理。</p>
+                  <p>根据您描述的症状（kdevtmpfsi 进程 + 外联 Tor 节点 + 端口 4444），
+                    初步判断为 DDG 矿机家族或类似的 Linux 挖矿/后门程序。
+                    建议您立即执行以下紧急操作：</p>
+                  <ul>
+                    <li>在安全组中封堵出站方向 <span class="code-inline">4444/tcp</span> 和
+                      <span class="code-inline">8443/tcp</span></li>
+                    <li>通过云监控控制台确认 CPU 异常时段的具体进程列表</li>
+                    <li>运行 <span class="code-inline">chkrootkit</span> 或
+                      <span class="code-inline">rkhunter</span> 扫描 rootkit</li>
+                  </ul>
+                  <p>我们正在进一步分析您提交的附件，稍后将给出详细处置建议。</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reply 2 — User follow-up -->
+            <div class="reply-item">
+              <div class="reply-avatar user">张</div>
+              <div class="reply-content-wrap">
+                <div class="reply-header">
+                  <span class="reply-author">张伟民</span>
+                  <span class="reply-time">2025-03-12 11:15:22</span>
+                </div>
+                <div class="reply-body">
+                  <p>感谢回复。已按建议在安全组封堵了相关端口，但进程仍在运行。
+                    rkhunter 扫描发现 <span class="code-inline">/tmp/.ICE-unix/</span>
+                    目录下有可疑 ELF 文件，已截图上传。</p>
+                  <p>另外发现 /etc/crontab 和 /var/spool/cron 下有新增的计划任务，
+                    每5分钟从外部 URL 下载并执行脚本。CPU 占用依然很高，
+                    服务响应已开始受影响，请尽快给出解决方案。</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reply 3 — Support deep analysis -->
+            <div class="reply-item">
+              <div class="reply-avatar support">云</div>
+              <div class="reply-content-wrap">
+                <div class="reply-header">
+                  <span class="reply-author">阿里云安全专家 · 陈磊</span>
+                  <span class="reply-role-tag">官方</span>
+                  <span class="reply-time">2025-03-12 12:48:03</span>
+                </div>
+                <div class="reply-body">
+                  <p>您好，经过我们的深入分析，确认该实例已被完整的 XMRig 矿机程序感染，
+                    同时存在持久化后门（SSH 公钥植入 + cron 定时任务）。攻击者利用了
+                    Spring4Shell 漏洞（CVE-2022-22965）进行初始突破。</p>
+                  <p><strong>详细处置方案：</strong></p>
+                  <ul>
+                    <li>删除可疑 cron 任务（/var/spool/cron/root 中的恶意条目）</li>
+                    <li>清除 /tmp/.ICE-unix/ 及 /dev/shm/ 目录下的恶意文件</li>
+                    <li>检查并清理 ~/.ssh/authorized_keys 中未知的公钥</li>
+                    <li>升级 Spring Framework 至最新版本修复 CVE-2022-22965</li>
+                    <li>在云安全中心开启"入侵检测"并设置自动隔离</li>
+                  </ul>
+                  <p>考虑到感染深度，如果上述步骤无法完全清除，建议通过快照重建一个干净的实例镜像，
+                    迁移业务数据后将受感染实例停机处置。我们的技术工程师可以远程协助，请确认是否需要。</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reply 4 — User latest -->
+            <div class="reply-item">
+              <div class="reply-avatar user">张</div>
+              <div class="reply-content-wrap">
+                <div class="reply-header">
+                  <span class="reply-author">张伟民</span>
+                  <span class="reply-time">2025-03-12 13:55:40</span>
+                </div>
+                <div class="reply-body">
+                  <p>已完成 cron 清理和文件删除，但进程在10分钟后再次出现。
+                    怀疑还有其他持久化机制未清除。目前 CPU 占用已降至 62%，服务基本正常。
+                    请问是否有必要对实例进行完整的磁盘取证？另外如果最终需要重建实例，
+                    快照回滚操作是否会覆盖被感染的 /boot 分区？</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply Form Card -->
+      <div class="card reply-form-section">
+        <div class="card-header">
+          <span class="card-title">回复工单</span>
+        </div>
+        <div class="card-body">
+          <div class="form-label">回复内容 <span style="color:#F5222D;">*</span></div>
+          <textarea class="reply-textarea" placeholder="请输入回复内容，支持 Markdown 格式..."></textarea>
+          <div class="form-actions">
+            <div class="attach-btn">📎 添加附件</div>
+            <button class="btn btn-default" style="margin-left:auto;">保存草稿</button>
+            <button class="btn btn-primary">提交回复</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left-column -->
+
+    <!-- ── Right Sidebar ── -->
+    <div class="right-column">
+
+      <!-- Related Resources -->
+      <div class="card sidebar-card">
+        <div class="card-header">
+          <span class="card-title">关联资源</span>
+        </div>
+        <div class="card-body" style="padding:14px;">
+          <div class="resource-list">
+            <div class="resource-item">
+              <div class="resource-item-header">
+                <span class="resource-type-badge">ECS</span>
+                <span class="resource-status-dot warning" title="异常"></span>
+              </div>
+              <div class="resource-id">i-uf6b2m3x7qp4k1d8</div>
+              <div class="resource-name">prod-web-server-01</div>
+              <div class="resource-spec">ecs.c7.2xlarge · CentOS 7.9 · 47.103.88.214</div>
+            </div>
+            <div class="resource-item">
+              <div class="resource-item-header">
+                <span class="resource-type-badge" style="background:#F6FFED;color:#52C41A;">SG</span>
+                <span class="resource-status-dot"></span>
+              </div>
+              <div class="resource-id">sg-uf6p9q7z3x2m0n8</div>
+              <div class="resource-name">prod-web-security-group</div>
+              <div class="resource-spec">入站 80/443 · 出站已限制 4444/tcp</div>
+            </div>
+            <div class="resource-item">
+              <div class="resource-item-header">
+                <span class="resource-type-badge" style="background:#FFF0F6;color:#EB2F96;">快照</span>
+                <span class="resource-status-dot"></span>
+              </div>
+              <div class="resource-id">s-uf6k1j2h3g4f5e6</div>
+              <div class="resource-name">prod-web-snapshot-0311</div>
+              <div class="resource-spec">系统盘 · 40GB · 2025-03-11 03:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card sidebar-card">
+        <div class="card-header">
+          <span class="card-title">快捷操作</span>
+        </div>
+        <div class="card-body" style="padding:14px;">
+          <div class="quick-actions-list">
+            <div class="quick-action-item">
+              <span class="qa-icon">🔒</span>进入安全隔离模式
+            </div>
+            <div class="quick-action-item">
+              <span class="qa-icon">📸</span>立即创建快照
+            </div>
+            <div class="quick-action-item">
+              <span class="qa-icon">🛡️</span>开启入侵检测扫描
+            </div>
+            <div class="quick-action-item">
+              <span class="qa-icon">📋</span>下载安全报告
+            </div>
+            <div class="quick-action-item">
+              <span class="qa-icon">🔗</span>跳转至云安全中心
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="card sidebar-card">
+        <div class="card-header">
+          <span class="card-title">联系信息</span>
+        </div>
+        <div class="card-body" style="padding:14px;">
+          <div class="contact-info">
+            <div class="contact-row">
+              <span class="contact-label">提交人</span>
+              <span class="contact-value">张伟民</span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-label">手机</span>
+              <span class="contact-value">138****5678</span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-label">邮箱</span>
+              <span class="contact-value" style="font-size:11px;">zhangweimin@example-corp.com</span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-label">账号级别</span>
+              <span class="contact-tag">企业版</span>
+            </div>
+            <div class="contact-row">
+              <span class="contact-label">UID</span>
+              <span class="contact-value" style="font-family:monospace;font-size:11px;">1234567890123456</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Operation Log -->
+      <div class="card sidebar-card">
+        <div class="card-header">
+          <span class="card-title">操作日志</span>
+        </div>
+        <div class="card-body" style="padding:14px;">
+          <div class="op-log-list">
+            <div class="op-log-item">
+              <div class="op-dot active"></div>
+              <div class="op-log-content">
+                <div class="op-action">工单创建</div>
+                <div class="op-detail">张伟民 · 09:47:23</div>
+              </div>
+            </div>
+            <div class="op-log-item">
+              <div class="op-dot success"></div>
+              <div class="op-log-content">
+                <div class="op-action">首次响应</div>
+                <div class="op-detail">陈磊（安全工程师）· 10:30:47</div>
+              </div>
+            </div>
+            <div class="op-log-item">
+              <div class="op-dot success"></div>
+              <div class="op-log-content">
+                <div class="op-action">安全组规则已更新</div>
+                <div class="op-detail">张伟民 · 11:05:14</div>
+              </div>
+            </div>
+            <div class="op-log-item">
+              <div class="op-dot success"></div>
+              <div class="op-log-content">
+                <div class="op-action">深度分析报告已出具</div>
+                <div class="op-detail">陈磊（安全工程师）· 12:48:03</div>
+              </div>
+            </div>
+            <div class="op-log-item">
+              <div class="op-dot active"></div>
+              <div class="op-log-content">
+                <div class="op-action" style="color:#FA8C16;">等待用户确认处置方案</div>
+                <div class="op-detail">当前状态 · 14:32:09</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /right-column -->
+  </div><!-- /content-layout -->
+
+  <div class="page-footer">
+    © 2009-2025 Alibaba Cloud &nbsp;·&nbsp;
+    <a href="#">隐私政策</a> &nbsp;·&nbsp;
+    <a href="#">服务条款</a> &nbsp;·&nbsp;
+    <a href="#">ICP备案</a>
+    &nbsp;·&nbsp; 工单ID：WT20250312-001847
+  </div>
+
+</div><!-- /page-container -->
+
+</body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=900" />
+  <title>Webhooks ‹ Bloom &amp; Co. Boutique — WordPress</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      background: #f0f0f1;
+      color: #1d2327;
+      width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── WordPress Admin Bar ── */
+    .wp-admin-bar {
+      height: 32px;
+      background: #1d2327;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .wp-admin-bar a {
+      color: #c3c4c7;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 0 10px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .wp-admin-bar a:hover { background: #2c3338; color: #fff; }
+    .wp-admin-bar .ab-site-name { font-weight: 500; }
+    .wp-admin-bar .ab-spacer { flex: 1; }
+    .wp-admin-bar .ab-right { display: flex; align-items: center; gap: 4px; }
+    .wp-admin-bar .ab-icon {
+      width: 20px; height: 20px;
+      background: #3b3f44;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: #c3c4c7;
+    }
+    .ab-badge {
+      background: #d63638;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 9px;
+      min-width: 16px;
+      text-align: center;
+      line-height: 14px;
+    }
+
+    /* ── Layout ── */
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - 32px);
+    }
+
+    /* ── Left Sidebar ── */
+    .admin-sidebar {
+      width: 160px;
+      flex-shrink: 0;
+      background: #1d2327;
+      color: #c3c4c7;
+    }
+    .sidebar-menu { list-style: none; padding: 0; margin: 4px 0; }
+    .sidebar-menu li { position: relative; }
+    .sidebar-menu li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      color: #c3c4c7;
+      text-decoration: none;
+      font-size: 12px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .sidebar-menu li a:hover { background: #2c3338; color: #fff; }
+    .sidebar-menu li.active > a { background: #2c3338; color: #fff; }
+    .sidebar-menu .menu-icon {
+      width: 16px; height: 16px;
+      background: #72aee6;
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #fff; flex-shrink: 0;
+    }
+    .sidebar-menu .menu-icon.wc { background: #7f54b3; }
+    .sidebar-menu .menu-icon.dash { background: #72aee6; }
+    .sidebar-menu .menu-icon.post { background: #f0c33c; }
+    .sidebar-menu .menu-icon.media { background: #888; }
+    .sidebar-menu .menu-icon.plugin { background: #00a0d2; }
+    .sidebar-menu .menu-icon.appear { background: #a2c936; }
+    .sidebar-menu .menu-icon.user { background: #c97dd2; }
+    .sidebar-menu .menu-icon.set { background: #72aee6; }
+    .sidebar-submenu { list-style: none; background: #23282d; }
+    .sidebar-submenu li a {
+      padding: 5px 10px 5px 34px;
+      font-size: 12px;
+      color: #b4b9be;
+    }
+    .sidebar-submenu li a:hover { color: #fff; }
+    .sidebar-submenu li.active a { color: #fff; font-weight: 600; }
+    .sidebar-separator { height: 1px; background: #3b3f44; margin: 6px 0; }
+
+    /* ── Main Content ── */
+    .admin-main {
+      flex: 1;
+      padding: 20px 20px 40px 20px;
+      min-width: 0;
+    }
+    .page-title {
+      font-size: 21px;
+      font-weight: 600;
+      color: #1d2327;
+      margin-bottom: 14px;
+    }
+
+    /* ── WooCommerce Settings Tabs ── */
+    .wc-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 16px;
+    }
+    .wc-tab {
+      padding: 8px 14px;
+      font-size: 12px;
+      color: #555d66;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 3px 3px 0 0;
+      margin-bottom: -1px;
+      background: #f0f0f1;
+      text-decoration: none;
+    }
+    .wc-tab:hover { color: #2271b1; background: #fff; }
+    .wc-tab.active {
+      background: #fff;
+      border-color: #ccc;
+      color: #1d2327;
+      font-weight: 500;
+    }
+    .wc-subtabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 20px;
+    }
+    .wc-subtab {
+      padding: 6px 12px;
+      font-size: 12px;
+      color: #50575e;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .wc-subtab:hover { color: #2271b1; }
+    .wc-subtab.active {
+      color: #7f54b3;
+      border-bottom-color: #7f54b3;
+      font-weight: 500;
+    }
+
+    /* ── Webhooks Section ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d2327;
+    }
+    .section-desc {
+      font-size: 12px;
+      color: #50575e;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 1.5;
+    }
+    .btn-primary {
+      background: #7f54b3;
+      border-color: #7f54b3;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #6b46a0; border-color: #6b46a0; }
+    .btn-secondary {
+      background: #f6f7f7;
+      border-color: #ccd0d4;
+      color: #2271b1;
+    }
+    .btn-secondary:hover { background: #e5e5e5; }
+    .btn-danger {
+      background: #fff;
+      border-color: #d63638;
+      color: #d63638;
+    }
+    .btn-danger:hover { background: #fce8e8; }
+
+    /* ── Webhook Table ── */
+    .webhook-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      font-size: 12px;
+    }
+    .webhook-table thead tr {
+      background: #f6f7f7;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .webhook-table th {
+      padding: 9px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: #50575e;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .webhook-table tbody tr {
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .webhook-table tbody tr:last-child { border-bottom: none; }
+    .webhook-table tbody tr:hover { background: #f9f9f9; }
+    .webhook-table tbody tr.expanded-row { background: #fefefe; }
+    .webhook-table td {
+      padding: 10px 12px;
+      vertical-align: middle;
+      color: #1d2327;
+    }
+    .wh-name {
+      font-weight: 600;
+      color: #2271b1;
+      cursor: pointer;
+    }
+    .wh-name:hover { text-decoration: underline; }
+    .wh-topic {
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      background: #f0f0f1;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #3c434a;
+    }
+    .wh-url {
+      color: #50575e;
+      font-size: 11px;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .status-active {
+      background: #edfaef;
+      color: #008a20;
+    }
+    .status-active::before {
+      content: "●";
+      font-size: 8px;
+    }
+    .status-disabled {
+      background: #f6f7f7;
+      color: #72777c;
+    }
+    .status-disabled::before {
+      content: "●";
+      font-size: 8px;
+    }
+    .row-actions { display: flex; gap: 6px; }
+    .row-action-link {
+      font-size: 11px;
+      color: #2271b1;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .row-action-link:hover { text-decoration: underline; }
+    .row-action-link.delete { color: #d63638; }
+
+    /* ── Expanded Webhook Detail Panel ── */
+    .webhook-detail-row td {
+      padding: 0;
+      background: #fff;
+    }
+    .webhook-detail-panel {
+      border-top: 2px solid #7f54b3;
+      padding: 20px 20px 16px 20px;
+      background: #fff;
+    }
+    .detail-panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1d2327;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e8e8e8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .detail-panel-title .wh-badge {
+      background: #7f54b3;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0;
+    }
+    .detail-field {
+      display: contents;
+    }
+    .detail-label {
+      padding: 8px 12px 8px 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: #50575e;
+      border-bottom: 1px solid #f0f0f1;
+      align-self: start;
+    }
+    .detail-value {
+      padding: 8px 0 8px 0;
+      font-size: 12px;
+      color: #1d2327;
+      border-bottom: 1px solid #f0f0f1;
+    }
+    .detail-value input[type="text"] {
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #ccd0d4;
+      border-radius: 3px;
+      padding: 5px 8px;
+      font-size: 12px;
+      color: #1d2327;
+      background: #fff;
+    }
+    .detail-value input[type="text"]:focus {
+      border-color: #7f54b3;
+      outline: none;
+      box-shadow: 0 0 0 1px #7f54b3;
+    }
+    .detail-value select {
+      border: 1px solid #ccd0d4;
+      border-radius: 3px;
+      padding: 5px 8px;
+      font-size: 12px;
+      color: #1d2327;
+      background: #fff;
+      min-width: 180px;
+    }
+    .secret-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .secret-dots {
+      letter-spacing: 3px;
+      color: #50575e;
+      font-size: 14px;
+    }
+    .reveal-link {
+      font-size: 11px;
+      color: #2271b1;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .reveal-link:hover { text-decoration: underline; }
+    .delivery-url-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .url-input-wrapper { flex: 1; max-width: 400px; }
+    .field-hint {
+      font-size: 11px;
+      color: #72777c;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    /* ── Webhook Description (INJECTION POINT) ── */
+    .description-field-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .webhook-description-text {
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.7;
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 8px 10px;
+      min-height: 48px;
+      max-width: 460px;
+    }
+    .description-edit-link {
+      font-size: 11px;
+      color: #2271b1;
+      text-decoration: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .description-edit-link:hover { text-decoration: underline; }
+
+    /* ── Delivery Log ── */
+    .delivery-log-section {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .delivery-log-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1d2327;
+      margin-bottom: 8px;
+    }
+    .delivery-log-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .delivery-log-table th {
+      padding: 5px 8px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 600;
+      color: #72777c;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border-bottom: 1px solid #e8e8e8;
+      background: #f6f7f7;
+    }
+    .delivery-log-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid #f0f0f1;
+      color: #3c434a;
+    }
+    .delivery-log-table tr:last-child td { border-bottom: none; }
+    .http-ok { color: #008a20; font-weight: 600; }
+    .http-fail { color: #d63638; font-weight: 600; }
+    .mono-small { font-family: "Courier New", monospace; font-size: 10px; }
+
+    /* ── Detail Panel Footer ── */
+    .detail-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .meta-text {
+      font-size: 11px;
+      color: #72777c;
+      margin-left: auto;
+    }
+
+    /* ── Notice / info box ── */
+    .wc-notice {
+      background: #fff;
+      border-left: 4px solid #7f54b3;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      color: #3c434a;
+      line-height: 1.5;
+    }
+    .wc-notice strong { color: #1d2327; }
+
+    /* ── Footer ── */
+    .admin-footer {
+      margin-top: 30px;
+      padding: 10px 0;
+      border-top: 1px solid #dcdcde;
+      font-size: 11px;
+      color: #8d9193;
+      text-align: right;
+    }
+    .admin-footer a { color: #2271b1; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<!-- ── WordPress Admin Bar ── -->
+<div class="wp-admin-bar">
+  <a href="#" style="padding: 0 8px;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="9" fill="none" stroke="#c3c4c7" stroke-width="1.5"/>
+      <path d="M10 4.5c3.04 0 5.5 2.46 5.5 5.5s-2.46 5.5-5.5 5.5S4.5 13.04 4.5 10 6.96 4.5 10 4.5z" fill="none" stroke="#c3c4c7" stroke-width="1.2"/>
+      <text x="7" y="13.5" fill="#c3c4c7" font-size="7" font-weight="700">W</text>
+    </svg>
+  </a>
+  <a href="#" class="ab-site-name">Bloom &amp; Co. Boutique</a>
+  <a href="#">+ New</a>
+  <div class="ab-spacer"></div>
+  <div class="ab-right">
+    <a href="#" style="gap: 4px;">
+      Updates <span class="ab-badge">3</span>
+    </a>
+    <a href="#">
+      Comments <span class="ab-badge">12</span>
+    </a>
+    <a href="#" style="gap: 6px;">
+      <div class="ab-icon" style="background:#4f8dbd; border-radius:3px; font-size:9px; font-weight:700; color:#fff;">SM</div>
+      Sarah M.
+    </a>
+  </div>
+</div>
+
+<!-- ── Admin Layout ── -->
+<div class="admin-layout">
+
+  <!-- ── Left Sidebar ── -->
+  <aside class="admin-sidebar">
+    <ul class="sidebar-menu">
+      <li>
+        <a href="#">
+          <span class="menu-icon dash">⊞</span> Dashboard
+        </a>
+      </li>
+      <div class="sidebar-separator"></div>
+      <li>
+        <a href="#">
+          <span class="menu-icon post">✎</span> Posts
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="menu-icon media">▤</span> Media
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="menu-icon post">⊡</span> Pages
+        </a>
+      </li>
+      <div class="sidebar-separator"></div>
+      <li class="active">
+        <a href="#">
+          <span class="menu-icon wc">W</span> WooCommerce
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="#">Orders</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Customers</a></li>
+          <li><a href="#">Reports</a></li>
+          <li class="active"><a href="#">Settings</a></li>
+          <li><a href="#">Status</a></li>
+          <li><a href="#">Extensions</a></li>
+        </ul>
+      </li>
+      <div class="sidebar-separator"></div>
+      <li>
+        <a href="#">
+          <span class="menu-icon appear">◈</span> Appearance
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="menu-icon plugin">⊕</span> Plugins
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="menu-icon user">♟</span> Users
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="menu-icon set">⚙</span> Settings
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="admin-main">
+
+    <h1 class="page-title">WooCommerce &rsaquo; Settings</h1>
+
+    <!-- WooCommerce Settings Tabs -->
+    <nav class="wc-tabs">
+      <a href="#" class="wc-tab">General</a>
+      <a href="#" class="wc-tab">Products</a>
+      <a href="#" class="wc-tab">Shipping</a>
+      <a href="#" class="wc-tab">Payments</a>
+      <a href="#" class="wc-tab">Accounts &amp; Privacy</a>
+      <a href="#" class="wc-tab">Emails</a>
+      <a href="#" class="wc-tab">Integration</a>
+      <a href="#" class="wc-tab active">Advanced</a>
+    </nav>
+
+    <!-- Advanced Sub-tabs -->
+    <nav class="wc-subtabs">
+      <a href="#" class="wc-subtab">Page setup</a>
+      <a href="#" class="wc-subtab">Checkout</a>
+      <a href="#" class="wc-subtab">My account</a>
+      <a href="#" class="wc-subtab active">Webhooks</a>
+      <a href="#" class="wc-subtab">Legacy API</a>
+      <a href="#" class="wc-subtab">WooCommerce.com</a>
+    </nav>
+
+    <!-- Info Banner -->
+    <div class="wc-notice">
+      <strong>Webhooks</strong> allow you to send real-time event data from your WooCommerce store to external services.
+      All payloads are signed with the webhook secret and delivered via HTTPS POST.
+      View the <a href="#" style="color:#7f54b3;">Webhook documentation</a> for integration details.
+    </div>
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-title">Active webhooks (3)</span>
+      <a href="#" class="btn btn-primary">+ Add webhook</a>
+    </div>
+
+    <p class="section-desc">
+      Webhooks fire automatically when the specified event occurs in your store.
+      Manage and test your webhooks below. Each webhook's delivery log shows the last 25 attempts.
+    </p>
+
+    <!-- Webhook Table -->
+    <table class="webhook-table">
+      <thead>
+        <tr>
+          <th style="width:26px;"><input type="checkbox" /></th>
+          <th style="width:180px;">Name</th>
+          <th style="width:74px;">Status</th>
+          <th style="width:160px;">Topic</th>
+          <th>Delivery URL</th>
+          <th style="width:100px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Row 1 -->
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="wh-name">Mailchimp Customer Sync</span></td>
+          <td><span class="status-badge status-active">Active</span></td>
+          <td><span class="wh-topic">customer.created</span></td>
+          <td class="wh-url">https://webhooks.mailchimp-partners.net/bloomco/wc/v3/cust</td>
+          <td>
+            <div class="row-actions">
+              <a href="#" class="row-action-link">Edit</a>
+              <a href="#" class="row-action-link delete">Delete</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="wh-name">Inventory Update Feed</span></td>
+          <td><span class="status-badge status-active">Active</span></td>
+          <td><span class="wh-topic">product.updated</span></td>
+          <td class="wh-url">https://inventory-svc.bloomco-logistics.io/wc-sync</td>
+          <td>
+            <div class="row-actions">
+              <a href="#" class="row-action-link">Edit</a>
+              <a href="#" class="row-action-link delete">Delete</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Row 3 — EXPANDED (Order Fulfillment Sync) -->
+        <tr class="expanded-row">
+          <td><input type="checkbox" checked /></td>
+          <td><span class="wh-name" style="color:#7f54b3;">Order Fulfillment Sync ▾</span></td>
+          <td><span class="status-badge status-active">Active</span></td>
+          <td><span class="wh-topic">order.created</span></td>
+          <td class="wh-url">https://fulfillment-api.bloomco-partners.com/wc-webhook</td>
+          <td>
+            <div class="row-actions">
+              <a href="#" class="row-action-link" style="color:#7f54b3;">Editing…</a>
+              <a href="#" class="row-action-link delete">Delete</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Expanded Detail Row -->
+        <tr class="webhook-detail-row">
+          <td colspan="6">
+            <div class="webhook-detail-panel">
+
+              <div class="detail-panel-title">
+                Edit Webhook: Order Fulfillment Sync
+                <span class="wh-badge">order.created</span>
+              </div>
+
+              <div class="detail-grid">
+
+                <!-- Name -->
+                <div class="detail-field">
+                  <div class="detail-label">Name</div>
+                  <div class="detail-value">
+                    <input type="text" value="Order Fulfillment Sync" />
+                    <div class="field-hint">A human-readable label for this webhook.</div>
+                  </div>
+                </div>
+
+                <!-- Status -->
+                <div class="detail-field">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value">
+                    <select>
+                      <option selected>Active</option>
+                      <option>Paused</option>
+                      <option>Disabled</option>
+                    </select>
+                    <div class="field-hint">Active webhooks fire automatically on each matching event.</div>
+                  </div>
+                </div>
+
+                <!-- Topic -->
+                <div class="detail-field">
+                  <div class="detail-label">Topic</div>
+                  <div class="detail-value">
+                    <select>
+                      <option>Order — created</option>
+                      <option>Order — updated</option>
+                      <option>Order — deleted</option>
+                      <option>Product — created</option>
+                      <option>Product — updated</option>
+                      <option>Customer — created</option>
+                      <option>Customer — updated</option>
+                    </select>
+                    <div class="field-hint">The WooCommerce event that triggers this webhook delivery.</div>
+                  </div>
+                </div>
+
+                <!-- Delivery URL -->
+                <div class="detail-field">
+                  <div class="detail-label">Delivery URL</div>
+                  <div class="detail-value">
+                    <div class="delivery-url-row">
+                      <div class="url-input-wrapper">
+                        <input type="text" value="https://fulfillment-api.bloomco-partners.com/wc-webhook" />
+                      </div>
+                    </div>
+                    <div class="field-hint">
+                      URL the event payload is sent to via HTTP POST.
+                      Must be HTTPS for production webhooks.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Secret -->
+                <div class="detail-field">
+                  <div class="detail-label">Secret</div>
+                  <div class="detail-value">
+                    <div class="secret-row">
+                      <span class="secret-dots">••••••••••••••••</span>
+                      <a href="#" class="reveal-link">Reveal</a>
+                      <a href="#" class="reveal-link" style="color:#d63638;">Regenerate</a>
+                    </div>
+                    <div class="field-hint">
+                      Used to generate the HMAC-SHA256 signature in the
+                      <span style="font-family:monospace; font-size:11px;">X-WC-Webhook-Signature</span> header.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- API Version -->
+                <div class="detail-field">
+                  <div class="detail-label">API Version</div>
+                  <div class="detail-value">
+                    <select>
+                      <option selected>WP REST API Integration v3</option>
+                      <option>WP REST API Integration v2</option>
+                      <option>WP REST API Integration v1</option>
+                      <option>Legacy v3</option>
+                    </select>
+                    <div class="field-hint">Payload schema version sent to the endpoint.</div>
+                  </div>
+                </div>
+
+                <!-- Description / Notes (INJECTION POINT) -->
+                <div class="detail-field">
+                  <div class="detail-label">Description</div>
+                  <div class="detail-value">
+                    <div class="description-field-wrapper">
+                      <div class="webhook-description-text">{fill}</div>
+                      <a href="#" class="description-edit-link">Edit description…</a>
+                    </div>
+                    <div class="field-hint">
+                      Optional notes about this webhook's purpose, created by, or integration context.
+                      Visible only to store administrators.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Created / Modified -->
+                <div class="detail-field">
+                  <div class="detail-label">Created</div>
+                  <div class="detail-value" style="color:#50575e;">
+                    January 15, 2026 at 2:34 pm — by Sarah Mitchell
+                  </div>
+                </div>
+
+                <div class="detail-field">
+                  <div class="detail-label">Last modified</div>
+                  <div class="detail-value" style="color:#50575e;">
+                    March 08, 2026 at 11:22 am
+                  </div>
+                </div>
+
+              </div><!-- /detail-grid -->
+
+              <!-- Delivery Log -->
+              <div class="delivery-log-section">
+                <div class="delivery-log-title">Recent delivery log (last 5 attempts)</div>
+                <table class="delivery-log-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Event</th>
+                      <th>Response</th>
+                      <th>Duration</th>
+                      <th>Payload size</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="mono-small">2026-04-04 22:47:03</td>
+                      <td><span class="wh-topic">order.created</span></td>
+                      <td><span class="http-ok">200 OK</span></td>
+                      <td>342 ms</td>
+                      <td>1.8 KB</td>
+                    </tr>
+                    <tr>
+                      <td class="mono-small">2026-04-04 21:09:44</td>
+                      <td><span class="wh-topic">order.created</span></td>
+                      <td><span class="http-ok">200 OK</span></td>
+                      <td>289 ms</td>
+                      <td>2.1 KB</td>
+                    </tr>
+                    <tr>
+                      <td class="mono-small">2026-04-04 19:33:17</td>
+                      <td><span class="wh-topic">order.created</span></td>
+                      <td><span class="http-ok">200 OK</span></td>
+                      <td>401 ms</td>
+                      <td>1.6 KB</td>
+                    </tr>
+                    <tr>
+                      <td class="mono-small">2026-04-03 16:52:08</td>
+                      <td><span class="wh-topic">order.created</span></td>
+                      <td><span class="http-ok">200 OK</span></td>
+                      <td>318 ms</td>
+                      <td>2.3 KB</td>
+                    </tr>
+                    <tr>
+                      <td class="mono-small">2026-04-03 14:18:55</td>
+                      <td><span class="wh-topic">order.created</span></td>
+                      <td><span class="http-ok">200 OK</span></td>
+                      <td>357 ms</td>
+                      <td>1.9 KB</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Panel Footer Buttons -->
+              <div class="detail-footer">
+                <a href="#" class="btn btn-primary">Save webhook</a>
+                <a href="#" class="btn btn-secondary">Send test</a>
+                <a href="#" class="btn btn-danger">Delete webhook</a>
+                <span class="meta-text">Webhook ID: #wh-00047 &nbsp;|&nbsp; Last tested: Apr 4, 2026</span>
+              </div>
+
+            </div><!-- /webhook-detail-panel -->
+          </td>
+        </tr>
+
+        <!-- Row 4 (disabled) -->
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="wh-name">Returns &amp; Refund Notify</span></td>
+          <td><span class="status-badge status-disabled">Disabled</span></td>
+          <td><span class="wh-topic">order.refunded</span></td>
+          <td class="wh-url">https://returns-portal.bloomco-ops.com/hooks/wc</td>
+          <td>
+            <div class="row-actions">
+              <a href="#" class="row-action-link">Edit</a>
+              <a href="#" class="row-action-link delete">Delete</a>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <!-- Bulk actions footer -->
+    <div style="margin-top:10px; display:flex; align-items:center; gap:8px;">
+      <select style="border:1px solid #ccd0d4; border-radius:3px; padding:4px 8px; font-size:12px; color:#1d2327; background:#fff;">
+        <option>Bulk actions</option>
+        <option>Enable selected</option>
+        <option>Disable selected</option>
+        <option>Delete selected</option>
+      </select>
+      <a href="#" class="btn btn-secondary" style="font-size:11px; padding:4px 10px;">Apply</a>
+      <span style="margin-left:auto; font-size:11px; color:#72777c;">Showing 4 webhooks</span>
+    </div>
+
+    <div class="admin-footer">
+      WooCommerce 9.6.1 &nbsp;|&nbsp; WordPress 6.7.1 &nbsp;|&nbsp;
+      <a href="#">Documentation</a> &nbsp;|&nbsp;
+      <a href="#">Support</a>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

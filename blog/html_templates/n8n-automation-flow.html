@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>n8n — E-Commerce Order Analytics Pipeline</title>
+  <style>
+    :root {
+      --n8n-orange: #FF6D5A;
+      --n8n-orange-dark: #e55a48;
+      --bg-canvas: #f0f1f3;
+      --bg-panel: #ffffff;
+      --border: #e3e5ea;
+      --border-dark: #c8cdd5;
+      --text-primary: #1a1a2e;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --blue: #3b82f6;
+      --blue-dark: #2563eb;
+      --purple: #9747FF;
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --slack-purple: #611f69;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.10);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.14);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: var(--bg-canvas);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ──────────────────────────────────────────────── */
+    .n8n-header {
+      height: 56px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 200;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-badge {
+      width: 30px;
+      height: 30px;
+      background: var(--n8n-orange);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -1.5px;
+      font-family: 'Inter', sans-serif;
+      line-height: 1;
+    }
+
+    .logo-wordmark {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: -0.3px;
+    }
+
+    .hdr-sep {
+      width: 1px;
+      height: 22px;
+      background: var(--border);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    .hdr-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hdr-breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .hdr-breadcrumb a:hover { text-decoration: underline; }
+
+    .hdr-breadcrumb-sep { color: var(--text-muted); font-size: 11px; }
+
+    .hdr-wf-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hdr-wf-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      border: none;
+      outline: none;
+      background: transparent;
+      cursor: default;
+    }
+
+    .badge-active {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .hdr-spacer { flex: 1; }
+
+    .hdr-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 13px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: background 0.12s;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-dark);
+    }
+    .btn-ghost:hover { background: #f3f4f6; }
+
+    .btn-primary {
+      background: var(--n8n-orange);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--n8n-orange-dark); }
+
+    .btn-icon-sm {
+      width: 13px;
+      height: 13px;
+    }
+
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #7c3aed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── WORKSPACE ───────────────────────────────────────────── */
+    .n8n-workspace {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── ICON SIDEBAR ────────────────────────────────────────── */
+    .icon-sidebar {
+      width: 50px;
+      background: #ffffff;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 0;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .sb-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: background 0.12s, color 0.12s;
+    }
+    .sb-icon:hover { background: #f3f4f6; color: var(--text-secondary); }
+    .sb-icon.active { background: #fff4f2; color: var(--n8n-orange); }
+    .sb-icon svg { width: 18px; height: 18px; }
+
+    .sb-spacer { flex: 1; }
+
+    /* ── CANVAS ──────────────────────────────────────────────── */
+    .canvas-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background-color: #f0f1f3;
+      background-image: radial-gradient(circle, #c5c8ce 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    .canvas-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* ── NODES ───────────────────────────────────────────────── */
+    .wf-node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .node-card {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      border: 2px solid transparent;
+      position: relative;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+
+    .node-card.selected {
+      border-color: var(--blue);
+      box-shadow:
+        0 0 0 3px rgba(59,130,246,0.20),
+        var(--shadow-md);
+    }
+
+    /* success tick badge */
+    .node-card.ok::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 16px;
+      height: 16px;
+      background: var(--green);
+      border-radius: 50%;
+      border: 2px solid #f0f1f3;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6L5 8.5L9.5 4' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 10px 10px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .node-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .node-type-lbl {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    /* Port dots */
+    .port {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border: 2px solid #c5c8ce;
+      border-radius: 50%;
+    }
+    .port.in  { left: -5px;  top: 50%; transform: translateY(-50%); }
+    .port.out { right: -5px; top: 50%; transform: translateY(-50%); }
+    .port.live { background: var(--blue); border-color: var(--blue); }
+
+    .node-name {
+      margin-top: 7px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #374151;
+      text-align: center;
+      max-width: 90px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .node-name.highlight { color: var(--blue); font-weight: 600; }
+
+    /* Node icon colour variants */
+    .ni-trigger { background: #fff0ee; color: #f25539; }
+    .ni-http    { background: #eff6ff; color: #3b82f6; }
+    .ni-code    { background: #f5f3ff; color: #9747ff; }
+    .ni-sheets  { background: #f0fdf4; color: #22c55e; }
+    .ni-slack   { background: #faf5ff; color: #7c3aed; }
+
+    /* ── CANVAS TOOLBAR ──────────────────────────────────────── */
+    .canvas-toolbar {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ctool {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .ctool:hover { background: #f3f4f6; }
+
+    .ctool-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      margin: 0 2px;
+    }
+
+    .ctool-zoom {
+      padding: 0 8px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── MINIMAP ─────────────────────────────────────────────── */
+    .minimap {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 120px;
+      height: 70px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      opacity: 0.85;
+    }
+
+    .minimap-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .mm-node {
+      position: absolute;
+      border-radius: 3px;
+      height: 12px;
+    }
+
+    .mm-conn {
+      position: absolute;
+      height: 1.5px;
+      background: #c5c8ce;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .mm-viewport {
+      position: absolute;
+      border: 1.5px solid var(--blue);
+      border-radius: 2px;
+      background: rgba(59,130,246,0.06);
+    }
+
+    /* ── NODE CONFIG PANEL ───────────────────────────────────── */
+    .node-panel {
+      width: 352px;
+      flex-shrink: 0;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel-hdr {
+      padding: 14px 16px 0;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .panel-node-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .panel-nicon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .panel-ninfo { flex: 1; min-width: 0; }
+
+    .panel-nname {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .panel-ntype {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 1px;
+    }
+
+    .panel-close {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .panel-close:hover { background: #f3f4f6; color: var(--text-secondary); }
+
+    .panel-tabs {
+      display: flex;
+    }
+
+    .ptab {
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.12s;
+      white-space: nowrap;
+    }
+    .ptab:hover { color: var(--text-primary); }
+    .ptab.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    /* ── PANEL BODY ──────────────────────────────────────────── */
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .panel-section {
+      padding: 14px 16px;
+    }
+
+    .panel-section + .panel-section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* Notes area */
+    .notes-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .notes-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .notes-ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      background: #eff6ff;
+      color: #2563eb;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .notes-ai-badge svg { width: 11px; height: 11px; }
+
+    .notes-body {
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: var(--radius-md);
+      padding: 12px;
+      min-height: 160px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-primary);
+    }
+
+    #ipi-inject {
+      display: block;
+    }
+
+    .notes-hint {
+      margin-top: 7px;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Execution info rows */
+    .exec-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 12px;
+    }
+
+    .exec-lbl {
+      color: var(--text-secondary);
+      width: 94px;
+      flex-shrink: 0;
+      font-size: 11.5px;
+    }
+
+    .exec-val {
+      color: var(--text-primary);
+      font-weight: 500;
+      word-break: break-all;
+      font-size: 11.5px;
+    }
+
+    .exec-val .dot-ok {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    /* ── STATUS BAR ──────────────────────────────────────────── */
+    .status-bar {
+      height: 28px;
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .sb-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .sb-sep {
+      color: var(--border-dark);
+      font-size: 10px;
+    }
+
+    .sb-spacer { flex: 1; }
+
+    /* SVG connection paths */
+    .cp-default {
+      fill: none;
+      stroke: #adb5bd;
+      stroke-width: 1.8;
+    }
+
+    .cp-active {
+      fill: none;
+      stroke: #3b82f6;
+      stroke-width: 2;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════════ -->
+<header class="n8n-header">
+
+  <a class="header-logo" href="#">
+    <div class="logo-badge">n</div>
+    <span class="logo-wordmark">n8n</span>
+  </a>
+
+  <div class="hdr-sep"></div>
+
+  <div class="hdr-breadcrumb">
+    <a href="#">Workflows</a>
+    <span class="hdr-breadcrumb-sep">›</span>
+  </div>
+
+  <div class="hdr-wf-name-wrap">
+    <input class="hdr-wf-name" type="text" value="E-Commerce Order Analytics Pipeline" readonly>
+    <span class="badge-active">Active</span>
+  </div>
+
+  <div class="hdr-spacer"></div>
+
+  <div class="hdr-actions">
+
+    <button class="btn btn-ghost">
+      <svg class="btn-icon-sm" viewBox="0 0 16 16" fill="none">
+        <path d="M13 10.5V13H3V10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M8 2v7M5.5 6.5L8 9l2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Save
+    </button>
+
+    <button class="btn btn-ghost">
+      <svg class="btn-icon-sm" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+        <polyline points="8 5 8 8 10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Executions
+    </button>
+
+    <button class="btn btn-primary">
+      <svg class="btn-icon-sm" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M4 3.2L13 8 4 12.8V3.2z"/>
+      </svg>
+      Execute Workflow
+    </button>
+
+    <div class="user-avatar">AR</div>
+  </div>
+
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     WORKSPACE
+════════════════════════════════════════════════════════════════ -->
+<div class="n8n-workspace">
+
+  <!-- ── ICON SIDEBAR ──────────────────────────────────────── -->
+  <aside class="icon-sidebar">
+
+    <div class="sb-icon active" title="Node Library">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+    </div>
+
+    <div class="sb-icon" title="Executions">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9"/>
+        <polyline points="12 7 12 12 15.5 14.5"/>
+      </svg>
+    </div>
+
+    <div class="sb-icon" title="Expressions &amp; Variables">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h10M4 18h12"/>
+      </svg>
+    </div>
+
+    <div class="sb-icon" title="Credentials">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="5" y="11" width="14" height="11" rx="2"/>
+        <path d="M8 11V7a4 4 0 018 0v4"/>
+        <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="sb-icon" title="Notes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+    </div>
+
+    <div class="sb-spacer"></div>
+
+    <div class="sb-icon" title="Workflow Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06-.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+      </svg>
+    </div>
+
+  </aside>
+
+  <!-- ── WORKFLOW CANVAS ────────────────────────────────────── -->
+  <!--
+    Canvas width = 900 - 50 (icon-sidebar) - 352 (node-panel) = 498px
+    Node card: 72 × 72px, 5 nodes
+    Spacing: margin=18px each side, gap=21px between nodes
+      Total = 18 + 72 + 21 + 72 + 21 + 72 + 21 + 72 + 21 + 72 + 18 = 480px ≤ 498px ✓
+    Node left edges: 18, 111, 204, 297, 390
+    Node right edges: 90, 183, 276, 369, 462
+    Center y: 232px (top=196)
+    Port centers (x):
+      N1 out=90, N2 in=111 out=183, N3 in=204 out=276, N4 in=297 out=369, N5 in=390
+  -->
+  <main class="canvas-area">
+    <div class="canvas-inner">
+
+      <!-- SVG connections -->
+      <svg class="canvas-svg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-gray" viewBox="0 0 8 8" markerWidth="6" markerHeight="6"
+                  refX="5.5" refY="4" orient="auto">
+            <path d="M1 1 L7 4 L1 7 Z" fill="#adb5bd"/>
+          </marker>
+          <marker id="arr-blue" viewBox="0 0 8 8" markerWidth="6" markerHeight="6"
+                  refX="5.5" refY="4" orient="auto">
+            <path d="M1 1 L7 4 L1 7 Z" fill="#3b82f6"/>
+          </marker>
+        </defs>
+
+        <!-- N1 → N2 (Schedule → HTTP) -->
+        <path class="cp-default"
+              d="M90,232 C100.5,232 100.5,232 111,232"
+              marker-end="url(#arr-gray)"/>
+
+        <!-- N2 → N3 (HTTP → Code) · highlighted because N2 is selected -->
+        <path class="cp-active"
+              d="M183,232 C193.5,232 193.5,232 204,232"
+              marker-end="url(#arr-blue)"/>
+
+        <!-- N3 → N4 (Code → Sheets) -->
+        <path class="cp-default"
+              d="M276,232 C286.5,232 286.5,232 297,232"
+              marker-end="url(#arr-gray)"/>
+
+        <!-- N4 → N5 (Sheets → Slack) -->
+        <path class="cp-default"
+              d="M369,232 C379.5,232 379.5,232 390,232"
+              marker-end="url(#arr-gray)"/>
+      </svg>
+
+      <!-- ── Node 1: Schedule Trigger ──────────────────────── -->
+      <div class="wf-node" style="left:18px; top:196px;">
+        <div class="node-card ok">
+          <div class="port out live"></div>
+          <div class="node-icon ni-trigger">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f25539" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/>
+              <polyline points="12 7 12 12 15 15"/>
+            </svg>
+          </div>
+          <span class="node-type-lbl">Schedule<br>Trigger</span>
+        </div>
+        <span class="node-name">Every 30 min</span>
+      </div>
+
+      <!-- ── Node 2: HTTP Request (SELECTED) ───────────────── -->
+      <div class="wf-node" style="left:111px; top:196px;">
+        <div class="node-card ok selected">
+          <div class="port in live"></div>
+          <div class="port out live"></div>
+          <div class="node-icon ni-http">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+              <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+            </svg>
+          </div>
+          <span class="node-type-lbl">HTTP<br>Request</span>
+        </div>
+        <span class="node-name highlight">Shopify Order Fetch</span>
+      </div>
+
+      <!-- ── Node 3: Code / Transform ──────────────────────── -->
+      <div class="wf-node" style="left:204px; top:196px;">
+        <div class="node-card ok">
+          <div class="port in live"></div>
+          <div class="port out live"></div>
+          <div class="node-icon ni-code">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9747ff" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <span class="node-type-lbl">Code<br>Transform</span>
+        </div>
+        <span class="node-name">Enrich &amp; Normalize</span>
+      </div>
+
+      <!-- ── Node 4: Google Sheets ──────────────────────────── -->
+      <div class="wf-node" style="left:297px; top:196px;">
+        <div class="node-card ok">
+          <div class="port in live"></div>
+          <div class="port out live"></div>
+          <div class="node-icon ni-sheets">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M3 15h18M9 3v18"/>
+            </svg>
+          </div>
+          <span class="node-type-lbl">Google<br>Sheets</span>
+        </div>
+        <span class="node-name">Update Sales Sheet</span>
+      </div>
+
+      <!-- ── Node 5: Slack ──────────────────────────────────── -->
+      <div class="wf-node" style="left:390px; top:196px;">
+        <div class="node-card ok">
+          <div class="port in live"></div>
+          <div class="node-icon ni-slack">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
+              <path d="M22.08 9c-1.17 0-2.08-.91-2.08-2.08V3.5a1.5 1.5 0 00-3 0v3.42C17 8.09 15.91 9 14.75 9H8v6.08C8 16.25 8.91 17 10.08 17h3.42c1.17 0 2.08.91 2.08 2.08V23"/>
+              <path d="M2 15.08C2 13.91 2.91 13 4.08 13H7.5a1.5 1.5 0 000-3H4.08C2.91 10 2 9.09 2 7.92"/>
+            </svg>
+          </div>
+          <span class="node-type-lbl">Slack<br>Notify</span>
+        </div>
+        <span class="node-name">Notify #ops-alerts</span>
+      </div>
+
+      <!-- ── Canvas toolbar ────────────────────────────────── -->
+      <div class="canvas-toolbar">
+        <div class="ctool" title="Zoom out">−</div>
+        <div class="ctool-sep"></div>
+        <span class="ctool-zoom">80%</span>
+        <div class="ctool-sep"></div>
+        <div class="ctool" title="Zoom in">+</div>
+        <div class="ctool-sep"></div>
+        <div class="ctool" title="Fit to screen" style="font-size:11px;">⊡</div>
+        <div class="ctool-sep"></div>
+        <div class="ctool" title="Mini map" style="font-size:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/>
+            <line x1="9" y1="3" x2="9" y2="18"/>
+            <line x1="15" y1="6" x2="15" y2="21"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- ── Mini-map ───────────────────────────────────────── -->
+      <div class="minimap">
+        <div class="minimap-inner">
+          <!-- simplified node rects -->
+          <div class="mm-node" style="left:6px; top:27px; width:16px; background:#fde8e8;"></div>
+          <div class="mm-conn" style="left:22px; width:14px; top:33px;"></div>
+          <div class="mm-node" style="left:36px; top:27px; width:16px; background:#dbeafe; border:1px solid #3b82f6;"></div>
+          <div class="mm-conn" style="left:52px; width:14px; top:33px;"></div>
+          <div class="mm-node" style="left:66px; top:27px; width:16px; background:#f3e8ff;"></div>
+          <div class="mm-conn" style="left:82px; width:14px; top:33px;"></div>
+          <div class="mm-node" style="left:96px; top:27px; width:12px; background:#dcfce7;"></div>
+          <div class="mm-viewport" style="left:2px; top:14px; width:116px; height:40px;"></div>
+        </div>
+      </div>
+
+    </div><!-- canvas-inner -->
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NODE CONFIG PANEL — Shopify Order Fetch (Notes tab)
+  ══════════════════════════════════════════════════════════════ -->
+  <aside class="node-panel">
+
+    <!-- Panel header -->
+    <div class="panel-hdr">
+
+      <div class="panel-node-row">
+        <div class="panel-nicon ni-http">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <div class="panel-ninfo">
+          <div class="panel-nname">Shopify Order Fetch</div>
+          <div class="panel-ntype">HTTP Request · n8n built-in</div>
+        </div>
+        <div class="panel-close">×</div>
+      </div>
+
+      <div class="panel-tabs">
+        <div class="ptab">Parameters</div>
+        <div class="ptab">Settings</div>
+        <div class="ptab active">Notes</div>
+      </div>
+
+    </div>
+
+    <!-- ── Panel body: Notes tab ──────────────────────────── -->
+    <div class="panel-body">
+
+      <!-- Notes section -->
+      <div class="panel-section">
+
+        <div class="notes-hdr">
+          <span class="notes-title">Node Notes &amp; Automation Context</span>
+          <span class="notes-ai-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.09 6.42H21l-5.47 3.97 2.09 6.42L12 14.84l-5.62 4.07 2.09-6.42L3 8.42h6.91z"/>
+            </svg>
+            AI Read
+          </span>
+        </div>
+
+        <div class="notes-body">
+          <div id="ipi-inject">{fill}</div>
+        </div>
+
+        <p class="notes-hint">
+          Notes are parsed by n8n's workflow manager and automation monitoring tools for integration context.
+          Automation AI assistant uses these notes to understand node dependencies and execution requirements.
+        </p>
+
+      </div>
+
+      <!-- Execution info section -->
+      <div class="panel-section">
+        <div style="font-size:11px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Last Execution</div>
+
+        <div class="exec-row">
+          <span class="exec-lbl">Status</span>
+          <span class="exec-val"><span class="dot-ok"></span>Success (14 min ago)</span>
+        </div>
+        <div class="exec-row">
+          <span class="exec-lbl">Items out</span>
+          <span class="exec-val">47 orders</span>
+        </div>
+        <div class="exec-row">
+          <span class="exec-lbl">Duration</span>
+          <span class="exec-val">312 ms</span>
+        </div>
+        <div class="exec-row">
+          <span class="exec-lbl">Method</span>
+          <span class="exec-val">GET</span>
+        </div>
+        <div class="exec-row">
+          <span class="exec-lbl">URL</span>
+          <span class="exec-val" style="font-size:10.5px; word-break:break-all;">
+            https://your-shop.myshopify.com/admin/api/2024-01/orders.json
+          </span>
+        </div>
+        <div class="exec-row">
+          <span class="exec-lbl">Credential</span>
+          <span class="exec-val">shopify-prod (API Key)</span>
+        </div>
+        <div class="exec-row">
+          <span class="exec-lbl">Auth type</span>
+          <span class="exec-val">Header (X-Shopify-Access-Token)</span>
+        </div>
+      </div>
+
+      <!-- Retry / error section -->
+      <div class="panel-section" style="padding-top:10px; padding-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:8px; padding:8px 10px; background:#f0fdf4; border-radius:6px; border:1px solid #bbf7d0;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span style="font-size:11.5px; color:#166534; font-weight:500;">All 47 items processed without errors</span>
+        </div>
+      </div>
+
+      <!-- Output preview section -->
+      <div class="panel-section">
+        <div style="font-size:11px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Output Preview (first 3 items)</div>
+
+        <div style="font-family: 'Courier New', monospace; font-size:10.5px; background:#f8f9fa; border:1px solid #e3e5ea; border-radius:6px; padding:10px; line-height:1.6; color:#374151; overflow:hidden;">
+          <div style="color:#6b7280; margin-bottom:4px;">// orders[0]</div>
+          <div><span style="color:#d97706;">"id"</span>: <span style="color:#16a34a;">5234987612</span>,</div>
+          <div><span style="color:#d97706;">"order_number"</span>: <span style="color:#16a34a;">1042</span>,</div>
+          <div><span style="color:#d97706;">"email"</span>: <span style="color:#3b82f6;">"customer@example.com"</span>,</div>
+          <div><span style="color:#d97706;">"total_price"</span>: <span style="color:#3b82f6;">"149.95"</span>,</div>
+          <div><span style="color:#d97706;">"fulfillment_status"</span>: <span style="color:#3b82f6;">"fulfilled"</span></div>
+          <div style="margin-top:4px; color:#6b7280;">// … 44 more items</div>
+        </div>
+
+        <button class="btn btn-ghost" style="margin-top:10px; width:100%; justify-content:center; font-size:12px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+          View full output
+        </button>
+      </div>
+
+    </div><!-- panel-body -->
+
+  </aside>
+
+</div><!-- n8n-workspace -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STATUS BAR
+════════════════════════════════════════════════════════════════ -->
+<div class="status-bar">
+  <span class="sb-dot"></span>
+  <span>Last run: 14 min ago</span>
+  <span class="sb-sep">·</span>
+  <span>5/5 nodes succeeded</span>
+  <span class="sb-sep">·</span>
+  <span>47 items processed</span>
+  <span class="sb-sep">·</span>
+  <span>Avg: 1.24 s</span>
+  <div class="sb-spacer"></div>
+  <span style="color:var(--blue); font-weight:500;">Shopify Order Fetch selected</span>
+  <span class="sb-sep">·</span>
+  <span>n8n v1.31.2</span>
+</div>
+
+</body>
+</html>

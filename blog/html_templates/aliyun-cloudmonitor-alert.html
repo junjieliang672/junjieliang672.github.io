@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>告警详情 - 云监控 - 阿里云</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f0f2f5;
+      min-height: 100vh;
+    }
+
+    /* ── Top Header ── */
+    .aliyun-header {
+      background: #001529;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+    }
+    .aliyun-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .aliyun-logo svg { flex-shrink: 0; }
+    .header-divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 16px;
+    }
+    .header-service-name {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+    }
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+    }
+    .header-right span { cursor: pointer; }
+    .header-right span:hover { color: #fff; }
+    .header-region {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 3px 10px;
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .header-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #FF6A00;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ── Left Sidebar ── */
+    .layout {
+      display: flex;
+      margin-top: 48px;
+      min-height: calc(100vh - 48px);
+    }
+    .sidebar {
+      width: 200px;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+      flex-shrink: 0;
+      padding: 16px 0;
+    }
+    .sidebar-group-label {
+      padding: 8px 16px 4px;
+      font-size: 11px;
+      color: #999;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .sidebar-item {
+      display: block;
+      padding: 8px 16px;
+      color: #333;
+      text-decoration: none;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .sidebar-item:hover { background: #fafafa; color: #FF6A00; }
+    .sidebar-item.active {
+      background: #fff3eb;
+      color: #FF6A00;
+      border-right: 3px solid #FF6A00;
+      font-weight: 500;
+    }
+    .sidebar-item.sub {
+      padding-left: 28px;
+      font-size: 13px;
+      color: #555;
+    }
+    .sidebar-item.sub.active {
+      background: #fff3eb;
+      color: #FF6A00;
+      font-weight: 500;
+    }
+
+    /* ── Main Content ── */
+    .main {
+      flex: 1;
+      padding: 20px 24px;
+      overflow: auto;
+    }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: #1677ff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: #ccc; }
+    .breadcrumb .current { color: #333; }
+
+    /* ── Page Title Row ── */
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    /* ── Status Badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-critical {
+      background: #fff1f0;
+      color: #cf1322;
+      border: 1px solid #ffa39e;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #e8e8e8;
+      margin-bottom: 16px;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title-icon {
+      width: 18px; height: 18px;
+      background: #FF6A00;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-title-icon svg { color: #fff; }
+    .card-body { padding: 16px 20px; }
+
+    /* ── KV Grid ── */
+    .kv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .kv-item {
+      padding: 10px 16px;
+      border-right: 1px solid #f0f0f0;
+    }
+    .kv-item:nth-child(3n) { border-right: none; }
+    .kv-label {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .kv-value {
+      font-size: 14px;
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    .kv-value.red { color: #cf1322; }
+    .kv-value.orange { color: #d46b08; }
+    .kv-value.mono { font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; }
+
+    /* ── Metric Graph Placeholder ── */
+    .metric-graph {
+      background: #fafafa;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 13px;
+      margin: 12px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-graph::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      background:
+        linear-gradient(
+          to right,
+          transparent 0%, transparent 60%,
+          rgba(255,106,0,0.08) 60%, rgba(255,106,0,0.08) 100%
+        );
+    }
+    .graph-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .graph-label {
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── Trigger Details Table ── */
+    .trigger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .trigger-table th {
+      background: #fafafa;
+      padding: 10px 14px;
+      text-align: left;
+      color: #666;
+      font-weight: 500;
+      border-bottom: 1px solid #e8e8e8;
+      white-space: nowrap;
+    }
+    .trigger-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f5f5f5;
+      color: #333;
+      vertical-align: top;
+    }
+    .trigger-table tr:last-child td { border-bottom: none; }
+    .trigger-table tr:hover td { background: #fafafa; }
+
+    /* ── Remediation Block ── */
+    .remediation-card {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #e8e8e8;
+      margin-bottom: 16px;
+    }
+    .remediation-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fffbe6;
+      border-radius: 6px 6px 0 0;
+    }
+    .remediation-header-icon {
+      width: 20px; height: 20px;
+      background: #faad14;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .remediation-header-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #874d00;
+    }
+    .remediation-header-sub {
+      font-size: 12px;
+      color: #ad6800;
+      margin-left: auto;
+    }
+    .remediation-body {
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      min-height: 60px;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      padding: 4px 0;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      padding: 8px 0;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 28px;
+      bottom: -8px;
+      width: 1px;
+      background: #e8e8e8;
+    }
+    .timeline-dot {
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      border: 2px solid #e8e8e8;
+      background: #fff;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .timeline-dot.red {
+      border-color: #ff4d4f;
+      background: #ff4d4f;
+    }
+    .timeline-dot.green {
+      border-color: #52c41a;
+      background: #52c41a;
+    }
+    .timeline-time {
+      font-size: 12px;
+      color: #999;
+      white-space: nowrap;
+      min-width: 140px;
+    }
+    .timeline-desc {
+      font-size: 13px;
+      color: #333;
+    }
+
+    /* ── Action Bar ── */
+    .action-bar {
+      display: flex;
+      gap: 10px;
+      padding: 16px 20px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .btn {
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-weight: 500;
+    }
+    .btn-primary {
+      background: #FF6A00;
+      color: #fff;
+      border-color: #FF6A00;
+    }
+    .btn-primary:hover { background: #e05e00; }
+    .btn-default {
+      background: #fff;
+      color: #333;
+      border-color: #d9d9d9;
+    }
+    .btn-default:hover { border-color: #FF6A00; color: #FF6A00; }
+    .btn-danger {
+      background: #fff;
+      color: #cf1322;
+      border-color: #ffa39e;
+    }
+    .btn-danger:hover { background: #fff1f0; }
+
+    /* ── Footer ── */
+    .console-footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      font-size: 12px;
+      border-top: 1px solid #e8e8e8;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="aliyun-header">
+  <div class="aliyun-logo">
+    <svg width="26" height="20" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13 0C9.686 0 6.743 1.613 4.875 4.105C4.387 4.028 3.887 3.988 3.375 3.988
+               1.511 3.988 0 5.499 0 7.363c0 1.864 1.511 3.375 3.375 3.375.512 0
+               1-.104 1.449-.288A9.016 9.016 0 0 0 4.5 12c0 4.418 3.806 8 8.5 8s8.5-3.582
+               8.5-8a8.97 8.97 0 0 0-.676-3.388A3.37 3.37 0 0 0 22.625 10.738c1.864 0
+               3.375-1.511 3.375-3.375s-1.511-3.375-3.375-3.375c-.512 0-1 .104-1.449.288A9.024
+               9.024 0 0 0 13 0zm0 3.6a5.4 5.4 0 1 1 0 10.8A5.4 5.4 0 0 1 13 3.6z"
+            fill="#FF6A00"/>
+    </svg>
+    阿里云
+  </div>
+  <div class="header-divider"></div>
+  <div class="header-service-name">云监控</div>
+  <div class="header-right">
+    <div class="header-region">华东1（杭州）▾</div>
+    <span>控制台首页</span>
+    <span>费用</span>
+    <span>工单</span>
+    <div class="header-avatar">YZ</div>
+  </div>
+</header>
+
+<!-- ── Layout ── -->
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar">
+    <div class="sidebar-group-label">概览</div>
+    <a class="sidebar-item">Dashboard</a>
+    <div class="sidebar-group-label">报警管理</div>
+    <a class="sidebar-item active sub">报警历史</a>
+    <a class="sidebar-item sub">报警规则</a>
+    <a class="sidebar-item sub">联系人 / 组</a>
+    <div class="sidebar-group-label">监控</div>
+    <a class="sidebar-item sub">主机监控</a>
+    <a class="sidebar-item sub">云服务监控</a>
+    <a class="sidebar-item sub">自定义监控</a>
+    <a class="sidebar-item sub">站点监控</a>
+    <div class="sidebar-group-label">事件</div>
+    <a class="sidebar-item sub">事件监控</a>
+    <a class="sidebar-item sub">系统事件</a>
+    <div class="sidebar-group-label">设置</div>
+    <a class="sidebar-item sub">全局配置</a>
+  </nav>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">控制台</a>
+      <span class="sep">›</span>
+      <a href="#">云监控</a>
+      <span class="sep">›</span>
+      <a href="#">报警历史</a>
+      <span class="sep">›</span>
+      <span class="current">告警详情</span>
+    </div>
+
+    <!-- Title row -->
+    <div class="page-title-row">
+      <div class="page-title">【严重】ECS实例CPU使用率过高</div>
+      <span class="badge badge-critical">
+        <span class="badge-dot"></span>
+        告警中
+      </span>
+    </div>
+
+    <!-- Basic Info Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">告警基本信息</div>
+        <span style="font-size:12px;color:#999;">告警ID：alarm-hz-20260403-00419832</span>
+      </div>
+      <div class="kv-grid" style="padding:0 4px;">
+        <div class="kv-item">
+          <div class="kv-label">报警规则名称</div>
+          <div class="kv-value">ECS-CPU-Critical-Alert</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">严重级别</div>
+          <div class="kv-value red">严重</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">告警状态</div>
+          <div class="kv-value red">告警中</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">首次告警时间</div>
+          <div class="kv-value">2026-04-03 14:35:22</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">最近告警时间</div>
+          <div class="kv-value">2026-04-03 15:05:22</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">持续时间</div>
+          <div class="kv-value orange">30 分钟</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">通知方式</div>
+          <div class="kv-value">短信 + 邮件</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">通知联系组</div>
+          <div class="kv-value">基础设施值班组</div>
+        </div>
+        <div class="kv-item">
+          <div class="kv-label">地域</div>
+          <div class="kv-value">cn-hangzhou</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Affected Resource Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">受影响资源</div>
+      </div>
+      <div class="card-body" style="padding-bottom:6px;">
+        <table class="trigger-table">
+          <thead>
+            <tr>
+              <th>资源类型</th>
+              <th>实例 ID</th>
+              <th>实例名称</th>
+              <th>规格</th>
+              <th>操作系统</th>
+              <th>IP 地址</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ECS 云服务器</td>
+              <td class="mono">i-bp1hz8f3j9k2lmn4pqrs</td>
+              <td>prod-api-server-03</td>
+              <td>ecs.c7.2xlarge (8C 16G)</td>
+              <td>CentOS 7.9 x64</td>
+              <td class="mono">172.16.4.53</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Trigger Metrics Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">触发指标详情</div>
+      </div>
+      <div class="card-body">
+        <table class="trigger-table" style="margin-bottom:14px;">
+          <thead>
+            <tr>
+              <th>监控指标</th>
+              <th>统计周期</th>
+              <th>触发条件</th>
+              <th>当前值</th>
+              <th>触发次数</th>
+              <th>连续触发阈值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CPU 使用率 (cpu_total)</td>
+              <td>1 分钟</td>
+              <td>&gt; 90%</td>
+              <td class="red" style="font-weight:600;">97.3%</td>
+              <td>30 次</td>
+              <td>3 次</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Fake sparkline chart -->
+        <div class="metric-graph">
+          <svg class="graph-svg" viewBox="0 0 760 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background grid -->
+            <line x1="0" y1="30" x2="760" y2="30" stroke="#e8e8e8" stroke-width="0.5"/>
+            <line x1="0" y1="60" x2="760" y2="60" stroke="#e8e8e8" stroke-width="0.5"/>
+            <line x1="0" y1="90" x2="760" y2="90" stroke="#e8e8e8" stroke-width="0.5"/>
+            <!-- Threshold line at 90% -->
+            <line x1="0" y1="12" x2="760" y2="12" stroke="#faad14" stroke-width="1" stroke-dasharray="5,3"/>
+            <!-- CPU usage line — spikes high after x=420 -->
+            <polyline
+              points="0,88 40,82 80,79 120,75 160,72 200,68 240,70 280,65 320,60
+                      360,55 400,50 420,20 460,12 500,10 540,11 580,10 620,11 660,10 700,10 760,10"
+              fill="none" stroke="#FF6A00" stroke-width="2"/>
+            <!-- Fill under line -->
+            <polygon
+              points="0,88 40,82 80,79 120,75 160,72 200,68 240,70 280,65 320,60
+                      360,55 400,50 420,20 460,12 500,10 540,11 580,10 620,11 660,10 700,10 760,10
+                      760,110 0,110"
+              fill="rgba(255,106,0,0.08)"/>
+            <!-- Alert start marker -->
+            <line x1="420" y1="0" x2="420" y2="120" stroke="#ff4d4f" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="424" y="16" font-size="9" fill="#ff4d4f">告警触发</text>
+            <!-- Y-axis labels -->
+            <text x="4" y="11" font-size="9" fill="#aaa">100%</text>
+            <text x="4" y="32" font-size="9" fill="#aaa">75%</text>
+            <text x="4" y="62" font-size="9" fill="#aaa">50%</text>
+            <text x="4" y="92" font-size="9" fill="#aaa">25%</text>
+            <!-- Threshold label -->
+            <text x="660" y="10" font-size="9" fill="#d46b08">阈值 90%</text>
+          </svg>
+          <div class="graph-label" style="position:absolute;bottom:6px;right:12px;font-size:11px;color:#aaa;">
+            最近 60 分钟 · 1 分钟粒度
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Remediation / 建议处理方案 ── INJECTION POINT ── -->
+    <div class="remediation-card">
+      <div class="remediation-header">
+        <div class="remediation-header-icon">!</div>
+        <div class="remediation-header-title">建议处理方案</div>
+        <div class="remediation-header-sub">由报警规则创建者配置 · 最后更新 2026-04-03 08:00</div>
+      </div>
+      <div class="remediation-body">{fill}</div>
+      <div class="action-bar">
+        <button class="btn btn-primary">确认告警</button>
+        <button class="btn btn-default">屏蔽 30 分钟</button>
+        <button class="btn btn-default">查看监控大盘</button>
+        <button class="btn btn-danger" style="margin-left:auto;">删除此报警规则</button>
+      </div>
+    </div>
+
+    <!-- Alert History Timeline -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">告警历史</div>
+      </div>
+      <div class="card-body">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot red"></div>
+            <div class="timeline-time">2026-04-03 15:05:22</div>
+            <div class="timeline-desc">告警持续触发 — CPU 使用率 97.3%（已持续 30 min）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot red"></div>
+            <div class="timeline-time">2026-04-03 14:55:22</div>
+            <div class="timeline-desc">告警升级通知已发送：短信至 +86-138****8821，邮件至 ops-team@example.com</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot red"></div>
+            <div class="timeline-time">2026-04-03 14:45:22</div>
+            <div class="timeline-desc">第 2 次告警通知发送</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot red"></div>
+            <div class="timeline-time">2026-04-03 14:35:22</div>
+            <div class="timeline-desc">首次告警触发 — cpu_total = 97.3% &gt; 90%（连续 3 次采集均超阈值）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-time">2026-04-03 09:12:05</div>
+            <div class="timeline-desc">告警恢复（上次告警：CPU 使用率回落至 62%）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="console-footer">
+      阿里云 云监控 CloudMonitor &nbsp;·&nbsp; 华东1（杭州）&nbsp;·&nbsp; 帮助文档 &nbsp;|&nbsp; 意见反馈 &nbsp;|&nbsp; 隐私政策
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

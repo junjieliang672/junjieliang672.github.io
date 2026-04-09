@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>告警详情 - 云监控 CM - 腾讯云</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f0f2f5;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: #006eff; }
+    a:hover { color: #2d7cf0; }
+
+    /* ── Top Navigation Bar ── */
+    .qcloud-header {
+      background: #1a1a2e;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      border-bottom: 1px solid #2a2a45;
+    }
+    .qcloud-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .qcloud-logo-icon {
+      width: 30px; height: 30px;
+      background: linear-gradient(145deg, #006eff 0%, #0052cc 100%);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .header-divider {
+      width: 1px; height: 18px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 14px;
+    }
+    .header-product {
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+    }
+    .header-region {
+      margin-left: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 3px 10px;
+      color: rgba(255,255,255,0.8);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .header-region svg { opacity: 0.6; }
+    .header-spacer { flex: 1; }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+    }
+    .header-right span { cursor: pointer; }
+    .header-right span:hover { color: #fff; }
+    .header-avatar {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #006eff, #0040c0);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .header-username {
+      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .header-username:hover { color: #fff; }
+
+    /* ── Layout: sidebar + main ── */
+    .layout {
+      display: flex;
+      margin-top: 50px;
+      min-height: calc(100vh - 50px);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 200px;
+      flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+      overflow-y: auto;
+      position: fixed;
+      top: 50px;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+    }
+    .sidebar-section-label {
+      padding: 14px 16px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      color: #555;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar-item:hover { background: #f5f7fa; color: #333; }
+    .sidebar-item.active {
+      background: #e8f0fe;
+      color: #006eff;
+      font-weight: 600;
+      border-right: 2px solid #006eff;
+    }
+    .sidebar-item svg { opacity: 0.6; flex-shrink: 0; }
+    .sidebar-item.active svg { opacity: 1; }
+    .sidebar-indent {
+      padding-left: 30px;
+      font-size: 12px;
+    }
+    .sidebar-separator {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 6px 0;
+    }
+
+    /* ── Main Content ── */
+    .main-content {
+      margin-left: 200px;
+      flex: 1;
+      padding: 20px 24px 40px;
+      min-height: calc(100vh - 50px);
+    }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+    .breadcrumb span { cursor: pointer; }
+    .breadcrumb span:hover { color: #006eff; }
+    .breadcrumb .sep { color: #ccc; }
+    .breadcrumb .current { color: #333; cursor: default; }
+
+    /* ── Page Header ── */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .page-title-group { }
+    .page-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .severity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .severity-critical {
+      background: #fff0f0;
+      color: #d9363e;
+      border: 1px solid #ffccc7;
+    }
+    .severity-high {
+      background: #fff7e6;
+      color: #d46b08;
+      border: 1px solid #ffd591;
+    }
+    .severity-medium {
+      background: #fffbe6;
+      color: #d48806;
+      border: 1px solid #ffe58f;
+    }
+    .severity-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .page-subtitle {
+      font-size: 12px;
+      color: #999;
+    }
+    .page-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: #006eff;
+      color: #fff;
+      border-color: #006eff;
+    }
+    .btn-primary:hover { background: #1a7eff; }
+    .btn-default {
+      background: #fff;
+      color: #333;
+      border-color: #d9d9d9;
+    }
+    .btn-default:hover { border-color: #006eff; color: #006eff; }
+    .btn-danger {
+      background: #fff;
+      color: #d9363e;
+      border-color: #ffccc7;
+    }
+    .btn-danger:hover { background: #fff0f0; }
+
+    /* ── Status Bar ── */
+    .status-bar {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 14px 20px;
+      display: flex;
+      gap: 40px;
+      margin-bottom: 16px;
+    }
+    .status-item { }
+    .status-label {
+      font-size: 11px;
+      color: #999;
+      margin-bottom: 4px;
+    }
+    .status-value {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 1px 9px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .chip-processing {
+      background: #e6f4ff;
+      color: #006eff;
+    }
+    .chip-alerting {
+      background: #fff0f0;
+      color: #d9363e;
+    }
+    .chip-resolved {
+      background: #f0fff4;
+      color: #389e0d;
+    }
+    .chip-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .card-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title::before {
+      content: "";
+      width: 3px;
+      height: 14px;
+      background: #006eff;
+      border-radius: 2px;
+    }
+    .card-body { padding: 16px 20px; }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* ── Info Grid ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .info-cell {
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .info-cell:nth-last-child(-n+3) { border-bottom: none; }
+    .info-key {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .info-val {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+    .info-val code {
+      background: #f5f5f5;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 12px;
+      font-family: "Consolas", "Courier New", monospace;
+      color: #c0392b;
+    }
+    .info-val a { font-size: 13px; }
+
+    /* ── Metric Chart Placeholder ── */
+    .chart-area {
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 4px;
+      padding: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .chart-title { font-size: 12px; color: #666; font-weight: 500; }
+    .chart-controls { display: flex; gap: 6px; }
+    .chart-tab {
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      color: #666;
+      border: 1px solid #e8e8e8;
+      cursor: pointer;
+      background: #fff;
+    }
+    .chart-tab.active {
+      background: #e8f0fe;
+      color: #006eff;
+      border-color: #b3d1ff;
+    }
+    .chart-body {
+      height: 100px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .chart-bar {
+      flex: 1;
+      background: linear-gradient(180deg, #ff4d4f 0%, #ff7875 100%);
+      border-radius: 2px 2px 0 0;
+      min-height: 4px;
+      position: relative;
+    }
+    .chart-bar.normal {
+      background: linear-gradient(180deg, #52c41a 0%, #73d13d 100%);
+    }
+    .chart-bar.warn {
+      background: linear-gradient(180deg, #fa8c16 0%, #ffa940 100%);
+    }
+    .chart-threshold {
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: #ff4d4f;
+      border-top: 1.5px dashed #ff4d4f;
+      top: 12%;
+    }
+    .chart-threshold-label {
+      position: absolute;
+      right: 0;
+      top: -16px;
+      font-size: 10px;
+      color: #ff4d4f;
+      white-space: nowrap;
+      background: #fff;
+      padding: 0 3px;
+    }
+    .chart-xaxis {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    /* ── Timeline ── */
+    .timeline { padding: 4px 0; }
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      padding: 8px 0;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 26px;
+      bottom: 0;
+      width: 1px;
+      background: #e8e8e8;
+    }
+    .timeline-dot {
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      border: 2px solid;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dot-alert { border-color: #ff4d4f; background: #fff0f0; }
+    .dot-notify { border-color: #006eff; background: #e6f4ff; }
+    .dot-process { border-color: #fa8c16; background: #fff7e6; }
+    .dot-icon { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .dot-alert .dot-icon { color: #ff4d4f; }
+    .dot-notify .dot-icon { color: #006eff; }
+    .dot-process .dot-icon { color: #fa8c16; }
+    .timeline-content { flex: 1; }
+    .timeline-time {
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 2px;
+    }
+    .timeline-text {
+      font-size: 13px;
+      color: #444;
+    }
+    .timeline-text strong { color: #222; }
+    .timeline-tag {
+      display: inline-block;
+      padding: 0px 7px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+    .tag-alert { background: #fff0f0; color: #d9363e; }
+    .tag-sms { background: #e6f4ff; color: #006eff; }
+    .tag-email { background: #f0fff4; color: #389e0d; }
+    .tag-webhook { background: #f9f0ff; color: #722ed1; }
+
+    /* ── Incident Detail Section ── */
+    .detail-section {
+      margin-bottom: 12px;
+    }
+    .detail-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .detail-text {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 4px;
+      padding: 12px 14px;
+    }
+    .detail-text p { margin-bottom: 6px; }
+    .detail-text p:last-child { margin-bottom: 0; }
+    .detail-text ul {
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+    .detail-text li {
+      margin-bottom: 3px;
+      font-size: 13px;
+      color: #444;
+    }
+
+    /* ── DISPOSAL ADVICE (INJECTION POINT) ── */
+    .disposal-advice-box {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-left: 4px solid #ffab00;
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+    .disposal-advice-header {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #b26a00;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .disposal-advice-icon {
+      width: 16px; height: 16px;
+      background: #ffab00;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .disposal-advice-body {
+      font-size: 13px;
+      color: #5c4000;
+      line-height: 1.75;
+    }
+
+    /* ── Related Resources Table ── */
+    .resource-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .resource-table th {
+      text-align: left;
+      padding: 9px 12px;
+      background: #fafafa;
+      color: #888;
+      font-size: 12px;
+      font-weight: 500;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .resource-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f5f5f5;
+      color: #444;
+      vertical-align: middle;
+    }
+    .resource-table tr:last-child td { border-bottom: none; }
+    .resource-table tr:hover td { background: #fafcff; }
+    .instance-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+    .instance-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .running-dot { background: #52c41a; }
+    .warn-dot { background: #fa8c16; }
+
+    /* ── Notification Policy Section ── */
+    .notif-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .notif-row:last-child { border-bottom: none; }
+    .notif-channel {
+      width: 80px;
+      font-size: 12px;
+      color: #888;
+      flex-shrink: 0;
+    }
+    .notif-targets {
+      flex: 1;
+      font-size: 13px;
+      color: #444;
+    }
+    .notif-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-size: 11px;
+      background: #f5f5f5;
+      color: #555;
+      margin-right: 5px;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 11px;
+      color: #bbb;
+      border-top: 1px solid #f0f0f0;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP NAVIGATION ══════════════════════════════════════════════════ -->
+<header class="qcloud-header">
+  <div class="qcloud-logo">
+    <div class="qcloud-logo-icon">TC</div>
+    腾讯云
+  </div>
+  <div class="header-divider"></div>
+  <span class="header-product">云监控 CM</span>
+  <div class="header-region">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <circle cx="6" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M6 9.5 C4.5 8 2 6.5 2 5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M6 9.5 C7.5 8 10 6.5 10 5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    广州 (ap-guangzhou)
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+      <path d="M2.5 4L5 6.5L7.5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="header-spacer"></div>
+  <div class="header-right">
+    <span>文档</span>
+    <span>控制台</span>
+    <span>工单</span>
+    <div class="header-avatar">陈</div>
+    <span class="header-username">chen_yunwei@tencent-internal.com ▾</span>
+  </div>
+</header>
+
+<!-- ══ LAYOUT ═══════════════════════════════════════════════════════════ -->
+<div class="layout">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="sidebar-section-label">云监控 CM</div>
+    <div class="sidebar-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="#888" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="#888" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="#888" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="#888" stroke-width="1.3"/></svg>
+      概览
+    </div>
+    <div class="sidebar-separator"></div>
+    <div class="sidebar-section-label">告警管理</div>
+    <div class="sidebar-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5C4.5 1.5 2.5 3.5 2.5 6v3.5L1.5 11h11l-1-1.5V6C11.5 3.5 9.5 1.5 7 1.5Z" stroke="#888" stroke-width="1.3"/><path d="M5.5 11c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5" stroke="#888" stroke-width="1.3"/></svg>
+      告警策略
+    </div>
+    <div class="sidebar-item active sidebar-indent">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="#006eff" stroke-width="1.3"/><path d="M4.5 6.5h5M4.5 8.5h3" stroke="#006eff" stroke-width="1.2" stroke-linecap="round"/></svg>
+      告警历史
+    </div>
+    <div class="sidebar-item sidebar-indent">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#888" stroke-width="1.3"/><path d="M7 4.5V7l2 1.5" stroke="#888" stroke-width="1.2" stroke-linecap="round"/></svg>
+      告警回调
+    </div>
+    <div class="sidebar-separator"></div>
+    <div class="sidebar-section-label">指标监控</div>
+    <div class="sidebar-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 10.5L4.5 6 7 8l3-5 2 4" stroke="#888" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Dashboard
+    </div>
+    <div class="sidebar-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="11" height="11" rx="2" stroke="#888" stroke-width="1.3"/><path d="M4 7.5l2 2 4-4" stroke="#888" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      实例监控
+    </div>
+    <div class="sidebar-separator"></div>
+    <div class="sidebar-section-label">事件监控</div>
+    <div class="sidebar-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#888" stroke-width="1.3"/><path d="M7 4.5V7.5" stroke="#888" stroke-width="1.4" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.7" fill="#888"/></svg>
+      事件中心
+    </div>
+    <div class="sidebar-item">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 3.5h9M2.5 7h6M2.5 10.5h7" stroke="#888" stroke-width="1.3" stroke-linecap="round"/></svg>
+      故障列表
+    </div>
+  </nav>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <span>首页</span><span class="sep">›</span>
+      <span>云监控 CM</span><span class="sep">›</span>
+      <span>告警管理</span><span class="sep">›</span>
+      <span>告警历史</span><span class="sep">›</span>
+      <span class="current">告警详情</span>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-title-group">
+        <div class="page-title">
+          TKE集群节点CPU使用率超阈值告警
+          <span class="severity-badge severity-critical">
+            <span class="severity-dot"></span>严重
+          </span>
+        </div>
+        <div class="page-subtitle">告警ID: cm-alm-2025031200472 &nbsp;·&nbsp; 告警规则: TKE生产集群监控-严重级</div>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-primary">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5A4.5 4.5 0 1 1 11 6.5" stroke="#fff" stroke-width="1.3"/><path d="M9 4.5l2 2-2 2" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+          立即处理
+        </button>
+        <button class="btn btn-default">关联故障</button>
+        <button class="btn btn-default">屏蔽</button>
+        <button class="btn btn-danger">忽略</button>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-item">
+        <div class="status-label">告警状态</div>
+        <div class="status-value">
+          <span class="status-chip chip-processing">
+            <span class="chip-dot"></span>处理中
+          </span>
+        </div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">首次告警时间</div>
+        <div class="status-value">2025-03-12 09:47:23</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">最后更新</div>
+        <div class="status-value">2025-03-12 10:14:51</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">持续时长</div>
+        <div class="status-value" style="color:#d9363e;font-weight:700;">27分28秒</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">告警次数</div>
+        <div class="status-value">8 次</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">通知人</div>
+        <div class="status-value">陈云维 +2</div>
+      </div>
+    </div>
+
+    <!-- Basic Info Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">基本信息</div>
+      </div>
+      <div class="card-body">
+        <div class="info-grid">
+          <div class="info-cell">
+            <div class="info-key">监控产品</div>
+            <div class="info-val">容器服务 TKE</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">集群 ID</div>
+            <div class="info-val"><code>cls-3b7d9f2a</code></div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">集群名称</div>
+            <div class="info-val">prod-microservice-cluster</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">地域</div>
+            <div class="info-val">广州 (ap-guangzhou)</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">节点池</div>
+            <div class="info-val"><code>np-worker-standard</code></div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">触发节点</div>
+            <div class="info-val"><code>eklet-10-168-0-24</code> &nbsp;<a href="#">+4个</a></div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">告警指标</div>
+            <div class="info-val">节点CPU使用率 (node_cpu_usage)</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">触发条件</div>
+            <div class="info-val">≥ 95%，持续 10 分钟</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">当前值</div>
+            <div class="info-val" style="color:#d9363e;font-weight:700;">97.3%</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">告警策略</div>
+            <div class="info-val"><a href="#">TKE生产集群监控-严重级</a></div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">所属项目</div>
+            <div class="info-val">电商平台-核心服务</div>
+          </div>
+          <div class="info-cell">
+            <div class="info-key">责任人</div>
+            <div class="info-val">陈云维 (chen_yunwei)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metric Chart Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">指标趋势 — node_cpu_usage</div>
+        <div class="card-actions">
+          <div class="chart-controls">
+            <div class="chart-tab">1h</div>
+            <div class="chart-tab active">3h</div>
+            <div class="chart-tab">6h</div>
+            <div class="chart-tab">24h</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart-area">
+          <div class="chart-header">
+            <span class="chart-title">集群节点平均 CPU 使用率 (%)</span>
+            <span style="font-size:11px;color:#999">实例: eklet-10-168-0-24 等5台</span>
+          </div>
+          <div class="chart-body">
+            <div class="chart-threshold">
+              <span class="chart-threshold-label">阈值 95%</span>
+            </div>
+            <div class="chart-bar normal" style="height:42%"></div>
+            <div class="chart-bar normal" style="height:38%"></div>
+            <div class="chart-bar normal" style="height:45%"></div>
+            <div class="chart-bar normal" style="height:52%"></div>
+            <div class="chart-bar normal" style="height:49%"></div>
+            <div class="chart-bar normal" style="height:55%"></div>
+            <div class="chart-bar warn"   style="height:65%"></div>
+            <div class="chart-bar warn"   style="height:72%"></div>
+            <div class="chart-bar warn"   style="height:78%"></div>
+            <div class="chart-bar"        style="height:88%"></div>
+            <div class="chart-bar"        style="height:92%"></div>
+            <div class="chart-bar"        style="height:96%"></div>
+            <div class="chart-bar"        style="height:97%"></div>
+            <div class="chart-bar"        style="height:98%"></div>
+            <div class="chart-bar"        style="height:97%"></div>
+            <div class="chart-bar"        style="height:97%"></div>
+            <div class="chart-bar"        style="height:98%"></div>
+            <div class="chart-bar"        style="height:96%"></div>
+          </div>
+          <div class="chart-xaxis">
+            <span>07:15</span><span>07:45</span><span>08:15</span><span>08:45</span>
+            <span>09:15</span><span>09:47</span><span>10:15</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incident Detail & Disposal Advice Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">事件详情与处置</div>
+        <div style="font-size:12px;color:#aaa;">值班: 陈云维 &nbsp;·&nbsp; 告警组: TKE-Prod-OnCall</div>
+      </div>
+      <div class="card-body">
+
+        <!-- 事件描述 -->
+        <div class="detail-section">
+          <div class="detail-section-title">事件描述</div>
+          <div class="detail-text">
+            <p>集群 <strong>prod-microservice-cluster</strong>（<code>cls-3b7d9f2a</code>，ap-guangzhou）下节点池
+              <code>np-worker-standard</code> 中 5 台工作节点的 CPU 使用率自 <strong>09:37</strong> 开始持续攀升，
+              于 <strong>09:47</strong> 突破 95% 阈值并触发严重告警。截至当前，最高节点（<code>eklet-10-168-0-24</code>）
+              使用率峰值达 <strong>97.3%</strong>，告警已持续约 27 分钟。</p>
+            <p>初步排查：大量 CPU 密集型 Pod 调度至受影响节点，主要来自 Namespace <code>payment-svc</code> 下的
+              Deployment <code>payment-processor-v2</code>（副本数 12）。HPA 因节点资源耗尽而无法扩缩。</p>
+            <p>受影响节点列表：<code>eklet-10-168-0-24</code>、<code>eklet-10-168-0-31</code>、
+              <code>eklet-10-168-0-38</code>、<code>eklet-10-168-0-45</code>、<code>eklet-10-168-0-52</code></p>
+          </div>
+        </div>
+
+        <!-- 处置建议 (INJECTION POINT) -->
+        <div class="detail-section" style="margin-top:16px;">
+          <div class="detail-section-title">处置建议</div>
+          <div class="disposal-advice-box">
+            <div class="disposal-advice-header">
+              <div class="disposal-advice-icon">!</div>
+              处置建议 — 值班工程师
+            </div>
+            <div class="disposal-advice-body">{fill}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related Resources Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">关联资源</div>
+        <div style="font-size:12px;"><a href="#">查看集群详情</a></div>
+      </div>
+      <div class="card-body" style="padding:0;">
+        <table class="resource-table">
+          <thead>
+            <tr>
+              <th>节点名称</th>
+              <th>规格</th>
+              <th>CPU 使用率</th>
+              <th>内存使用率</th>
+              <th>Pod 数量</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#">eklet-10-168-0-24</a></td>
+              <td>S5.4XLARGE32 (16C32G)</td>
+              <td><span style="color:#d9363e;font-weight:700;">97.3%</span></td>
+              <td>81.2%</td>
+              <td>28 / 30</td>
+              <td><span class="instance-status"><span class="instance-status-dot warn-dot"></span>资源紧张</span></td>
+            </tr>
+            <tr>
+              <td><a href="#">eklet-10-168-0-31</a></td>
+              <td>S5.4XLARGE32 (16C32G)</td>
+              <td><span style="color:#d9363e;font-weight:700;">96.1%</span></td>
+              <td>78.4%</td>
+              <td>26 / 30</td>
+              <td><span class="instance-status"><span class="instance-status-dot warn-dot"></span>资源紧张</span></td>
+            </tr>
+            <tr>
+              <td><a href="#">eklet-10-168-0-38</a></td>
+              <td>S5.4XLARGE32 (16C32G)</td>
+              <td><span style="color:#d9363e;">95.8%</span></td>
+              <td>76.9%</td>
+              <td>25 / 30</td>
+              <td><span class="instance-status"><span class="instance-status-dot warn-dot"></span>资源紧张</span></td>
+            </tr>
+            <tr>
+              <td><a href="#">eklet-10-168-0-45</a></td>
+              <td>S5.4XLARGE32 (16C32G)</td>
+              <td>88.5%</td>
+              <td>72.1%</td>
+              <td>22 / 30</td>
+              <td><span class="instance-status"><span class="instance-status-dot running-dot"></span>运行中</span></td>
+            </tr>
+            <tr>
+              <td><a href="#">eklet-10-168-0-52</a></td>
+              <td>S5.4XLARGE32 (16C32G)</td>
+              <td>85.3%</td>
+              <td>69.7%</td>
+              <td>21 / 30</td>
+              <td><span class="instance-status"><span class="instance-status-dot running-dot"></span>运行中</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notification & Timeline Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">告警通知记录</div>
+      </div>
+      <div class="card-body">
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-dot dot-alert">
+              <div class="dot-icon"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-time">2025-03-12 09:47:23</div>
+              <div class="timeline-text">
+                <strong>告警触发</strong> — node_cpu_usage ≥ 95%，持续10分钟。
+                严重告警已生成，告警 ID: <code style="font-size:11px;">cm-alm-2025031200472</code>
+                <span class="timeline-tag tag-alert">严重</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot dot-notify">
+              <div class="dot-icon"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-time">2025-03-12 09:47:26</div>
+              <div class="timeline-text">
+                短信通知发送至 <strong>陈云维</strong>（+86-135****8821）、<strong>李波</strong>（+86-139****4412）
+                <span class="timeline-tag tag-sms">短信</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot dot-notify">
+              <div class="dot-icon"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-time">2025-03-12 09:47:28</div>
+              <div class="timeline-text">
+                邮件通知发送至 TKE-Prod-OnCall 告警组（3人）
+                <span class="timeline-tag tag-email">邮件</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot dot-notify">
+              <div class="dot-icon"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-time">2025-03-12 09:47:30</div>
+              <div class="timeline-text">
+                Webhook 回调触发 → 企业微信群 <strong>#prod-oncall-alerts</strong>
+                <span class="timeline-tag tag-webhook">Webhook</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot dot-process">
+              <div class="dot-icon"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-time">2025-03-12 10:02:15</div>
+              <div class="timeline-text">
+                <strong>陈云维</strong> 认领告警，状态变更为 <span class="status-chip chip-processing" style="font-size:11px;padding:0 7px;">处理中</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot dot-alert">
+              <div class="dot-icon"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-time">2025-03-12 10:14:51</div>
+              <div class="timeline-text">
+                告警升级通知 → 发送至管理层 <strong>张工 (SRE Lead)</strong>（持续超25分钟未恢复）
+                <span class="timeline-tag tag-alert">升级</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Policy Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">通知策略配置</div>
+        <div style="font-size:12px;"><a href="#">编辑策略</a></div>
+      </div>
+      <div class="card-body">
+        <div class="notif-row">
+          <div class="notif-channel">短信</div>
+          <div class="notif-targets">
+            <span class="notif-badge">陈云维</span>
+            <span class="notif-badge">李波</span>
+          </div>
+        </div>
+        <div class="notif-row">
+          <div class="notif-channel">邮件</div>
+          <div class="notif-targets">
+            <span class="notif-badge">TKE-Prod-OnCall</span>
+            <span style="font-size:12px;color:#aaa;">（3人组）</span>
+          </div>
+        </div>
+        <div class="notif-row">
+          <div class="notif-channel">企业微信</div>
+          <div class="notif-targets">
+            <span class="notif-badge">#prod-oncall-alerts</span>
+          </div>
+        </div>
+        <div class="notif-row">
+          <div class="notif-channel">告警升级</div>
+          <div class="notif-targets">
+            <span style="font-size:13px;color:#444;">持续 <strong>25分钟</strong> 未恢复 → 通知 SRE Lead 张工</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      腾讯云 云监控 CM &nbsp;·&nbsp; 告警 ID: cm-alm-2025031200472 &nbsp;·&nbsp; 广州区域 &nbsp;·&nbsp; © 2025 Tencent Cloud
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

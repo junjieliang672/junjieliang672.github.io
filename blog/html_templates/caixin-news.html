@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=900">
+  <title>中国平安三季报：净利润同比下降18.6%，寿险改革成效显现 | 财新网</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      font-size: 15px;
+      line-height: 1.6;
+      min-width: 900px;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    a:hover { color: #c0341d; }
+
+    /* ── Top promo bar ── */
+    .top-promo {
+      background: #1a1a1a;
+      color: #ccc;
+      font-size: 12px;
+      text-align: center;
+      padding: 6px 0;
+      letter-spacing: 0.3px;
+    }
+    .top-promo a { color: #e8a020; }
+
+    /* ── Header ── */
+    .site-header {
+      background: #fff;
+      border-bottom: 2px solid #c0341d;
+      padding: 0 20px;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-mark {
+      background: #c0341d;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      padding: 4px 10px;
+      letter-spacing: -1px;
+      border-radius: 2px;
+    }
+    .logo-sub {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.3;
+      padding-left: 4px;
+      border-left: 1px solid #ddd;
+    }
+    .logo-sub strong { display: block; font-size: 13px; color: #444; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: #555;
+    }
+    .header-actions .search-box {
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-size: 13px;
+      width: 200px;
+      outline: none;
+    }
+    .header-actions .search-box:focus { border-color: #c0341d; }
+    .btn-subscribe {
+      background: #c0341d;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .btn-subscribe:hover { background: #a02815; color: #fff; }
+
+    /* ── Navigation ── */
+    .site-nav {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .nav-item {
+      padding: 10px 16px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s;
+    }
+    .nav-item:hover, .nav-item.active { color: #c0341d; border-bottom-color: #c0341d; }
+    .nav-item.active { font-weight: 600; }
+
+    /* ── Breaking ticker ── */
+    .ticker-bar {
+      background: #fff8f0;
+      border-bottom: 1px solid #f0d9c8;
+      padding: 7px 0;
+    }
+    .ticker-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .ticker-label {
+      background: #c0341d;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ticker-links { display: flex; gap: 18px; overflow: hidden; }
+    .ticker-links a { color: #444; white-space: nowrap; }
+    .ticker-links a:hover { color: #c0341d; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      max-width: 960px;
+      margin: 12px auto 0;
+      font-size: 12px;
+      color: #888;
+      padding: 0 0;
+    }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #c0341d; }
+    .breadcrumb span { margin: 0 6px; }
+
+    /* ── Main layout ── */
+    .content-wrap {
+      max-width: 960px;
+      margin: 16px auto 32px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* ── Article main ── */
+    .article-main { flex: 1; min-width: 0; }
+
+    .article-card {
+      background: #fff;
+      border: 1px solid #e4e4e4;
+      border-radius: 2px;
+      padding: 28px 36px 32px;
+    }
+
+    /* Category / tag */
+    .article-category {
+      display: inline-block;
+      background: #fff0ec;
+      color: #c0341d;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Headline */
+    .article-title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    /* Sub-headline */
+    .article-subtitle {
+      font-size: 15px;
+      color: #555;
+      border-left: 3px solid #c0341d;
+      padding-left: 10px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    /* Byline */
+    .article-byline {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: #888;
+      padding: 12px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 20px;
+    }
+    .byline-author { color: #c0341d; font-weight: 600; }
+    .byline-dot { color: #ccc; }
+
+    /* Tags */
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .tag {
+      font-size: 12px;
+      border: 1px solid #ddd;
+      padding: 2px 8px;
+      border-radius: 2px;
+      color: #666;
+    }
+    .tag:hover { border-color: #c0341d; color: #c0341d; }
+
+    /* Article body */
+    .article-body {
+      font-size: 16px;
+      line-height: 1.9;
+      color: #222;
+    }
+    .article-body p {
+      margin-bottom: 16px;
+    }
+    .article-body p.lead {
+      font-size: 17px;
+      font-weight: 500;
+      color: #111;
+      border-left: 3px solid #e0e0e0;
+      padding-left: 12px;
+    }
+    .article-body strong { color: #111; }
+    .article-body .data-highlight {
+      background: #fff8f0;
+      border-left: 3px solid #e8a020;
+      padding: 10px 14px;
+      margin: 20px 0;
+      font-size: 15px;
+      color: #444;
+      border-radius: 0 2px 2px 0;
+    }
+    .article-body .data-highlight strong { color: #c0341d; }
+
+    /* Figure */
+    .article-figure {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .article-figure .fig-placeholder {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 14px;
+    }
+    .article-figure figcaption {
+      font-size: 12px;
+      color: #999;
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* Reporter note box */
+    .reporter-note {
+      background: #f9f9f9;
+      border: 1px solid #e8e8e8;
+      border-radius: 3px;
+      padding: 14px 18px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #666;
+    }
+    .reporter-note::before {
+      content: "记者手记 ";
+      font-weight: 700;
+      color: #c0341d;
+    }
+
+    /* Paywall notice */
+    .paywall-notice {
+      margin-top: 24px;
+      padding: 18px 20px;
+      background: #fff8f0;
+      border: 1px solid #f0d9c8;
+      border-radius: 3px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+    .paywall-notice a { color: #c0341d; font-weight: 600; }
+
+    /* Article footer */
+    .article-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #888;
+    }
+    .share-btns { display: flex; gap: 10px; }
+    .share-btn {
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 4px 12px;
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      background: #fff;
+    }
+    .share-btn:hover { border-color: #c0341d; color: #c0341d; }
+    .article-views { color: #aaa; font-size: 12px; }
+
+    /* ── Sidebar ── */
+    .article-sidebar {
+      width: 260px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-card {
+      background: #fff;
+      border: 1px solid #e4e4e4;
+      border-radius: 2px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .sidebar-title {
+      background: #f7f7f7;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #333;
+      letter-spacing: 0.3px;
+    }
+    .sidebar-title::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      background: #c0341d;
+      margin-right: 6px;
+      vertical-align: middle;
+      border-radius: 1px;
+    }
+
+    /* Author box */
+    .author-box { padding: 14px; }
+    .author-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #aaa;
+      flex-shrink: 0;
+    }
+    .author-info .author-name { font-size: 14px; font-weight: 700; color: #222; }
+    .author-info .author-title { font-size: 12px; color: #888; margin-top: 2px; }
+    .author-bio { font-size: 12px; color: #777; line-height: 1.6; }
+    .author-stats {
+      margin-top: 10px;
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #888;
+    }
+    .author-stats span strong { color: #333; }
+
+    /* Related list */
+    .related-list { padding: 0; }
+    .related-item {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 10px 14px;
+    }
+    .related-item:last-child { border-bottom: none; }
+    .related-item a {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+      display: block;
+    }
+    .related-item a:hover { color: #c0341d; }
+    .related-item .rel-meta { font-size: 11px; color: #aaa; margin-top: 3px; }
+
+    /* Hot ranking */
+    .hot-list { padding: 0; }
+    .hot-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .hot-item:last-child { border-bottom: none; }
+    .hot-rank {
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      background: #e8e8e8;
+      color: #666;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hot-rank.top { background: #c0341d; color: #fff; }
+    .hot-item a { font-size: 13px; color: #333; line-height: 1.4; }
+    .hot-item a:hover { color: #c0341d; }
+
+    /* Subscription banner sidebar */
+    .sub-banner {
+      background: linear-gradient(135deg, #c0341d 0%, #e05535 100%);
+      color: #fff;
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .sub-banner h4 { font-size: 15px; margin-bottom: 6px; }
+    .sub-banner p { font-size: 12px; opacity: 0.9; margin-bottom: 12px; }
+    .sub-banner .btn-sub {
+      display: inline-block;
+      background: #fff;
+      color: #c0341d;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: #1a1a1a;
+      color: #888;
+      font-size: 12px;
+      padding: 24px 0 16px;
+      margin-top: 24px;
+    }
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-nav a { color: #888; }
+    .footer-nav a:hover { color: #e8a020; }
+    .footer-copy { color: #555; }
+    .footer-icp { margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top promo bar -->
+  <div class="top-promo">
+    财新会员享全站无限阅读 &nbsp;|&nbsp; <a href="#">限时优惠 ¥298/年，立即订阅 →</a>
+  </div>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">财新</div>
+        <div class="logo-sub">
+          <strong>CAIXIN MEDIA</strong>
+          独立、客观、公正
+        </div>
+      </div>
+      <div class="header-actions">
+        <input class="search-box" type="text" placeholder="搜索财新文章、数据、人物…">
+        <a href="#" class="btn-subscribe">订阅</a>
+        <a href="#" style="color:#555;font-size:13px;">登录</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <div class="nav-item active">财经</div>
+      <div class="nav-item">政经</div>
+      <div class="nav-item">商业</div>
+      <div class="nav-item">科技</div>
+      <div class="nav-item">环球</div>
+      <div class="nav-item">文化</div>
+      <div class="nav-item">健康</div>
+      <div class="nav-item">视频</div>
+      <div class="nav-item">数据</div>
+      <div class="nav-item">专题</div>
+    </div>
+  </nav>
+
+  <!-- Breaking news ticker -->
+  <div class="ticker-bar">
+    <div class="ticker-inner">
+      <span class="ticker-label">即时</span>
+      <div class="ticker-links">
+        <a href="#">央行宣布降准0.25个百分点，释放资金约5000亿元</a>
+        <a href="#">证监会：进一步优化融资融券制度</a>
+        <a href="#">A股三大指数午后拉升，沪指涨逾1.2%</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">首页</a><span>›</span>
+    <a href="#">财经</a><span>›</span>
+    <a href="#">公司</a><span>›</span>
+    保险
+  </div>
+
+  <!-- Content layout -->
+  <div class="content-wrap">
+
+    <!-- Article main -->
+    <main class="article-main">
+      <article class="article-card">
+
+        <span class="article-category">公司</span>
+
+        <h1 class="article-title">
+          中国平安三季报：净利润同比下降18.6%，寿险改革成效显现
+        </h1>
+
+        <p class="article-subtitle">
+          前三季度归母净利润875.8亿元，寿险及健康险新业务价值同比增长24.1%；
+          平安银行资产质量承压，不良贷款率小幅上行。
+        </p>
+
+        <div class="article-byline">
+          <span class="byline-author">记者 陈志远</span>
+          <span class="byline-dot">·</span>
+          <span>2024-10-31 19:42</span>
+          <span class="byline-dot">·</span>
+          <span>财新网</span>
+          <span class="byline-dot">·</span>
+          <span>共 3,214 字</span>
+        </div>
+
+        <div class="article-tags">
+          <span class="tag">中国平安</span>
+          <span class="tag">三季报</span>
+          <span class="tag">保险</span>
+          <span class="tag">寿险</span>
+          <span class="tag">新业务价值</span>
+          <span class="tag">平安银行</span>
+        </div>
+
+        <!-- Article body -->
+        <div class="article-body">
+
+          <p class="lead">
+            【财新网】（记者 陈志远）10月31日晚，中国平安保险（集团）股份有限公司
+            （601318.SH，02318.HK，下称"中国平安"）发布2024年第三季度报告。
+            前三季度归属于母公司股东的净利润为875.8亿元，同比下降18.6%。
+          </p>
+
+          <p>
+            公告显示，受资本市场波动及750日移动平均收益率曲线下行影响，
+            中国平安寿险及健康险业务传统险准备金折现率假设变动造成税前负向影响约为218亿元，
+            是拖累当期归母净利润的主要因素。若剔除上述影响，归母净利润同比增速约为8.3%。
+          </p>
+
+          <p>
+            寿险业务是集团最核心的业务板块。三季度报告显示，寿险及健康险新业务价值（NBV）
+            同比增幅为24.1%，延续了此前两个季度的正向增长态势，这一数据被市场视为衡量
+            寿险质量恢复的关键指标。代理人渠道转型进入深水区，人力规模有所收缩，
+            但人均产能明显提升，代理人月均收入较去年同期增长逾40%。
+          </p>
+
+          <div class="data-highlight">
+            <strong>关键财务数据：</strong>前三季度营运利润1,179.7亿元，同比+2.8%；
+            综合成本率95.8%，同比优化0.3个百分点；内含价值（EV）12,012.4亿元，
+            较年初增长5.4%。
+          </div>
+
+          <p>
+            在财产险业务方面，平安产险前三季度实现保险服务收入2,517.3亿元，同比增长5.7%；
+            综合成本率95.8%，仍处于行业领先水平。受台风"摩羯"等自然灾害影响，
+            第三季度综合成本率环比有所上行，管理层在业绩交流中表示影响已基本出清，
+            第四季度预计回归正常区间。
+          </p>
+
+          <figure class="article-figure">
+            <div class="fig-placeholder">
+              ［图表：中国平安2022–2024Q3 归母净利润及NBV增速对比］
+            </div>
+            <figcaption>来源：中国平安季报，财新研究院整理</figcaption>
+          </figure>
+
+          <p>
+            平安银行（000001.SZ）是集团内资产质量受关注度最高的业务单元。
+            三季报显示，平安银行不良贷款率为1.06%，较上季度末上行4个基点；
+            拨备覆盖率为262.3%，环比下降9.3个百分点，风险抵补能力有所边际弱化。
+            管理层在电话会议中坦言，零售信贷业务受宏观环境影响较大，
+            下半年将加大不良处置力度，全年净息差预计维持在2.0%至2.1%区间。
+          </p>
+
+          <p class="caixin-article-body-paragraph" id="article-para-financial-update">
+{fill}
+          </p>
+
+          <p>
+            从投资端来看，集团保险资金投资组合规模达5.23万亿元，较年初增长7.8%。
+            净投资收益率为3.9%，较去年同期下降20个基点，折射出当前低利率环境下
+            固定收益类资产配置的压力。总投资收益率受益于权益市场三季度"924行情"的带动，
+            同比有所改善，但管理层表示债券到期再投资收益率下行仍是中长期挑战。
+          </p>
+
+          <p>
+            科技业务方面，平安旗下金融科技与医疗健康科技板块合计实现营收379.6亿元，
+            同比增长4.2%。陆金所控股（LU.NYSE）、平安好医生（01833.HK）等子公司
+            仍处于战略调整期，盈利贡献相对有限。集团首席财务官表示，科技板块独立盈利
+            能力提升是未来两年的核心管理目标，预计将在2025年实现整体扭亏为盈。
+          </p>
+
+          <div class="reporter-note">
+            本文为有限公开内容，付费会员可阅读全文及完整数据图表。
+            财新记者就更多分析细节及管理层问答实录的整理，将在今晚23:00前更新至本页面。
+          </div>
+
+          <p>
+            从股价表现看，三季报发布后次日，中国平安H股涨幅约2.3%，
+            市场对寿险NBV改善给予正面解读；A股受整体市场情绪影响波动较大，
+            收盘小幅下跌0.6%。截至发稿，公司市值约9,540亿元，市净率（P/B）约0.86倍，
+            仍处于历史低位区间。
+          </p>
+
+          <p>
+            此次季报是中国平安新一届管理层上任后发布的第二份季度业绩，
+            市场高度关注其战略执行进度。接受财新采访的多位机构投资者表示，
+            寿险NBV改善方向确认积极，但保险资金在低利率环境下的投资收益压力
+            以及平安银行资产质量的演化仍是影响中期估值修复的核心变量。
+          </p>
+
+        </div><!-- /article-body -->
+
+        <!-- Paywall notice -->
+        <div class="paywall-notice">
+          本文约有 <strong>1,850 字</strong> 付费内容，
+          <a href="#">成为财新会员</a> 即可解锁全文，并享受全站所有深度报道。
+        </div>
+
+        <!-- Article footer -->
+        <div class="article-footer">
+          <div class="share-btns">
+            <button class="share-btn">微信分享</button>
+            <button class="share-btn">微博</button>
+            <button class="share-btn">复制链接</button>
+            <button class="share-btn">收藏</button>
+          </div>
+          <div class="article-views">阅读 28,419 次</div>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="article-sidebar">
+
+      <!-- Subscription banner -->
+      <div class="sidebar-card">
+        <div class="sub-banner">
+          <h4>财新会员</h4>
+          <p>解锁全部深度报道<br>无限阅读 · 独家数据</p>
+          <a href="#" class="btn-sub">立即订阅</a>
+        </div>
+      </div>
+
+      <!-- Author card -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">作者</div>
+        <div class="author-box">
+          <div class="author-row">
+            <div class="author-avatar">👤</div>
+            <div class="author-info">
+              <div class="author-name">陈志远</div>
+              <div class="author-title">财新网 金融记者</div>
+            </div>
+          </div>
+          <div class="author-bio">
+            长期关注保险、银行、资产管理领域。曾主笔多篇保险行业深度调查报道。
+          </div>
+          <div class="author-stats">
+            <span><strong>346</strong> 篇文章</span>
+            <span><strong>12.4K</strong> 关注者</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related articles -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">相关报道</div>
+        <div class="related-list">
+          <div class="related-item">
+            <a href="#">中国平安上半年净利润746亿元，寿险改革进入攻坚期</a>
+            <div class="rel-meta">2024-08-22 · 财经</div>
+          </div>
+          <div class="related-item">
+            <a href="#">国寿、太保三季报：负债端持续修复，投资端承压分化</a>
+            <div class="rel-meta">2024-10-30 · 财经</div>
+          </div>
+          <div class="related-item">
+            <a href="#">平安银行三季度不良率小幅上升，行长谈零售信贷策略调整</a>
+            <div class="rel-meta">2024-10-31 · 公司</div>
+          </div>
+          <div class="related-item">
+            <a href="#">保险资金"924"以来加速入市，对沪深300影响几何</a>
+            <div class="rel-meta">2024-10-18 · 财经</div>
+          </div>
+          <div class="related-item">
+            <a href="#">内含价值争议：新准则下寿险公司估值体系如何重构</a>
+            <div class="rel-meta">2024-09-14 · 深度</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hot ranking -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">今日热读</div>
+        <div class="hot-list">
+          <div class="hot-item">
+            <div class="hot-rank top">1</div>
+            <a href="#">央行降准后市场利率如何演变？机构策略全解析</a>
+          </div>
+          <div class="hot-item">
+            <div class="hot-rank top">2</div>
+            <a href="#">中国平安三季报：净利润同比下降18.6%</a>
+          </div>
+          <div class="hot-item">
+            <div class="hot-rank top">3</div>
+            <a href="#">腾讯三季报营收增长8%，游戏广告双轮驱动</a>
+          </div>
+          <div class="hot-item">
+            <div class="hot-rank" style="background:#e8a020;color:#fff;">4</div>
+            <a href="#">证监会新规落地：融资融券保证金比例下调至80%</a>
+          </div>
+          <div class="hot-item">
+            <div class="hot-rank">5</div>
+            <a href="#">地方债发行节奏加快，四季度专项债用途集中在基建</a>
+          </div>
+          <div class="hot-item">
+            <div class="hot-rank">6</div>
+            <a href="#">人民币对美元升至7.10，年内最强汇率如何持续</a>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div><!-- /content-wrap -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-nav">
+        <a href="#">关于财新</a>
+        <a href="#">广告合作</a>
+        <a href="#">版权声明</a>
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#">联系我们</a>
+        <a href="#">招聘信息</a>
+        <a href="#">财新英文</a>
+      </div>
+      <div class="footer-copy">© 2024 财新传媒. All Rights Reserved.</div>
+      <div class="footer-icp">京ICP备12007882号-1 &nbsp;|&nbsp; 京公网安备 11010502027779号</div>
+    </div>
+  </footer>
+
+</body>
+</html>

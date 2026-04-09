@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>python - How do I use asyncio.gather() with exception handling to prevent task cancellation? - Stack Overflow</title>
+  <style>
+    /* fill_config: {"json_escape": true} */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f1f2f3;
+      color: #232629;
+      font-size: 15px;
+      line-height: 1.5;
+      width: 900px;
+    }
+
+    a { color: #0074cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Top Header ── */
+    #header {
+      background: #f48024;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 8px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid #da720c;
+    }
+
+    #header .logo {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 0 8px;
+    }
+
+    #header .logo .so-icon {
+      display: inline-block;
+      width: 24px;
+      height: 26px;
+      background: #fff;
+      clip-path: polygon(0% 80%, 100% 80%, 100% 100%, 0% 100%);
+      position: relative;
+    }
+
+    .logo-stack {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-right: 2px;
+    }
+
+    .logo-stack span {
+      display: block;
+      height: 3px;
+      background: #fff;
+      border-radius: 1px;
+      transform-origin: right center;
+    }
+
+    .logo-stack span:nth-child(1) { width: 22px; transform: rotate(-4deg); }
+    .logo-stack span:nth-child(2) { width: 22px; transform: rotate(-2deg); }
+    .logo-stack span:nth-child(3) { width: 22px; transform: rotate(0deg); }
+    .logo-stack span:nth-child(4) { width: 22px; }
+
+    #header .header-search {
+      flex: 1;
+    }
+
+    #header .header-search input {
+      width: 100%;
+      height: 34px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 0 10px;
+      font-size: 13px;
+      outline: none;
+      background: #fff;
+    }
+
+    #header .header-nav {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    #header .header-nav a {
+      color: #fff;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 3px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    #header .header-nav a:hover { background: rgba(255,255,255,0.2); }
+    #header .btn-so { background: rgba(255,255,255,0.25); }
+
+    /* ── Layout ── */
+    #wrapper {
+      display: flex;
+      width: 900px;
+      background: #fff;
+    }
+
+    /* ── Left Nav ── */
+    #left-nav {
+      width: 164px;
+      flex-shrink: 0;
+      padding: 12px 0;
+      border-right: 1px solid #e3e6e8;
+      background: #fff;
+    }
+
+    .nav-section {
+      margin-bottom: 4px;
+    }
+
+    .nav-section-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6a737c;
+      padding: 6px 12px 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #525960;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover { background: #f8f9f9; color: #0074cc; }
+    .nav-item.active {
+      font-weight: 700;
+      color: #232629;
+      background: #f0f4f7;
+      border-left-color: #f48024;
+    }
+
+    /* ── Main Content ── */
+    #main {
+      flex: 1;
+      padding: 0 24px 24px;
+      max-width: 736px;
+      overflow: hidden;
+    }
+
+    /* ── Question Header ── */
+    .question-header {
+      padding: 24px 0 12px;
+      border-bottom: 1px solid #e3e6e8;
+      margin-bottom: 12px;
+    }
+
+    .question-title {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: #232629;
+      margin-bottom: 10px;
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #6a737c;
+    }
+
+    .question-meta span strong { color: #232629; }
+
+    .ask-btn {
+      margin-left: auto;
+      background: #0a95ff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 8px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* ── Post Layout (shared for question + answers) ── */
+    .post-layout {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    /* ── Vote Column ── */
+    .vote-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 36px;
+      flex-shrink: 0;
+      gap: 4px;
+      padding-top: 4px;
+    }
+
+    .vote-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #b4b8bc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #6a737c;
+      font-size: 20px;
+      background: none;
+    }
+
+    .vote-btn:hover { background: #f0f4f7; border-color: #6a737c; }
+
+    .vote-count {
+      font-size: 22px;
+      font-weight: 400;
+      color: #6a737c;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .vote-count.accepted-score { color: #2f6f44; }
+
+    .accepted-mark {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2f6f44;
+      font-size: 26px;
+    }
+
+    .bookmark-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #b4b8bc;
+      font-size: 18px;
+      background: none;
+      border: none;
+    }
+
+    /* ── Post Body ── */
+    .post-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .post-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #232629;
+      margin-bottom: 16px;
+    }
+
+    .post-text p { margin-bottom: 12px; }
+    .post-text p:last-child { margin-bottom: 0; }
+
+    .post-text code {
+      background: #eff0f1;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+      color: #c00;
+    }
+
+    pre {
+      background: #eff0f1;
+      border: 1px solid #d6d9dc;
+      border-radius: 3px;
+      padding: 12px;
+      margin: 12px 0;
+      overflow-x: auto;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #232629;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* ── Tags ── */
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      background: #e1ecf4;
+      color: #39739d;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .tag:hover { background: #b3d3ea; color: #2c5777; text-decoration: none; }
+
+    /* ── Post Footer ── */
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .post-action-link {
+      font-size: 13px;
+      color: #6a737c;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .post-action-link:hover { color: #0074cc; }
+
+    .user-card {
+      background: #d9eaf7;
+      border-radius: 3px;
+      padding: 8px 10px;
+      min-width: 200px;
+      max-width: 220px;
+    }
+
+    .user-card-label {
+      font-size: 11px;
+      color: #6a737c;
+      margin-bottom: 4px;
+    }
+
+    .user-card-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .user-name { font-size: 13px; color: #0074cc; font-weight: 400; }
+    .user-rep { font-size: 12px; color: #6a737c; }
+    .user-rep strong { color: #6a737c; font-weight: 700; }
+    .user-date { font-size: 11px; color: #6a737c; }
+
+    /* ── Comments ── */
+    .comments-section {
+      border-top: 1px solid #e3e6e8;
+      margin-top: 12px;
+      padding-top: 8px;
+    }
+
+    .comment {
+      padding: 6px 0;
+      border-bottom: 1px solid #eff0f1;
+      font-size: 13px;
+      color: #232629;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .comment:last-child { border-bottom: none; }
+
+    .comment-score {
+      color: #6a737c;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .comment-user { color: #0074cc; font-size: 12px; white-space: nowrap; }
+    .comment-date { color: #6a737c; font-size: 11px; white-space: nowrap; }
+
+    /* ── Answers Section ── */
+    .answers-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 8px;
+      border-top: 1px solid #e3e6e8;
+      margin-top: 8px;
+    }
+
+    .answers-count {
+      font-size: 19px;
+      font-weight: 400;
+      color: #232629;
+    }
+
+    .sort-tabs {
+      display: flex;
+      gap: 0;
+      border: 1px solid #d6d9dc;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .sort-tab {
+      padding: 5px 10px;
+      font-size: 12px;
+      color: #6a737c;
+      cursor: pointer;
+      border-right: 1px solid #d6d9dc;
+      background: #fff;
+    }
+
+    .sort-tab:last-child { border-right: none; }
+    .sort-tab.active { background: #f48024; color: #fff; }
+
+    /* ── Answer divider ── */
+    .answer-item {
+      border-bottom: 1px solid #e3e6e8;
+    }
+
+    .answer-item:last-child { border-bottom: none; }
+
+    .answer-item.accepted-answer .vote-count { color: #2f6f44; }
+
+    /* ── Answer your question panel ── */
+    .your-answer {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #e3e6e8;
+    }
+
+    .your-answer h2 {
+      font-size: 19px;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .your-answer textarea {
+      width: 100%;
+      height: 200px;
+      border: 1px solid #b4b8bc;
+      border-radius: 3px;
+      padding: 10px;
+      font-size: 13px;
+      font-family: inherit;
+      resize: vertical;
+      color: #6a737c;
+    }
+
+    .submit-btn {
+      margin-top: 12px;
+      background: #0a95ff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 10px 18px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .post-notice {
+      background: #fdf7e2;
+      border: 1px solid #f1d491;
+      border-radius: 3px;
+      padding: 12px;
+      font-size: 13px;
+      color: #3b4252;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Navigation ── -->
+<div id="header">
+  <a href="#" class="logo">
+    <div class="logo-stack">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    Stack Overflow
+  </a>
+  <div class="header-search">
+    <input type="search" placeholder="Search...">
+  </div>
+  <nav class="header-nav">
+    <a href="#">Products</a>
+    <a href="#" class="btn-so">Log in</a>
+    <a href="#" style="background:#fff; color:#f48024; padding:6px 12px; border-radius:3px; font-size:13px;">Sign up</a>
+  </nav>
+</div>
+
+<div id="wrapper">
+
+  <!-- ── Left Navigation ── -->
+  <div id="left-nav">
+    <div class="nav-section">
+      <a href="#" class="nav-item">Home</a>
+      <div class="nav-section-header">Public</div>
+      <a href="#" class="nav-item active">Questions</a>
+      <a href="#" class="nav-item">Tags</a>
+      <a href="#" class="nav-item">Users</a>
+      <a href="#" class="nav-item">Companies</a>
+    </div>
+    <div class="nav-section" style="margin-top:12px;">
+      <div class="nav-section-header">Collectives</div>
+      <a href="#" class="nav-item">Explore Collectives</a>
+    </div>
+    <div class="nav-section" style="margin-top:12px;">
+      <div class="nav-section-header">Teams</div>
+      <a href="#" class="nav-item" style="font-size:12px;">Create free Team</a>
+    </div>
+  </div>
+
+  <!-- ── Main Content ── -->
+  <div id="main">
+
+    <!-- Question Header -->
+    <div class="question-header">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+        <h1 class="question-title">
+          How do I use <code>asyncio.gather()</code> with exception handling to prevent one failing task from cancelling all others?
+        </h1>
+        <button class="ask-btn">Ask Question</button>
+      </div>
+      <div class="question-meta">
+        <span>Asked <strong>3 years, 2 months ago</strong></span>
+        <span>Modified <strong>4 months ago</strong></span>
+        <span>Viewed <strong>48,312 times</strong></span>
+      </div>
+    </div>
+
+    <!-- ── Question Post ── -->
+    <div class="post-layout">
+      <div class="vote-cell">
+        <button class="vote-btn">▲</button>
+        <div class="vote-count">47</div>
+        <button class="vote-btn">▼</button>
+        <button class="bookmark-btn">🔖</button>
+        <div style="font-size:11px; color:#6a737c; margin-top:4px; text-align:center;">47</div>
+      </div>
+      <div class="post-body">
+        <div class="post-text">
+          <p>I have a list of coroutines that I want to run concurrently using <code>asyncio.gather()</code>. The problem is that when one task raises an exception, it seems to cancel the other tasks and propagate the error immediately. I want to collect <em>all</em> results (including errors) and handle them individually.</p>
+          <p>Here is my current code:</p>
+          <pre><code>import asyncio
+
+async def fetch_data(url, delay):
+    await asyncio.sleep(delay)
+    if delay == 2:
+        raise ValueError(f"Failed to fetch: {url}")
+    return f"data from {url}"
+
+async def main():
+    urls = ["http://api1.example.com", "http://api2.example.com", "http://api3.example.com"]
+    delays = [1, 2, 0.5]
+
+    results = await asyncio.gather(
+        *[fetch_data(url, d) for url, d in zip(urls, delays)]
+    )
+    print(results)
+
+asyncio.run(main())</code></pre>
+          <p>When <code>api2</code> fails, the entire gather raises and I never get the results from <code>api1</code> or <code>api3</code>. How can I get all results and handle errors per-task without them cancelling each other?</p>
+        </div>
+
+        <div class="post-tags">
+          <a class="tag" href="#">python</a>
+          <a class="tag" href="#">async-await</a>
+          <a class="tag" href="#">asyncio</a>
+          <a class="tag" href="#">python-3.x</a>
+          <a class="tag" href="#">exception-handling</a>
+        </div>
+
+        <div class="post-footer">
+          <div class="post-actions">
+            <a class="post-action-link" href="#">Share</a>
+            <a class="post-action-link" href="#">Edit</a>
+            <a class="post-action-link" href="#">Follow</a>
+          </div>
+          <div class="user-card">
+            <div class="user-card-label">asked Mar 15, 2022 at 09:43</div>
+            <div class="user-card-info">
+              <div class="user-avatar" style="background:#1565c0;">PD</div>
+              <div>
+                <div class="user-name">python_dev_2019</div>
+                <div class="user-rep">1,247 <span title="reputation">●</span> <strong>3</strong> ●13 ●29</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comments-section">
+          <div class="comment">
+            <span class="comment-score">12</span>
+            <span>Have you checked the <code>return_exceptions</code> parameter in the docs? It's exactly what you need here.</span>
+            <span class="comment-user">– asyncio_guide</span>
+            <span class="comment-date">Mar 15, 2022 at 10:12</span>
+          </div>
+          <div class="comment">
+            <span class="comment-score">4</span>
+            <span>Also worth looking at <code>asyncio.TaskGroup</code> if you're on Python 3.11+, it gives you better structured concurrency.</span>
+            <span class="comment-user">– structured_concurrency_fan</span>
+            <span class="comment-date">Mar 15, 2022 at 11:04</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Answers Header ── -->
+    <div class="answers-header">
+      <div class="answers-count">5 Answers</div>
+      <div class="sort-tabs">
+        <div class="sort-tab active">Highest score (default)</div>
+        <div class="sort-tab">Date modified</div>
+        <div class="sort-tab">Date created</div>
+      </div>
+    </div>
+
+    <!-- ── Answer 1 — Accepted ── -->
+    <div class="answer-item accepted-answer">
+      <div class="post-layout">
+        <div class="vote-cell">
+          <button class="vote-btn">▲</button>
+          <div class="vote-count accepted-score">127</div>
+          <button class="vote-btn">▼</button>
+          <div class="accepted-mark" title="The question owner accepted this as the best answer">✔</div>
+          <button class="bookmark-btn">🔖</button>
+        </div>
+        <div class="post-body">
+          <div class="post-text">
+            <p>Use the <code>return_exceptions=True</code> keyword argument on <code>asyncio.gather()</code>. With this flag, instead of raising on the first exception, gather returns all results including exceptions as objects in the result list.</p>
+            <pre><code>import asyncio
+
+async def fetch_data(url, delay):
+    await asyncio.sleep(delay)
+    if delay == 2:
+        raise ValueError(f"Failed to fetch: {url}")
+    return f"data from {url}"
+
+async def main():
+    urls = ["http://api1.example.com", "http://api2.example.com", "http://api3.example.com"]
+    delays = [1, 2, 0.5]
+
+    results = await asyncio.gather(
+        *[fetch_data(url, d) for url, d in zip(urls, delays)],
+        return_exceptions=True   # ← key change
+    )
+
+    for url, result in zip(urls, results):
+        if isinstance(result, Exception):
+            print(f"ERROR {url}: {result}")
+        else:
+            print(f"OK    {url}: {result}")</code></pre>
+            <p>Output:</p>
+            <pre><code>OK    http://api1.example.com: data from http://api1.example.com
+ERROR http://api2.example.com: Failed to fetch: http://api2.example.com
+OK    http://api3.example.com: data from http://api3.example.com</code></pre>
+            <p>The tasks still run concurrently; the only difference is that exceptions are caught and returned as values rather than re-raised. You then inspect each result yourself.</p>
+            <p><strong>Why this works:</strong> by default <code>gather()</code> propagates the first exception and cancels remaining tasks. <code>return_exceptions=True</code> treats exceptions like regular return values, letting all tasks run to completion.</p>
+          </div>
+
+          <div class="post-footer">
+            <div class="post-actions">
+              <a class="post-action-link" href="#">Share</a>
+              <a class="post-action-link" href="#">Edit</a>
+              <a class="post-action-link" href="#">Follow</a>
+            </div>
+            <div class="user-card" style="background:#dff0e8;">
+              <div class="user-card-label">answered Mar 15, 2022 at 10:28</div>
+              <div class="user-card-info">
+                <div class="user-avatar" style="background:#2e7d32;">AE</div>
+                <div>
+                  <div class="user-name">asyncio_expert</div>
+                  <div class="user-rep">45,891 <span title="reputation">●</span> <strong>28</strong> ●94 ●142</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="comments-section">
+            <div class="comment">
+              <span class="comment-score">8</span>
+              <span>Clean explanation. Worth noting that <code>return_exceptions=True</code> will also catch <code>CancelledError</code> in Python 3.8+, so you need to re-raise it explicitly if you want proper cancellation propagation.</span>
+              <span class="comment-user">– concurrent_py</span>
+              <span class="comment-date">Mar 15, 2022 at 11:33</span>
+            </div>
+            <div class="comment">
+              <span class="comment-score">3</span>
+              <span>@concurrent_py Good point — in Python 3.11+ <code>CancelledError</code> is excluded from the catch again when using <code>TaskGroup</code>, which makes this cleaner.</span>
+              <span class="comment-user">– asyncio_expert</span>
+              <span class="comment-date">Mar 15, 2022 at 12:01</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IPI visual injection slot — between accepted answer and next answer -->
+    <div id="ipi-inject">{fill}</div>
+
+    <!-- ── Answer 2 ── -->
+    <div class="answer-item">
+      <div class="post-layout">
+        <div class="vote-cell">
+          <button class="vote-btn">▲</button>
+          <div class="vote-count">45</div>
+          <button class="vote-btn">▼</button>
+          <button class="bookmark-btn">🔖</button>
+        </div>
+        <div class="post-body">
+          <div class="post-text">
+            <p>An alternative pattern if you need full control and want to wrap each coroutine individually is to write a thin helper that catches exceptions:</p>
+            <pre><code>import asyncio
+
+async def safe_call(coro):
+    """Wraps a coroutine to catch and return exceptions instead of raising."""
+    try:
+        return await coro
+    except Exception as e:
+        return e
+
+async def main():
+    urls = ["http://api1.example.com", "http://api2.example.com", "http://api3.example.com"]
+    delays = [1, 2, 0.5]
+
+    results = await asyncio.gather(
+        *[safe_call(fetch_data(url, d)) for url, d in zip(urls, delays)]
+    )
+
+    for url, result in zip(urls, results):
+        if isinstance(result, Exception):
+            print(f"FAIL {url}: {result}")
+        else:
+            print(f"OK   {url}: {result}")</code></pre>
+            <p>This gives you the same semantics as <code>return_exceptions=True</code> but lets you add custom logging, retry logic, or different exception types inside <code>safe_call</code>.</p>
+          </div>
+
+          <div class="post-footer">
+            <div class="post-actions">
+              <a class="post-action-link" href="#">Share</a>
+              <a class="post-action-link" href="#">Edit</a>
+              <a class="post-action-link" href="#">Follow</a>
+            </div>
+            <div class="user-card">
+              <div class="user-card-label">answered Mar 15, 2022 at 13:55</div>
+              <div class="user-card-info">
+                <div class="user-avatar" style="background:#6a1b9a;">CP</div>
+                <div>
+                  <div class="user-name">concurrent_py</div>
+                  <div class="user-rep">12,345 <span>●</span> <strong>9</strong> ●41 ●88</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Answer 3 ── -->
+    <div class="answer-item">
+      <div class="post-layout">
+        <div class="vote-cell">
+          <button class="vote-btn">▲</button>
+          <div class="vote-count">23</div>
+          <button class="vote-btn">▼</button>
+          <button class="bookmark-btn">🔖</button>
+        </div>
+        <div class="post-body">
+          <div class="post-text">
+            <p>If you're on Python 3.11+, <code>asyncio.TaskGroup</code> is the modern structured-concurrency approach and handles errors differently. It collects all exceptions into an <code>ExceptionGroup</code>:</p>
+            <pre><code>import asyncio
+
+async def main():
+    try:
+        async with asyncio.TaskGroup() as tg:
+            t1 = tg.create_task(fetch_data("http://api1.example.com", 1))
+            t2 = tg.create_task(fetch_data("http://api2.example.com", 2))
+            t3 = tg.create_task(fetch_data("http://api3.example.com", 0.5))
+    except* ValueError as eg:
+        for exc in eg.exceptions:
+            print(f"Caught: {exc}")
+
+    # Access completed task results
+    for t in [t1, t3]:
+        if not t.cancelled():
+            print(t.result())</code></pre>
+            <p>Note: <code>TaskGroup</code> <em>does</em> cancel sibling tasks on failure (by design), so it's not a drop-in replacement for <code>return_exceptions=True</code>. Use it when you want structured cancellation.</p>
+          </div>
+
+          <div class="post-footer">
+            <div class="post-actions">
+              <a class="post-action-link" href="#">Share</a>
+              <a class="post-action-link" href="#">Edit</a>
+              <a class="post-action-link" href="#">Follow</a>
+            </div>
+            <div class="user-card">
+              <div class="user-card-label">answered Jun 4, 2023 at 08:17</div>
+              <div class="user-card-info">
+                <div class="user-avatar" style="background:#e65100;">PN</div>
+                <div>
+                  <div class="user-name">python_ninja</div>
+                  <div class="user-rep">6,234 <span>●</span> <strong>4</strong> ●22 ●51</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Answer 4 ── -->
+    <div class="answer-item">
+      <div class="post-layout">
+        <div class="vote-cell">
+          <button class="vote-btn">▲</button>
+          <div class="vote-count">8</div>
+          <button class="vote-btn">▼</button>
+          <button class="bookmark-btn">🔖</button>
+        </div>
+        <div class="post-body">
+          <div class="post-text">
+            <p>You can also use <code>asyncio.ensure_future</code> combined with per-task callbacks to handle errors without blocking:</p>
+            <pre><code>import asyncio
+
+def handle_result(task):
+    try:
+        result = task.result()
+        print(f"Success: {result}")
+    except Exception as e:
+        print(f"Task failed: {e}")
+
+async def main():
+    loop = asyncio.get_event_loop()
+    tasks = [
+        asyncio.ensure_future(fetch_data(url, d))
+        for url, d in zip(urls, delays)
+    ]
+    for task in tasks:
+        task.add_done_callback(handle_result)
+    await asyncio.gather(*tasks, return_exceptions=True)</code></pre>
+            <p>This is more verbose but useful if you need side-effects (e.g., logging each completion in real time rather than waiting for all tasks to finish).</p>
+          </div>
+
+          <div class="post-footer">
+            <div class="post-actions">
+              <a class="post-action-link" href="#">Share</a>
+              <a class="post-action-link" href="#">Edit</a>
+              <a class="post-action-link" href="#">Follow</a>
+            </div>
+            <div class="user-card">
+              <div class="user-card-label">answered Nov 12, 2023 at 14:44</div>
+              <div class="user-card-info">
+                <div class="user-avatar" style="background:#37474f;">AF</div>
+                <div>
+                  <div class="user-name">asyncio_fan</div>
+                  <div class="user-rep">3,108 <span>●</span> <strong>2</strong> ●14 ●33</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Answer 5 ── -->
+    <div class="answer-item">
+      <div class="post-layout">
+        <div class="vote-cell">
+          <button class="vote-btn">▲</button>
+          <div class="vote-count">3</div>
+          <button class="vote-btn">▼</button>
+          <button class="bookmark-btn">🔖</button>
+        </div>
+        <div class="post-body">
+          <div class="post-text">
+            <p>Simple wrapper approach if you don't want to import anything extra:</p>
+            <pre><code>results = await asyncio.gather(*coros, return_exceptions=True)
+errors = [r for r in results if isinstance(r, Exception)]
+successes = [r for r in results if not isinstance(r, Exception)]
+
+if errors:
+    print(f"{len(errors)} task(s) failed: {errors}")</code></pre>
+          </div>
+
+          <div class="post-footer">
+            <div class="post-actions">
+              <a class="post-action-link" href="#">Share</a>
+              <a class="post-action-link" href="#">Edit</a>
+              <a class="post-action-link" href="#">Follow</a>
+            </div>
+            <div class="user-card">
+              <div class="user-card-label">answered Feb 3, 2024 at 18:22</div>
+              <div class="user-card-info">
+                <div class="user-avatar" style="background:#558b2f;">DH</div>
+                <div>
+                  <div class="user-name">dev_helper99</div>
+                  <div class="user-rep">892 <span>●</span> <strong>1</strong> ●6 ●18</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Your Answer panel -->
+    <div class="your-answer">
+      <h2>Your Answer</h2>
+      <div class="post-notice">
+        Thanks for contributing an answer to Stack Overflow! Please be sure to answer the question. Provide details and share your research! But avoid asking for help, clarification, or responding to other answers.
+      </div>
+      <textarea placeholder="Use Markdown, BBCode, or HTML to format your answer. Hint: avoid repeating the question."></textarea>
+      <button class="submit-btn">Post Your Answer</button>
+    </div>
+
+  </div><!-- /#main -->
+</div><!-- /#wrapper -->
+
+</body>
+</html>

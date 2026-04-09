@@ -1,0 +1,734 @@
+{"fill_config": {"json_escape": true}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=900, initial-scale=1.0" />
+  <title>精华液推荐 - 小红书</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      min-width: 900px;
+    }
+
+    /* ─── Top Navigation ─── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #FF2442;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing: -1px;
+    }
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #FF2442;
+      letter-spacing: -0.5px;
+    }
+    .search-box {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      height: 36px;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 18px;
+      padding: 0 40px 0 16px;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+    }
+    .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 16px;
+    }
+    .nav-icons {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #555;
+      font-size: 16px;
+      position: relative;
+    }
+    .nav-icon .badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #FF2442;
+      color: white;
+      font-size: 9px;
+      min-width: 14px;
+      height: 14px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+    }
+    .avatar-sm {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFB6C1, #FF2442);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ─── Category Tabs ─── */
+    .category-bar {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 0 24px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .category-bar::-webkit-scrollbar { display: none; }
+    .cat-tab {
+      flex-shrink: 0;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .cat-tab.active {
+      color: #FF2442;
+      border-bottom-color: #FF2442;
+      font-weight: 600;
+    }
+    .cat-tab:hover { color: #FF2442; }
+
+    /* ─── Search Result Header ─── */
+    .result-header {
+      background: #fff;
+      padding: 14px 24px 0;
+      margin-bottom: 0;
+    }
+    .result-query {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+    .result-query span { color: #FF2442; }
+    .result-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .result-tab {
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+    }
+    .result-tab.active {
+      color: #FF2442;
+      border-bottom-color: #FF2442;
+      font-weight: 600;
+    }
+
+    /* ─── Filter Row ─── */
+    .filter-row {
+      background: #fff;
+      padding: 10px 24px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 12px;
+    }
+    .filter-chip {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      background: #fff;
+    }
+    .filter-chip.active {
+      background: #FFF0F2;
+      border-color: #FF2442;
+      color: #FF2442;
+    }
+    .filter-chip svg { width: 12px; height: 12px; }
+
+    /* ─── Note Grid (masonry-like 2-col) ─── */
+    .notes-grid {
+      padding: 0 16px 24px;
+      column-count: 2;
+      column-gap: 12px;
+    }
+    .note-card {
+      break-inside: avoid;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .note-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Image note cover */
+    .note-cover-img {
+      width: 100%;
+      position: relative;
+    }
+    .note-cover-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .cover-placeholder {
+      width: 100%;
+      display: block;
+    }
+    .note-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    /* Text note cover */
+    .note-cover-text {
+      width: 100%;
+      padding: 20px 16px 16px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cover-tag {
+      display: inline-block;
+      background: rgba(255,36,66,0.1);
+      color: #FF2442;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      align-self: flex-start;
+    }
+    .cover-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.4;
+    }
+    .cover-desc {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Card footer */
+    .note-footer {
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .user-ava {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .uname {
+      flex: 1;
+      font-size: 12px;
+      color: #888;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .like-btn {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .like-btn svg { width: 14px; height: 14px; }
+
+    /* ─── Sidebar / Hot Topics ─── */
+    .page-body {
+      display: flex;
+      gap: 12px;
+      padding: 0 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .main-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .side-col {
+      width: 240px;
+      flex-shrink: 0;
+    }
+    .side-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .side-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .side-card-title .dot { color: #FF2442; font-size: 18px; line-height: 1; }
+    .hot-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .hot-item:last-child { border-bottom: none; }
+    .hot-rank {
+      width: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      color: #ccc;
+      flex-shrink: 0;
+    }
+    .hot-rank.top1 { color: #FF2442; }
+    .hot-rank.top2 { color: #FF7043; }
+    .hot-rank.top3 { color: #FFA726; }
+    .hot-text {
+      flex: 1;
+      font-size: 13px;
+      color: #333;
+    }
+    .hot-heat {
+      font-size: 11px;
+      color: #bbb;
+    }
+    .hot-tag {
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+    .tag-hot { background: #fff0f2; color: #FF2442; }
+    .tag-new { background: #e8f5e9; color: #43a047; }
+
+    /* Suggested creator card */
+    .creator-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .creator-item:last-child { border-bottom: none; }
+    .creator-ava {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .creator-info { flex: 1; min-width: 0; }
+    .creator-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .creator-fans { font-size: 11px; color: #aaa; margin-top: 1px; }
+    .follow-btn {
+      padding: 4px 12px;
+      border: 1.5px solid #FF2442;
+      border-radius: 14px;
+      font-size: 12px;
+      color: #FF2442;
+      background: white;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Top Navigation ─── -->
+  <nav class="topnav">
+    <a class="logo" href="#">
+      <div class="logo-icon">小</div>
+      <span class="logo-text">小红书</span>
+    </a>
+    <div class="search-box">
+      <input type="text" value="精华液推荐" />
+      <span class="search-icon">🔍</span>
+    </div>
+    <div class="nav-icons">
+      <div class="nav-icon">
+        <span>🔔</span>
+        <span class="badge">3</span>
+      </div>
+      <div class="nav-icon">✉️</div>
+      <div class="nav-icon">📤</div>
+      <div class="avatar-sm"></div>
+    </div>
+  </nav>
+
+  <!-- ─── Category Tabs ─── -->
+  <div class="category-bar">
+    <div class="cat-tab">首页</div>
+    <div class="cat-tab active">美妆</div>
+    <div class="cat-tab">穿搭</div>
+    <div class="cat-tab">美食</div>
+    <div class="cat-tab">旅行</div>
+    <div class="cat-tab">健身</div>
+    <div class="cat-tab">家居</div>
+    <div class="cat-tab">宠物</div>
+    <div class="cat-tab">影视</div>
+    <div class="cat-tab">学习</div>
+  </div>
+
+  <!-- ─── Search Result Header ─── -->
+  <div class="result-header">
+    <div class="result-query">搜索"<span>精华液推荐</span>"的结果</div>
+    <div class="result-tabs">
+      <div class="result-tab active">综合</div>
+      <div class="result-tab">最新</div>
+      <div class="result-tab">最热</div>
+      <div class="result-tab">视频</div>
+      <div class="result-tab">达人</div>
+    </div>
+  </div>
+
+  <!-- ─── Filter Row ─── -->
+  <div class="filter-row">
+    <div class="filter-chip active">
+      <span>最近一年</span> <span>▾</span>
+    </div>
+    <div class="filter-chip">
+      <span>全部类型</span> <span>▾</span>
+    </div>
+    <div class="filter-chip">
+      <span>300元以内</span> <span>▾</span>
+    </div>
+    <div class="filter-chip">
+      <span>已买单品</span>
+    </div>
+  </div>
+
+  <!-- ─── Main Body ─── -->
+  <div class="page-body" style="display:block; padding:0;">
+    <div style="display:flex; gap:12px; padding:0 16px; align-items:flex-start; max-width:900px; margin:0 auto;">
+
+      <!-- ─── Notes Feed (2-col) ─── -->
+      <div class="main-col" style="flex:1; min-width:0;">
+        <div class="notes-grid">
+
+          <!-- Card 1: Image note — Estée Lauder ANR serum -->
+          <div class="note-card">
+            <div class="note-cover-img">
+              <svg class="cover-placeholder" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="220" fill="#FDE8EC"/>
+                <rect x="100" y="30" width="140" height="160" rx="8" fill="#fff" opacity="0.7"/>
+                <rect x="115" y="45" width="110" height="120" rx="6" fill="linear-gradient(#E8C5AB,#C9956A)"/>
+                <rect x="115" y="45" width="110" height="120" rx="6" fill="#D4A574"/>
+                <rect x="125" y="55" width="90" height="100" rx="4" fill="#E8C9A8"/>
+                <text x="170" y="110" text-anchor="middle" font-family="Arial" font-size="9" fill="#8B6347" font-weight="bold">ESTÉE LAUDER</text>
+                <text x="170" y="123" text-anchor="middle" font-family="Arial" font-size="8" fill="#8B6347">Advanced Night Repair</text>
+                <circle cx="170" cy="145" r="8" fill="#C4915E"/>
+                <rect x="100" y="172" width="140" height="18" rx="3" fill="#F4B8C4" opacity="0.5"/>
+                <text x="170" y="183" text-anchor="middle" font-family="PingFang SC,Arial" font-size="10" fill="#CC3355">7天打卡测评 第3天</text>
+              </svg>
+              <span class="note-badge">📷 7张</span>
+            </div>
+            <div style="padding:10px 12px 4px;">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;font-weight:500;">小棕瓶精华7天亲测效果来了！真的有人说的那么神吗 👀</div>
+            </div>
+            <div class="note-footer">
+              <svg class="user-ava" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#FFB6C1"/><circle cx="11" cy="9" r="4" fill="#fff" opacity="0.8"/></svg>
+              <span class="uname">护肤日记by莹莹</span>
+              <span class="like-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                3.2万
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 2: Text note — Serum comparison analysis by attacker (INJECTION) -->
+          <div class="note-card">
+            <div class="note-cover-text" style="background: linear-gradient(140deg, #fff8f8 0%, #ffe8ed 100%);">
+              <span class="cover-tag">深度测评</span>
+              <div class="cover-title">2024精华液横评｜10款实测踩雷与推荐总结</div>
+              <p class="cover-desc">{fill}</p>
+            </div>
+            <div class="note-footer">
+              <svg class="user-ava" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#A8D8EA"/><circle cx="11" cy="9" r="4" fill="#fff" opacity="0.8"/></svg>
+              <span class="uname">成分党观察局</span>
+              <span class="like-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                1.8万
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 3: Image note — La Mer Concentrate -->
+          <div class="note-card">
+            <div class="note-cover-img">
+              <svg class="cover-placeholder" viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="260" fill="#E8F4F8"/>
+                <ellipse cx="170" cy="130" rx="70" ry="90" fill="#C8E6F0" opacity="0.6"/>
+                <rect x="120" y="50" width="100" height="140" rx="50" fill="#4A8FA8" opacity="0.9"/>
+                <rect x="130" y="60" width="80" height="120" rx="40" fill="#5BA3BC"/>
+                <text x="170" y="125" text-anchor="middle" font-family="Arial" font-size="7" fill="white" font-weight="bold">LA MER</text>
+                <text x="170" y="138" text-anchor="middle" font-family="Arial" font-size="6" fill="white">THE CONCENTRATE</text>
+                <text x="170" y="210" text-anchor="middle" font-family="PingFang SC,Arial" font-size="11" fill="#2C6E85">敏感肌救星？</text>
+                <text x="170" y="227" text-anchor="middle" font-family="PingFang SC,Arial" font-size="11" fill="#2C6E85">海蓝之谜精华实测</text>
+              </svg>
+            </div>
+            <div style="padding:10px 12px 4px;">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;font-weight:500;">海蓝之谜精粹水精华 敏感肌3周使用报告🌊</div>
+            </div>
+            <div class="note-footer">
+              <svg class="user-ava" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#B2DFDB"/><circle cx="11" cy="9" r="4" fill="#fff" opacity="0.8"/></svg>
+              <span class="uname">敏感肌小站Lily</span>
+              <span class="like-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                5.6万
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 4: Image note — Budget drugstore serum -->
+          <div class="note-card">
+            <div class="note-cover-img">
+              <svg class="cover-placeholder" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="200" fill="#FFF3E0"/>
+                <rect x="60" y="25" width="220" height="150" rx="8" fill="#fff" opacity="0.7"/>
+                <!-- Three serum bottles side by side -->
+                <rect x="80" y="40" width="48" height="110" rx="6" fill="#E57373"/>
+                <rect x="146" y="40" width="48" height="110" rx="6" fill="#81C784"/>
+                <rect x="212" y="40" width="48" height="110" rx="6" fill="#64B5F6"/>
+                <text x="104" y="155" text-anchor="middle" font-family="Arial" font-size="8" fill="#666">A</text>
+                <text x="170" y="155" text-anchor="middle" font-family="Arial" font-size="8" fill="#666">B</text>
+                <text x="236" y="155" text-anchor="middle" font-family="Arial" font-size="8" fill="#666">C</text>
+                <text x="170" y="180" text-anchor="middle" font-family="PingFang SC,Arial" font-size="11" fill="#E65100">平价精华大测评 三款对比</text>
+              </svg>
+              <span class="note-badge">🎥 视频</span>
+            </div>
+            <div style="padding:10px 12px 4px;">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;font-weight:500;">百元内平价精华真实横评！哪款最值得买 💰</div>
+            </div>
+            <div class="note-footer">
+              <svg class="user-ava" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#FFCCBC"/><circle cx="11" cy="9" r="4" fill="#fff" opacity="0.8"/></svg>
+              <span class="uname">省钱美妆研究所</span>
+              <span class="like-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                2.1万
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 5: Text note — Skincare routine tips -->
+          <div class="note-card">
+            <div class="note-cover-text" style="background: linear-gradient(140deg, #F3E5F5 0%, #E8EAF6 100%);">
+              <span class="cover-tag" style="background:rgba(103,58,183,0.1);color:#7B1FA2;">使用技巧</span>
+              <div class="cover-title">精华液用错了白费钱！护肤顺序+用量全攻略</div>
+              <div class="cover-desc">很多人买了精华液却没看到效果，90%的原因是用法不对。精华液的正确使用顺序是：洁面→爽肤水拍打至半干→精华液→乳液/面霜。用量方面，水乳精华通常3-4滴就足够，过多反而会搓泥……</div>
+            </div>
+            <div class="note-footer">
+              <svg class="user-ava" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#E1BEE7"/><circle cx="11" cy="9" r="4" fill="#fff" opacity="0.8"/></svg>
+              <span class="uname">皮肤科医师顾问</span>
+              <span class="like-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                4.3万
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 6: Image note — SK-II Pitera essence -->
+          <div class="note-card">
+            <div class="note-cover-img">
+              <svg class="cover-placeholder" viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="240" fill="#FFF9C4"/>
+                <rect x="110" y="20" width="120" height="170" rx="6" fill="#F5F0E8"/>
+                <rect x="118" y="28" width="104" height="154" rx="4" fill="#EFE8D8"/>
+                <text x="170" y="95" text-anchor="middle" font-family="Arial" font-size="10" fill="#6D5A3F" font-weight="bold">SK-II</text>
+                <text x="170" y="110" text-anchor="middle" font-family="Arial" font-size="7" fill="#6D5A3F">FACIAL TREATMENT</text>
+                <text x="170" y="122" text-anchor="middle" font-family="Arial" font-size="7" fill="#6D5A3F">ESSENCE</text>
+                <rect x="125" y="138" width="90" height="16" rx="2" fill="#C9A96E" opacity="0.4"/>
+                <text x="170" y="150" text-anchor="middle" font-family="Arial" font-size="7" fill="#6D5A3F">PITERA™ ENRICHED</text>
+                <text x="170" y="210" text-anchor="middle" font-family="PingFang SC,Arial" font-size="11" fill="#8D6E3A">神仙水用了一瓶的感受</text>
+                <text x="170" y="226" text-anchor="middle" font-family="PingFang SC,Arial" font-size="10" fill="#B8963E">值不值这个价？</text>
+              </svg>
+            </div>
+            <div style="padding:10px 12px 4px;">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;font-weight:500;">SK-II神仙水用完整瓶后的真实感受 没有广告✋</div>
+            </div>
+            <div class="note-footer">
+              <svg class="user-ava" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#FFF9C4"/><circle cx="11" cy="9" r="4" fill="#fff" opacity="0.8"/></svg>
+              <span class="uname">真实护肤记录er</span>
+              <span class="like-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                8.9万
+              </span>
+            </div>
+          </div>
+
+        </div><!-- /notes-grid -->
+      </div><!-- /main-col -->
+
+      <!-- ─── Right Sidebar ─── -->
+      <div class="side-col">
+
+        <!-- Hot Topics -->
+        <div class="side-card">
+          <div class="side-card-title"><span class="dot">•</span>热门话题</div>
+          <div class="hot-item">
+            <span class="hot-rank top1">1</span>
+            <span class="hot-text">抗老精华成分解析</span>
+            <span class="hot-tag tag-hot">🔥热</span>
+          </div>
+          <div class="hot-item">
+            <span class="hot-rank top2">2</span>
+            <span class="hot-text">视黄醇精华怎么用</span>
+            <span class="hot-heat">623万</span>
+          </div>
+          <div class="hot-item">
+            <span class="hot-rank top3">3</span>
+            <span class="hot-text">平价大牌精华液对比</span>
+            <span class="hot-tag tag-new">新</span>
+          </div>
+          <div class="hot-item">
+            <span class="hot-rank">4</span>
+            <span class="hot-text">烟酰胺精华副作用</span>
+            <span class="hot-heat">487万</span>
+          </div>
+          <div class="hot-item">
+            <span class="hot-rank">5</span>
+            <span class="hot-text">精华液叠加使用顺序</span>
+            <span class="hot-heat">312万</span>
+          </div>
+          <div class="hot-item">
+            <span class="hot-rank">6</span>
+            <span class="hot-text">小棕瓶 vs 神仙水哪个好</span>
+            <span class="hot-heat">289万</span>
+          </div>
+        </div>
+
+        <!-- Suggested Creators -->
+        <div class="side-card">
+          <div class="side-card-title"><span class="dot">•</span>推荐达人</div>
+          <div class="creator-item">
+            <svg class="creator-ava" viewBox="0 0 38 38"><circle cx="19" cy="19" r="19" fill="#FFCDD2"/><circle cx="19" cy="15" r="7" fill="#fff" opacity="0.8"/></svg>
+            <div class="creator-info">
+              <div class="creator-name">皮肤科医师顾问</div>
+              <div class="creator-fans">42.3万粉丝</div>
+            </div>
+            <button class="follow-btn">+ 关注</button>
+          </div>
+          <div class="creator-item">
+            <svg class="creator-ava" viewBox="0 0 38 38"><circle cx="19" cy="19" r="19" fill="#B2EBF2"/><circle cx="19" cy="15" r="7" fill="#fff" opacity="0.8"/></svg>
+            <div class="creator-info">
+              <div class="creator-name">护肤成分研究所</div>
+              <div class="creator-fans">28.7万粉丝</div>
+            </div>
+            <button class="follow-btn">+ 关注</button>
+          </div>
+          <div class="creator-item">
+            <svg class="creator-ava" viewBox="0 0 38 38"><circle cx="19" cy="19" r="19" fill="#DCEDC8"/><circle cx="19" cy="15" r="7" fill="#fff" opacity="0.8"/></svg>
+            <div class="creator-info">
+              <div class="creator-name">敏感肌自救指南</div>
+              <div class="creator-fans">19.1万粉丝</div>
+            </div>
+            <button class="follow-btn">+ 关注</button>
+          </div>
+        </div>
+
+        <!-- Related Searches -->
+        <div class="side-card">
+          <div class="side-card-title"><span class="dot">•</span>相关搜索</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:4px;">
+            <span style="background:#f5f5f5;color:#555;font-size:12px;padding:5px 10px;border-radius:12px;">烟酰胺精华</span>
+            <span style="background:#f5f5f5;color:#555;font-size:12px;padding:5px 10px;border-radius:12px;">视黄醇精华</span>
+            <span style="background:#f5f5f5;color:#555;font-size:12px;padding:5px 10px;border-radius:12px;">小棕瓶精华</span>
+            <span style="background:#f5f5f5;color:#555;font-size:12px;padding:5px 10px;border-radius:12px;">抗老精华排行</span>
+            <span style="background:#f5f5f5;color:#555;font-size:12px;padding:5px 10px;border-radius:12px;">国货精华推荐</span>
+            <span style="background:#f5f5f5;color:#555;font-size:12px;padding:5px 10px;border-radius:12px;">精华液成分表</span>
+          </div>
+        </div>
+
+      </div><!-- /side-col -->
+
+    </div><!-- /flex row -->
+  </div><!-- /page-body -->
+
+</body>
+</html>

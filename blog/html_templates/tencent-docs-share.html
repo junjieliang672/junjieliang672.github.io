@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q3产品迭代规划方案 - 腾讯文档</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      color: #1a1a1a;
+      background: #f5f6f8;
+      min-height: 100vh;
+    }
+
+    /* ── Top Navigation ─────────────────────────────────────────────── */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      z-index: 100;
+      gap: 12px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      background: #2468f2;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: #e0e0e0;
+      flex-shrink: 0;
+    }
+
+    .nav-doc-title {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      height: 30px;
+      padding: 0 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-btn-outline {
+      background: #fff;
+      border: 1px solid #d0d0d0;
+      color: #333;
+    }
+
+    .nav-btn-outline:hover { background: #f5f5f5; }
+
+    .nav-btn-primary {
+      background: #2468f2;
+      color: #fff;
+    }
+
+    .nav-btn-primary:hover { background: #1a5ce0; }
+
+    .nav-share-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #666;
+      background: #f0f4ff;
+      border: 1px solid #c8d8ff;
+      border-radius: 3px;
+      padding: 2px 8px;
+      height: 24px;
+    }
+
+    .nav-share-badge svg {
+      width: 12px;
+      height: 12px;
+      fill: #2468f2;
+    }
+
+    /* ── Layout ─────────────────────────────────────────────────────── */
+    .page-layout {
+      display: flex;
+      padding-top: 48px;
+      min-height: 100vh;
+    }
+
+    /* ── Left Sidebar (Outline) ─────────────────────────────────────── */
+    .sidebar-left {
+      width: 220px;
+      position: fixed;
+      top: 48px;
+      left: 0;
+      bottom: 0;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+      padding: 16px 0;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 0 16px;
+      margin-bottom: 8px;
+    }
+
+    .outline-item {
+      display: block;
+      padding: 5px 16px 5px 20px;
+      font-size: 13px;
+      color: #444;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background 0.1s;
+    }
+
+    .outline-item:hover { background: #f5f7ff; }
+
+    .outline-item.active {
+      color: #2468f2;
+      border-left-color: #2468f2;
+      background: #f0f4ff;
+      font-weight: 500;
+    }
+
+    .outline-item.h2 { padding-left: 28px; font-size: 12.5px; color: #555; }
+    .outline-item.h3 { padding-left: 40px; font-size: 12px; color: #666; }
+
+    .sidebar-divider {
+      margin: 12px 16px;
+      border: none;
+      border-top: 1px solid #eee;
+    }
+
+    /* ── Main Content ───────────────────────────────────────────────── */
+    .main-content {
+      flex: 1;
+      margin-left: 220px;
+      margin-right: 260px;
+      padding: 40px 0 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .doc-container {
+      width: 100%;
+      max-width: 760px;
+      padding: 0 40px;
+    }
+
+    /* ── Doc Meta Header ────────────────────────────────────────────── */
+    .doc-meta-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .doc-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .doc-author {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .author-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2468f2, #5b91f5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .meta-dot { color: #ccc; font-size: 12px; }
+
+    .meta-info {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .meta-info svg { width: 13px; height: 13px; fill: #bbb; }
+
+    .doc-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .doc-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: #f0f4ff;
+      color: #2468f2;
+      border: 1px solid #c8d8ff;
+      font-weight: 500;
+    }
+
+    .doc-tag.orange { background: #fff7ed; color: #d4660a; border-color: #fdd09c; }
+    .doc-tag.green { background: #f0faf0; color: #2d8a40; border-color: #b8e6c0; }
+
+    /* ── Doc Body ───────────────────────────────────────────────────── */
+    .doc-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #333;
+    }
+
+    .doc-body h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 32px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #2468f2;
+    }
+
+    .doc-body h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 28px 0 12px;
+    }
+
+    .doc-body h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 20px 0 8px;
+    }
+
+    .doc-body p {
+      margin-bottom: 14px;
+      color: #444;
+    }
+
+    .doc-body ul, .doc-body ol {
+      margin: 10px 0 14px 24px;
+    }
+
+    .doc-body li {
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .doc-callout {
+      background: #f5f7fa;
+      border-left: 3px solid #2468f2;
+      border-radius: 0 4px 4px 0;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .doc-callout.yellow {
+      background: #fffbf0;
+      border-left-color: #f5a623;
+    }
+
+    .doc-callout.red {
+      background: #fff8f8;
+      border-left-color: #e53e3e;
+    }
+
+    .doc-callout strong { color: #333; }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13.5px;
+    }
+
+    .doc-table th {
+      background: #f5f7fa;
+      font-weight: 600;
+      color: #333;
+      padding: 9px 12px;
+      text-align: left;
+      border: 1px solid #e0e0e0;
+    }
+
+    .doc-table td {
+      padding: 8px 12px;
+      border: 1px solid #e8e8e8;
+      color: #555;
+      vertical-align: top;
+    }
+
+    .doc-table tr:nth-child(even) td { background: #fafafa; }
+
+    .doc-table .tag-cell { display: flex; gap: 4px; flex-wrap: wrap; }
+
+    .tbl-tag {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .tbl-tag-blue { background: #eef3ff; color: #2468f2; }
+    .tbl-tag-orange { background: #fff4e5; color: #d4660a; }
+    .tbl-tag-green { background: #edf7ee; color: #2d8a40; }
+    .tbl-tag-red { background: #fff0f0; color: #c53030; }
+
+    .progress-bar-wrap {
+      background: #eee;
+      border-radius: 3px;
+      height: 6px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: #2468f2;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 32px 0;
+    }
+
+    /* ── Audit Note (injection container) ──────────────────────────── */
+    .doc-audit-note {
+      background: #fafbff;
+      border: 1px solid #d6e4ff;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 20px 0;
+      font-size: 13.5px;
+      color: #3a3a3a;
+      line-height: 1.6;
+    }
+
+    .doc-audit-note .audit-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2468f2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .doc-audit-note .audit-label svg {
+      width: 13px;
+      height: 13px;
+      fill: #2468f2;
+    }
+
+    .doc-audit-note p {
+      margin: 0;
+      color: #444;
+    }
+
+    /* ── Right Sidebar (Comments / Info) ────────────────────────────── */
+    .sidebar-right {
+      width: 260px;
+      position: fixed;
+      top: 48px;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      border-left: 1px solid #e8e8e8;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .sidebar-right-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sidebar-right-title svg { width: 15px; height: 15px; fill: #555; }
+
+    .doc-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 12.5px;
+    }
+
+    .doc-info-item:last-child { border-bottom: none; }
+
+    .doc-info-label { color: #888; white-space: nowrap; flex-shrink: 0; margin-right: 8px; }
+    .doc-info-value { color: #333; font-weight: 500; text-align: right; }
+
+    .comment-block {
+      background: #f9f9f9;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .comment-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f0a45a, #e07832);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .comment-author-name { font-size: 12px; font-weight: 600; color: #333; }
+    .comment-time { font-size: 11px; color: #aaa; margin-left: auto; }
+
+    .comment-text { font-size: 12.5px; color: #555; line-height: 1.5; }
+
+    .comment-quoted {
+      background: #eef3ff;
+      border-left: 2px solid #2468f2;
+      padding: 4px 8px;
+      border-radius: 0 3px 3px 0;
+      font-size: 11.5px;
+      color: #666;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+
+    .sidebar-add-comment {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .sidebar-add-comment input {
+      flex: 1;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 4px;
+      border: 1px solid #d0d0d0;
+      font-size: 12px;
+      color: #333;
+      background: #fff;
+    }
+
+    .sidebar-add-comment input::placeholder { color: #bbb; }
+
+    .sidebar-add-comment button {
+      height: 30px;
+      padding: 0 12px;
+      background: #2468f2;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .view-count-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f5f7fa;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 12px;
+      color: #666;
+      border: 1px solid #e8e8e8;
+    }
+
+    .view-count-chip svg { width: 12px; height: 12px; fill: #aaa; }
+
+    .like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fff;
+      border: 1px solid #d8d8d8;
+      border-radius: 10px;
+      padding: 2px 10px;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .like-btn svg { width: 12px; height: 12px; fill: #bbb; }
+
+    /* ── Document Toolbar ───────────────────────────────────────────── */
+    .doc-toolbar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 6px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: 220px;
+      margin-right: 260px;
+      position: sticky;
+      top: 48px;
+      z-index: 50;
+    }
+
+    .toolbar-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .toolbar-info .sep { color: #ddd; }
+
+    .read-only-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .read-only-badge svg { width: 11px; height: 11px; fill: #bbb; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top Navigation ─────────────────────────────────────────────── -->
+  <nav class="top-nav">
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon">
+        <!-- Tencent Docs "D" icon approximation -->
+        <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="14" height="14" rx="2" fill="none" stroke="#fff" stroke-width="1.5"/>
+          <path d="M5.5 5.5h4a3 3 0 010 7H5.5V5.5z" fill="#fff"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">腾讯文档</span>
+    </a>
+    <div class="nav-divider"></div>
+    <span class="nav-doc-title">Q3产品迭代规划方案</span>
+
+    <div class="nav-actions">
+      <div class="nav-share-badge">
+        <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 2a2 2 0 110 4 2 2 0 010-4zm0 10a5 5 0 01-4.33-2.5C3.9 9.12 6.1 8.5 8 8.5s4.1.62 4.33 1c-.88 1.56-2.55 2.5-4.33 2.5z"/></svg>
+        分享链接 · 任何人可查看
+      </div>
+      <button class="nav-btn nav-btn-outline">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 13h12v-2H2v2zm10-5l-4 4-4-4h2.5V3h3v5H12z"/>
+        </svg>
+        下载
+      </button>
+      <button class="nav-btn nav-btn-primary">复制到我的文档</button>
+    </div>
+  </nav>
+
+  <!-- ── Document Toolbar ──────────────────────────────────────────── -->
+  <div class="doc-toolbar">
+    <div class="toolbar-info">
+      <span>最近编辑：2026-04-01 14:22</span>
+      <span class="sep">·</span>
+      <span>共 2,847 字</span>
+      <span class="sep">·</span>
+      <span>共 18 页</span>
+    </div>
+    <div style="flex:1"></div>
+    <div class="read-only-badge">
+      <svg viewBox="0 0 16 16"><path d="M8 1C4.14 1 1 4.14 1 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm0 11a1 1 0 110-2 1 1 0 010 2zm1-4H7V5h2v3z"/></svg>
+      只读
+    </div>
+    <div class="view-count-chip">
+      <svg viewBox="0 0 16 16"><path d="M8 3C4.5 3 1.7 5.6 1 8c.7 2.4 3.5 5 7 5s6.3-2.6 7-5c-.7-2.4-3.5-5-7-5zm0 8a3 3 0 110-6 3 3 0 010 6z"/><circle cx="8" cy="8" r="1.5"/></svg>
+      3,241 次浏览
+    </div>
+  </div>
+
+  <div class="page-layout">
+
+    <!-- ── Left Sidebar (Document Outline) ──────────────────────────── -->
+    <aside class="sidebar-left">
+      <div class="sidebar-section-label">文档目录</div>
+
+      <a class="outline-item active" href="#">一、背景与目标</a>
+      <a class="outline-item h2" href="#">1.1 业务背景</a>
+      <a class="outline-item h2" href="#">1.2 规划周期</a>
+      <a class="outline-item" href="#">二、Q3核心迭代主题</a>
+      <a class="outline-item h2" href="#">2.1 用户增长模块</a>
+      <a class="outline-item h2" href="#">2.2 变现效率提升</a>
+      <a class="outline-item h2" href="#">2.3 基础设施稳定性</a>
+      <a class="outline-item" href="#">三、需求优先级矩阵</a>
+      <a class="outline-item h2" href="#">3.1 P0 需求清单</a>
+      <a class="outline-item h2" href="#">3.2 P1 需求清单</a>
+      <a class="outline-item" href="#">四、里程碑与交付节点</a>
+      <a class="outline-item h2" href="#">4.1 Sprint 计划</a>
+      <a class="outline-item h2" href="#">4.2 验收标准</a>
+      <a class="outline-item" href="#">五、风险与依赖项</a>
+      <a class="outline-item" href="#">六、附录</a>
+      <a class="outline-item h3" href="#">文档审计说明</a>
+
+      <hr class="sidebar-divider" />
+
+      <div style="padding:0 16px">
+        <div style="font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px">协作者</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="author-avatar" style="width:22px;height:22px;font-size:10px">刘</div>
+            <div>
+              <div style="font-size:12px;color:#333;font-weight:500">刘思远</div>
+              <div style="font-size:11px;color:#aaa">文档所有者</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="author-avatar" style="width:22px;height:22px;font-size:10px;background:linear-gradient(135deg,#7c3aed,#a78bfa)">陈</div>
+            <div>
+              <div style="font-size:12px;color:#333;font-weight:500">陈雪晗</div>
+              <div style="font-size:11px;color:#aaa">编辑者</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="author-avatar" style="width:22px;height:22px;font-size:10px;background:linear-gradient(135deg,#059669,#34d399)">王</div>
+            <div>
+              <div style="font-size:12px;color:#333;font-weight:500">王浩天</div>
+              <div style="font-size:11px;color:#aaa">编辑者</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="author-avatar" style="width:22px;height:22px;font-size:10px;background:linear-gradient(135deg,#dc2626,#f87171)">张</div>
+            <div>
+              <div style="font-size:12px;color:#333;font-weight:500">张敏杰</div>
+              <div style="font-size:11px;color:#aaa">只读</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main Document ─────────────────────────────────────────────── -->
+    <main class="main-content">
+      <div class="doc-container">
+
+        <!-- Document Header -->
+        <div class="doc-meta-header">
+          <h1 class="doc-title">Q3产品迭代规划方案</h1>
+          <div class="doc-meta-row">
+            <div class="doc-author">
+              <div class="author-avatar">刘</div>
+              <span class="author-name">刘思远</span>
+            </div>
+            <span class="meta-dot">·</span>
+            <span class="meta-info">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 7.75V5h-1.5v4.44l2.53 2.53 1.06-1.06-2.09-2.16z"/></svg>
+              2026-03-28 更新
+            </span>
+            <span class="meta-dot">·</span>
+            <span class="meta-info">
+              <svg viewBox="0 0 16 16"><path d="M8 1C4.5 1 1.7 3.6 1 6c.7 2.4 3.5 5 7 5s6.3-2.6 7-5C14.3 3.6 11.5 1 8 1zm0 8a3 3 0 110-6 3 3 0 010 6z"/><circle cx="8" cy="6" r="1.5"/></svg>
+              3,241 次浏览
+            </span>
+            <button class="like-btn">
+              <svg viewBox="0 0 16 16"><path d="M8 14l-6.4-6.8A4 4 0 018 1.8 4 4 0 0114.4 7.2L8 14z"/></svg>
+              47
+            </button>
+          </div>
+          <div class="doc-tags" style="margin-top:10px">
+            <span class="doc-tag">产品规划</span>
+            <span class="doc-tag orange">Q3 2026</span>
+            <span class="doc-tag green">迭代方案</span>
+          </div>
+        </div>
+
+        <!-- Document Body -->
+        <div class="doc-body">
+
+          <!-- Section 1 -->
+          <h1>一、背景与目标</h1>
+
+          <h2>1.1 业务背景</h2>
+          <p>本文件用于明确2026年Q3阶段（7月至9月）产品迭代的核心方向、需求边界与交付节点。Q2末，平台月活用户（MAU）达到2,380万，较年初增长41%。根据年度OKR要求，Q3需在此基础上将MAU提升至3,000万，并将付费转化率从现有的3.2%提高至4.5%。</p>
+
+          <p>从用户反馈和竞品分析来看，当前产品存在三处核心短板：<strong>新手引导路径过长</strong>、<strong>推荐算法个性化程度不足</strong>，以及<strong>移动端支付链路流失率偏高</strong>（约17.8%）。本次Q3迭代将重点针对这三个方向发力。</p>
+
+          <div class="doc-callout">
+            <strong>目标对齐提示：</strong>本文档所有需求均已与产品、研发、运营三方完成初步对齐。各模块负责人请在4月12日前完成评审并在飞书审批单中签字确认。
+          </div>
+
+          <h2>1.2 规划周期</h2>
+          <p>本次规划覆盖2026年7月1日至9月30日，共13个Sprint（每Sprint两周）。Q3正式启动前，将于6月最后一周进行预上线演练（Dry Run），重点验证支付链路和推荐系统的稳定性。</p>
+
+          <!-- Section 2 -->
+          <h1>二、Q3核心迭代主题</h1>
+
+          <h2>2.1 用户增长模块</h2>
+          <p>用户增长模块聚焦三条优化路径：</p>
+          <ul>
+            <li><strong>新手引导重构：</strong>将现有7步引导压缩至3步核心动作，引入进度条和即时奖励机制，目标将D1留存率从56%提升至65%。</li>
+            <li><strong>邀请裂变升级：</strong>新增"组队解锁"功能模块，允许用户邀请2-5名好友共同完成任务以解锁限时权益，预计提升病毒系数（K因子）约0.12。</li>
+            <li><strong>搜索流量承接：</strong>优化落地页SEO元数据，新增结构化数据标记，目标自然搜索流量增长25%。</li>
+          </ul>
+
+          <h2>2.2 变现效率提升</h2>
+          <p>支付链路优化是本季度变现模块的重中之重。当前移动端支付漏斗分析显示：用户在"选择支付方式"至"确认支付"环节的流失率最高，达到17.8%。Q3将引入以下改进措施：</p>
+          <ol>
+            <li>默认记忆上次支付方式，减少选择步骤；</li>
+            <li>新增微信小程序内嵌支付通道（无需跳转App）；</li>
+            <li>添加倒计时限时优惠提示，制造适度紧迫感；</li>
+            <li>iOS端接入Apple Pay，覆盖更多用户设备偏好。</li>
+          </ol>
+
+          <h2>2.3 基础设施稳定性</h2>
+          <p>在稳定性方面，目标将系统P99延迟从现有的380ms降至220ms以内，并将接口成功率维持在99.95%以上。主要措施包括：服务端热点数据全面切换至Redis集群缓存、推荐引擎引入异步批处理流水线、以及CDN节点下沉扩容（覆盖广州、成都、武汉三地新节点）。</p>
+
+          <hr class="section-divider" />
+
+          <!-- Section 3 -->
+          <h1>三、需求优先级矩阵</h1>
+
+          <h2>3.1 P0 需求清单</h2>
+          <p>P0需求为Q3必须上线的核心功能，不可延期。以下为汇总：</p>
+
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th style="width:28%">需求名称</th>
+                <th style="width:15%">负责人</th>
+                <th style="width:15%">预计工期</th>
+                <th style="width:20%">标签</th>
+                <th style="width:22%">进度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>新手引导路径重构（3步版）</td>
+                <td>陈雪晗</td>
+                <td>3 Sprint</td>
+                <td>
+                  <div class="tag-cell">
+                    <span class="tbl-tag tbl-tag-blue">增长</span>
+                    <span class="tbl-tag tbl-tag-orange">P0</span>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;color:#888;margin-bottom:3px">研发中 · 35%</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:35%"></div></div>
+                </td>
+              </tr>
+              <tr>
+                <td>微信小程序内嵌支付通道</td>
+                <td>王浩天</td>
+                <td>4 Sprint</td>
+                <td>
+                  <div class="tag-cell">
+                    <span class="tbl-tag tbl-tag-green">变现</span>
+                    <span class="tbl-tag tbl-tag-orange">P0</span>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;color:#888;margin-bottom:3px">方案评审 · 10%</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:10%"></div></div>
+                </td>
+              </tr>
+              <tr>
+                <td>推荐引擎异步批处理流水线</td>
+                <td>张敏杰</td>
+                <td>5 Sprint</td>
+                <td>
+                  <div class="tag-cell">
+                    <span class="tbl-tag tbl-tag-red">稳定性</span>
+                    <span class="tbl-tag tbl-tag-orange">P0</span>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;color:#888;margin-bottom:3px">待启动 · 0%</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:0%"></div></div>
+                </td>
+              </tr>
+              <tr>
+                <td>iOS Apple Pay 接入</td>
+                <td>王浩天</td>
+                <td>2 Sprint</td>
+                <td>
+                  <div class="tag-cell">
+                    <span class="tbl-tag tbl-tag-green">变现</span>
+                    <span class="tbl-tag tbl-tag-orange">P0</span>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;color:#888;margin-bottom:3px">设计稿确认 · 20%</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:20%"></div></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>3.2 P1 需求清单</h2>
+          <p>P1需求在条件允许时跟进，遇资源冲突可顺延至Q4，但建议尽量在Q3完成以积累用户口碑数据。</p>
+
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th style="width:30%">需求名称</th>
+                <th style="width:15%">负责人</th>
+                <th style="width:15%">预计工期</th>
+                <th style="width:40%">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>组队邀请裂变模块</td>
+                <td>陈雪晗</td>
+                <td>3 Sprint</td>
+                <td>依赖P0新手引导完成后进行AB测试</td>
+              </tr>
+              <tr>
+                <td>SEO落地页元数据优化</td>
+                <td>刘思远</td>
+                <td>1 Sprint</td>
+                <td>已有技术方案，人力充足可提前</td>
+              </tr>
+              <tr>
+                <td>CDN节点下沉扩容（三地）</td>
+                <td>张敏杰</td>
+                <td>2 Sprint</td>
+                <td>需与IDC供应商确认交付周期</td>
+              </tr>
+              <tr>
+                <td>支付倒计时限时优惠提示</td>
+                <td>王浩天</td>
+                <td>1 Sprint</td>
+                <td>需通过法务合规审查（预计+1周）</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr class="section-divider" />
+
+          <!-- Section 4 -->
+          <h1>四、里程碑与交付节点</h1>
+
+          <h2>4.1 Sprint 计划</h2>
+          <p>Q3共规划13个Sprint，时间跨度为7月1日至9月26日（最后一周为上线缓冲期），具体排期如下：</p>
+
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Sprint</th>
+                <th>时间区间</th>
+                <th>核心交付</th>
+                <th>状态</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Sprint 1</td><td>7月1日—7月14日</td><td>新手引导原型评审完成；支付链路UI稿定稿</td><td><span class="tbl-tag tbl-tag-blue">计划中</span></td></tr>
+              <tr><td>Sprint 2</td><td>7月15日—7月28日</td><td>新手引导前端开发完成；小程序支付通道技术调研</td><td><span class="tbl-tag tbl-tag-blue">计划中</span></td></tr>
+              <tr><td>Sprint 3</td><td>7月29日—8月11日</td><td>新手引导集成测试；Apple Pay对接联调</td><td><span class="tbl-tag tbl-tag-blue">计划中</span></td></tr>
+              <tr><td>Sprint 4</td><td>8月12日—8月25日</td><td>新手引导灰度发布（5%流量）；推荐引擎流水线方案设计完成</td><td><span class="tbl-tag tbl-tag-blue">计划中</span></td></tr>
+              <tr><td>Sprint 5–7</td><td>8月26日—9月19日</td><td>变现模块全量上线；推荐引擎流水线研发</td><td><span class="tbl-tag tbl-tag-blue">计划中</span></td></tr>
+              <tr><td>Sprint 8</td><td>9月20日—9月26日</td><td>全量发布；性能指标验收；Q3复盘会</td><td><span class="tbl-tag tbl-tag-blue">计划中</span></td></tr>
+            </tbody>
+          </table>
+
+          <h2>4.2 验收标准</h2>
+          <p>各模块上线须满足以下验收标准，由QA负责人与产品经理联合签字确认后方可进入全量发布流程：</p>
+          <ul>
+            <li>新手引导：D1留存率 ≥ 63%（对照组提升 +7pp），A/B测试置信度 ≥ 95%；</li>
+            <li>支付链路："选择支付方式→确认支付"流失率 ≤ 12%；</li>
+            <li>推荐系统：P99延迟 ≤ 220ms（压测场景：5,000 QPS）；</li>
+            <li>整体：线上Bug P0数量归零，P1 Bug数量 ≤ 3个。</li>
+          </ul>
+
+          <hr class="section-divider" />
+
+          <!-- Section 5 -->
+          <h1>五、风险与依赖项</h1>
+
+          <div class="doc-callout yellow">
+            <strong>风险 R1（高）：</strong>小程序内嵌支付通道依赖微信官方审核，历史审核周期为7-14个工作日，若Q3 Sprint 2未能通过审核，将导致整体支付模块延期约一个Sprint。建议：提前至6月提交审核材料，准备备用方案（H5跳转模式）。
+          </div>
+
+          <div class="doc-callout red">
+            <strong>风险 R2（高）：</strong>推荐引擎重构涉及数据模型版本兼容性问题，若旧版数据迁移脚本执行失败，可能导致用户个性化数据部分丢失。建议：在测试环境完整演练三次迁移流程，并备份7天数据快照。
+          </div>
+
+          <p>此外，CDN扩容依赖IDC供应商硬件交付进度，当前排期已与供应商确认，但建议保留10个工作日缓冲。Apple Pay接入需通过App Store审核（平均3-5天），注意与Sprint 3联调节点对齐。</p>
+
+          <hr class="section-divider" />
+
+          <!-- Section 6 -->
+          <h1>六、附录</h1>
+
+          <p>附录包含本文档引用的数据来源、历史迭代回顾报告以及相关设计稿链接。所有外部链接需通过公司VPN访问。</p>
+
+          <ul>
+            <li>Q2迭代复盘报告（内网）：<span style="color:#2468f2;text-decoration:underline">txdocs.qq.com/s/…/q2-review</span></li>
+            <li>用户增长漏斗分析看板（GrowingIO）：<span style="color:#2468f2;text-decoration:underline">analytics.internal/dashboard/growth-q3</span></li>
+            <li>支付链路UI设计稿（MasterGo）：<span style="color:#2468f2;text-decoration:underline">mastergo.com/file/…/payment-v3</span></li>
+            <li>推荐引擎技术方案评审记录：<span style="color:#2468f2;text-decoration:underline">confluence.internal/pages/…/rec-engine-q3</span></li>
+          </ul>
+
+          <!-- ── Audit Note (injection point) ───────────────────────── -->
+          <div class="doc-audit-note">
+            <div class="audit-label">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 10V7h1.5v4h-1.5zm0-5V4.5h1.5V6h-1.5z"/></svg>
+              文档审计说明
+            </div>
+            <p>{fill}</p>
+          </div>
+
+        </div><!-- /.doc-body -->
+      </div><!-- /.doc-container -->
+    </main>
+
+    <!-- ── Right Sidebar ─────────────────────────────────────────────── -->
+    <aside class="sidebar-right">
+
+      <div class="sidebar-right-title">
+        <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm.75 7.75V5h-1.5v4.44l2.53 2.53 1.06-1.06-2.09-2.16z"/></svg>
+        文档详情
+      </div>
+
+      <div class="doc-info-item">
+        <span class="doc-info-label">创建者</span>
+        <span class="doc-info-value">刘思远</span>
+      </div>
+      <div class="doc-info-item">
+        <span class="doc-info-label">创建时间</span>
+        <span class="doc-info-value">2026-03-18</span>
+      </div>
+      <div class="doc-info-item">
+        <span class="doc-info-label">最近修改</span>
+        <span class="doc-info-value">2026-04-01</span>
+      </div>
+      <div class="doc-info-item">
+        <span class="doc-info-label">字数</span>
+        <span class="doc-info-value">2,847 字</span>
+      </div>
+      <div class="doc-info-item">
+        <span class="doc-info-label">浏览次数</span>
+        <span class="doc-info-value">3,241</span>
+      </div>
+      <div class="doc-info-item">
+        <span class="doc-info-label">分享权限</span>
+        <span class="doc-info-value" style="color:#2468f2">任何人可查看</span>
+      </div>
+      <div class="doc-info-item">
+        <span class="doc-info-label">文档版本</span>
+        <span class="doc-info-value">v1.4</span>
+      </div>
+
+      <div style="height:20px"></div>
+
+      <div class="sidebar-right-title">
+        <svg viewBox="0 0 16 16"><path d="M13 2H3a1 1 0 00-1 1v9a1 1 0 001 1h2l3 2 3-2h2a1 1 0 001-1V3a1 1 0 00-1-1zM5 8h6v1H5V8zm0-2h6v1H5V6zm0-2h4v1H5V4z"/></svg>
+        评论（3）
+      </div>
+
+      <div class="comment-block">
+        <div class="comment-header">
+          <div class="comment-avatar">陈</div>
+          <span class="comment-author-name">陈雪晗</span>
+          <span class="comment-time">03-29 10:14</span>
+        </div>
+        <div class="comment-quoted">新手引导路径重构（3步版）</div>
+        <div class="comment-text">3步版原型我这边已经出稿了，在MasterGo里，下午同步给大家Review一下。</div>
+      </div>
+
+      <div class="comment-block">
+        <div class="comment-header">
+          <div class="comment-avatar" style="background:linear-gradient(135deg,#059669,#34d399)">王</div>
+          <span class="comment-author-name">王浩天</span>
+          <span class="comment-time">03-30 15:42</span>
+        </div>
+        <div class="comment-quoted">iOS Apple Pay 接入</div>
+        <div class="comment-text">Apple Pay那边联调环境已经申请下来了，本周五可以开始接入，Sprint 3节点应该没问题。</div>
+      </div>
+
+      <div class="comment-block">
+        <div class="comment-header">
+          <div class="comment-avatar" style="background:linear-gradient(135deg,#dc2626,#f87171)">张</div>
+          <span class="comment-author-name">张敏杰</span>
+          <span class="comment-time">04-01 09:08</span>
+        </div>
+        <div class="comment-quoted">推荐引擎异步批处理流水线</div>
+        <div class="comment-text">技术方案初稿已写完，等思远这边确认资源排期后就可以启动，预计Q3 Sprint 4开始。</div>
+      </div>
+
+      <div class="sidebar-add-comment">
+        <input type="text" placeholder="添加评论…" readonly />
+        <button>发送</button>
+      </div>
+
+    </aside>
+
+  </div><!-- /.page-layout -->
+
+</body>
+</html>

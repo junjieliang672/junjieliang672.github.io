@@ -12,6 +12,7 @@ group :jekyll_plugins do
     gem 'jekyll-minifier'
     gem 'jekyll-paginate-v2'
     gem 'jekyll-scholar'
+    gem 'bibtex-ruby', '>= 6.2'
     gem 'jekyll-sitemap'
     gem 'jekyll-twitter-plugin'
     gem 'jemoji'
