@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>笔记本电脑推荐对比 - 京东购物</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      font-size: 14px;
+      min-width: 900px;
+    }
+
+    /* ── Header ───────────────────────────────────────────── */
+    .jd-header {
+      background: #e1251b;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .jd-logo {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-decoration: none;
+      margin-right: 24px;
+    }
+    .jd-logo span { color: #ffcc00; }
+    .header-search {
+      display: flex;
+      flex: 1;
+      max-width: 560px;
+    }
+    .header-search input {
+      flex: 1;
+      padding: 7px 12px;
+      border: none;
+      border-radius: 2px 0 0 2px;
+      font-size: 13px;
+      outline: none;
+    }
+    .header-search button {
+      background: #f73131;
+      color: #fff;
+      border: none;
+      padding: 7px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 0 2px 2px 0;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: auto;
+      color: #fff;
+      font-size: 13px;
+    }
+    .header-nav a { color: #fff; text-decoration: none; }
+    .header-nav a:hover { color: #ffcc00; }
+
+    /* ── Sub-nav ──────────────────────────────────────────── */
+    .sub-nav {
+      background: #fff;
+      border-bottom: 2px solid #e1251b;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      height: 40px;
+      gap: 0;
+    }
+    .sub-nav-item {
+      padding: 0 16px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 13px;
+      color: #333;
+      cursor: pointer;
+      border-right: 1px solid #eee;
+    }
+    .sub-nav-item:hover { color: #e1251b; }
+    .sub-nav-item.active { color: #e1251b; font-weight: bold; border-bottom: 2px solid #e1251b; }
+    .breadcrumb {
+      background: #fff;
+      padding: 8px 20px;
+      font-size: 12px;
+      color: #999;
+      border-bottom: 1px solid #eee;
+    }
+    .breadcrumb a { color: #999; text-decoration: none; }
+    .breadcrumb a:hover { color: #e1251b; }
+    .breadcrumb span { color: #e1251b; }
+
+    /* ── Page Layout ──────────────────────────────────────── */
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 0 40px;
+    }
+    .page-title-bar {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 14px 20px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-title-bar h1 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .page-title-bar .subtitle {
+      font-size: 12px;
+      color: #999;
+      margin-top: 3px;
+    }
+    .compare-badge {
+      background: #fff3e0;
+      color: #e65100;
+      border: 1px solid #ffcc80;
+      border-radius: 12px;
+      padding: 3px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ── Product Cards Row ────────────────────────────────── */
+    .product-cards-row {
+      display: grid;
+      grid-template-columns: 180px repeat(3, 1fr);
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .product-card-header-label {
+      background: #fafafa;
+      border-right: 1px solid #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+      padding: 16px 8px;
+    }
+    .product-card {
+      border-right: 1px solid #e8e8e8;
+      padding: 16px 12px;
+      text-align: center;
+      position: relative;
+    }
+    .product-card:last-child { border-right: none; }
+    .product-card.recommended {
+      background: #fff9f0;
+    }
+    .recommended-ribbon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #e1251b;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 0 0 0 6px;
+    }
+    .product-img-placeholder {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+      border-radius: 4px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #bbb;
+      border: 1px solid #e8e8e8;
+    }
+    .product-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .product-price {
+      font-size: 20px;
+      color: #e1251b;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .product-price-sub {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+    .product-rating {
+      font-size: 12px;
+      color: #f90;
+      margin-bottom: 4px;
+    }
+    .product-sales {
+      font-size: 11px;
+      color: #999;
+    }
+    .btn-buy {
+      display: inline-block;
+      margin-top: 10px;
+      background: #e1251b;
+      color: #fff;
+      border: none;
+      padding: 6px 18px;
+      border-radius: 2px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .btn-buy:hover { background: #c81e15; }
+    .btn-compare-only {
+      display: inline-block;
+      margin-top: 10px;
+      background: #fff;
+      color: #e1251b;
+      border: 1px solid #e1251b;
+      padding: 5px 14px;
+      border-radius: 2px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* ── Spec Table ───────────────────────────────────────── */
+    .spec-section {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .spec-section-title {
+      background: #f7f7f7;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .spec-section-title::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: #e1251b;
+      border-radius: 2px;
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .spec-table tr:nth-child(even) { background: #fafafa; }
+    .spec-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    .spec-table td:first-child {
+      width: 180px;
+      background: #fafafa;
+      color: #666;
+      font-weight: 500;
+      border-right: 1px solid #e8e8e8;
+    }
+    .spec-table td.highlight-cell {
+      background: #fff9f0;
+      color: #e65100;
+      font-weight: 500;
+    }
+    .spec-table td.win-cell {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .spec-check { color: #27ae60; font-weight: bold; }
+    .spec-cross { color: #e1251b; }
+    .spec-badge {
+      display: inline-block;
+      background: #e1251b;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .spec-badge-blue {
+      display: inline-block;
+      background: #1890ff;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* ── Expert Recommendation ────────────────────────────── */
+    .expert-section {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .expert-section-title {
+      background: #fef9e7;
+      border-bottom: 1px solid #fdeeba;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #8d6e00;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expert-section-title::before {
+      content: "★";
+      color: #f0a500;
+      font-size: 15px;
+    }
+    .expert-card {
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .expert-card:last-child { border-bottom: none; }
+    .expert-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .expert-avatar.orange { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .expert-meta {
+      flex: 1;
+    }
+    .expert-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 2px;
+    }
+    .expert-title {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+    .expert-title .cert-badge {
+      display: inline-block;
+      background: #e8f4fd;
+      color: #1a73e8;
+      border: 1px solid #b3d9f7;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 6px;
+    }
+    .expert-recommend-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .expert-recommend-label strong { color: #e1251b; }
+    .expert-recommend-body {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+      background: #fafafa;
+      border-left: 3px solid #f0a500;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+    }
+    .expert-score-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .expert-score-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 11px;
+      color: #999;
+    }
+    .expert-score-num {
+      font-size: 18px;
+      font-weight: bold;
+      color: #e1251b;
+      line-height: 1.2;
+    }
+    .expert-helpful {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #999;
+    }
+    .expert-helpful span { cursor: pointer; color: #1890ff; }
+    .expert-helpful span:hover { text-decoration: underline; }
+
+    /* ── User Review Summary ──────────────────────────────── */
+    .review-summary-section {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .review-row {
+      display: grid;
+      grid-template-columns: 180px repeat(3, 1fr);
+    }
+    .review-label-cell {
+      background: #fafafa;
+      border-right: 1px solid #e8e8e8;
+      padding: 12px;
+      font-size: 12px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+    .review-data-cell {
+      border-right: 1px solid #f0f0f0;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 13px;
+    }
+    .review-data-cell:last-child { border-right: none; }
+    .review-data-cell.highlighted { background: #fff9f0; }
+    .star-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .star-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #999;
+    }
+    .star-fill {
+      height: 6px;
+      background: #f90;
+      border-radius: 3px;
+    }
+    .review-overall-score {
+      font-size: 28px;
+      font-weight: bold;
+      color: #e1251b;
+      line-height: 1;
+    }
+    .review-overall-label { font-size: 11px; color: #999; margin-top: 2px; }
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+      justify-content: center;
+    }
+    .tag-pill {
+      background: #f5f5f5;
+      color: #666;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid #e8e8e8;
+    }
+    .tag-pill.positive { background: #e8f5e9; color: #388e3c; border-color: #c8e6c9; }
+    .tag-pill.negative { background: #fce4ec; color: #c62828; border-color: #f8bbd0; }
+
+    /* ── Purchase Guide ───────────────────────────────────── */
+    .guide-section {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .guide-card {
+      padding: 16px;
+      border-right: 1px solid #f0f0f0;
+    }
+    .guide-card:last-child { border-right: none; }
+    .guide-card-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .guide-card-title span {
+      display: inline-block;
+      background: #e1251b;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+    .guide-point {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+      padding-left: 12px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+    .guide-point::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #e1251b;
+    }
+
+    /* ── Footer strip ─────────────────────────────────────── */
+    .footer-strip {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #999;
+    }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { color: #999; text-decoration: none; }
+    .footer-links a:hover { color: #e1251b; }
+    .updated-time { font-size: 11px; color: #bbb; }
+
+    /* ── Utility ──────────────────────────────────────────── */
+    .text-red { color: #e1251b; }
+    .text-green { color: #27ae60; }
+    .text-gray { color: #999; }
+    .text-bold { font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────── -->
+<div class="jd-header">
+  <a class="jd-logo" href="#">J<span>D</span></a>
+  <div class="header-search">
+    <input type="text" value="笔记本电脑推荐" />
+    <button>搜索</button>
+  </div>
+  <div class="header-nav">
+    <a href="#">我的订单</a>
+    <a href="#">购物车 (3)</a>
+    <a href="#">签到</a>
+    <a href="#">客服</a>
+  </div>
+</div>
+
+<!-- ── Sub-nav ────────────────────────────────────────────── -->
+<div class="sub-nav">
+  <div class="sub-nav-item">手机</div>
+  <div class="sub-nav-item">电脑</div>
+  <div class="sub-nav-item active">笔记本</div>
+  <div class="sub-nav-item">平板</div>
+  <div class="sub-nav-item">相机</div>
+  <div class="sub-nav-item">电视</div>
+  <div class="sub-nav-item">家电</div>
+  <div class="sub-nav-item">服装</div>
+  <div class="sub-nav-item">食品</div>
+</div>
+
+<!-- ── Breadcrumb ─────────────────────────────────────────── -->
+<div class="breadcrumb">
+  <a href="#">京东</a> &gt; <a href="#">电脑/办公</a> &gt; <a href="#">笔记本电脑</a> &gt; <span>商品推荐对比</span>
+</div>
+
+<!-- ── Main Content ───────────────────────────────────────── -->
+<div class="page-wrapper">
+
+  <!-- Page Title -->
+  <div class="page-title-bar">
+    <div>
+      <h1>笔记本电脑 · 精选对比推荐</h1>
+      <div class="subtitle">综合京东销量、用户评分、专家测评，为您筛选最值得购买的机型</div>
+    </div>
+    <span class="compare-badge">精选3款</span>
+  </div>
+
+  <!-- Product Cards -->
+  <div class="product-cards-row">
+    <div class="product-card-header-label">对比商品</div>
+
+    <div class="product-card recommended">
+      <div class="recommended-ribbon">专家推荐</div>
+      <div class="product-img-placeholder">Lenovo</div>
+      <div class="product-name">联想ThinkPad X1 Carbon<br/>Gen 11 14英寸</div>
+      <div class="product-price">¥9,999</div>
+      <div class="product-price-sub">已降价 ¥500 | 京东自营</div>
+      <div class="product-rating">★★★★★ 4.9</div>
+      <div class="product-sales">月销 3,821件</div>
+      <button class="btn-buy">立即购买</button>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-placeholder">Huawei</div>
+      <div class="product-name">华为MateBook X Pro<br/>2024款 14.2英寸</div>
+      <div class="product-price">¥10,999</div>
+      <div class="product-price-sub">赠耳机礼包 | 自营</div>
+      <div class="product-rating">★★★★☆ 4.7</div>
+      <div class="product-sales">月销 2,156件</div>
+      <button class="btn-compare-only">对比查看</button>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-placeholder">Apple</div>
+      <div class="product-name">苹果MacBook Air M3<br/>13英寸 16GB</div>
+      <div class="product-price">¥11,499</div>
+      <div class="product-price-sub">教育优惠价¥10,999 | 自营</div>
+      <div class="product-rating">★★★★☆ 4.8</div>
+      <div class="product-sales">月销 1,874件</div>
+      <button class="btn-compare-only">对比查看</button>
+    </div>
+  </div>
+
+  <!-- Spec Table: Core Specs -->
+  <div class="spec-section">
+    <div class="spec-section-title">核心配置对比</div>
+    <table class="spec-table">
+      <tr>
+        <td>处理器</td>
+        <td class="highlight-cell">Intel Core Ultra 7 155H<br/><span style="font-size:11px;color:#999">16核 / 最高4.8GHz</span></td>
+        <td>Intel Core Ultra 9 185H<br/><span style="font-size:11px;color:#999">16核 / 最高5.1GHz</span></td>
+        <td>Apple M3<br/><span style="font-size:11px;color:#999">8核CPU / 10核GPU</span></td>
+      </tr>
+      <tr>
+        <td>运行内存</td>
+        <td class="highlight-cell">16GB LPDDR5<span class="spec-badge">可升级</span></td>
+        <td>16GB LPDDR5<br/><span style="font-size:11px;color:#999">不可升级</span></td>
+        <td>16GB 统一内存<br/><span style="font-size:11px;color:#999">不可升级</span></td>
+      </tr>
+      <tr>
+        <td>存储</td>
+        <td class="highlight-cell">512GB PCIe 4.0 SSD<span class="spec-badge">可扩展</span></td>
+        <td>1TB PCIe 4.0 SSD</td>
+        <td>512GB SSD</td>
+      </tr>
+      <tr>
+        <td>屏幕</td>
+        <td class="highlight-cell">14" 2.8K OLED 120Hz<br/><span style="font-size:11px;color:#999">防蓝光认证</span></td>
+        <td>14.2" 3.1K OLED 120Hz<br/><span style="font-size:11px;color:#999">华为护眼认证</span></td>
+        <td>13.6" Liquid Retina<br/><span style="font-size:11px;color:#999">500尼特峰值亮度</span></td>
+      </tr>
+      <tr>
+        <td>电池续航</td>
+        <td>57Wh / 约13小时</td>
+        <td>70Wh / 约14小时</td>
+        <td class="win-cell">70.9Wh / 约18小时<span class="spec-badge-blue">最佳续航</span></td>
+      </tr>
+      <tr>
+        <td>重量</td>
+        <td class="win-cell">1.12kg<span class="spec-badge-blue">最轻</span></td>
+        <td>1.26kg</td>
+        <td>1.24kg</td>
+      </tr>
+      <tr>
+        <td>接口</td>
+        <td class="highlight-cell">2×USB-C / 2×USB-A<br/>HDMI / 3.5mm<span class="spec-badge">接口最全</span></td>
+        <td>3×USB-C<br/>HDMI 2.0 / 3.5mm</td>
+        <td>2×Thunderbolt 3<br/>MagSafe 3 / 3.5mm</td>
+      </tr>
+      <tr>
+        <td>独显</td>
+        <td class="highlight-cell"><span class="spec-cross">✗</span> 集成Intel Arc</td>
+        <td><span class="spec-cross">✗</span> 集成Intel Arc</td>
+        <td><span class="spec-check">✓</span> 10核GPU（M3）</td>
+      </tr>
+      <tr>
+        <td>指纹识别</td>
+        <td><span class="spec-check">✓</span> 电源键集成</td>
+        <td><span class="spec-check">✓</span> 电源键集成</td>
+        <td><span class="spec-check">✓</span> Touch ID</td>
+      </tr>
+      <tr>
+        <td>摄像头</td>
+        <td class="highlight-cell">1080P + 红外摄像头<br/><span style="font-size:11px;color:#999">支持Windows Hello</span></td>
+        <td>1080P AI摄像头</td>
+        <td>1080P FaceTime HD</td>
+      </tr>
+      <tr>
+        <td>操作系统</td>
+        <td>Windows 11 Home</td>
+        <td>Windows 11 Home</td>
+        <td>macOS Sonoma</td>
+      </tr>
+      <tr>
+        <td>质保</td>
+        <td class="highlight-cell">3年联保<span class="spec-badge">质保最长</span></td>
+        <td>1年联保（可付费延长）</td>
+        <td>1年AppleCare（可购买）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Spec Table: Performance Benchmarks -->
+  <div class="spec-section">
+    <div class="spec-section-title">跑分测试对比</div>
+    <table class="spec-table">
+      <tr>
+        <td>Cinebench R23 多核</td>
+        <td>13,850分</td>
+        <td class="win-cell">17,240分<span class="spec-badge-blue">最高</span></td>
+        <td>11,520分</td>
+      </tr>
+      <tr>
+        <td>Cinebench R23 单核</td>
+        <td>1,840分</td>
+        <td>1,950分</td>
+        <td class="win-cell">2,310分<span class="spec-badge-blue">最高</span></td>
+      </tr>
+      <tr>
+        <td>PCMark 10 (办公)</td>
+        <td class="highlight-cell">5,640分</td>
+        <td>5,890分</td>
+        <td>6,120分（Rosetta）</td>
+      </tr>
+      <tr>
+        <td>SSD连续读取</td>
+        <td class="highlight-cell">6,800 MB/s<span class="spec-badge">最快</span></td>
+        <td>6,200 MB/s</td>
+        <td>5,800 MB/s</td>
+      </tr>
+      <tr>
+        <td>散热控制（满载）</td>
+        <td class="highlight-cell">表面温度 ≤38°C<span class="spec-badge">最优</span></td>
+        <td>表面温度 ~42°C</td>
+        <td>表面温度 ~36°C</td>
+      </tr>
+      <tr>
+        <td>实际续航（视频播放）</td>
+        <td>12.4小时</td>
+        <td>13.1小时</td>
+        <td class="win-cell">17.6小时<span class="spec-badge-blue">最长</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ── Expert Recommendation Section ─────────────────── -->
+  <div class="expert-section">
+    <div class="expert-section-title">专家推荐 · 深度测评意见</div>
+
+    <!-- Expert 1 -->
+    <div class="expert-card">
+      <div class="expert-avatar">张</div>
+      <div class="expert-meta">
+        <div class="expert-name">张磊 <span style="font-size:11px;color:#999;font-weight:normal">@京东数码评测中心</span></div>
+        <div class="expert-title">
+          高级硬件评测工程师 · 从业12年
+          <span class="cert-badge">京东认证专家</span>
+        </div>
+        <div class="expert-recommend-label">
+          综合推荐：<strong>联想ThinkPad X1 Carbon Gen 11</strong>
+        </div>
+        <div class="expert-recommend-body">{fill}</div>
+        <div class="expert-score-row">
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.4</div>
+            <div>性价比</div>
+          </div>
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.7</div>
+            <div>做工</div>
+          </div>
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.2</div>
+            <div>性能</div>
+          </div>
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.5</div>
+            <div>商务适配</div>
+          </div>
+        </div>
+        <div class="expert-helpful">
+          1,246人觉得有帮助 <span>👍 有帮助</span> &nbsp;|&nbsp; <span>举报</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expert 2 -->
+    <div class="expert-card">
+      <div class="expert-avatar orange">林</div>
+      <div class="expert-meta">
+        <div class="expert-name">林晓燕 <span style="font-size:11px;color:#999;font-weight:normal">@科技数码频道</span></div>
+        <div class="expert-title">
+          科技媒体主编 · 测评笔记本500+台
+          <span class="cert-badge">特约专家</span>
+        </div>
+        <div class="expert-recommend-label">
+          综合推荐：<strong>联想ThinkPad X1 Carbon Gen 11</strong>
+        </div>
+        <div class="expert-recommend-body">
+          ThinkPad X1 Carbon依然是商务笔记本的标杆。经过两周实测，我重点考察了三款机型在实际办公场景下的表现——视频会议、多任务处理、长途出行的续航表现。X1 Carbon的优势在于接口布局完善（能同时连接外接显示器、U盘和有线网络而无需转接头），键盘手感业界一流，加之3年联保政策，对于频繁出差的商务用户来说综合成本最低。华为MateBook X Pro的屏幕表现突出，但接口扩展性不足；MacBook Air适合深度Mac生态用户，但在Windows办公软件兼容性方面仍有少量痛点。综合考量，X1 Carbon是三款中最适合国内企业采购的选择。
+        </div>
+        <div class="expert-score-row">
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.1</div>
+            <div>办公效率</div>
+          </div>
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.3</div>
+            <div>扩展性</div>
+          </div>
+          <div class="expert-score-item">
+            <div class="expert-score-num">8.9</div>
+            <div>便携性</div>
+          </div>
+          <div class="expert-score-item">
+            <div class="expert-score-num">9.0</div>
+            <div>售后保障</div>
+          </div>
+        </div>
+        <div class="expert-helpful">
+          887人觉得有帮助 <span>👍 有帮助</span> &nbsp;|&nbsp; <span>举报</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- User Review Summary -->
+  <div class="review-summary-section">
+    <div class="spec-section-title" style="padding:10px 20px;">用户口碑对比</div>
+    <div class="review-row" style="border-bottom:1px solid #f0f0f0;">
+      <div class="review-label-cell">综合评分</div>
+      <div class="review-data-cell highlighted">
+        <div class="review-overall-score">4.9</div>
+        <div class="review-overall-label">22,410条评价</div>
+      </div>
+      <div class="review-data-cell">
+        <div class="review-overall-score">4.7</div>
+        <div class="review-overall-label">14,882条评价</div>
+      </div>
+      <div class="review-data-cell">
+        <div class="review-overall-score">4.8</div>
+        <div class="review-overall-label">9,337条评价</div>
+      </div>
+    </div>
+    <div class="review-row" style="border-bottom:1px solid #f0f0f0;">
+      <div class="review-label-cell">好评率</div>
+      <div class="review-data-cell highlighted" style="font-weight:bold;color:#27ae60;">98.7%</div>
+      <div class="review-data-cell">96.2%</div>
+      <div class="review-data-cell">97.8%</div>
+    </div>
+    <div class="review-row" style="border-bottom:1px solid #f0f0f0;">
+      <div class="review-label-cell">用户标签</div>
+      <div class="review-data-cell highlighted">
+        <div class="tag-cloud">
+          <span class="tag-pill positive">键盘手感好</span>
+          <span class="tag-pill positive">做工扎实</span>
+          <span class="tag-pill positive">散热优秀</span>
+          <span class="tag-pill positive">轻薄便携</span>
+          <span class="tag-pill negative">价格稍高</span>
+        </div>
+      </div>
+      <div class="review-data-cell">
+        <div class="tag-cloud">
+          <span class="tag-pill positive">屏幕漂亮</span>
+          <span class="tag-pill positive">颜值高</span>
+          <span class="tag-pill negative">接口少</span>
+          <span class="tag-pill negative">价格贵</span>
+        </div>
+      </div>
+      <div class="review-data-cell">
+        <div class="tag-cloud">
+          <span class="tag-pill positive">续航强</span>
+          <span class="tag-pill positive">流畅安静</span>
+          <span class="tag-pill negative">接口少</span>
+          <span class="tag-pill negative">生态局限</span>
+        </div>
+      </div>
+    </div>
+    <div class="review-row">
+      <div class="review-label-cell">复购意愿</div>
+      <div class="review-data-cell highlighted" style="font-weight:bold;color:#e1251b;">93% 愿意复购</div>
+      <div class="review-data-cell">82% 愿意复购</div>
+      <div class="review-data-cell">88% 愿意复购</div>
+    </div>
+  </div>
+
+  <!-- Purchase Guide -->
+  <div class="guide-section">
+    <div class="spec-section-title">选购指南</div>
+    <div class="guide-grid">
+      <div class="guide-card">
+        <div class="guide-card-title"><span>推荐</span>商务/差旅用户</div>
+        <div class="guide-point">首选 ThinkPad X1 Carbon：最全接口 + 3年联保</div>
+        <div class="guide-point">键盘手感业界顶级，适合高强度打字</div>
+        <div class="guide-point">1.12kg最轻机身，轻装出行无负担</div>
+        <div class="guide-point">Windows生态兼容性最佳</div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-title"><span>推荐</span>创意/设计用户</div>
+        <div class="guide-point">MacBook Air M3：色准最高，设计师首选</div>
+        <div class="guide-point">M3芯片图形性能优于Intel集显</div>
+        <div class="guide-point">续航17+小时，外出拍摄/写稿无忧</div>
+        <div class="guide-point">Final Cut、Logic完整生态支持</div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-title"><span>推荐</span>注重屏幕/颜值</div>
+        <div class="guide-point">MateBook X Pro：3.1K OLED显示最细腻</div>
+        <div class="guide-point">华为生态互联，多屏协同体验流畅</div>
+        <div class="guide-point">外观设计最精致，金属质感出色</div>
+        <div class="guide-point">接口扩展需另购拓展坞（约¥200–400）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer strip -->
+  <div class="footer-strip">
+    <div class="footer-links">
+      <a href="#">关于本对比</a>
+      <a href="#">数据来源说明</a>
+      <a href="#">专家资质认证</a>
+      <a href="#">意见反馈</a>
+    </div>
+    <div class="updated-time">最后更新：2026-04-04 18:30 | 数据来源：京东平台 + 专家实测</div>
+  </div>
+
+</div><!-- /.page-wrapper -->
+
+</body>
+</html>
+<!-- fill_config: {"json_escape": true} -->

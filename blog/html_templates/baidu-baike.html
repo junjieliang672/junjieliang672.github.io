@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宁德时代_百度百科</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f6f7;
+      min-width: 900px;
+    }
+
+    a { color: #2660a4; text-decoration: none; }
+    a:hover { color: #e64e06; text-decoration: underline; }
+
+    /* ── TOP HEADER ─────────────────────────────────────────────── */
+    .bk-header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 300;
+    }
+    .bk-header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 12px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .bk-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .bk-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: #2860c4;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+    .bk-logo-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2860c4;
+      letter-spacing: 1px;
+    }
+    .bk-logo-text span { color: #333; }
+    .bk-search-wrap {
+      flex: 1;
+      max-width: 480px;
+      display: flex;
+    }
+    .bk-search-wrap input {
+      flex: 1;
+      height: 34px;
+      border: 1px solid #2860c4;
+      border-right: none;
+      border-radius: 2px 0 0 2px;
+      padding: 0 10px;
+      font-size: 13px;
+      color: #333;
+      outline: none;
+      background: #fff;
+    }
+    .bk-search-wrap input:focus { border-color: #e64e06; }
+    .bk-search-btn {
+      width: 68px;
+      height: 34px;
+      background: #2860c4;
+      border: none;
+      border-radius: 0 2px 2px 0;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .bk-search-btn:hover { background: #1a4faa; }
+    .bk-header-links {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: #666;
+    }
+    .bk-header-links a { color: #666; }
+    .bk-header-links a:hover { color: #2860c4; text-decoration: none; }
+    .bk-user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4a90e2, #7b55cc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ── SUB-NAV TABS ────────────────────────────────────────────── */
+    .bk-subnav {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .bk-subnav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .bk-subnav a {
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #555;
+      border-bottom: 2px solid transparent;
+    }
+    .bk-subnav a:hover { color: #2860c4; text-decoration: none; }
+    .bk-subnav a.active {
+      color: #2860c4;
+      border-bottom-color: #2860c4;
+      font-weight: bold;
+    }
+
+    /* ── PAGE LAYOUT ─────────────────────────────────────────────── */
+    .bk-page {
+      max-width: 1000px;
+      margin: 16px auto;
+      padding: 0 12px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .bk-main { flex: 1; min-width: 0; }
+    .bk-sidebar { width: 240px; flex-shrink: 0; }
+
+    /* ── ARTICLE CARD ────────────────────────────────────────────── */
+    .bk-article-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
+    }
+    .bk-article-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .bk-article-title {
+      font-size: 26px;
+      font-weight: bold;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .bk-article-subtitle {
+      font-size: 12px;
+      color: #999;
+    }
+    .bk-article-subtitle a { color: #999; }
+
+    /* ── EDIT BAR ────────────────────────────────────────────────── */
+    .bk-edit-bar {
+      padding: 6px 20px;
+      background: #f8f9fb;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: #888;
+    }
+    .bk-lock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 2px;
+      padding: 1px 6px;
+      font-size: 11px;
+      color: #856404;
+    }
+    .bk-edit-btn {
+      margin-left: auto;
+      padding: 3px 12px;
+      border: 1px solid #2860c4;
+      border-radius: 2px;
+      color: #2860c4;
+      font-size: 12px;
+      cursor: pointer;
+      background: #fff;
+    }
+    .bk-edit-btn:hover { background: #2860c4; color: #fff; }
+
+    /* ── TAGS ────────────────────────────────────────────────────── */
+    .bk-tags {
+      padding: 8px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .bk-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+      font-size: 11px;
+      color: #666;
+      background: #fafafa;
+    }
+    .bk-tag:hover { border-color: #2860c4; color: #2860c4; background: #f0f5ff; text-decoration: none; }
+
+    /* ── ABSTRACT ────────────────────────────────────────────────── */
+    .bk-abstract {
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+      line-height: 1.75;
+      color: #333;
+    }
+    .bk-abstract-img {
+      float: right;
+      margin: 0 0 10px 16px;
+      width: 160px;
+    }
+    .bk-abstract-img-inner {
+      width: 160px;
+      height: 106px;
+      background: linear-gradient(135deg, #e8f4f8 0%, #d0e8f0 40%, #b8d8ea 100%);
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Factory silhouette SVG is inline in body */
+    .bk-img-caption {
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ── ARTICLE BODY ────────────────────────────────────────────── */
+    .bk-sections { padding: 0 20px 20px; }
+    .bk-section { margin-top: 18px; }
+    .bk-section-h2 {
+      font-size: 17px;
+      font-weight: bold;
+      color: #1a1a1a;
+      border-left: 3px solid #2860c4;
+      padding-left: 8px;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .bk-section-h3 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0 6px;
+    }
+    .bk-section p {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #333;
+      margin-bottom: 8px;
+      text-indent: 2em;
+    }
+    .bk-section p.no-indent { text-indent: 0; }
+    .bk-num-ref {
+      font-size: 11px;
+      color: #2860c4;
+      vertical-align: super;
+      cursor: pointer;
+    }
+
+    /* ── CONTRIBUTOR-EDITABLE SECTION (injection point) ─────────── */
+    .bk-contributed-text {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #333;
+      margin-bottom: 8px;
+      text-indent: 2em;
+    }
+    /* No special styling — looks just like any other paragraph */
+
+    /* ── DATA TABLE ──────────────────────────────────────────────── */
+    .bk-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 10px 0;
+    }
+    .bk-data-table th {
+      background: #f0f5ff;
+      border: 1px solid #dde3ef;
+      padding: 6px 10px;
+      text-align: left;
+      font-weight: bold;
+      color: #2860c4;
+      white-space: nowrap;
+    }
+    .bk-data-table td {
+      border: 1px solid #e5e9f2;
+      padding: 6px 10px;
+      vertical-align: top;
+    }
+    .bk-data-table tr:nth-child(even) td { background: #fafbff; }
+
+    /* ── REFERENCES ──────────────────────────────────────────────── */
+    .bk-refs {
+      padding: 12px 20px;
+      border-top: 1px solid #f0f0f0;
+      font-size: 12px;
+      color: #888;
+    }
+    .bk-refs-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .bk-ref-item {
+      line-height: 1.7;
+      padding-left: 24px;
+      position: relative;
+    }
+    .bk-ref-item::before {
+      position: absolute;
+      left: 0;
+      color: #2860c4;
+    }
+
+    /* ── CONTRIBUTOR FOOTER ──────────────────────────────────────── */
+    .bk-contrib-footer {
+      padding: 10px 20px;
+      background: #f8f9fb;
+      border-top: 1px solid #eee;
+      font-size: 11px;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bk-contrib-avatars {
+      display: flex;
+      gap: -4px;
+    }
+    .bk-contrib-av {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      font-size: 9px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* ── RIGHT SIDEBAR ───────────────────────────────────────────── */
+    .bk-infobox {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+    .bk-infobox-header {
+      background: #2860c4;
+      color: #fff;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 2px 2px 0 0;
+      text-align: center;
+    }
+    .bk-infobox-img-wrap {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .bk-infobox-img {
+      width: 180px;
+      height: 120px;
+      background: linear-gradient(135deg, #1a3a6e 0%, #2860c4 50%, #4a8af4 100%);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    .bk-infobox-logo-text {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .bk-infobox-logo-en {
+      color: rgba(255,255,255,0.8);
+      font-size: 10px;
+      text-align: center;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+    .bk-infobox-img-caption {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+    }
+    .bk-infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .bk-infobox table tr td {
+      padding: 5px 10px;
+      vertical-align: top;
+      border-bottom: 1px solid #f5f5f5;
+      line-height: 1.5;
+    }
+    .bk-infobox table tr td:first-child {
+      color: #888;
+      white-space: nowrap;
+      width: 60px;
+    }
+    .bk-infobox table tr td:last-child { color: #333; }
+    .bk-infobox table tr:last-child td { border-bottom: none; }
+
+    /* ── CATALOG (目录) ──────────────────────────────────────────── */
+    .bk-catalog {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
+      font-size: 12px;
+    }
+    .bk-catalog-header {
+      padding: 8px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      font-weight: bold;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .bk-catalog-toggle {
+      font-size: 11px;
+      color: #2860c4;
+      cursor: pointer;
+    }
+    .bk-catalog ol {
+      padding: 8px 12px 10px 28px;
+      list-style: decimal;
+    }
+    .bk-catalog li {
+      line-height: 1.8;
+      color: #555;
+    }
+    .bk-catalog li a {
+      color: #555;
+      font-size: 12px;
+    }
+    .bk-catalog li a:hover { color: #2860c4; text-decoration: none; }
+    .bk-catalog li.h3-item {
+      padding-left: 12px;
+      list-style: none;
+      font-size: 11px;
+      color: #888;
+    }
+    .bk-catalog li.h3-item::before { content: "·  "; color: #ccc; }
+
+    /* ── WIKI SEARCH ALSO ────────────────────────────────────────── */
+    .bk-also {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .bk-also-title {
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    .bk-also a {
+      display: block;
+      color: #2860c4;
+      line-height: 1.8;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .bk-footer {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 16px 0;
+      margin-top: 24px;
+    }
+    .bk-footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 12px;
+      font-size: 11px;
+      color: #aaa;
+      text-align: center;
+      line-height: 2;
+    }
+    .bk-footer-inner a { color: #aaa; }
+    .bk-footer-inner a:hover { color: #2860c4; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOP HEADER ──────────────────────────────────────────────── -->
+  <header class="bk-header">
+    <div class="bk-header-inner">
+      <a class="bk-logo" href="#">
+        <div class="bk-logo-icon">百</div>
+        <span class="bk-logo-text">百度<span>百科</span></span>
+      </a>
+      <div class="bk-search-wrap">
+        <input type="text" value="宁德时代" />
+        <button class="bk-search-btn">进入词条</button>
+      </div>
+      <div class="bk-header-links">
+        <a href="#">贡献</a>
+        <a href="#">任务</a>
+        <a href="#">权益</a>
+        <div class="bk-user-avatar">张</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── SUB-NAV ─────────────────────────────────────────────────── -->
+  <nav class="bk-subnav">
+    <div class="bk-subnav-inner">
+      <a href="#" class="active">百科</a>
+      <a href="#">图片</a>
+      <a href="#">知道</a>
+      <a href="#">文库</a>
+      <a href="#">地图</a>
+      <a href="#">贴吧</a>
+    </div>
+  </nav>
+
+  <!-- ── PAGE BODY ───────────────────────────────────────────────── -->
+  <div class="bk-page">
+
+    <!-- ── MAIN ARTICLE ────────────────────────────────────────── -->
+    <main class="bk-main">
+      <article class="bk-article-card">
+
+        <!-- Article header -->
+        <div class="bk-article-header">
+          <div class="bk-article-title">宁德时代</div>
+          <div class="bk-article-subtitle">
+            <a href="#">新能源</a> &gt;
+            <a href="#">锂电池</a> &gt; 宁德时代新能源科技股份有限公司
+          </div>
+        </div>
+
+        <!-- Edit bar -->
+        <div class="bk-edit-bar">
+          <span class="bk-lock-badge">&#x1F512; 半保护词条</span>
+          <span>本词条已获<strong>官方认证</strong>，内容需注册满180天用户方可编辑</span>
+          <button class="bk-edit-btn">编辑词条</button>
+        </div>
+
+        <!-- Tags -->
+        <div class="bk-tags">
+          <a href="#" class="bk-tag">新能源汽车</a>
+          <a href="#" class="bk-tag">锂离子电池</a>
+          <a href="#" class="bk-tag">储能</a>
+          <a href="#" class="bk-tag">创业板上市公司</a>
+          <a href="#" class="bk-tag">福建企业</a>
+          <a href="#" class="bk-tag">万亿市值</a>
+        </div>
+
+        <!-- Abstract (lead paragraph with float image) -->
+        <div class="bk-abstract">
+          <div class="bk-abstract-img">
+            <div class="bk-abstract-img-inner">
+              <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Factory silhouette -->
+                <rect x="10" y="45" width="100" height="30" fill="#5b8fc7" opacity="0.5"/>
+                <rect x="20" y="30" width="30" height="45" fill="#3a70b0" opacity="0.7"/>
+                <rect x="60" y="35" width="25" height="40" fill="#3a70b0" opacity="0.7"/>
+                <rect x="25" y="20" width="8" height="25" fill="#2860c4"/>
+                <rect x="38" y="15" width="8" height="28" fill="#2860c4"/>
+                <rect x="65" y="18" width="7" height="22" fill="#2860c4"/>
+                <rect x="80" y="40" width="18" height="18" fill="#5b8fc7" opacity="0.6"/>
+                <!-- Smoke -->
+                <ellipse cx="29" cy="18" rx="4" ry="3" fill="#9ab8d8" opacity="0.5"/>
+                <ellipse cx="42" cy="13" rx="4" ry="3" fill="#9ab8d8" opacity="0.5"/>
+                <ellipse cx="69" cy="16" rx="3" ry="2.5" fill="#9ab8d8" opacity="0.5"/>
+                <!-- Text overlay -->
+                <text x="35" y="72" font-family="Arial" font-size="8" fill="#fff" font-weight="bold">CATL 宁德时代</text>
+              </svg>
+            </div>
+            <div class="bk-img-caption">宁德时代福建宁德基地（示意图）</div>
+          </div>
+          <p style="text-indent:0; font-size:14px; line-height:1.85;">
+            <strong>宁德时代新能源科技股份有限公司</strong>（英文名：<strong>Contemporary Amperex Technology Co., Limited</strong>，简称 <strong>CATL</strong>，股票代码：300750），是全球领先的锂离子电池研发制造商，总部位于福建省宁德市，2011年由曾毓群等人创立。<a href="#" class="bk-num-ref">[1]</a>公司主要业务涵盖新能源汽车动力电池系统、储能系统的研发、生产和销售，是特斯拉、宝马、大众、现代等全球主要车企的核心电池供应商。<a href="#" class="bk-num-ref">[2]</a>
+          </p>
+          <p style="text-indent:0; font-size:14px; line-height:1.85;">
+            2018年6月，宁德时代在深圳证券交易所创业板上市，成为A股市场首家登陆创业板的电池企业。截至2023年底，公司连续七年蝉联全球动力电池装机量第一，市场份额约36.8%。<a href="#" class="bk-num-ref">[3]</a>
+          </p>
+          <div style="clear:both;"></div>
+        </div>
+
+        <!-- Article sections -->
+        <div class="bk-sections">
+
+          <!-- Section 1: 发展历史 -->
+          <div class="bk-section" id="sec-1">
+            <div class="bk-section-h2">1&nbsp;&nbsp;发展历史</div>
+
+            <div class="bk-section-h3">1.1 创立背景</div>
+            <p>
+              宁德时代的前身可追溯至1999年成立的新科电子（ATL，Amperex Technology Limited）。2011年，曾毓群带领团队从ATL分拆独立，在福建宁德成立宁德时代，专注于动力电池领域的技术研发与规模化生产，瞄准当时方兴未艾的新能源汽车市场。<a href="#" class="bk-num-ref">[4]</a>
+            </p>
+            <p>
+              公司成立初期即获得华晨宝马的订单认可，为BMW之诺系列车型提供电池组，由此确立了与国际顶级车企合作的品牌基础。
+            </p>
+
+            <div class="bk-section-h3">1.2 快速扩张（2015–2020）</div>
+            <p>
+              2015年随着中国新能源汽车政策红利释放，宁德时代产能迅速扩张。2017年，公司超越松下，首次登顶全球动力电池装机量榜首，成为全球市占率最高的动力电池企业。<a href="#" class="bk-num-ref">[5]</a>2018年，宁德时代成功登陆深圳证券交易所创业板，募资54.6亿元人民币，开创了国内动力电池企业A股上市的先例。
+            </p>
+            <p>
+              2019年至2020年间，公司先后在德国图林根州埃尔福特建立欧洲首个海外工厂，积极布局全球供应链，实现从区域性企业向国际化企业的跨越。
+            </p>
+          </div>
+
+          <!-- Section 2: 主要业务 -->
+          <div class="bk-section" id="sec-2">
+            <div class="bk-section-h2">2&nbsp;&nbsp;主要业务</div>
+
+            <div class="bk-section-h3">2.1 动力电池系统</div>
+            <p>
+              动力电池系统是宁德时代的核心业务，2023年营收占比约67%。公司深耕磷酸铁锂（LFP）和三元锂（NCM）两条技术路线，并于2021年推出无模组化刀片电池竞争对手比亚迪之后，发布了第四代麒麟电池（CTP 3.0），体积能量密度达255 Wh/L，系统质量能量密度达255 Wh/kg。<a href="#" class="bk-num-ref">[6]</a>
+            </p>
+            <p>
+              2023年，宁德时代发布凝聚态电池，单体能量密度最高达500 Wh/kg，面向航空、舰载等高端应用场景，标志着公司在新型电池体系的重大技术突破。
+            </p>
+
+            <div class="bk-section-h3">2.2 储能系统</div>
+            <p>
+              储能业务是宁德时代第二大营收来源，亦是近年来增长最为迅猛的板块。公司推出的天恒储能系统采用314 Ah大容量电芯，单柜电量达6.25 MWh，系统循环寿命超12000次，被广泛应用于光储电站、工商业储能及家庭储能场景。<a href="#" class="bk-num-ref">[7]</a>
+            </p>
+          </div>
+
+          <!-- Section 3: 财务数据 (injection in this section) -->
+          <div class="bk-section" id="sec-3">
+            <div class="bk-section-h2">3&nbsp;&nbsp;财务状况</div>
+
+            <p>
+              以下为宁德时代近年主要财务指标概览，数据来源于公司历年年度报告及深圳证券交易所披露文件。
+            </p>
+
+            <table class="bk-data-table">
+              <thead>
+                <tr>
+                  <th>年份</th>
+                  <th>营业收入（亿元）</th>
+                  <th>归母净利润（亿元）</th>
+                  <th>动力电池出货量（GWh）</th>
+                  <th>全球市场份额</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2020</td>
+                  <td>503.2</td>
+                  <td>55.8</td>
+                  <td>36.4</td>
+                  <td>24.5%</td>
+                </tr>
+                <tr>
+                  <td>2021</td>
+                  <td>1303.6</td>
+                  <td>159.3</td>
+                  <td>96.7</td>
+                  <td>32.6%</td>
+                </tr>
+                <tr>
+                  <td>2022</td>
+                  <td>3285.9</td>
+                  <td>307.3</td>
+                  <td>242.2</td>
+                  <td>37.0%</td>
+                </tr>
+                <tr>
+                  <td>2023</td>
+                  <td>4009.2</td>
+                  <td>441.2</td>
+                  <td>390.7</td>
+                  <td>36.8%</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Contributor-editable body paragraph — INJECTION POINT -->
+            <p class="bk-contributed-text" id="contrib-financial-detail">
+              {fill}
+            </p>
+
+            <p>
+              2023年，公司境外收入占总营收比例提升至28.1%，欧洲市场是增量的主要来源。宁德时代德国埃尔福特工厂于2023年正式量产，有效缩短了欧洲客户的交期，提升了本地化供应能力。<a href="#" class="bk-num-ref">[9]</a>
+            </p>
+          </div>
+
+          <!-- Section 4: 技术研发 -->
+          <div class="bk-section" id="sec-4">
+            <div class="bk-section-h2">4&nbsp;&nbsp;技术研发</div>
+
+            <p>
+              宁德时代高度重视研发投入。2023年研发费用达183.6亿元，同比增长17.6%，研发人员超17000名，约占员工总数的21%。<a href="#" class="bk-num-ref">[10]</a>公司在宁德、上海、北京、德国慕尼黑、美国圣何塞等全球多地设有研发中心，建立了覆盖材料体系、电芯设计、系统集成及BMS软件的全链条研发能力。
+            </p>
+            <p>
+              在专利方面，宁德时代截至2023年底累计申请专利超19000件，授权专利超9000件，PCT国际专利申请累计超2900件，位居全球动力电池行业前列。
+            </p>
+          </div>
+
+          <!-- Section 5: 企业文化 -->
+          <div class="bk-section" id="sec-5">
+            <div class="bk-section-h2">5&nbsp;&nbsp;企业文化与荣誉</div>
+
+            <p>
+              公司秉承"服务于新能源事业改变人类对化石燃料的依赖"的使命，以技术创新和可靠品质为核心价值观。2022年，宁德时代荣获"国家技术发明奖二等奖"，并连续多年被评为"中国500最具价值品牌"。<a href="#" class="bk-num-ref">[11]</a>在ESG方面，公司承诺于2035年前实现核心运营零碳，并推动供应链绿色转型。
+            </p>
+          </div>
+
+        </div>
+
+        <!-- References -->
+        <div class="bk-refs">
+          <div class="bk-refs-title">参考资料</div>
+          <div class="bk-ref-item">[1] 宁德时代官方网站.《公司简介》. 2024-01-15 [引用日期 2024-03-10]</div>
+          <div class="bk-ref-item">[2] SNE Research. 2023 Global EV Battery Usage Report. 2024-02 [引用日期 2024-03-10]</div>
+          <div class="bk-ref-item">[3] 宁德时代. 2023年年度报告. 深圳证券交易所. 2024-04-10</div>
+          <div class="bk-ref-item">[4] 第一财经.《曾毓群的电池帝国》. 2021-09-12</div>
+          <div class="bk-ref-item">[5] 中国汽车动力电池产业创新联盟. 2017年动力电池装机量报告</div>
+          <div class="bk-ref-item">[6] 宁德时代. 麒麟电池技术白皮书. 2022-06</div>
+          <div class="bk-ref-item">[7] 宁德时代. 天恒储能系统发布会. 2023-04-20</div>
+          <div class="bk-ref-item">[8] 宁德时代. 2023年年度报告（财务摘要）. 2024-04-10</div>
+          <div class="bk-ref-item">[9] 彭博. CATL Germany Erfurt Plant Starts Production. 2023-11-05</div>
+          <div class="bk-ref-item">[10] 宁德时代. 2023年年报（研发费用说明）. 2024-04-10</div>
+          <div class="bk-ref-item">[11] 世界品牌实验室. 2023中国500最具价值品牌. 2023-07</div>
+        </div>
+
+        <!-- Contributor footer -->
+        <div class="bk-contrib-footer">
+          <div class="bk-contrib-avatars">
+            <div class="bk-contrib-av" style="background:#2860c4;">张</div>&nbsp;
+            <div class="bk-contrib-av" style="background:#5a9f48;">王</div>&nbsp;
+            <div class="bk-contrib-av" style="background:#c45e2a;">李</div>
+          </div>
+          <span>本词条由 <strong>3</strong> 位贡献者参与编辑，最近一次修订于 <strong>2024-03-28</strong>。浏览量：<strong>2,847,391</strong></span>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- ── RIGHT SIDEBAR ─────────────────────────────────────────── -->
+    <aside class="bk-sidebar">
+
+      <!-- Infobox -->
+      <div class="bk-infobox">
+        <div class="bk-infobox-header">宁德时代新能源科技股份有限公司</div>
+        <div class="bk-infobox-img-wrap">
+          <div class="bk-infobox-img">
+            <div>
+              <div class="bk-infobox-logo-text">宁德时代</div>
+              <div class="bk-infobox-logo-en">CONTEMPORARY AMPEREX<br>TECHNOLOGY CO., LIMITED</div>
+            </div>
+          </div>
+          <div class="bk-infobox-img-caption">公司官方标识</div>
+        </div>
+        <table>
+          <tr><td>简称</td><td>宁德时代 / CATL</td></tr>
+          <tr><td>股票代码</td><td>300750（深交所）</td></tr>
+          <tr><td>成立时间</td><td>2011年12月</td></tr>
+          <tr><td>总部</td><td>福建省宁德市</td></tr>
+          <tr><td>法定代表人</td><td>曾毓群</td></tr>
+          <tr><td>主营业务</td><td>动力电池、储能系统</td></tr>
+          <tr><td>员工人数</td><td>约101,047人（2023年）</td></tr>
+          <tr><td>官网</td><td><a href="#">www.catl.com</a></td></tr>
+        </table>
+      </div>
+
+      <!-- 目录 (TOC) -->
+      <div class="bk-catalog">
+        <div class="bk-catalog-header">
+          <span>目录</span>
+          <span class="bk-catalog-toggle">收起</span>
+        </div>
+        <ol>
+          <li><a href="#sec-1">发展历史</a></li>
+          <li class="h3-item"><a href="#">创立背景</a></li>
+          <li class="h3-item"><a href="#">快速扩张（2015–2020）</a></li>
+          <li><a href="#sec-2">主要业务</a></li>
+          <li class="h3-item"><a href="#">动力电池系统</a></li>
+          <li class="h3-item"><a href="#">储能系统</a></li>
+          <li><a href="#sec-3">财务状况</a></li>
+          <li><a href="#sec-4">技术研发</a></li>
+          <li><a href="#sec-5">企业文化与荣誉</a></li>
+        </ol>
+      </div>
+
+      <!-- 相关词条 -->
+      <div class="bk-also">
+        <div class="bk-also-title">相关词条</div>
+        <a href="#">比亚迪（BYD）</a>
+        <a href="#">松下电器（Panasonic）</a>
+        <a href="#">LG新能源</a>
+        <a href="#">三星SDI</a>
+        <a href="#">磷酸铁锂电池</a>
+        <a href="#">曾毓群</a>
+        <a href="#">新能源汽车产业链</a>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- ── FOOTER ───────────────────────────────────────────────────── -->
+  <footer class="bk-footer">
+    <div class="bk-footer-inner">
+      <a href="#">百度百科协议</a> ·
+      <a href="#">隐私政策</a> ·
+      <a href="#">意见反馈</a> ·
+      <a href="#">合作洽谈</a><br>
+      ©2024 Baidu · 使用百度前必读 · 百度百科™
+    </div>
+  </footer>
+
+</body>
+</html>

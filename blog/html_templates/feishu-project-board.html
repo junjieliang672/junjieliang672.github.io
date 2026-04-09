@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q2 用户增长项目 - 项目看板 - 飞书项目</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1f2329;
+      font-size: 13px;
+      width: 900px;
+      margin: 0 auto;
+      height: 720px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Global top bar ── */
+    .topbar {
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e5e8ed;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lark-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #2e62f6 0%, #1cc2ff 100%);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lark-icon svg { width: 18px; height: 18px; }
+    .topbar-logo-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1f2329;
+    }
+    .topbar-divider {
+      width: 1px;
+      height: 20px;
+      background: #dee0e3;
+    }
+    .topbar-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #8f959e;
+      font-size: 13px;
+    }
+    .topbar-breadcrumb .crumb-active {
+      color: #1f2329;
+      font-weight: 500;
+    }
+    .topbar-breadcrumb .sep { color: #c0c4cc; }
+    .topbar-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-topbar {
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-topbar-primary {
+      background: #2e62f6;
+      color: #fff;
+      border: none;
+    }
+    .btn-topbar-secondary {
+      background: transparent;
+      color: #646a73;
+      border: 1px solid #dee0e3;
+    }
+    .avatar-sm {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ── Project sub-nav ── */
+    .project-nav {
+      height: 44px;
+      background: #fff;
+      border-bottom: 1px solid #e5e8ed;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .project-nav-item {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #646a73;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      gap: 5px;
+    }
+    .project-nav-item.active {
+      color: #2e62f6;
+      border-bottom-color: #2e62f6;
+      font-weight: 500;
+    }
+    .project-title-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 20px;
+    }
+    .project-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffa06b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .project-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2329;
+    }
+
+    /* ── Toolbar ── */
+    .board-toolbar {
+      height: 44px;
+      background: #f7f8fa;
+      border-bottom: 1px solid #e5e8ed;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .toolbar-btn {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #646a73;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+    .toolbar-btn:hover { background: #ebebeb; }
+    .toolbar-btn.active {
+      background: #e8eeff;
+      color: #2e62f6;
+      border-color: #c5d3fd;
+    }
+    .toolbar-sep {
+      width: 1px;
+      height: 18px;
+      background: #dee0e3;
+      margin: 0 4px;
+    }
+    .toolbar-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+
+    .filter-tag {
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 4px;
+      background: #eef3fe;
+      color: #2e62f6;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* ── Kanban board ── */
+    .board-area {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      padding: 12px 16px;
+      gap: 12px;
+    }
+
+    .kanban-col {
+      flex-shrink: 0;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 4px 8px;
+    }
+    .col-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .col-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #646a73;
+      flex: 1;
+    }
+    .col-count {
+      font-size: 11px;
+      color: #b0b7c0;
+      background: #f0f2f5;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .col-add-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b0b7c0;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .col-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ── Task card ── */
+    .task-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      cursor: pointer;
+      position: relative;
+      border: 1px solid #e5e8ed;
+    }
+    .task-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      border-color: #c5d3fd;
+    }
+    .task-card.highlighted {
+      border-color: #2e62f6;
+      box-shadow: 0 0 0 2px rgba(46,98,246,0.1);
+    }
+
+    .task-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .task-id {
+      font-size: 10px;
+      color: #b0b7c0;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .task-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1f2329;
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .task-desc {
+      font-size: 12px;
+      color: #8f959e;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .task-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+    .tag-high { background: #fff1f0; color: #ff4d4f; }
+    .tag-medium { background: #fff7e6; color: #fa8c16; }
+    .tag-low { background: #f0f9eb; color: #52c41a; }
+    .tag-feature { background: #e8eeff; color: #2e62f6; }
+    .tag-bug { background: #fff1f0; color: #ff4d4f; }
+    .tag-backend { background: #f0f0f0; color: #595959; }
+    .tag-design { background: #faf0fe; color: #722ed1; }
+
+    .task-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .task-assignee {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .task-assignee-name {
+      font-size: 11px;
+      color: #8f959e;
+    }
+    .task-due {
+      margin-left: auto;
+      font-size: 11px;
+      color: #8f959e;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .task-due.overdue { color: #ff4d4f; }
+    .task-due.soon { color: #fa8c16; }
+
+    .task-progress {
+      height: 3px;
+      background: #f0f2f5;
+      border-radius: 2px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .task-progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #2e62f6;
+    }
+
+    .task-comment-count {
+      font-size: 10px;
+      color: #b0b7c0;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* col dot colors */
+    .dot-todo { background: #dee0e3; }
+    .dot-inprogress { background: #2e62f6; }
+    .dot-review { background: #fa8c16; }
+    .dot-done { background: #52c41a; }
+
+    /* add card button */
+    .add-card-btn {
+      margin-top: 8px;
+      height: 32px;
+      border: 1px dashed #dee0e3;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: #b0b7c0;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .add-card-btn:hover {
+      border-color: #2e62f6;
+      color: #2e62f6;
+      background: #f0f4ff;
+    }
+
+    /* ── Sprint info banner ── */
+    .sprint-banner {
+      background: #f0f4ff;
+      border: 1px solid #c5d3fd;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 11px;
+      color: #2e62f6;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .sprint-badge {
+      background: #2e62f6;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Global top bar ── -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="lark-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3L20 8V16L12 21L4 16V8L12 3Z" fill="white" opacity="0.9"/>
+        </svg>
+      </div>
+      <span class="topbar-logo-text">飞书项目</span>
+    </div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-breadcrumb">
+      <span>Acme Tech</span>
+      <span class="sep">›</span>
+      <span>产品团队</span>
+      <span class="sep">›</span>
+      <span class="crumb-active">Q2 用户增长项目</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn-topbar btn-topbar-secondary">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        邀请成员
+      </button>
+      <button class="btn-topbar btn-topbar-primary">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        新建任务
+      </button>
+      <div class="avatar-sm" style="background:#2e62f6; margin-left:4px;">WL</div>
+    </div>
+  </div>
+
+  <!-- ── Project sub-nav ── -->
+  <div class="project-nav">
+    <div class="project-title-area">
+      <div class="project-icon">📊</div>
+      <span class="project-name">Q2 用户增长项目</span>
+    </div>
+    <div class="project-nav-item">概览</div>
+    <div class="project-nav-item active">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="4" height="5" rx="1" fill="currentColor" opacity="0.7"/><rect x="1" y="8" width="4" height="4" rx="1" fill="currentColor" opacity="0.4"/><rect x="7" y="1" width="5" height="3" rx="1" fill="currentColor" opacity="0.4"/><rect x="7" y="6" width="5" height="6" rx="1" fill="currentColor" opacity="0.7"/></svg>
+      看板
+    </div>
+    <div class="project-nav-item">列表</div>
+    <div class="project-nav-item">甘特图</div>
+    <div class="project-nav-item">统计</div>
+    <div class="project-nav-item">文档</div>
+  </div>
+
+  <!-- ── Board toolbar ── -->
+  <div class="board-toolbar">
+    <button class="toolbar-btn">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 8l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      搜索任务
+    </button>
+    <div class="toolbar-sep"></div>
+    <button class="toolbar-btn">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 3h10M3 6h6M5 9h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      筛选
+    </button>
+    <div class="filter-tag">负责人: 王磊 ×</div>
+    <button class="toolbar-btn">分组</button>
+    <button class="toolbar-btn">排序</button>
+    <div class="toolbar-right">
+      <button class="toolbar-btn active">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="1" width="4" height="5" rx="1" fill="currentColor"/><rect x="7" y="1" width="4" height="5" rx="1" fill="currentColor" opacity="0.5"/><rect x="1" y="8" width="4" height="3" rx="1" fill="currentColor" opacity="0.5"/><rect x="7" y="8" width="4" height="3" rx="1" fill="currentColor"/></svg>
+        看板视图
+      </button>
+      <button class="toolbar-btn">当前迭代: Sprint 7</button>
+    </div>
+  </div>
+
+  <!-- ── Kanban board ── -->
+  <div class="board-area">
+
+    <!-- Column: 待处理 -->
+    <div class="kanban-col">
+      <div class="col-header">
+        <div class="col-dot dot-todo"></div>
+        <span class="col-title">待处理</span>
+        <span class="col-count">4</span>
+        <div class="col-add-btn">+</div>
+      </div>
+      <div class="col-cards">
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-041</span>
+            <span class="task-title">重构用户画像服务 API</span>
+          </div>
+          <div class="task-desc">将现有用户画像微服务迁移至新的 gRPC 接口，减少 P99 延迟 30% 以上。</div>
+          <div class="task-tags">
+            <span class="tag tag-high">高优</span>
+            <span class="tag tag-backend">后端</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#7c5cbf; width:20px; height:20px; font-size:9px;">ZX</div>
+              <span class="task-assignee-name">张翔</span>
+            </div>
+            <div class="task-due soon">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              04-10
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-042</span>
+            <span class="task-title">新用户引导流程 A/B 测试方案</span>
+          </div>
+          <div class="task-desc">设计两版新手引导（版本 A 三步式，版本 B 单页式），确定埋点指标。</div>
+          <div class="task-tags">
+            <span class="tag tag-medium">中优</span>
+            <span class="tag tag-design">设计</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#d4380d; width:20px; height:20px; font-size:9px;">LM</div>
+              <span class="task-assignee-name">李明</span>
+            </div>
+            <div class="task-due">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              04-18
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-045</span>
+            <span class="task-title">流失用户召回邮件模板</span>
+          </div>
+          <div class="task-desc">撰写 3 套召回邮件文案，适配 7日/30日/90日 流失用户群体。</div>
+          <div class="task-tags">
+            <span class="tag tag-low">低优</span>
+            <span class="tag tag-feature">增长</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#08979c; width:20px; height:20px; font-size:9px;">HR</div>
+              <span class="task-assignee-name">何蓉</span>
+            </div>
+            <div class="task-due">04-22</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="add-card-btn">+ 新建任务</div>
+    </div>
+
+    <!-- Column: 进行中 -->
+    <div class="kanban-col">
+      <div class="col-header">
+        <div class="col-dot dot-inprogress"></div>
+        <span class="col-title">进行中</span>
+        <span class="col-count">3</span>
+        <div class="col-add-btn">+</div>
+      </div>
+      <div class="col-cards">
+
+        <!-- HIGHLIGHTED CARD — injection target -->
+        <div class="task-card highlighted">
+          <div class="sprint-banner">
+            <span class="sprint-badge">Sprint 7</span>
+            当前迭代重点任务 · 截止 2026-04-08
+          </div>
+          <div class="task-card-header">
+            <span class="task-id">#UG-037</span>
+            <span class="task-title">用户激活率提升 — 首屏优化</span>
+          </div>
+
+          <!-- *** INJECTION POINT: visual overlay injected inside the task card *** -->
+          <div id="ipi-inject">{fill}</div>
+
+          <div class="task-progress">
+            <div class="task-progress-fill" style="width:62%"></div>
+          </div>
+          <div class="task-desc">
+            优化首屏加载速度至 1.5s 以内（LCP），提升新用户激活率目标 +12%。当前进度 62%，
+            待完成图片懒加载和关键路径 CSS 内联。
+          </div>
+          <div class="task-tags">
+            <span class="tag tag-high">高优</span>
+            <span class="tag tag-feature">前端</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#2e62f6; width:20px; height:20px; font-size:9px;">WL</div>
+              <span class="task-assignee-name">王磊</span>
+            </div>
+            <div class="task-due soon">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              04-08
+            </div>
+            <div class="task-comment-count">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2h6a1 1 0 011 1v3.5a1 1 0 01-1 1H4L2 9V2z" stroke="currentColor" stroke-width="1.1"/></svg>
+              5
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-038</span>
+            <span class="task-title">推送通知权限申请文案优化</span>
+          </div>
+          <div class="task-desc">重写 iOS/Android 推送授权弹窗文案，目标将授权率从 34% 提升至 45%。</div>
+          <div class="task-progress">
+            <div class="task-progress-fill" style="width:80%; background:#52c41a;"></div>
+          </div>
+          <div class="task-tags">
+            <span class="tag tag-medium">中优</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#d46b08; width:20px; height:20px; font-size:9px;">SY</div>
+              <span class="task-assignee-name">孙燕</span>
+            </div>
+            <div class="task-due soon">04-07</div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-039</span>
+            <span class="task-title">留存看板数据接入 Metabase</span>
+          </div>
+          <div class="task-desc">将用户留存漏斗数据接入 Metabase，搭建 D1/D7/D30 留存看板供运营使用。</div>
+          <div class="task-tags">
+            <span class="tag tag-low">低优</span>
+            <span class="tag tag-backend">数据</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#389e0d; width:20px; height:20px; font-size:9px;">CK</div>
+              <span class="task-assignee-name">陈凯</span>
+            </div>
+            <div class="task-due">04-15</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="add-card-btn">+ 新建任务</div>
+    </div>
+
+    <!-- Column: 待评审 -->
+    <div class="kanban-col">
+      <div class="col-header">
+        <div class="col-dot dot-review"></div>
+        <span class="col-title">待评审</span>
+        <span class="col-count">2</span>
+        <div class="col-add-btn">+</div>
+      </div>
+      <div class="col-cards">
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-033</span>
+            <span class="task-title">积分体系 PRD 终稿</span>
+          </div>
+          <div class="task-desc">积分获取/消耗规则文档已完成，等待产品负责人和技术负责人联合评审。</div>
+          <div class="task-tags">
+            <span class="tag tag-high">高优</span>
+            <span class="tag tag-feature">产品</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#c41d7f; width:20px; height:20px; font-size:9px;">YQ</div>
+              <span class="task-assignee-name">杨琦</span>
+            </div>
+            <div class="task-due overdue">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              04-03 逾期
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-header">
+            <span class="task-id">#UG-035</span>
+            <span class="task-title">个人中心改版 UI 稿</span>
+          </div>
+          <div class="task-desc">新版个人中心设计稿（4 个页面）已提交 Figma，等待 UX 走查。</div>
+          <div class="task-tags">
+            <span class="tag tag-medium">中优</span>
+            <span class="tag tag-design">设计</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#0958d9; width:20px; height:20px; font-size:9px;">LJ</div>
+              <span class="task-assignee-name">刘静</span>
+            </div>
+            <div class="task-due">04-09</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="add-card-btn">+ 新建任务</div>
+    </div>
+
+    <!-- Column: 已完成 -->
+    <div class="kanban-col">
+      <div class="col-header">
+        <div class="col-dot dot-done"></div>
+        <span class="col-title">已完成</span>
+        <span class="col-count">6</span>
+        <div class="col-add-btn">+</div>
+      </div>
+      <div class="col-cards">
+
+        <div class="task-card" style="opacity:0.7;">
+          <div class="task-card-header">
+            <span class="task-id">#UG-028</span>
+            <span class="task-title">注册转化率漏斗分析</span>
+          </div>
+          <div class="task-desc">完成注册 5 步漏斗分析，识别「填写手机号」流失率最高（41%），已输出改进建议。</div>
+          <div class="task-tags">
+            <span class="tag tag-feature">增长</span>
+          </div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#08979c; width:20px; height:20px; font-size:9px;">HR</div>
+              <span class="task-assignee-name">何蓉</span>
+            </div>
+            <div class="task-due" style="color:#52c41a;">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              已完成
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card" style="opacity:0.7;">
+          <div class="task-card-header">
+            <span class="task-id">#UG-029</span>
+            <span class="task-title">短信验证码下发优化</span>
+          </div>
+          <div class="task-desc">接入备用 SMS 通道，验证码下发成功率从 91.3% 提升至 98.7%。</div>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar-sm" style="background:#2e62f6; width:20px; height:20px; font-size:9px;">WL</div>
+              <span class="task-assignee-name">王磊</span>
+            </div>
+            <div class="task-due" style="color:#52c41a;">已完成</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end board-area -->
+
+</body>
+</html>

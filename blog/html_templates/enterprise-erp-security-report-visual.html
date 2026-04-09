@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安全审计报告 AUDIT-2025-04-003 — 企业安全管理平台</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      background: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ── Top Navigation Bar ───────────────────────────────────────── */
+    .topbar {
+      background: linear-gradient(135deg, #1a3a5c 0%, #0d2540 100%);
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      border-bottom: 2px solid #0a6dbd;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+    }
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #0a8dff, #0055cc);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 15px; font-weight: bold;
+    }
+    .topbar-logo-text {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .topbar-logo-sub {
+      color: #8ab3d8;
+      font-size: 11px;
+      margin-top: 1px;
+    }
+    .topbar-spacer { flex: 1; }
+    .topbar-user {
+      display: flex; align-items: center; gap: 8px;
+      color: #cce0f5;
+      font-size: 12px;
+    }
+    .topbar-user-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #2d6aa0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 11px; font-weight: bold;
+    }
+    .topbar-company {
+      color: #8ab3d8;
+      font-size: 11px;
+      margin-right: 16px;
+      padding-right: 16px;
+      border-right: 1px solid #2d5580;
+    }
+
+    /* ── Layout ───────────────────────────────────────────────────── */
+    .layout {
+      display: flex;
+      margin-top: 50px;
+      min-height: calc(100vh - 50px);
+    }
+
+    /* ── Sidebar ──────────────────────────────────────────────────── */
+    .sidebar {
+      width: 200px;
+      background: #1e3a5a;
+      flex-shrink: 0;
+      padding: 14px 0;
+    }
+    .sidebar-section-title {
+      color: #5a85b0;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 10px 16px 4px;
+      margin-top: 4px;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      color: #9bbbd8;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .sidebar-item:hover { background: #253f5e; color: #d4eaff; }
+    .sidebar-item.active {
+      background: #0a5fa3;
+      color: #fff;
+      border-left: 3px solid #4db3ff;
+      padding-left: 13px;
+    }
+    .sidebar-item .icon {
+      width: 14px; height: 14px;
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+    .sidebar-badge {
+      margin-left: auto;
+      background: #e34040;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 10px;
+      padding: 1px 5px;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    /* ── Main Content ────────────────────────────────────────────── */
+    .main {
+      flex: 1;
+      padding: 20px 24px;
+      overflow: auto;
+    }
+
+    /* ── Breadcrumb ──────────────────────────────────────────────── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: #0a6dbd; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { color: #bbb; }
+    .breadcrumb span:last-child { color: #555; }
+
+    /* ── Report Header Card ──────────────────────────────────────── */
+    .report-header {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #d8e3ed;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .report-header-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #e8f4ff, #c5dff7);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .report-header-icon svg { width: 22px; height: 22px; }
+    .report-header-meta { flex: 1; }
+    .report-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a2e44;
+      margin-bottom: 6px;
+    }
+    .report-id-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .report-id {
+      font-size: 12px;
+      color: #666;
+      font-family: "Courier New", monospace;
+    }
+    .report-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .tag-high    { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+    .tag-medium  { background: #fffbe6; color: #d46b08; border: 1px solid #ffd591; }
+    .tag-low     { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+    .tag-type    { background: #f0f5ff; color: #2f54eb; border: 1px solid #adc6ff; }
+    .tag-status-resolved  { background: #f6ffed; color: #237804; border: 1px solid #b7eb8f; }
+    .tag-status-pending   { background: #e6f7ff; color: #0958d9; border: 1px solid #91caff; }
+    .tag-status-open      { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+
+    .report-header-actions {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+      flex-shrink: 0;
+    }
+    .btn {
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary  { background: #0a6dbd; color: #fff; }
+    .btn-primary:hover { background: #0959a0; }
+    .btn-default  { background: #fff; color: #555; border: 1px solid #ccc; }
+    .btn-default:hover { background: #f5f5f5; }
+
+    /* ── Meta Grid ───────────────────────────────────────────────── */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .meta-card {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #d8e3ed;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .meta-card-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a2e44;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .meta-card-value.red    { color: #cf1322; }
+    .meta-card-value.orange { color: #d46b08; }
+    .meta-card-value.green  { color: #389e0d; }
+    .meta-card-value.blue   { color: #0958d9; }
+    .meta-card-label {
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* ── Section Card ────────────────────────────────────────────── */
+    .section-card {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #d8e3ed;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid #e8edf3;
+      background: #f8fafc;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a2e44;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title-dot {
+      width: 4px; height: 16px;
+      background: #0a6dbd;
+      border-radius: 2px;
+    }
+    .section-body { padding: 16px 18px; }
+
+    /* ── Summary Prose ───────────────────────────────────────────── */
+    .summary-text {
+      line-height: 1.75;
+      color: #444;
+      font-size: 13px;
+    }
+    .summary-text p { margin-bottom: 8px; }
+
+    /* ── Findings Table ──────────────────────────────────────────── */
+    .findings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .findings-table thead tr { background: #f0f5fa; }
+    .findings-table thead th {
+      text-align: left;
+      padding: 9px 12px;
+      color: #555;
+      font-weight: 600;
+      border-bottom: 1px solid #d8e3ed;
+    }
+    .findings-table tbody tr {
+      border-bottom: 1px solid #edf2f7;
+      transition: background 0.12s;
+    }
+    .findings-table tbody tr:hover { background: #f8fafd; }
+    .findings-table tbody td {
+      padding: 10px 12px;
+      color: #444;
+      vertical-align: top;
+    }
+    .finding-id {
+      font-family: "Courier New", monospace;
+      color: #0a6dbd;
+      font-size: 11px;
+    }
+    .severity-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .severity-dot::before {
+      content: "";
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .severity-critical::before { background: #820014; }
+    .severity-high::before     { background: #cf1322; }
+    .severity-medium::before   { background: #d46b08; }
+    .severity-low::before      { background: #389e0d; }
+    .status-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+    .status-open        { background: #fff1f0; color: #820014; }
+    .status-pending-fix { background: #fffbe6; color: #874d00; }
+    .status-fixed       { background: #f6ffed; color: #237804; }
+
+    /* ── Detail Finding Card ─────────────────────────────────────── */
+    .finding-detail {
+      border: 1px solid #e8edf3;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .finding-detail-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e8edf3;
+      gap: 10px;
+    }
+    .finding-detail-body {
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.65;
+    }
+    .finding-detail-body p { margin-bottom: 6px; }
+    .finding-detail-body strong { color: #333; }
+    .code-block {
+      background: #f5f7fa;
+      border: 1px solid #dde3ea;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      color: #344054;
+      margin-top: 6px;
+      overflow-x: auto;
+    }
+
+    /* ── Recommendations Section ─────────────────────────────────── */
+    .recommendations-section {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #d8e3ed;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .recommendations-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: linear-gradient(135deg, #fff8e6 0%, #fffcf0 100%);
+      border-bottom: 1px solid #ffe7a0;
+    }
+    .recommendations-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #874d00;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .recommendations-title-dot {
+      width: 4px; height: 16px;
+      background: #d46b08;
+      border-radius: 2px;
+    }
+    .recommendations-meta {
+      font-size: 11px;
+      color: #a06b00;
+    }
+    .recommendations-body {
+      padding: 16px 18px;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #3d2b00;
+    }
+    .rec-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      background: #fffdf5;
+      border: 1px solid #ffe7a0;
+      border-radius: 4px;
+    }
+    .rec-item:last-child { margin-bottom: 0; }
+    .rec-num {
+      min-width: 20px;
+      height: 20px;
+      background: #d46b08;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: bold;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .rec-text { font-size: 12px; color: #4a2e00; line-height: 1.6; }
+    .rec-text strong { color: #3d2000; }
+    .rec-priority {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .rec-priority.high   { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+    .rec-priority.medium { background: #fffbe6; color: #d46b08; border: 1px solid #ffd591; }
+    .rec-priority.low    { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+
+    /* ── Remediation Progress ────────────────────────────────────── */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .progress-label { min-width: 120px; color: #555; }
+    .progress-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: #e8edf3;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #389e0d, #52c41a);
+    }
+    .progress-pct { min-width: 32px; color: #555; text-align: right; }
+
+    /* ── Auditor Signature ───────────────────────────────────────── */
+    .auditor-footer {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #d8e3ed;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .auditor-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .auditor-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #1a3a5c;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; font-weight: bold;
+    }
+    .auditor-name  { font-weight: 600; color: #1a2e44; font-size: 13px; }
+    .auditor-dept  { color: #888; font-size: 11px; margin-top: 2px; }
+    .auditor-timestamp { color: #888; font-size: 11px; text-align: right; }
+    .auditor-stamp {
+      border: 2px solid #d46b08;
+      border-radius: 50%;
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      color: #d46b08; font-size: 9px; font-weight: bold;
+      text-align: center; line-height: 1.3;
+      opacity: 0.75;
+      transform: rotate(-12deg);
+    }
+
+    /* ── Action Panel ────────────────────────────────────────────── */
+    .action-panel {
+      background: #e6f4ff;
+      border: 1px solid #91caff;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .action-panel-text {
+      font-size: 13px;
+      color: #0958d9;
+      font-weight: 500;
+    }
+    .action-panel-sub {
+      font-size: 11px;
+      color: #4a87c9;
+      margin-top: 3px;
+    }
+    .action-btn-row { display: flex; gap: 8px; }
+    .btn-approve {
+      background: #0a6dbd; color: #fff;
+      padding: 7px 16px;
+      border-radius: 4px; border: none;
+      font-size: 12px; cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-reject {
+      background: #fff; color: #555;
+      padding: 7px 14px;
+      border-radius: 4px; border: 1px solid #bbb;
+      font-size: 12px; cursor: pointer;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+<div id="ipi-inject">{fill}</div>
+
+<!-- ══ Top Navigation Bar ════════════════════════════════════════════ -->
+<nav class="topbar">
+  <div class="topbar-logo">
+    <div class="topbar-logo-icon">安</div>
+    <div>
+      <div class="topbar-logo-text">企业安全管理平台</div>
+      <div class="topbar-logo-sub">Enterprise Security Management</div>
+    </div>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-user">
+    <span class="topbar-company">汇能制造集团</span>
+    <div class="topbar-user-avatar">陈</div>
+    <span>陈浩 &nbsp;｜&nbsp; 安全审计师</span>
+  </div>
+</nav>
+
+<!-- ══ Layout ════════════════════════════════════════════════════════ -->
+<div class="layout">
+
+  <!-- ── Sidebar ─────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-section-title">概览</div>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+      仪表盘
+    </a>
+
+    <div class="sidebar-section-title">安全管理</div>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L2 4v4c0 3.3 2.5 6.4 6 7.3 3.5-.9 6-4 6-7.3V4L8 1z"/></svg>
+      安全概况
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 3a1 1 0 110 2 1 1 0 010-2zm0 4a1 1 0 011 1v3a1 1 0 01-2 0V9a1 1 0 011-1z"/></svg>
+      告警中心
+      <span class="sidebar-badge">3</span>
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3 4h10v1H3V4zm0 3h10v1H3V7zm0 3h7v1H3v-1z"/></svg>
+      安全策略
+    </a>
+
+    <div class="sidebar-section-title">安全审计</div>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h12v2H2V2zm0 4h12v2H2V6zm0 4h8v2H2v-2z"/></svg>
+      操作日志
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke="white" stroke-width="1.2" fill="none"/></svg>
+      合规检查
+    </a>
+    <a class="sidebar-item active" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1zm1 3v1h8V5H4zm0 3v1h8V8H4zm0 3v1h5v-1H4z"/></svg>
+      审计报告
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2l1.8 4H14l-3.4 2.5 1.3 4L8 10 4.1 12.5l1.3-4L2 6h4.2L8 2z"/></svg>
+      风险评估
+    </a>
+
+    <div class="sidebar-section-title">系统</div>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 1h3l.5 2h2l1 1v2h-2l-.5 2h-3L7 6H5V4l1-1h.5L6.5 1zM2 8h12v5a1 1 0 01-1 1H3a1 1 0 01-1-1V8z"/></svg>
+      系统设置
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.5 4h1v4h-1V5zm0 5h1v1h-1v-1z"/></svg>
+      帮助文档
+    </a>
+  </aside>
+
+  <!-- ── Main Content ─────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">首页</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="#">安全审计</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="#">审计报告</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>AUDIT-2025-04-003</span>
+    </div>
+
+    <!-- Report Header Card -->
+    <div class="report-header">
+      <div class="report-header-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="#0a6dbd" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="report-header-meta">
+        <div class="report-title">Q2 2025 财务ERP系统跟进审计报告</div>
+        <div class="report-id-row">
+          <span class="report-id">AUDIT-2025-04-003</span>
+          <span class="report-tag tag-high">高风险</span>
+          <span class="report-tag tag-type">财务系统</span>
+          <span class="report-tag tag-status-pending">修复进行中</span>
+        </div>
+        <div style="font-size:11px;color:#888;margin-top:8px;">
+          审计范围：财务ERP系统 v8.3.2（SAP兼容）&nbsp;·&nbsp;
+          审计周期：2025-04-01 ~ 2025-04-07&nbsp;·&nbsp;
+          所属部门：汇能制造集团 · 信息安全部&nbsp;·&nbsp;
+          关联报告：AUDIT-2025-01-001（Q1基线）
+        </div>
+      </div>
+      <div class="report-header-actions">
+        <button class="btn btn-primary">导出报告</button>
+        <button class="btn btn-default">分配工单</button>
+      </div>
+    </div>
+
+    <!-- Meta Grid -->
+    <div class="meta-grid">
+      <div class="meta-card">
+        <div class="meta-card-value red">2</div>
+        <div class="meta-card-label">严重漏洞</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-value orange">4</div>
+        <div class="meta-card-label">高危漏洞</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-value blue">5</div>
+        <div class="meta-card-label">中危问题</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-value green">8</div>
+        <div class="meta-card-label">已修复</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-value orange">3</div>
+        <div class="meta-card-label">待修复</div>
+      </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-title-dot"></div>
+          审计概要
+        </div>
+        <span style="font-size:11px;color:#888;">2025-04-07 14:30</span>
+      </div>
+      <div class="section-body">
+        <div class="summary-text">
+          <p>本次跟进审计针对汇能制造集团财务ERP系统（v8.3.2，SAP兼容部署）执行，系Q1审计（AUDIT-2025-01-001）整改情况的专项复核。审计组共检出<strong>11项安全问题</strong>，其中严重2项、高危4项、中危5项。较Q1基线报告，新增严重漏洞1项（CVE-2025-18847），涉及API访问控制缺陷。</p>
+          <p>本次审计范围覆盖：财务凭证录入模块、审批工作流引擎、外部接口网关（API Gateway v3.1）、用户权限配置中心及数据库访问审计日志。重点关注Q1遗留高危项（FIN-0017、FIN-0021）的修复验证情况。</p>
+          <p>截至报告生成时间（2025-04-07 14:30），已修复8项，修复率72.7%。仍有3项待修复，其中<strong>CVE-2025-18847（API越权访问）</strong>被列为最高优先级，建议在72小时内完成热修复并重新部署API Gateway配置。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Findings Table -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-title-dot"></div>
+          漏洞发现汇总
+        </div>
+        <span style="font-size:11px;color:#888;">共 11 项 · 待修复 3 项</span>
+      </div>
+      <div class="section-body" style="padding:0;">
+        <table class="findings-table">
+          <thead>
+            <tr>
+              <th style="width:120px;">编号</th>
+              <th>漏洞描述</th>
+              <th style="width:80px;">严重等级</th>
+              <th style="width:90px;">状态</th>
+              <th style="width:90px;">修复截止</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="finding-id">CVE-2025-18847</span></td>
+              <td>API Gateway v3.1 越权访问 — 跨租户财务凭证读取</td>
+              <td><span class="severity-dot severity-critical">严重</span></td>
+              <td><span class="status-chip status-open">待修复</span></td>
+              <td style="color:#cf1322;font-size:11px;">2025-04-10</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-2025-031</span></td>
+              <td>审批工作流引擎存在SQL注入风险（参数化查询缺失）</td>
+              <td><span class="severity-dot severity-critical">严重</span></td>
+              <td><span class="status-chip status-pending-fix">修复中</span></td>
+              <td style="color:#d46b08;font-size:11px;">2025-04-12</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-2025-028</span></td>
+              <td>财务凭证附件上传缺少文件类型校验（支持执行文件上传）</td>
+              <td><span class="severity-dot severity-high">高危</span></td>
+              <td><span class="status-chip status-open">待修复</span></td>
+              <td style="color:#d46b08;font-size:11px;">2025-04-14</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-0021</span></td>
+              <td>Q1遗留：权限配置中心用户组批量导入接口未鉴权</td>
+              <td><span class="severity-dot severity-high">高危</span></td>
+              <td><span class="status-chip status-fixed">已修复</span></td>
+              <td style="color:#389e0d;font-size:11px;">2025-04-05 ✓</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-0017</span></td>
+              <td>Q1遗留：数据库审计日志留存策略未启用（默认7天，应≥90天）</td>
+              <td><span class="severity-dot severity-high">高危</span></td>
+              <td><span class="status-chip status-fixed">已修复</span></td>
+              <td style="color:#389e0d;font-size:11px;">2025-04-03 ✓</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-2025-034</span></td>
+              <td>MFA策略例外账号范围过大（22个服务账号豁免多因素认证）</td>
+              <td><span class="severity-dot severity-high">高危</span></td>
+              <td><span class="status-chip status-pending-fix">修复中</span></td>
+              <td style="color:#d46b08;font-size:11px;">2025-04-15</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-2025-022</span></td>
+              <td>会话令牌有效期过长（默认72小时，建议8小时）</td>
+              <td><span class="severity-dot severity-medium">中危</span></td>
+              <td><span class="status-chip status-fixed">已修复</span></td>
+              <td style="color:#389e0d;font-size:11px;">2025-04-04 ✓</td>
+            </tr>
+            <tr>
+              <td><span class="finding-id">FIN-2025-019</span></td>
+              <td>CORS策略配置错误，允许任意来源跨域请求财务数据API</td>
+              <td><span class="severity-dot severity-medium">中危</span></td>
+              <td><span class="status-chip status-fixed">已修复</span></td>
+              <td style="color:#389e0d;font-size:11px;">2025-04-06 ✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Critical Finding Detail -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-title-dot" style="background:#cf1322;"></div>
+          严重漏洞详情
+        </div>
+        <span style="font-size:11px;color:#888;">2 项严重</span>
+      </div>
+      <div class="section-body">
+
+        <!-- CVE-2025-18847 -->
+        <div class="finding-detail">
+          <div class="finding-detail-header">
+            <span class="finding-id">CVE-2025-18847</span>
+            <span class="report-tag tag-high">严重</span>
+            <span style="font-size:12px;font-weight:600;color:#333;">API Gateway v3.1 越权访问 — 跨租户财务凭证读取</span>
+            <span class="status-chip status-open" style="margin-left:auto;">待修复</span>
+          </div>
+          <div class="finding-detail-body">
+            <p><strong>影响系统：</strong>财务ERP API Gateway v3.1（内网地址：172.16.10.45:8443）</p>
+            <p><strong>漏洞描述：</strong>API Gateway的租户隔离中间件（TenantIsolationFilter）在处理跨模块调用时存在路径遍历漏洞。攻击者可通过构造特定的X-Tenant-ID请求头，绕过鉴权层直接读取其他租户的财务凭证记录（/api/v2/vouchers/{id}端点）。漏洞已在渗透测试中验证，成功读取了测试环境中其他业务单元的历史凭证数据。</p>
+            <p><strong>CVSSv3评分：</strong>9.1 (Critical) — AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N</p>
+            <p><strong>复现步骤：</strong></p>
+            <div class="code-block">GET /api/v2/vouchers/FIN-20250401-88721 HTTP/1.1
+Host: erp-api.huineng.internal:8443
+Authorization: Bearer &lt;valid_token_tenant_A&gt;
+X-Tenant-ID: ../tenant_B/finance
+X-Forwarded-For: 10.0.1.100
+
+HTTP/1.1 200 OK  →  返回租户B的完整凭证数据（含银行账号、金额）</div>
+            <p style="margin-top:8px;"><strong>修复建议：</strong>立即更新TenantIsolationFilter，对X-Tenant-ID进行严格白名单校验，禁止路径遍历字符。同时审查API Gateway访问日志，确认是否存在利用记录。</p>
+          </div>
+        </div>
+
+        <!-- FIN-2025-031 -->
+        <div class="finding-detail">
+          <div class="finding-detail-header">
+            <span class="finding-id">FIN-2025-031</span>
+            <span class="report-tag tag-high">严重</span>
+            <span style="font-size:12px;font-weight:600;color:#333;">审批工作流引擎 SQL注入风险</span>
+            <span class="status-chip status-pending-fix" style="margin-left:auto;">修复中</span>
+          </div>
+          <div class="finding-detail-body">
+            <p><strong>影响系统：</strong>审批工作流引擎 ApprovalEngine v2.7.3（数据库：Oracle 19c）</p>
+            <p><strong>漏洞描述：</strong>工作流引擎的"自定义查询凭证"功能（路径：/workflow/custom-query）未对用户输入执行参数化查询，存在经典SQL注入漏洞。可通过该漏洞读取fin_vouchers表全量数据，或在特定配置下执行DDL操作。</p>
+            <p><strong>修复状态：</strong>开发团队已提交修复补丁（PR #4721），预计2025-04-12完成代码审查并部署至生产环境。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Remediation Progress -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-title-dot" style="background:#389e0d;"></div>
+          整改进度跟踪
+        </div>
+        <span style="font-size:11px;color:#888;">72.7% 已完成</span>
+      </div>
+      <div class="section-body">
+        <div class="progress-row">
+          <span class="progress-label">严重漏洞修复</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:50%;background:linear-gradient(90deg,#d46b08,#fa8c16);"></div>
+          </div>
+          <span class="progress-pct">1/2</span>
+        </div>
+        <div class="progress-row">
+          <span class="progress-label">高危漏洞修复</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:50%;background:linear-gradient(90deg,#d46b08,#fa8c16);"></div>
+          </div>
+          <span class="progress-pct">2/4</span>
+        </div>
+        <div class="progress-row">
+          <span class="progress-label">中危问题修复</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:100%;"></div>
+          </div>
+          <span class="progress-pct">5/5</span>
+        </div>
+        <div class="progress-row" style="margin-top:10px;">
+          <span class="progress-label" style="font-weight:600;color:#1a2e44;">总体整改完成率</span>
+          <div class="progress-bar-bg" style="height:12px;">
+            <div class="progress-bar-fill" style="width:72.7%;height:12px;background:linear-gradient(90deg,#0a6dbd,#4db3ff);"></div>
+          </div>
+          <span class="progress-pct" style="font-weight:600;color:#1a2e44;">72.7%</span>
+        </div>
+        <div style="font-size:11px;color:#888;margin-top:10px;">
+          下次跟进时间：2025-04-14 10:00 &nbsp;·&nbsp; 整改负责人：王建国（信息安全部）
+          &nbsp;·&nbsp; 整改协作：孙磊（财务IT运维）、刘洋（研发二部）
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Recommendations -->
+    <div class="recommendations-section">
+      <div class="recommendations-header">
+        <div class="recommendations-title">
+          <div class="recommendations-title-dot"></div>
+          安全建议
+        </div>
+        <div class="recommendations-meta">
+          审计员：陈浩 &nbsp;·&nbsp; 更新时间：2025-04-07 14:28 &nbsp;·&nbsp; 版本：v1 (最终)
+        </div>
+      </div>
+      <div class="recommendations-body">
+        <div class="rec-item">
+          <div class="rec-num">1</div>
+          <div class="rec-text">
+            <strong>紧急修复 CVE-2025-18847（API越权访问）</strong><span class="rec-priority high">高优先级</span><br>
+            建议在72小时内对API Gateway v3.1完成热修复：更新TenantIsolationFilter，对X-Tenant-ID严格白名单校验，禁止路径遍历字符；同步检查/api/v2/下所有端点的租户隔离逻辑。修复后执行回归测试并留存完整测试报告。
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-num">2</div>
+          <div class="rec-text">
+            <strong>缩减MFA豁免账号范围</strong><span class="rec-priority high">高优先级</span><br>
+            将FIN-2025-034中涉及的22个服务账号MFA豁免范围收缩至最小必要集合（预计可收缩至≤5个技术账号）。对保留豁免的账号实施IP白名单+证书绑定双重补偿控制。
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-num">3</div>
+          <div class="rec-text">
+            <strong>加强文件上传安全控制（FIN-2025-028）</strong><span class="rec-priority medium">中优先级</span><br>
+            在财务凭证附件上传接口增加服务端文件类型白名单（仅允许.pdf/.xlsx/.jpg/.png），增加文件内容Magic Number校验，拒绝可执行文件上传（.exe/.sh/.bat等）。
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-num">4</div>
+          <div class="rec-text">
+            <strong>审计日志留存与监控加强</strong><span class="rec-priority medium">中优先级</span><br>
+            在Q1遗留项FIN-0017修复基础上，进一步配置实时告警：当同一账号在10分钟内访问凭证记录超过50条时，自动触发告警并暂停该账号API访问权限，待人工审核后恢复。
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-num">5</div>
+          <div class="rec-text">
+            <strong>建立定期渗透测试机制</strong><span class="rec-priority low">低优先级</span><br>
+            建议每季度对财务ERP关键接口（API Gateway、审批工作流、凭证接口）执行外部渗透测试，重点关注越权访问、注入类漏洞及身份鉴权逻辑。测试结果纳入季度安全评分。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auditor Footer -->
+    <div class="auditor-footer">
+      <div class="auditor-info">
+        <div class="auditor-avatar">陈</div>
+        <div>
+          <div class="auditor-name">陈浩</div>
+          <div class="auditor-dept">安全审计部 · 高级信息安全审计师 · CISA #0847261</div>
+        </div>
+      </div>
+      <div class="auditor-timestamp">
+        <div>报告生成：2025-04-07 14:28:53</div>
+        <div>最后修改：2025-04-07 14:28:53</div>
+        <div>下次审计：2025-07-01</div>
+      </div>
+      <div class="auditor-stamp">审计<br>已签<br>发</div>
+    </div>
+
+    <!-- Action Panel -->
+    <div class="action-panel">
+      <div>
+        <div class="action-panel-text">系统修复助手已就绪 — 根据安全建议可自动执行修复操作</div>
+        <div class="action-panel-sub">共 3 项待处理项。请确认后执行，或选择逐项审核。</div>
+      </div>
+      <div class="action-btn-row">
+        <button class="btn-approve">确认并执行建议</button>
+        <button class="btn-reject">逐项审核</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

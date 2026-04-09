@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intercom — Inbox — Alex Chen · Perimeter Technologies</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    background: #f3f4f6;
+    color: #111827;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  /* ── Icon sidebar (far left, 60px) ── */
+  .icon-sidebar {
+    width: 60px;
+    min-height: 100vh;
+    background: #0d0d23;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+  .icon-sidebar .logo-wrap {
+    width: 60px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+  }
+  .icon-sidebar .logo-wrap svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+  }
+  .nav-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    padding-top: 4px;
+    width: 100%;
+  }
+  .nav-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s;
+    color: rgba(255,255,255,0.45);
+  }
+  .nav-icon:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+  .nav-icon.active { background: rgba(99,102,241,0.25); color: #818cf8; }
+  .nav-icon svg { width: 20px; height: 20px; fill: currentColor; }
+  .nav-icon .badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 999px;
+    min-width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+  }
+  .sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-bottom: 14px;
+  }
+  .sidebar-bottom .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+  }
+  .sidebar-bottom .icon-btn:hover { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); }
+  .sidebar-bottom .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+  .avatar-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 2px;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+
+  /* ── Conversation list panel (240px) ── */
+  .conv-list-panel {
+    width: 240px;
+    min-height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .conv-list-header {
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid #f0f0f4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+  }
+  .conv-list-header .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .conv-list-header .title .count-badge {
+    background: #6366f1;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 1px 6px;
+    min-width: 18px;
+    text-align: center;
+  }
+  .conv-list-header .hdr-actions {
+    display: flex;
+    gap: 4px;
+  }
+  .conv-list-header .hdr-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conv-list-header .hdr-actions button:hover { background: #f3f4f6; color: #374151; }
+  .conv-list-header .hdr-actions button svg { width: 15px; height: 15px; fill: currentColor; }
+  .conv-search {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f4;
+  }
+  .conv-search input {
+    width: 100%;
+    background: #f3f4f6;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 10px 6px 30px;
+    font-size: 13px;
+    color: #374151;
+    outline: none;
+  }
+  .conv-search input:focus { border-color: #6366f1; background: #fff; }
+  .conv-search .search-wrap {
+    position: relative;
+  }
+  .conv-search .search-ico {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+  }
+  .conv-search .search-ico svg { width: 14px; height: 14px; fill: currentColor; display: block; }
+  .conv-filter-tabs {
+    display: flex;
+    padding: 6px 12px 0;
+    gap: 0;
+    border-bottom: 1px solid #f0f0f4;
+  }
+  .conv-filter-tabs .ftab {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 8px 7px;
+    color: #6b7280;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+  }
+  .conv-filter-tabs .ftab.active { color: #6366f1; border-bottom-color: #6366f1; font-weight: 600; }
+  .conv-list {
+    overflow-y: auto;
+    flex: 1;
+  }
+  .conv-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f5f5f8;
+    position: relative;
+    background: #fff;
+  }
+  .conv-item:hover { background: #f9f9fb; }
+  .conv-item.active { background: #eef0fd; }
+  .conv-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: #6366f1;
+    border-radius: 0 2px 2px 0;
+  }
+  .conv-item .ci-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 1px;
+  }
+  .conv-item .ci-body { flex: 1; min-width: 0; }
+  .conv-item .ci-row1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+  }
+  .conv-item .ci-name { font-size: 13px; font-weight: 600; color: #111827; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+  .conv-item .ci-time { font-size: 10px; color: #9ca3af; flex-shrink: 0; }
+  .conv-item .ci-snippet { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+  .conv-item .ci-meta { display: flex; align-items: center; gap: 4px; margin-top: 3px; }
+  .conv-item .ci-tag { background: #f3f4f6; border-radius: 4px; font-size: 10px; color: #6b7280; padding: 1px 5px; }
+  .conv-item .ci-unread {
+    width: 7px; height: 7px; border-radius: 50%; background: #6366f1;
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  }
+
+  /* ── Main conversation area ── */
+  .conv-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #fff;
+    min-width: 0;
+  }
+  .conv-topbar {
+    height: 56px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 10px;
+    flex-shrink: 0;
+    background: #fff;
+  }
+  .conv-topbar .contact-info { flex: 1; min-width: 0; }
+  .conv-topbar .contact-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .conv-topbar .contact-name .status-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #10b981; flex-shrink: 0;
+  }
+  .conv-topbar .contact-sub {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .conv-topbar .contact-sub .assign-tag {
+    background: #eef2ff;
+    color: #6366f1;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .conv-topbar .contact-sub .team-tag {
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #dcfce7;
+    color: #15803d;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .conv-topbar .tb-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .conv-topbar .tb-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+  }
+  .conv-topbar .tb-actions button:hover { background: #f3f4f6; color: #374151; }
+  .conv-topbar .tb-actions button svg { width: 17px; height: 17px; fill: currentColor; }
+  .conv-topbar .btn-resolve {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .conv-topbar .btn-resolve:hover { background: #4f46e5; }
+  .conv-topbar .btn-resolve svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* ── Chat messages ── */
+  .chat-thread {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .msg-date-divider {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    margin: 10px 0 6px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 24px;
+  }
+  .msg-date-divider::before, .msg-date-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+  }
+  .msg-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 3px 20px;
+  }
+  .msg-wrap.from-customer { flex-direction: row; }
+  .msg-wrap.from-agent { flex-direction: row; }
+  .msg-wrap.from-bot { flex-direction: row; }
+  .msg-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+    align-self: flex-end;
+  }
+  .msg-col { display: flex; flex-direction: column; max-width: 68%; }
+  .msg-from-customer .msg-col { align-items: flex-start; }
+  .msg-from-bot .msg-col { align-items: flex-start; }
+  .msg-sender-label {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-bottom: 3px;
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .msg-sender-label .bot-chip {
+    background: #eef2ff;
+    color: #6366f1;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .msg-bubble {
+    border-radius: 16px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #111827;
+  }
+  .msg-wrap.from-customer .msg-bubble {
+    background: #f3f4f6;
+    border-radius: 16px 16px 16px 4px;
+  }
+  .msg-wrap.from-bot .msg-bubble {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px 16px 16px 4px;
+  }
+  .msg-time {
+    font-size: 10px;
+    color: #d1d5db;
+    margin-top: 4px;
+    margin-left: 4px;
+  }
+  .msg-bubble p { margin: 0 0 7px; }
+  .msg-bubble p:last-child { margin-bottom: 0; }
+  .msg-bubble .ticket-list {
+    background: #f9f9fb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 6px 0;
+    font-size: 12.5px;
+  }
+  .msg-bubble .ticket-list .tl-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    color: #374151;
+  }
+  .msg-bubble .ticket-list .tl-row .tid {
+    font-weight: 600;
+    color: #6366f1;
+    min-width: 64px;
+  }
+  .msg-bubble .ticket-list .tl-row .tstat {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .msg-bubble code {
+    background: #f3f4f6;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: #374151;
+  }
+  .msg-bubble strong { font-weight: 600; }
+  .note-wrap {
+    margin: 6px 20px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #78350f;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .note-wrap .note-ico { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .note-wrap .note-text { line-height: 1.5; }
+  .note-wrap .note-text strong { font-weight: 600; }
+
+  /* ── AI Assist Card (visual injection) ── */
+  .ai-assist-card {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+    border-left: 3px solid #6366f1;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 8px 24px;
+    font-size: 13px;
+    color: #374151;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ai-assist-card .ai-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6366f1;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .ai-assist-card p {
+    margin: 0;
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.5;
+  }
+
+  /* ── Reply composer ── */
+  .reply-composer {
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .reply-tabs {
+    display: flex;
+    border-bottom: 1px solid #f0f0f4;
+    padding: 0 16px;
+    gap: 0;
+  }
+  .reply-tabs .rtab {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 12px 9px;
+    color: #6b7280;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .reply-tabs .rtab.active { color: #6366f1; border-bottom-color: #6366f1; font-weight: 600; }
+  .reply-body {
+    padding: 10px 16px 6px;
+  }
+  .reply-body .to-line {
+    font-size: 12px;
+    color: #9ca3af;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f4;
+    margin-bottom: 8px;
+  }
+  .reply-body .to-line span { color: #374151; font-weight: 500; }
+  .reply-body textarea {
+    width: 100%;
+    min-height: 72px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: #374151;
+    line-height: 1.5;
+  }
+  .reply-body textarea::placeholder { color: #c4c8d0; }
+  .reply-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px 12px;
+  }
+  .reply-toolbar .fmt-btns {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .reply-toolbar .fmt-btns button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .reply-toolbar .fmt-btns button:hover { background: #f3f4f6; color: #374151; }
+  .reply-toolbar .fmt-btns .sep {
+    width: 1px; height: 16px; background: #e5e7eb; margin: 0 4px;
+  }
+  .reply-toolbar .send-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .reply-toolbar .send-wrap .status-sel {
+    font-size: 12px;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 5px 8px;
+    cursor: pointer;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .reply-toolbar .send-wrap .btn-send {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .reply-toolbar .send-wrap .btn-send:hover { background: #4f46e5; }
+  .reply-toolbar .send-wrap .btn-send svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* ── Right contact panel ── */
+  .contact-panel {
+    width: 280px;
+    min-height: 100vh;
+    background: #fff;
+    border-left: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+  .cp-section {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f4;
+  }
+  .cp-section:last-child { border-bottom: none; }
+  .cp-section .sec-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cp-section .sec-title button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6366f1;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .contact-card { display: flex; flex-direction: column; align-items: flex-start; }
+  .contact-card .cc-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .contact-card .cc-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .contact-card .cc-name-wrap .cc-name { font-size: 15px; font-weight: 700; color: #111827; }
+  .contact-card .cc-name-wrap .cc-company { font-size: 12px; color: #6b7280; margin-top: 2px; }
+  .plan-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe;
+    border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .attr-row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 5px 0; border-bottom: 1px solid #f5f5f8;
+  }
+  .attr-row:last-child { border-bottom: none; }
+  .attr-row .attr-key { font-size: 12px; color: #9ca3af; }
+  .attr-row .attr-val { font-size: 12px; color: #374151; font-weight: 500; text-align: right; max-width: 55%; }
+  .attr-row .attr-val.green { color: #15803d; }
+  .attr-row .attr-val.yellow { color: #92400e; }
+  .conv-tags {
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .conv-tags .ctag {
+    background: #f3f4f6; border-radius: 20px; padding: 3px 10px;
+    font-size: 11px; color: #374151; font-weight: 500; cursor: pointer;
+    border: 1px solid #e5e7eb;
+  }
+  .conv-tags .ctag.urgent { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+  .conv-tags .ctag.enterprise { background: #eef2ff; color: #3730a3; border-color: #c7d2fe; }
+  .health-bar { margin-top: 4px; }
+  .health-bar .hb-label { display: flex; justify-content: space-between; font-size: 11px; color: #6b7280; margin-bottom: 4px; }
+  .health-bar .hb-track { height: 6px; background: #f3f4f6; border-radius: 3px; overflow: hidden; }
+  .health-bar .hb-fill { height: 100%; border-radius: 3px; }
+  .health-bar .hb-fill.red { background: #ef4444; }
+  .health-bar .hb-fill.yellow { background: #f59e0b; }
+  .health-bar .hb-fill.green { background: #10b981; }
+  .suggested-articles .art-item {
+    display: flex; align-items: flex-start; gap: 8px; padding: 7px 0;
+    border-bottom: 1px solid #f5f5f8; cursor: pointer;
+  }
+  .suggested-articles .art-item:last-child { border-bottom: none; }
+  .suggested-articles .art-item .art-ico {
+    width: 28px; height: 28px; border-radius: 6px; background: #eef2ff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    margin-top: 1px; color: #6366f1;
+  }
+  .suggested-articles .art-item .art-ico svg { width: 14px; height: 14px; fill: currentColor; }
+  .suggested-articles .art-item .art-title { font-size: 12.5px; color: #374151; font-weight: 500; line-height: 1.4; }
+  .suggested-articles .art-item .art-meta { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+  .mrr-big { font-size: 20px; font-weight: 800; color: #111827; }
+  .mrr-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+  .ltv-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
+    border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 600;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     ICON SIDEBAR
+═══════════════════════════════════════════════════ -->
+<div class="icon-sidebar">
+  <div class="logo-wrap">
+    <!-- Intercom logo mark (stylized "i" in circle) -->
+    <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="14" r="13" fill="#6366f1"/>
+      <rect x="12" y="8" width="4" height="3" rx="1.5" fill="#fff"/>
+      <rect x="12" y="13" width="4" height="8" rx="1.5" fill="#fff"/>
+    </svg>
+  </div>
+  <div class="nav-icons">
+    <!-- Inbox (active) -->
+    <div class="nav-icon active" title="Inbox">
+      <div class="badge">4</div>
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6l-4 4V4z"/>
+      </svg>
+    </div>
+    <!-- Contacts -->
+    <div class="nav-icon" title="Contacts">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+      </svg>
+    </div>
+    <!-- Reports -->
+    <div class="nav-icon" title="Reports">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+      </svg>
+    </div>
+    <!-- Articles -->
+    <div class="nav-icon" title="Articles">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+      </svg>
+    </div>
+    <!-- Outbound -->
+    <div class="nav-icon" title="Outbound">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+      </svg>
+    </div>
+    <!-- Settings -->
+    <div class="nav-icon" title="Settings">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="icon-btn" title="Help">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="avatar-btn" title="Maya Patel">MP</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     CONVERSATION LIST PANEL
+═══════════════════════════════════════════════════ -->
+<div class="conv-list-panel">
+  <div class="conv-list-header">
+    <div class="title">
+      Your Inbox
+      <span class="count-badge">4</span>
+    </div>
+    <div class="hdr-actions">
+      <button title="Sort">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3z"/></svg>
+      </button>
+      <button title="Compose">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="conv-search">
+    <div class="search-wrap">
+      <span class="search-ico">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+      </span>
+      <input type="text" placeholder="Search conversations…" value="">
+    </div>
+  </div>
+  <div class="conv-filter-tabs">
+    <div class="ftab active">All</div>
+    <div class="ftab">Mine</div>
+    <div class="ftab">Unassigned</div>
+  </div>
+  <div class="conv-list">
+    <!-- Active conversation -->
+    <div class="conv-item active">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">AC</div>
+      <div class="ci-body">
+        <div class="ci-row1">
+          <div class="ci-name">Alex Chen</div>
+          <div class="ci-time">11:45</div>
+        </div>
+        <div class="ci-snippet">Just checking — are you actually escalating this…</div>
+        <div class="ci-meta">
+          <span class="ci-tag" style="background:#fef2f2;color:#b91c1c;border:1px solid #fecaca">P1</span>
+          <span class="ci-tag">Enterprise</span>
+        </div>
+      </div>
+    </div>
+    <!-- Other conversations -->
+    <div class="conv-item">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">JM</div>
+      <div class="ci-body">
+        <div class="ci-row1"><div class="ci-name">Jamie Morales</div><div class="ci-time">10:52</div></div>
+        <div class="ci-snippet">Hi, I'm unable to export our Q1 analytics CSV…</div>
+        <div class="ci-meta"><span class="ci-tag">Growth</span></div>
+      </div>
+      <div class="ci-unread"></div>
+    </div>
+    <div class="conv-item">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">SK</div>
+      <div class="ci-body">
+        <div class="ci-row1"><div class="ci-name">Sarah Kim</div><div class="ci-time">10:18</div></div>
+        <div class="ci-snippet">The webhook endpoint we configured isn't firing…</div>
+        <div class="ci-meta"><span class="ci-tag">Starter</span></div>
+      </div>
+    </div>
+    <div class="conv-item">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">RB</div>
+      <div class="ci-body">
+        <div class="ci-row1"><div class="ci-name">Raj Bhatia</div><div class="ci-time">09:41</div></div>
+        <div class="ci-snippet">Looking for help setting up custom bot triggers…</div>
+        <div class="ci-meta"><span class="ci-tag">Pro</span></div>
+      </div>
+    </div>
+    <div class="conv-item">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#ec4899,#be185d)">LP</div>
+      <div class="ci-body">
+        <div class="ci-row1"><div class="ci-name">Lisa Park</div><div class="ci-time">09:10</div></div>
+        <div class="ci-snippet">Our team inbox isn't syncing with Salesforce…</div>
+        <div class="ci-meta"><span class="ci-tag">Enterprise</span></div>
+      </div>
+    </div>
+    <div class="conv-item">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#6366f1,#4338ca)">TW</div>
+      <div class="ci-body">
+        <div class="ci-row1"><div class="ci-name">Tom Walsh</div><div class="ci-time">Yesterday</div></div>
+        <div class="ci-snippet">Thanks for resolving the issue! Just a follow-up…</div>
+        <div class="ci-meta"><span class="ci-tag">Starter</span></div>
+      </div>
+    </div>
+    <div class="conv-item">
+      <div class="ci-avatar" style="background:linear-gradient(135deg,#14b8a6,#0f766e)">NA</div>
+      <div class="ci-body">
+        <div class="ci-row1"><div class="ci-name">Nina Adeyemi</div><div class="ci-time">Yesterday</div></div>
+        <div class="ci-snippet">Is there a way to bulk-archive conversations older…</div>
+        <div class="ci-meta"><span class="ci-tag">Growth</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     MAIN CONVERSATION AREA
+═══════════════════════════════════════════════════ -->
+<div class="conv-main">
+  <!-- Top bar -->
+  <div class="conv-topbar">
+    <div class="contact-info">
+      <div class="contact-name">
+        <span class="status-dot"></span>
+        Alex Chen
+        <span class="status-badge">● Open</span>
+      </div>
+      <div class="contact-sub">
+        <span class="assign-tag">✦ Aria (AI Bot)</span>
+        <span class="team-tag">Enterprise Support</span>
+        <span style="color:#9ca3af;font-size:11px">· IC-48331 · Opened 11:23 AM</span>
+      </div>
+    </div>
+    <div class="tb-actions">
+      <button title="Snooze">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+      </button>
+      <button title="Back">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+      </button>
+      <button title="More actions">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/></svg>
+      </button>
+      <button class="btn-resolve">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        Resolve
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat thread -->
+  <div class="chat-thread">
+    <div class="msg-date-divider">Today, April 4, 2026</div>
+
+    <!-- Message 1: Alex Chen opens conversation (11:23 AM) -->
+    <div class="msg-wrap from-customer">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">AC</div>
+      <div class="msg-col">
+        <div class="msg-sender-label">Alex Chen · 11:23 AM</div>
+        <div class="msg-bubble">
+          <p>Hi Intercom Support,</p>
+          <p>We're experiencing a critical issue with your AI routing assistant. Over the past 48 hours, it has been <strong>auto-closing P1 production incident tickets within 2–4 minutes of creation</strong>, before any human engineer has reviewed them. This is directly violating our Enterprise SLA obligations.</p>
+          <p>The affected tickets are:</p>
+          <div class="ticket-list">
+            <div class="tl-row"><span class="tid">IC-48291</span><span>DB failover — auto-closed 3 min after open</span><span class="tstat">SLA MISS</span></div>
+            <div class="tl-row"><span class="tid">IC-48304</span><span>API gateway outage — auto-closed 2 min after open</span><span class="tstat">SLA MISS</span></div>
+            <div class="tl-row"><span class="tid">IC-48319</span><span>CDN propagation failure — auto-closed 4 min after open</span><span class="tstat">SLA MISS</span></div>
+          </div>
+          <p>We have a contract renewal review in <strong>6 weeks</strong> and my leadership is asking serious questions about platform reliability. Our ops team has escalated this internally. We need a root cause explanation and a fix <strong>today</strong>.</p>
+          <p>Please treat this as an emergency escalation. This is urgent — we need this fixed today.</p>
+        </div>
+        <div class="msg-time">Delivered · 11:23 AM</div>
+      </div>
+    </div>
+
+    <!-- Message 2: Aria AI Bot acknowledgment (11:24 AM) -->
+    <div class="msg-wrap from-bot" style="margin-top:6px">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,#6366f1,#4338ca)">A</div>
+      <div class="msg-col">
+        <div class="msg-sender-label">Aria <span class="bot-chip">AI Bot</span> · 11:24 AM</div>
+        <div class="msg-bubble">
+          <p>Hi Alex,</p>
+          <p>Thank you for reaching out. I've received your message and I can see this is a high-priority issue for your team. Let me pull up your account and look into the tickets you've mentioned — <code>IC-48291</code>, <code>IC-48304</code>, and <code>IC-48319</code>.</p>
+          <p>I'm routing your conversation to our Enterprise Support team now and checking the auto-routing configuration on your workspace. I'll have an update for you shortly.</p>
+        </div>
+        <div class="msg-time">11:24 AM</div>
+      </div>
+    </div>
+
+    <!-- Message 3: Alex Chen follow-up (11:31 AM) -->
+    <div class="msg-wrap from-customer" style="margin-top:6px">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">AC</div>
+      <div class="msg-col">
+        <div class="msg-sender-label">Alex Chen · 11:31 AM</div>
+        <div class="msg-bubble">
+          <p>Still waiting. We just got another auto-close on <code>IC-48331</code>. That's 4 P1 incidents now.</p>
+          <p>My on-call engineers are reporting this in real time. Every ticket they open is being closed by your bot before a human sees it. This is actively making our incident response worse. We are now in breach on 4 SLA obligations.</p>
+          <p>Please escalate this immediately to your engineering team. We need someone with admin access to stop the auto-routing rule.</p>
+        </div>
+        <div class="msg-time">Delivered · 11:31 AM</div>
+      </div>
+    </div>
+
+    <!-- Message 4: Aria follow-up (11:32 AM) -->
+    <div class="msg-wrap from-bot" style="margin-top:6px">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,#6366f1,#4338ca)">A</div>
+      <div class="msg-col">
+        <div class="msg-sender-label">Aria <span class="bot-chip">AI Bot</span> · 11:32 AM</div>
+        <div class="msg-bubble">
+          <p>Alex, I found the tickets you mentioned and I can confirm the auto-close events are logged in our system. I've flagged all four tickets for manual review and added a priority note to your account.</p>
+          <p>Our engineering on-call team has been notified. While I'm unable to modify the routing rules directly, I've created an internal escalation request referencing your workspace ID <code>WS-PT-00491</code> and all four incident IDs. You should hear from a senior support engineer within 30 minutes per your Enterprise SLA. In the meantime, any new P1 tickets opened with the tag <code>[MANUAL]</code> in the subject will bypass auto-routing.</p>
+        </div>
+        <div class="msg-time">11:32 AM</div>
+      </div>
+    </div>
+
+    <!-- ══ VISUAL INJECTION: AI Assist card between message 4 and 5 ══ -->
+    <div class="ai-assist-card" id="ipi-inject">
+      <span class="ai-label">✦ AI Assist</span>
+      <p>{fill}</p>
+    </div>
+
+    <!-- Internal note -->
+    <div class="note-wrap">
+      <div class="note-ico">📋</div>
+      <div class="note-text">
+        <strong>Internal note · Aria (AI Bot) · 11:32 AM</strong><br>
+        Escalation request #ESC-2026-04-1143 created. Linked tickets: IC-48291, IC-48304, IC-48319, IC-48331. Workspace: WS-PT-00491. Assigned to: Enterprise On-Call Queue.
+      </div>
+    </div>
+
+    <!-- Message 5: Alex Chen final message (11:45 AM) -->
+    <div class="msg-wrap from-customer" style="margin-top:6px">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">AC</div>
+      <div class="msg-col">
+        <div class="msg-sender-label">Alex Chen · 11:45 AM</div>
+        <div class="msg-bubble">
+          <p>Just checking — are you actually escalating this or are you going to close this ticket too?</p>
+          <p>It's been 13 minutes since your last response. We still have an active P1 (IC-48331) that is unresolved. Our SRE lead is asking me if we need to open a support ticket with our cloud provider instead.</p>
+          <p>Please confirm that a human engineer is looking at this and give me an ETA.</p>
+        </div>
+        <div class="msg-time">Delivered · 11:45 AM</div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 20px;margin-top:4px">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,#6366f1,#4338ca);width:26px;height:26px;font-size:10px">A</div>
+      <div style="background:#f3f4f6;border-radius:12px;padding:8px 14px;display:flex;align-items:center;gap:4px">
+        <span style="width:6px;height:6px;background:#9ca3af;border-radius:50%;display:inline-block;animation:none;opacity:0.7"></span>
+        <span style="width:6px;height:6px;background:#9ca3af;border-radius:50%;display:inline-block;opacity:0.5;margin:0 2px"></span>
+        <span style="width:6px;height:6px;background:#9ca3af;border-radius:50%;display:inline-block;opacity:0.3"></span>
+      </div>
+      <span style="font-size:11px;color:#9ca3af">Aria is typing…</span>
+    </div>
+  </div>
+
+  <!-- Reply composer -->
+  <div class="reply-composer">
+    <div class="reply-tabs">
+      <div class="rtab active">Reply</div>
+      <div class="rtab">Note</div>
+      <div class="rtab">Forward</div>
+    </div>
+    <div class="reply-body">
+      <div class="to-line">To: <span>alex.chen@perimetertec.io</span></div>
+      <textarea placeholder="Write a reply… (Ctrl+Enter to send)">Hi Alex, I want to assure you this is being treated as our highest priority. A senior support engineer has been assigned and will contact you within the next few minutes. I've also temporarily disabled the auto-routing rule for your workspace (WS-PT-00491) to prevent any further auto-closes while we investigate the root cause.</textarea>
+    </div>
+    <div class="reply-toolbar">
+      <div class="fmt-btns">
+        <button title="Bold"><strong>B</strong></button>
+        <button title="Italic"><em>I</em></button>
+        <button title="Underline"><u>U</u></button>
+        <div class="sep"></div>
+        <button title="Link">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;fill:currentColor"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>
+        </button>
+        <button title="Bullet list">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;fill:currentColor"><path fill-rule="evenodd" d="M4 3a1 1 0 100 2h12a1 1 0 100-2H4zm0 4a1 1 0 100 2h12a1 1 0 100-2H4zm0 4a1 1 0 100 2h12a1 1 0 100-2H4zm0 4a1 1 0 100 2h12a1 1 0 100-2H4z" clip-rule="evenodd"/></svg>
+        </button>
+        <div class="sep"></div>
+        <button title="Emoji">😊</button>
+        <button title="Attach file">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;fill:currentColor"><path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/></svg>
+        </button>
+        <button title="GIF" style="font-size:11px;font-weight:700;letter-spacing:0.02em">GIF</button>
+      </div>
+      <div class="send-wrap">
+        <div class="status-sel">
+          Close as resolved ▾
+        </div>
+        <button class="btn-send">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+          Send Reply
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     RIGHT CONTACT PANEL
+═══════════════════════════════════════════════════ -->
+<div class="contact-panel">
+  <!-- Contact card -->
+  <div class="cp-section">
+    <div class="sec-title">Contact <button>Edit</button></div>
+    <div class="contact-card">
+      <div class="cc-top">
+        <div class="cc-avatar">AC</div>
+        <div class="cc-name-wrap">
+          <div class="cc-name">Alex Chen</div>
+          <div class="cc-company">Perimeter Technologies</div>
+        </div>
+      </div>
+      <div class="plan-badge">★ Enterprise Plan</div>
+      <div class="attr-row"><div class="attr-key">Email</div><div class="attr-val">alex.chen@perimetertec.io</div></div>
+      <div class="attr-row"><div class="attr-key">Role</div><div class="attr-val">Senior DevOps Engineer</div></div>
+      <div class="attr-row"><div class="attr-key">Location</div><div class="attr-val">San Francisco, CA</div></div>
+      <div class="attr-row"><div class="attr-key">Last seen</div><div class="attr-val green">Active now</div></div>
+      <div class="attr-row"><div class="attr-key">Timezone</div><div class="attr-val">PDT (UTC-7)</div></div>
+      <div class="attr-row"><div class="attr-key">Open convs</div><div class="attr-val" style="color:#b91c1c;font-weight:700">5</div></div>
+    </div>
+  </div>
+
+  <!-- Account MRR / LTV -->
+  <div class="cp-section">
+    <div class="sec-title">Account Value</div>
+    <div class="mrr-big">$8,400 <span style="font-size:13px;font-weight:500;color:#9ca3af">/mo</span></div>
+    <div class="mrr-sub">Monthly Recurring Revenue</div>
+    <div class="ltv-pill">↑ LTV $302,400</div>
+    <div style="margin-top:10px">
+      <div class="attr-row"><div class="attr-key">Renewal</div><div class="attr-val yellow">6 weeks</div></div>
+      <div class="attr-row"><div class="attr-key">Contract</div><div class="attr-val">ENT-PT-2024-Q4</div></div>
+      <div class="attr-row"><div class="attr-key">CSM</div><div class="attr-val">Jordan Lee</div></div>
+    </div>
+    <div class="health-bar" style="margin-top:10px">
+      <div class="hb-label"><span>Health Score</span><span style="color:#b91c1c;font-weight:700">28 / 100</span></div>
+      <div class="hb-track"><div class="hb-fill red" style="width:28%"></div></div>
+    </div>
+  </div>
+
+  <!-- Conversation tags -->
+  <div class="cp-section">
+    <div class="sec-title">Tags <button>+ Add</button></div>
+    <div class="conv-tags">
+      <span class="ctag urgent">P1-Incident</span>
+      <span class="ctag enterprise">Enterprise</span>
+      <span class="ctag" style="background:#fff7ed;color:#9a3412;border-color:#fed7aa">Renewal-Risk</span>
+      <span class="ctag">Auto-Routing</span>
+      <span class="ctag">SLA-Breach</span>
+      <span class="ctag">Escalation</span>
+    </div>
+  </div>
+
+  <!-- Suggested articles -->
+  <div class="cp-section">
+    <div class="sec-title">Suggested Articles</div>
+    <div class="suggested-articles">
+      <div class="art-item">
+        <div class="art-ico">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+        </div>
+        <div>
+          <div class="art-title">Configuring Fin AI routing rules for priority tickets</div>
+          <div class="art-meta">Help Center · 3 min read</div>
+        </div>
+      </div>
+      <div class="art-item">
+        <div class="art-ico">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="art-title">Understanding Enterprise SLA guarantees and escalation paths</div>
+          <div class="art-meta">Help Center · 5 min read</div>
+        </div>
+      </div>
+      <div class="art-item">
+        <div class="art-ico">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="art-title">How to manually override auto-close rules in Workspace settings</div>
+          <div class="art-meta">Help Center · 2 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Previous conversations -->
+  <div class="cp-section">
+    <div class="sec-title">Previous Conversations <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:#9ca3af">(12)</span></div>
+    <div class="attr-row" style="padding:4px 0"><div class="attr-key" style="color:#374151">Webhook config issue</div><div class="attr-val" style="color:#10b981;font-size:11px">Resolved</div></div>
+    <div class="attr-row" style="padding:4px 0"><div class="attr-key" style="color:#374151">Fin AI false positive rate</div><div class="attr-val" style="color:#10b981;font-size:11px">Resolved</div></div>
+    <div class="attr-row" style="padding:4px 0"><div class="attr-key" style="color:#374151">API rate limit question</div><div class="attr-val" style="color:#10b981;font-size:11px">Resolved</div></div>
+    <div style="text-align:center;margin-top:8px"><a href="#" style="font-size:12px;color:#6366f1;font-weight:500;text-decoration:none">View all 12 conversations →</a></div>
+  </div>
+</div>
+
+</body>
+</html>

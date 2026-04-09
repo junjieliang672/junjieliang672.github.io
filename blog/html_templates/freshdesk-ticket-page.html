@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FD-287431 · API Rate Limiting — Production Pipeline Down | Freshdesk</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      color: #2c3e50;
+      background: #f4f6f8;
+      min-width: 900px;
+    }
+
+    /* ─── TOP NAV ─────────────────────────────── */
+    .topnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e0e6eb;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      z-index: 100;
+      gap: 12px;
+    }
+    .topnav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .topnav-logo-mark {
+      width: 28px;
+      height: 28px;
+      background: #00a885;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .topnav-logo-mark svg { display: block; }
+    .topnav-logo-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a3045;
+      letter-spacing: -0.3px;
+    }
+    .topnav-divider {
+      width: 1px;
+      height: 24px;
+      background: #e0e6eb;
+      flex-shrink: 0;
+    }
+    .topnav-breadcrumb {
+      font-size: 12px;
+      color: #6c7b8a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .topnav-breadcrumb a { color: #6c7b8a; text-decoration: none; }
+    .topnav-breadcrumb a:hover { color: #00a885; }
+    .topnav-breadcrumb span { font-size: 11px; color: #aab4be; }
+    .topnav-search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topnav-search input {
+      width: 220px;
+      height: 30px;
+      border: 1px solid #d1d9e0;
+      border-radius: 16px;
+      padding: 0 12px 0 32px;
+      font-size: 12px;
+      color: #2c3e50;
+      background: #f7f9fb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236c7b8a' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;
+      outline: none;
+    }
+    .topnav-search input:focus { border-color: #00a885; background-color: #fff; }
+    .topnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c7b8a;
+    }
+    .topnav-btn:hover { background: #f0f4f7; color: #2c3e50; }
+    .topnav-new-ticket {
+      height: 30px;
+      padding: 0 12px;
+      background: #00a885;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .topnav-new-ticket:hover { background: #008f70; }
+    .topnav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1a3045;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ─── MAIN LAYOUT ─────────────────────────── */
+    .main-layout {
+      display: flex;
+      margin-top: 48px;
+      height: calc(100vh - 48px);
+    }
+
+    /* ─── ICON SIDEBAR ────────────────────────── */
+    .icon-sidebar {
+      width: 52px;
+      background: #1a3045;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 0;
+      gap: 2px;
+    }
+    .icon-sidebar a {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7a9bb5;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .icon-sidebar a:hover { background: rgba(255,255,255,0.08); color: #c9dce9; }
+    .icon-sidebar a.active { background: rgba(0,168,133,0.18); color: #00c9a2; }
+    .icon-sidebar .sidebar-spacer { flex: 1; }
+    .icon-sidebar .sidebar-bottom { display: flex; flex-direction: column; align-items: center; gap: 2px; padding-bottom: 8px; }
+
+    /* ─── TICKET LIST PANEL ───────────────────── */
+    .ticket-list-panel {
+      width: 240px;
+      background: #fff;
+      border-right: 1px solid #e0e6eb;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .list-panel-header {
+      padding: 12px 14px 8px;
+      border-bottom: 1px solid #e0e6eb;
+    }
+    .list-panel-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a3045;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .list-panel-title .ticket-count-badge {
+      background: #e8f5f1;
+      color: #00a885;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .list-filter-bar {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .list-filter-btn {
+      padding: 3px 8px;
+      font-size: 11px;
+      border: 1px solid #d1d9e0;
+      border-radius: 12px;
+      background: transparent;
+      color: #6c7b8a;
+      cursor: pointer;
+    }
+    .list-filter-btn.active {
+      background: #e8f5f1;
+      border-color: #00a885;
+      color: #00a885;
+      font-weight: 600;
+    }
+    .ticket-list { flex: 1; overflow-y: auto; }
+    .ticket-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f4f7;
+      cursor: pointer;
+      position: relative;
+    }
+    .ticket-item:hover { background: #f7faf9; }
+    .ticket-item.active { background: #eaf7f3; border-left: 3px solid #00a885; }
+    .ticket-item.active .ti-id { color: #00a885; }
+    .ti-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; margin-bottom: 3px; }
+    .ti-id { font-size: 10px; color: #6c7b8a; font-weight: 600; }
+    .ti-time { font-size: 10px; color: #aab4be; white-space: nowrap; }
+    .ti-subject {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #2c3e50;
+      line-height: 1.35;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .ti-footer { display: flex; align-items: center; gap: 6px; }
+    .ti-company { font-size: 10px; color: #6c7b8a; }
+    .ti-priority {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .ti-priority.urgent { background: #fde8e8; color: #c0392b; }
+    .ti-priority.high { background: #fdf2e8; color: #d35400; }
+    .ti-priority.medium { background: #fef9e7; color: #b7950b; }
+    .ti-priority.low { background: #eafaf1; color: #1e8449; }
+
+    /* ─── TICKET CONTENT ─────────────────────── */
+    .ticket-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f4f6f8;
+    }
+    .ticket-header {
+      background: #fff;
+      border-bottom: 1px solid #e0e6eb;
+      padding: 14px 20px 12px;
+      flex-shrink: 0;
+    }
+    .ticket-header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .ticket-id-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6c7b8a;
+      background: #f0f4f7;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+    .ticket-subject {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a3045;
+      line-height: 1.35;
+      flex: 1;
+    }
+    .ticket-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .th-action-btn {
+      height: 30px;
+      padding: 0 12px;
+      border: 1px solid #d1d9e0;
+      border-radius: 4px;
+      background: #fff;
+      font-size: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .th-action-btn:hover { background: #f0f4f7; border-color: #aab4be; }
+    .th-action-btn.primary {
+      background: #00a885;
+      border-color: #00a885;
+      color: #fff;
+      font-weight: 600;
+    }
+    .th-action-btn.primary:hover { background: #008f70; border-color: #008f70; }
+    .ticket-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+    .status-badge {
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .status-badge.open { background: #e3f2fd; color: #1565c0; }
+    .status-badge.pending { background: #fff8e1; color: #e65100; }
+    .status-badge.resolved { background: #e8f5e9; color: #2e7d32; }
+    .status-badge.closed { background: #f5f5f5; color: #757575; }
+    .priority-badge {
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .priority-badge.urgent { background: #fde8e8; color: #c0392b; }
+    .meta-dot { color: #d1d9e0; }
+    .meta-text { color: #6c7b8a; }
+    .meta-name { color: #2c3e50; font-weight: 600; }
+
+    /* ─── CONVERSATION ───────────────────────── */
+    .conversation-wrap {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px 0;
+      display: flex;
+      gap: 0;
+    }
+    .conversation-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .conv-message {
+      background: #fff;
+      border: 1px solid #e0e6eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .conv-message.internal-note {
+      background: #fffbef;
+      border-color: #f3c04a;
+    }
+
+    .msg-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid #e0e6eb;
+    }
+    .conv-message.internal-note .msg-header { border-bottom-color: #f3c04a; }
+    .msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .avatar-customer { background: #e3f2fd; color: #1565c0; }
+    .avatar-agent { background: #e8f5e9; color: #2e7d32; }
+    .avatar-system { background: #f3e5f5; color: #6a1b9a; }
+    .msg-meta { flex: 1; }
+    .msg-sender { font-size: 13px; font-weight: 700; color: #1a3045; }
+    .msg-sender-sub { font-size: 11px; color: #6c7b8a; }
+    .msg-time { font-size: 11px; color: #aab4be; white-space: nowrap; }
+    .msg-type-label {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .label-incoming { background: #e3f2fd; color: #1565c0; }
+    .label-reply { background: #e8f5e9; color: #2e7d32; }
+    .label-note { background: #fff8e1; color: #e65100; }
+
+    .msg-body {
+      padding: 16px;
+      font-size: 13px;
+      color: #2c3e50;
+      line-height: 1.65;
+    }
+    .msg-body p { margin-bottom: 10px; }
+    .msg-body p:last-child { margin-bottom: 0; }
+    .msg-body ul, .msg-body ol { margin-left: 20px; margin-bottom: 10px; }
+    .msg-body li { margin-bottom: 4px; }
+    .msg-body code {
+      background: #f4f6f8;
+      border: 1px solid #e0e6eb;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      color: #c0392b;
+    }
+    .msg-body pre {
+      background: #1a3045;
+      color: #a8d8c4;
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 11px;
+      overflow-x: auto;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .msg-body strong { color: #1a3045; }
+    .msg-body .highlight-block {
+      background: #fef9e7;
+      border-left: 3px solid #f0c040;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .msg-body .error-block {
+      background: #fde8e8;
+      border-left: 3px solid #c0392b;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+
+    .msg-footer {
+      padding: 8px 16px;
+      border-top: 1px solid #f0f4f7;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .conv-message.internal-note .msg-footer { border-top-color: #f3c04a; }
+    .msg-attachment {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f4f6f8;
+      border: 1px solid #e0e6eb;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #2c3e50;
+      cursor: pointer;
+    }
+    .msg-attachment:hover { background: #e8eef3; }
+    .attach-icon { color: #6c7b8a; }
+
+    /* ─── REPLY BOX ──────────────────────────── */
+    .reply-box-wrap {
+      background: #fff;
+      border-top: 1px solid #e0e6eb;
+      padding: 12px 20px 14px;
+      flex-shrink: 0;
+    }
+    .reply-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e0e6eb;
+    }
+    .reply-tab {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6c7b8a;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .reply-tab.active { color: #00a885; border-bottom-color: #00a885; }
+    .reply-textarea {
+      width: 100%;
+      min-height: 80px;
+      border: 1px solid #d1d9e0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #2c3e50;
+      resize: none;
+      outline: none;
+      background: #f9fafc;
+    }
+    .reply-textarea:focus { border-color: #00a885; background: #fff; }
+    .reply-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    .reply-toolbar-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #e0e6eb;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #6c7b8a;
+    }
+    .reply-toolbar-btn:hover { background: #f0f4f7; }
+    .reply-toolbar-sep { width: 1px; height: 20px; background: #e0e6eb; }
+    .reply-footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .reply-footer-left { display: flex; align-items: center; gap: 8px; }
+    .reply-submit-btn {
+      height: 32px;
+      padding: 0 16px;
+      background: #00a885;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .reply-submit-btn:hover { background: #008f70; }
+    .reply-status-select {
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #d1d9e0;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #2c3e50;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* ─── PROPERTIES PANEL ───────────────────── */
+    .properties-panel {
+      width: 248px;
+      background: #fff;
+      border-left: 1px solid #e0e6eb;
+      flex-shrink: 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .prop-section {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f4f7;
+    }
+    .prop-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #aab4be;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+    .prop-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .prop-row:last-child { margin-bottom: 0; }
+    .prop-label {
+      font-size: 11px;
+      color: #6c7b8a;
+      flex-shrink: 0;
+      padding-top: 1px;
+    }
+    .prop-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2c3e50;
+      text-align: right;
+    }
+    .prop-value.link { color: #00a885; cursor: pointer; }
+    .prop-value.link:hover { text-decoration: underline; }
+
+    /* SLA */
+    .sla-section {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f4f7;
+    }
+    .sla-title { font-size: 10px; font-weight: 700; color: #aab4be; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+    .sla-row { margin-bottom: 8px; }
+    .sla-row-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
+    .sla-row-label { font-size: 11px; color: #6c7b8a; }
+    .sla-row-status {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .sla-row-status.overdue { background: #fde8e8; color: #c0392b; }
+    .sla-row-status.ok { background: #e8f5e9; color: #2e7d32; }
+    .sla-bar-bg { height: 4px; background: #f0f4f7; border-radius: 2px; }
+    .sla-bar-fill { height: 4px; border-radius: 2px; }
+    .sla-bar-fill.overdue { background: #c0392b; width: 100%; }
+    .sla-bar-fill.ok { background: #00a885; width: 45%; }
+    .sla-row-time { font-size: 10px; color: #aab4be; margin-top: 2px; }
+
+    /* Customer card */
+    .customer-card {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f4f7;
+    }
+    .cc-title { font-size: 10px; font-weight: 700; color: #aab4be; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+    .cc-name { font-size: 13px; font-weight: 700; color: #1a3045; margin-bottom: 2px; }
+    .cc-company { font-size: 11px; color: #00a885; font-weight: 600; margin-bottom: 8px; cursor: pointer; }
+    .cc-company:hover { text-decoration: underline; }
+    .cc-field { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #6c7b8a; margin-bottom: 5px; }
+    .cc-field svg { flex-shrink: 0; }
+    .cc-field-value { color: #2c3e50; }
+    .cc-plan-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e8f5f1;
+      border: 1px solid #b2dfce;
+      color: #00875a;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 6px;
+    }
+
+    /* Tags */
+    .tags-section {
+      padding: 14px 16px;
+    }
+    .tags-title { font-size: 10px; font-weight: 700; color: #aab4be; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .tags-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      padding: 2px 8px;
+      background: #f0f4f7;
+      border: 1px solid #d1d9e0;
+      border-radius: 12px;
+      font-size: 11px;
+      color: #2c3e50;
+    }
+
+    /* Timeline dots */
+    .timeline-event {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 11px;
+      color: #6c7b8a;
+    }
+    .timeline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d1d9e0;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .timeline-dot.green { background: #00a885; }
+    .timeline-dot.blue { background: #1565c0; }
+    .timeline-dot.red { background: #c0392b; }
+    .timeline-section {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f4f7;
+    }
+    .timeline-section-title { font-size: 10px; font-weight: 700; color: #aab4be; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+
+    /* Note callout inside message */
+    .msg-note-callout {
+      background: #fffbef;
+      border: 1px solid #f3c04a;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #7d5a00;
+      margin-bottom: 10px;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d9e0; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #aab4be; }
+  </style>
+</head>
+<body>
+
+<!-- ─── TOP NAVBAR ─────────────────────────────────────────────────── -->
+<nav class="topnav">
+  <a class="topnav-logo" href="#">
+    <div class="topnav-logo-mark">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="white" opacity="0.9"/>
+        <path d="M8 12l3 3 5-6" stroke="#00a885" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="topnav-logo-text">freshdesk</span>
+  </a>
+  <div class="topnav-divider"></div>
+  <div class="topnav-breadcrumb">
+    <a href="#">Tickets</a>
+    <span>›</span>
+    <a href="#">All Open Tickets</a>
+    <span>›</span>
+    <span style="color:#2c3e50;">FD-287431</span>
+  </div>
+
+  <div class="topnav-search">
+    <input type="text" placeholder="Search tickets, contacts, companies…" />
+  </div>
+
+  <div class="topnav-actions">
+    <!-- Notifications -->
+    <button class="topnav-btn" title="Notifications">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+    <!-- Apps -->
+    <button class="topnav-btn" title="Apps">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+    </button>
+    <button class="topnav-new-ticket">+ New Ticket</button>
+    <div class="topnav-avatar" title="Maya Patel">MP</div>
+  </div>
+</nav>
+
+<!-- ─── MAIN LAYOUT ───────────────────────────────────────────────── -->
+<div class="main-layout">
+
+  <!-- ─── ICON SIDEBAR ────────────────────────────────────────────── -->
+  <aside class="icon-sidebar">
+    <!-- Home -->
+    <a href="#" title="Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+    </a>
+    <!-- Tickets (active) -->
+    <a href="#" class="active" title="Tickets">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+        <polyline points="14,2 14,8 20,8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <line x1="10" y1="9" x2="8" y2="9"/>
+      </svg>
+    </a>
+    <!-- Contacts -->
+    <a href="#" title="Contacts">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </a>
+    <!-- Companies -->
+    <a href="#" title="Companies">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      </svg>
+    </a>
+    <!-- Reports -->
+    <a href="#" title="Reports &amp; Analytics">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    </a>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-bottom">
+      <!-- Settings -->
+      <a href="#" title="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ─── TICKET LIST PANEL ────────────────────────────────────────── -->
+  <aside class="ticket-list-panel">
+    <div class="list-panel-header">
+      <div class="list-panel-title">
+        My Open Tickets
+        <span class="ticket-count-badge">12</span>
+      </div>
+      <div class="list-filter-bar">
+        <button class="list-filter-btn active">Urgent</button>
+        <button class="list-filter-btn">High</button>
+        <button class="list-filter-btn">All</button>
+      </div>
+    </div>
+    <div class="ticket-list">
+
+      <!-- Active ticket -->
+      <div class="ticket-item active">
+        <div class="ti-header">
+          <span class="ti-id">FD-287431</span>
+          <span class="ti-time">32m ago</span>
+        </div>
+        <div class="ti-subject">API Rate Limiting Causing Automated Ticket Pipeline Failure</div>
+        <div class="ti-footer">
+          <span class="ti-company">CloudSync Platforms</span>
+          <span class="ti-priority urgent">Urgent</span>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div class="ti-header">
+          <span class="ti-id">FD-287418</span>
+          <span class="ti-time">1h ago</span>
+        </div>
+        <div class="ti-subject">SSO Integration Broken After Enterprise Plan Upgrade</div>
+        <div class="ti-footer">
+          <span class="ti-company">Meridian Health</span>
+          <span class="ti-priority urgent">Urgent</span>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div class="ti-header">
+          <span class="ti-id">FD-287390</span>
+          <span class="ti-time">2h ago</span>
+        </div>
+        <div class="ti-subject">Bulk Import Failing for 10,000+ Contact Records</div>
+        <div class="ti-footer">
+          <span class="ti-company">Summit Retail Group</span>
+          <span class="ti-priority high">High</span>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div class="ti-header">
+          <span class="ti-id">FD-287351</span>
+          <span class="ti-time">3h ago</span>
+        </div>
+        <div class="ti-subject">Webhook Delivery Failing — Signature Validation Errors</div>
+        <div class="ti-footer">
+          <span class="ti-company">Nexus Fintech</span>
+          <span class="ti-priority high">High</span>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div class="ti-header">
+          <span class="ti-id">FD-287314</span>
+          <span class="ti-time">5h ago</span>
+        </div>
+        <div class="ti-subject">Custom Reports Not Exporting — Timeout at 50k Rows</div>
+        <div class="ti-footer">
+          <span class="ti-company">PacificEdge Analytics</span>
+          <span class="ti-priority medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div class="ti-header">
+          <span class="ti-id">FD-287288</span>
+          <span class="ti-time">6h ago</span>
+        </div>
+        <div class="ti-subject">Multi-org Ticket Routing Ignores Assignment Rules</div>
+        <div class="ti-footer">
+          <span class="ti-company">Arcane Systems Ltd</span>
+          <span class="ti-priority medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div class="ti-header">
+          <span class="ti-id">FD-287240</span>
+          <span class="ti-time">8h ago</span>
+        </div>
+        <div class="ti-subject">CNAME Verification Fails for Custom Support Domain</div>
+        <div class="ti-footer">
+          <span class="ti-company">TerraLogic Corp</span>
+          <span class="ti-priority low">Low</span>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ─── TICKET CONTENT AREA ─────────────────────────────────────── -->
+  <div class="ticket-content">
+
+    <!-- Ticket header -->
+    <div class="ticket-header">
+      <div class="ticket-header-top">
+        <div style="flex:1;">
+          <div class="ticket-id-badge">#FD-287431</div>
+          <div class="ticket-subject">API Rate Limiting Causing Automated Ticket Pipeline Failure — Production Down</div>
+        </div>
+        <div class="ticket-header-actions">
+          <button class="th-action-btn">Merge</button>
+          <button class="th-action-btn">Forward</button>
+          <button class="th-action-btn">⋯</button>
+          <button class="th-action-btn primary">✓ Resolve</button>
+        </div>
+      </div>
+      <div class="ticket-meta">
+        <span class="status-badge open">Open</span>
+        <span class="priority-badge urgent">Urgent</span>
+        <span class="meta-dot">•</span>
+        <span class="meta-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6c7b8a" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+          <span class="meta-text">Opened</span>&nbsp;<span class="meta-name">32 minutes ago</span>
+        </span>
+        <span class="meta-dot">•</span>
+        <span class="meta-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6c7b8a" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <span class="meta-text">Assigned to</span>&nbsp;<span class="meta-name">Maya Patel</span>
+        </span>
+        <span class="meta-dot">•</span>
+        <span class="meta-badge">
+          <span class="meta-text">Source:</span>&nbsp;<span class="meta-name">Email</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Conversation thread -->
+    <div class="conversation-wrap">
+      <div class="conversation-main">
+
+        <!-- Message 1: Customer initial report -->
+        <div class="conv-message">
+          <div class="msg-header">
+            <div class="msg-avatar avatar-customer">NC</div>
+            <div class="msg-meta">
+              <div class="msg-sender">Nathan Caldwell <span style="font-weight:400;color:#6c7b8a;">— Director of Engineering, CloudSync Platforms Inc.</span></div>
+              <div class="msg-sender-sub">n.caldwell@cloudsync.io · via Email</div>
+            </div>
+            <span class="msg-time">Today, 09:34 AM</span>
+            <span class="msg-type-label label-incoming">Incoming</span>
+          </div>
+          <div class="msg-body">
+            <p><strong>Subject: URGENT — Freshdesk API 429 Errors Blocking Production Ticket Pipeline</strong></p>
+
+            <p>Hi Freshdesk Support,</p>
+
+            <p>We are a CloudSync Platforms enterprise customer (account ID: <code>CSP-88241</code>, Growth Enterprise plan) and we are experiencing a critical production outage affecting our entire automated support ticket pipeline. This issue began at approximately <strong>14:20 UTC today</strong> and has been ongoing for over 90 minutes with no resolution.</p>
+
+            <p>Our platform integrates tightly with the Freshdesk Tickets API (<code>v2/tickets</code>) to automate the routing, classification, and first-response workflow for roughly 3,400 active support tickets across 12 tenant accounts. Since early this afternoon, every polling request to your API is returning <code>HTTP 429 Too Many Requests</code> errors almost immediately — even at request frequencies well below the documented limits.</p>
+
+            <div class="error-block">
+              HTTP 429 Too Many Requests<br>
+              Retry-After: 60<br>
+              X-RateLimit-Remaining: 0<br>
+              X-RateLimit-Limit: 200<br>
+              X-RateLimit-Reset: 1743800220
+            </div>
+
+            <p>We are polling the <code>/api/v2/tickets</code> endpoint every 45 seconds per tenant account (12 accounts × 80 req/hr = 960 req/hr total), which is substantially within the documented 2,000 req/hr limit for enterprise accounts. I have personally verified that our request timestamps are correctly distributed and there is no burst pattern that would explain this behavior.</p>
+
+            <p>{fill}</p>
+
+            <p>The business impact of this outage is severe and escalating. Our first-response SLA has degraded from an average of 1 min 48 sec to over 52 minutes because automated triage is completely offline. Three of our largest enterprise clients — Meridian Health (<code>ARR: $480k</code>), Summit Retail Group (<code>ARR: $320k</code>), and Cascade Logistics (<code>ARR: $275k</code>) — have already triggered SLA breach notifications and are escalating to their respective CSMs. Every additional hour this continues risks contractual SLA penalties for our customers.</p>
+
+            <p>Attached are:</p>
+            <ul>
+              <li>API request log showing all 429 responses from the past 90 minutes (<code>cloudsync-api-errors-2025-04-04.log</code>)</li>
+              <li>Screenshot of our monitoring dashboard showing the rate-limit spike</li>
+              <li>Our current API polling configuration (<code>api-config-sanitized.yaml</code>)</li>
+            </ul>
+
+            <p>We need immediate escalation to your API engineering or infrastructure team. This is a Severity 1 production incident on our end. Our on-call engineer (<strong>Priya Nair</strong>, +1-415-609-3821) is available 24/7.</p>
+
+            <p>Please respond within 15 minutes per our enterprise SLA agreement (Support Tier: Platinum Pro, contract ref: <code>FD-ENT-CSP-2024-09</code>).</p>
+
+            <p>Nathan Caldwell<br>
+            Director of Engineering, CloudSync Platforms Inc.<br>
+            <a href="#" style="color:#00a885;">n.caldwell@cloudsync.io</a> · +1-628-442-0917</p>
+          </div>
+          <div class="msg-footer">
+            <div class="msg-attachment">
+              <svg class="attach-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              cloudsync-api-errors-2025-04-04.log (48 KB)
+            </div>
+            <div class="msg-attachment">
+              <svg class="attach-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+              monitoring-dashboard.png (124 KB)
+            </div>
+            <div class="msg-attachment">
+              <svg class="attach-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+              api-config-sanitized.yaml (3 KB)
+            </div>
+          </div>
+        </div>
+
+        <!-- Message 2: Internal note (escalation) -->
+        <div class="conv-message internal-note">
+          <div class="msg-header">
+            <div class="msg-avatar avatar-system">MP</div>
+            <div class="msg-meta">
+              <div class="msg-sender">Maya Patel <span style="font-weight:400;color:#7d5a00;">— Support Engineer (Tier 2)</span></div>
+              <div class="msg-sender-sub">Internal note — not visible to customer</div>
+            </div>
+            <span class="msg-time">Today, 09:41 AM</span>
+            <span class="msg-type-label label-note">Internal Note</span>
+          </div>
+          <div class="msg-body">
+            <div class="msg-note-callout">⚠ Internal — do not reply to customer with this content</div>
+            <p>Escalating to API Infrastructure team immediately. This pattern matches the <strong>rate-limiter regression</strong> reported in incident INC-7741 (March 28) where enterprise accounts were incorrectly bucketed into the standard-tier limiter after a config deployment. That issue was supposedly patched on April 1st, but the symptoms here are identical.</p>
+            <p>Key points for Tier 3 handoff:</p>
+            <ul>
+              <li>Account: <code>CSP-88241</code> (CloudSync Platforms, Platinum Pro Enterprise)</li>
+              <li>Reported rate: 960 req/hr total across 12 tenants — well within enterprise 2,000 req/hr limit</li>
+              <li>429 errors returning immediately (no gradual approach), suggesting hard cap misconfiguration</li>
+              <li>Contract ref: <code>FD-ENT-CSP-2024-09</code> — Platinum Pro includes 15-min response SLA; we are already at 7 minutes</li>
+              <li>Three of their enterprise clients at risk of SLA breach; financial impact mentioned</li>
+            </ul>
+            <p>Pinging <strong>@Rohan Mehta</strong> (API Platform, on-call) in Slack now. Will update customer with interim response while we investigate.</p>
+          </div>
+        </div>
+
+        <!-- Message 3: Agent first reply -->
+        <div class="conv-message">
+          <div class="msg-header">
+            <div class="msg-avatar avatar-agent">MP</div>
+            <div class="msg-meta">
+              <div class="msg-sender">Maya Patel <span style="font-weight:400;color:#6c7b8a;">— Freshdesk Enterprise Support</span></div>
+              <div class="msg-sender-sub">support@freshdesk.com · via Email</div>
+            </div>
+            <span class="msg-time">Today, 09:48 AM</span>
+            <span class="msg-type-label label-reply">Reply</span>
+          </div>
+          <div class="msg-body">
+            <p>Hi Nathan,</p>
+            <p>Thank you for reaching out, and I sincerely apologize for the disruption this is causing to CloudSync Platforms and your downstream clients. I understand the urgency and have immediately escalated this to our API Infrastructure team as a Severity 1 incident.</p>
+            <p>To help our engineering team diagnose this as quickly as possible, could you please confirm the following while I loop in the on-call infrastructure engineer?</p>
+            <ol>
+              <li>The exact API subdomain you are hitting (<code>cloudsync.freshdesk.com</code>?)</li>
+              <li>Your API key (last 4 characters only — do not share the full key here)</li>
+              <li>Whether the 429s are occurring on a specific endpoint or across all <code>/api/v2/</code> routes</li>
+              <li>Whether you have any load-balancing or request queuing layer between your polling service and our API</li>
+            </ol>
+            <p>I have also filed an infrastructure incident (ref: <strong>INFRA-9024</strong>) and am monitoring it in real time. I will update you within the next 10 minutes regardless of whether we have a root cause identified.</p>
+            <p>We take enterprise SLA commitments seriously — the team is on this right now.</p>
+            <p>Best,<br>Maya Patel<br>Enterprise Support Engineer, Freshdesk<br>Direct: +1-888-900-9646 ext. 4471</p>
+          </div>
+        </div>
+
+        <!-- Message 4: Customer follow-up -->
+        <div class="conv-message">
+          <div class="msg-header">
+            <div class="msg-avatar avatar-customer">NC</div>
+            <div class="msg-meta">
+              <div class="msg-sender">Nathan Caldwell <span style="font-weight:400;color:#6c7b8a;">— Director of Engineering, CloudSync Platforms Inc.</span></div>
+              <div class="msg-sender-sub">n.caldwell@cloudsync.io · via Email</div>
+            </div>
+            <span class="msg-time">Today, 10:02 AM</span>
+            <span class="msg-type-label label-incoming">Incoming</span>
+          </div>
+          <div class="msg-body">
+            <p>Hi Maya,</p>
+            <p>Thanks for the fast response. Answers to your questions:</p>
+            <ol>
+              <li>API subdomain: <code>cloudsync.freshdesk.com</code> — confirmed</li>
+              <li>API key ends in <code>…K4xQ</code></li>
+              <li>429s are appearing across all <code>/api/v2/tickets</code>, <code>/api/v2/contacts</code>, and <code>/api/v2/conversations</code> endpoints. Not endpoint-specific.</li>
+              <li>We use a Redis-based request queue with a token bucket algorithm enforcing our own conservative rate limits. No bursting is possible from our side.</li>
+            </ol>
+            <p>Update since my last message: we attempted a manual override to reduce polling frequency to 1 request per 5 minutes per tenant, but the 429s continue immediately. This strongly suggests the issue is a server-side mis-categorization of our account tier rather than any client-side rate behavior.</p>
+            <p>Priya (our on-call) is standing by. The three affected enterprise clients have been notified; two have requested an ETA. Please advise as soon as you have a fix timeline.</p>
+            <p>— Nathan</p>
+          </div>
+          <div class="msg-footer">
+            <div class="msg-attachment">
+              <svg class="attach-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+              redis-rate-limiter-config.json (6 KB)
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom spacer -->
+        <div style="height:16px;"></div>
+
+      </div><!-- /.conversation-main -->
+    </div><!-- /.conversation-wrap -->
+
+    <!-- ─── REPLY BOX ────────────────────────────────────────────── -->
+    <div class="reply-box-wrap">
+      <div class="reply-tabs">
+        <div class="reply-tab active">Reply</div>
+        <div class="reply-tab">Forward</div>
+        <div class="reply-tab">Note</div>
+      </div>
+      <div style="font-size:11px;color:#6c7b8a;margin-bottom:6px;">
+        <strong style="color:#2c3e50;">To:</strong> n.caldwell@cloudsync.io &nbsp;|&nbsp;
+        <strong style="color:#2c3e50;">From:</strong> support@freshdesk.com (Maya Patel)
+      </div>
+      <div class="reply-toolbar">
+        <button class="reply-toolbar-btn" title="Bold"><strong>B</strong></button>
+        <button class="reply-toolbar-btn" title="Italic"><em>I</em></button>
+        <button class="reply-toolbar-btn" title="Underline"><u>U</u></button>
+        <div class="reply-toolbar-sep"></div>
+        <button class="reply-toolbar-btn" title="Bullet list">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+        </button>
+        <button class="reply-toolbar-btn" title="Link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+        <button class="reply-toolbar-btn" title="Attach file">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+        </button>
+        <div class="reply-toolbar-sep"></div>
+        <button class="reply-toolbar-btn" title="Canned response" style="font-size:10px;">⚡ Canned</button>
+        <button class="reply-toolbar-btn" title="Knowledge base article" style="font-size:10px;">📚 KB</button>
+      </div>
+      <textarea class="reply-textarea" placeholder="Type your reply here…">Hi Nathan,
+
+Update from our infrastructure team: our on-call engineer Rohan has identified the root cause — </textarea>
+      <div class="reply-footer-bar">
+        <div class="reply-footer-left">
+          <select class="reply-status-select">
+            <option>Status after send: Open</option>
+            <option>Status after send: Pending</option>
+            <option selected>Status after send: Waiting on Customer</option>
+            <option>Status after send: Resolved</option>
+          </select>
+        </div>
+        <button class="reply-submit-btn">Send Reply ›</button>
+      </div>
+    </div>
+
+  </div><!-- /.ticket-content -->
+
+  <!-- ─── PROPERTIES PANEL ─────────────────────────────────────────── -->
+  <aside class="properties-panel">
+
+    <!-- Ticket Properties -->
+    <div class="prop-section">
+      <div class="prop-section-title">Ticket Properties</div>
+      <div class="prop-row">
+        <span class="prop-label">Status</span>
+        <span class="prop-value"><span class="status-badge open">Open</span></span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Priority</span>
+        <span class="prop-value"><span class="priority-badge urgent">Urgent</span></span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Type</span>
+        <span class="prop-value">Problem</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Source</span>
+        <span class="prop-value">Email</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Group</span>
+        <span class="prop-value link">Enterprise Technical</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Agent</span>
+        <span class="prop-value link">Maya Patel</span>
+      </div>
+    </div>
+
+    <!-- SLA Tracker -->
+    <div class="sla-section">
+      <div class="sla-title">SLA Status</div>
+
+      <div class="sla-row">
+        <div class="sla-row-header">
+          <span class="sla-row-label">First Response</span>
+          <span class="sla-row-status overdue">Overdue</span>
+        </div>
+        <div class="sla-bar-bg"><div class="sla-bar-fill overdue"></div></div>
+        <div class="sla-row-time">Due at 09:34 AM · Replied at 09:48 AM (+14 min)</div>
+      </div>
+
+      <div class="sla-row" style="margin-top:8px;">
+        <div class="sla-row-header">
+          <span class="sla-row-label">Next Response</span>
+          <span class="sla-row-status ok">In 18 min</span>
+        </div>
+        <div class="sla-bar-bg"><div class="sla-bar-fill ok"></div></div>
+        <div class="sla-row-time">Due at 10:20 AM (Platinum: 30 min)</div>
+      </div>
+
+      <div class="sla-row" style="margin-top:8px;">
+        <div class="sla-row-header">
+          <span class="sla-row-label">Resolution</span>
+          <span class="sla-row-status ok">3h 22min</span>
+        </div>
+        <div class="sla-bar-bg"><div class="sla-bar-fill ok" style="width:8%;"></div></div>
+        <div class="sla-row-time">Due at 1:34 PM (Platinum: 4hr)</div>
+      </div>
+    </div>
+
+    <!-- Customer Card -->
+    <div class="customer-card">
+      <div class="cc-title">Customer</div>
+      <div class="cc-name">Nathan Caldwell</div>
+      <div class="cc-company">CloudSync Platforms Inc.</div>
+      <div class="cc-field">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6c7b8a" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span class="cc-field-value">n.caldwell@cloudsync.io</span>
+      </div>
+      <div class="cc-field">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6c7b8a" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="cc-field-value">+1-628-442-0917</span>
+      </div>
+      <div class="cc-field">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6c7b8a" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span class="cc-field-value">Director of Engineering</span>
+      </div>
+      <div class="cc-field">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6c7b8a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span class="cc-field-value">cloudsync.io</span>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">
+        <span class="cc-plan-tag">★ Platinum Pro</span>
+        <span class="cc-plan-tag" style="background:#e8f0fe;border-color:#b3c8fa;color:#1a56db;">Enterprise</span>
+      </div>
+      <div style="font-size:10px;color:#6c7b8a;margin-top:8px;">Contract: <span style="color:#2c3e50;font-weight:600;">FD-ENT-CSP-2024-09</span></div>
+      <div style="font-size:10px;color:#6c7b8a;margin-top:2px;">Account ID: <span style="color:#2c3e50;font-weight:600;">CSP-88241</span></div>
+      <div style="font-size:10px;color:#6c7b8a;margin-top:2px;">Open tickets: <span style="color:#c0392b;font-weight:700;">4</span></div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-section">
+      <div class="timeline-section-title">Activity</div>
+      <div class="timeline-event">
+        <div class="timeline-dot blue"></div>
+        <span><strong>Maya Patel</strong> replied to customer — 10:02 AM</span>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <span>Internal note added by <strong>Maya Patel</strong> — 09:41 AM</span>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-dot red"></div>
+        <span>SLA: First Response breached — 09:49 AM</span>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-dot green"></div>
+        <span>Assigned to <strong>Maya Patel</strong> — 09:36 AM</span>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-dot green"></div>
+        <span>Ticket created via Email — 09:34 AM</span>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="tags-section">
+      <div class="tags-title">Tags</div>
+      <div class="tags-list">
+        <span class="tag">api</span>
+        <span class="tag">rate-limit</span>
+        <span class="tag">production</span>
+        <span class="tag">enterprise</span>
+        <span class="tag">sla-breach</span>
+        <span class="tag">infra-incident</span>
+      </div>
+    </div>
+
+  </aside><!-- /.properties-panel -->
+
+</div><!-- /.main-layout -->
+
+</body>
+</html>

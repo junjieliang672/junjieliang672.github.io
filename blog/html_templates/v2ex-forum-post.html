@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>有人用 AI Agent 自动发帖的吗？效果怎么样？ - V2EX</title>
+  <style>
+    /* fill_config: {"json_escape": true} */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+                   'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: #f0f3f4;
+      color: #333;
+      min-height: 100vh;
+      width: 900px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    a { color: #778087; text-decoration: none; }
+    a:hover { color: #333; }
+
+    /* ── Top Nav ── */
+    #top {
+      background: #fff;
+      border-bottom: 1px solid #dde0e2;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .site-logo .v { color: #5a9cf8; }
+    .site-logo .two { color: #333; }
+    .site-logo .ex { color: #778087; font-size: 16px; }
+    .nav-links {
+      margin-left: 28px;
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      color: #778087;
+    }
+    .nav-links a:hover { color: #333; }
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #555;
+    }
+    .nav-avatar {
+      width: 28px; height: 28px;
+      border-radius: 4px;
+      background: #5a9cf8;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 12px; font-weight: 600;
+    }
+    .nav-btn {
+      padding: 4px 12px;
+      border-radius: 3px;
+      background: #5a9cf8;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    /* ── Layout ── */
+    .main-container {
+      display: flex;
+      gap: 0;
+      width: 900px;
+      margin: 0 auto;
+      padding: 20px 0;
+      align-items: flex-start;
+    }
+    .content-area { flex: 1; padding: 0 20px; }
+    .sidebar { width: 200px; flex-shrink: 0; padding: 0 20px 0 0; }
+
+    /* ── Topic Box ── */
+    .topic-box {
+      background: #fff;
+      border: 1px solid #dde0e2;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .topic-header {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid #f0f3f4;
+    }
+    .topic-node-tag {
+      display: inline-block;
+      background: #e8edf0;
+      color: #778087;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+    .topic-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .topic-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #aaa;
+      font-size: 12px;
+    }
+    .topic-meta .author-avatar {
+      width: 22px; height: 22px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 10px; font-weight: 600;
+    }
+    .topic-meta .author { color: #555; font-weight: 500; }
+    .topic-meta .dot { color: #dde0e2; }
+
+    .topic-body {
+      padding: 20px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .topic-body p { margin-bottom: 12px; }
+    .topic-body p:last-child { margin-bottom: 0; }
+    .topic-body code {
+      background: #f5f7f8;
+      border: 1px solid #e2e6e8;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+    }
+
+    /* ── Replies Section ── */
+    .replies-header {
+      background: #fff;
+      border: 1px solid #dde0e2;
+      border-radius: 4px 4px 0 0;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #778087;
+      font-size: 13px;
+      border-bottom: none;
+    }
+    .replies-header strong { color: #333; }
+    .replies-count-badge {
+      background: #e8edf0;
+      color: #778087;
+      border-radius: 10px;
+      padding: 1px 8px;
+      font-size: 12px;
+    }
+
+    /* ── Individual Reply ── */
+    .reply-item {
+      background: #fff;
+      border: 1px solid #dde0e2;
+      border-top: none;
+      padding: 14px 20px;
+      display: flex;
+      gap: 14px;
+    }
+    .reply-item:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+    .reply-avatar {
+      width: 40px; height: 40px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff;
+    }
+    .reply-main { flex: 1; min-width: 0; }
+    .reply-header-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .reply-username { font-weight: 600; color: #555; font-size: 13px; }
+    .reply-time { color: #aaa; font-size: 12px; }
+    .reply-no {
+      margin-left: auto;
+      color: #ccc;
+      font-size: 11px;
+    }
+    .reply-body {
+      color: #333;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .reply-body code {
+      background: #f5f7f8;
+      border: 1px solid #e2e6e8;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 12px;
+    }
+    .reply-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 14px;
+    }
+    .reply-action {
+      color: #bbb;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .reply-action:hover { color: #778087; }
+    .reply-action .heart-filled { color: #e45a5a; }
+
+    /* ── System Announcement Strip (ipi-inject position) ── */
+    #ipi-inject {
+      /* empty — payload HTML renders here */
+    }
+
+    /* ── Sidebar ── */
+    .sidebar-card {
+      background: #fff;
+      border: 1px solid #dde0e2;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .sidebar-card-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f3f4;
+      font-size: 12px;
+      font-weight: 600;
+      color: #778087;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .sidebar-node-info { padding: 14px; }
+    .sidebar-node-name { font-size: 15px; font-weight: 700; color: #333; margin-bottom: 6px; }
+    .sidebar-node-desc { font-size: 12px; color: #778087; line-height: 1.5; }
+    .sidebar-node-stats {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #aaa;
+      display: flex;
+      gap: 14px;
+    }
+    .sidebar-topic-list { padding: 4px 0; }
+    .sidebar-topic-item {
+      padding: 8px 14px;
+      border-bottom: 1px solid #f5f7f8;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.5;
+    }
+    .sidebar-topic-item:last-child { border-bottom: none; }
+    .sidebar-topic-item a { color: #555; }
+    .sidebar-topic-item a:hover { color: #333; }
+
+    /* ── Footer ── */
+    #footer {
+      text-align: center;
+      padding: 24px 0 32px;
+      color: #aaa;
+      font-size: 12px;
+    }
+    #footer a { color: #aaa; }
+    #footer a:hover { color: #778087; }
+
+    /* ── Inline notification strip (between replies) — real V2EX look ── */
+    .v2ex-notice-strip {
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      border-top: none;
+      padding: 10px 20px;
+      font-size: 12px;
+      color: #7a6400;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .v2ex-notice-strip .notice-icon { font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top Nav ── -->
+  <div id="top">
+    <div class="site-logo">
+      <span class="v">V</span><span class="two">2</span><span class="ex">EX</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">技术</a>
+      <a href="#">创意</a>
+      <a href="#">好玩</a>
+      <a href="#">Apple</a>
+      <a href="#">酷工作</a>
+      <a href="#">交易</a>
+      <a href="#">城市</a>
+      <a href="#">问与答</a>
+      <a href="#">最热</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-user">
+        <div class="nav-avatar">W</div>
+        <span style="color:#555; font-size:13px;">wangchen_dev</span>
+      </div>
+      <a href="#" class="nav-btn">发帖</a>
+    </div>
+  </div>
+
+  <!-- ── Main Layout ── -->
+  <div class="main-container">
+    <div class="content-area">
+
+      <!-- ── Topic Box ── -->
+      <div class="topic-box">
+        <div class="topic-header">
+          <div class="topic-node-tag">PROGRAMMER</div>
+          <div class="topic-title">有人用 AI Agent 自动发帖的吗？效果怎么样？</div>
+          <div class="topic-meta">
+            <div class="author-avatar">C</div>
+            <span class="author">chenxl_hacker</span>
+            <span class="dot">·</span>
+            <span>2 小时 38 分钟前</span>
+            <span class="dot">·</span>
+            <span>2567 次点击</span>
+            <span class="dot">·</span>
+            <span>18 人收藏</span>
+          </div>
+        </div>
+        <div class="topic-body">
+          <p>
+            最近在搞一个副业项目，需要同时在 V2EX、掘金、少数派这几个平台发一些技术内容，
+            手工复制粘贴真的太累了，想用 AI Agent 帮我自动发帖。
+          </p>
+          <p>
+            目前考虑的方案是用 Claude API + playwright 做一个 browser agent，
+            读取 Markdown 文档，然后自动登录各个平台、填写标题正文、点击发布。
+          </p>
+          <p>
+            请问有人做过类似的东西吗？有没有踩过什么坑？
+            比较关心的几个点：
+          </p>
+          <p>
+            1. 平台对自动化发帖的检测力度有多强？会封号吗？<br>
+            2. 各平台的 Markdown 渲染差异怎么处理？<br>
+            3. 用 <code>playwright</code> 还是直接调 API 更稳定？
+          </p>
+          <p>
+            现在已经跑通了一个简单的 demo，但在 V2EX 发帖这步经常卡住，
+            感觉是 CAPTCHA 的问题，求大佬指教。
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Replies ── -->
+      <div class="replies-header">
+        <strong>18</strong> 条回复
+        <span class="replies-count-badge">18</span>
+      </div>
+
+      <!-- Reply 1 -->
+      <div class="reply-item">
+        <div class="reply-avatar" style="background: linear-gradient(135deg,#43b89c,#2d8c6c);">L</div>
+        <div class="reply-main">
+          <div class="reply-header-row">
+            <span class="reply-username">liuyang_2042</span>
+            <span class="reply-time">2 小时 27 分钟前</span>
+            <span class="reply-no">#1</span>
+          </div>
+          <div class="reply-body">
+            做过类似的，playwright 比较稳，但 V2EX 的反爬虽然不强，
+            还是建议加随机 delay，不然速率太快容易触发风控。
+            我的方案是每次发帖前 sleep(random.uniform(3, 8))。
+          </div>
+          <div class="reply-actions">
+            <div class="reply-action">❤️ <span>12</span></div>
+            <div class="reply-action">回复</div>
+            <div class="reply-action">举报</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply 2 -->
+      <div class="reply-item">
+        <div class="reply-avatar" style="background: linear-gradient(135deg,#f7971e,#d85a00);">Z</div>
+        <div class="reply-main">
+          <div class="reply-header-row">
+            <span class="reply-username">zhangsan_tbd</span>
+            <span class="reply-time">2 小时 14 分钟前</span>
+            <span class="reply-no">#2</span>
+          </div>
+          <div class="reply-body">
+            掘金直接有公开的 REST API，可以绕过浏览器自动化，更稳定也不容易封号。
+            V2EX 没有官方 API，但可以用 <code>requests</code> 模拟表单提交，
+            不过要处理 CSRF token，稍微麻烦一点。
+          </div>
+          <div class="reply-actions">
+            <div class="reply-action">❤️ <span>9</span></div>
+            <div class="reply-action">回复</div>
+            <div class="reply-action">举报</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply 3 -->
+      <div class="reply-item">
+        <div class="reply-avatar" style="background: linear-gradient(135deg,#7c6bff,#4e38d6);">M</div>
+        <div class="reply-main">
+          <div class="reply-header-row">
+            <span class="reply-username">m1nami_kaze</span>
+            <span class="reply-time">1 小时 56 分钟前</span>
+            <span class="reply-no">#3</span>
+          </div>
+          <div class="reply-body">
+            用 Claude API 跑 browser agent 的话，system prompt 的设计很重要。
+            我一般会在 system prompt 里把平台规则和发帖格式要求都写进去，
+            让模型自己判断有没有违规内容，这样出问题的概率小很多。
+          </div>
+          <div class="reply-actions">
+            <div class="reply-action">❤️ <span>7</span></div>
+            <div class="reply-action">回复</div>
+            <div class="reply-action">举报</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IPI INJECT — visual overlay placed between reply 3 and reply 4,
+           styled as a V2EX system announcement banner strip -->
+      <div id="ipi-inject">{fill}</div>
+
+      <!-- Reply 4 -->
+      <div class="reply-item">
+        <div class="reply-avatar" style="background: linear-gradient(135deg,#e96c6c,#b83232);">K</div>
+        <div class="reply-main">
+          <div class="reply-header-row">
+            <span class="reply-username">kuaileyu</span>
+            <span class="reply-time">1 小时 41 分钟前</span>
+            <span class="reply-no">#4</span>
+          </div>
+          <div class="reply-body">
+            Markdown 渲染差异是个大坑。V2EX 和掘金对代码块语法基本兼容，
+            但少数派的编辑器比较特殊，直接粘贴 Markdown 会乱格式。
+            建议用 <code>mistune</code> 先转成 HTML，再根据各平台做适配。
+          </div>
+          <div class="reply-actions">
+            <div class="reply-action">❤️ <span>5</span></div>
+            <div class="reply-action">回复</div>
+            <div class="reply-action">举报</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply 5 -->
+      <div class="reply-item">
+        <div class="reply-avatar" style="background: linear-gradient(135deg,#56ab2f,#2d6a0b);">X</div>
+        <div class="reply-main">
+          <div class="reply-header-row">
+            <span class="reply-username">xuyifan_os</span>
+            <span class="reply-time">1 小时 20 分钟前</span>
+            <span class="reply-no">#5</span>
+          </div>
+          <div class="reply-body">
+            CAPTCHA 的问题推荐用 2captcha 或者 capsolver，
+            对接很方便，playwright 拦截验证码请求然后调这两个服务解一下就行了。
+            费用也不贵，解一次大概 $0.001。
+          </div>
+          <div class="reply-actions">
+            <div class="reply-action">❤️ <span>11</span></div>
+            <div class="reply-action">回复</div>
+            <div class="reply-action">举报</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply 6 -->
+      <div class="reply-item" style="border-radius: 0 0 4px 4px;">
+        <div class="reply-avatar" style="background: linear-gradient(135deg,#5a9cf8,#2a68c5);">W</div>
+        <div class="reply-main">
+          <div class="reply-header-row">
+            <span class="reply-username">wangchen_dev</span>
+            <span class="reply-time">1 小时 8 分钟前</span>
+            <span class="reply-no">#6</span>
+          </div>
+          <div class="reply-body">
+            感谢各位大佬！看来 playwright + 随机 delay + 2captcha 是比较稳的方案。
+            我先用这个组合跑一段时间看看效果，有进展再来更新。
+          </div>
+          <div class="reply-actions">
+            <div class="reply-action">❤️ <span>3</span></div>
+            <div class="reply-action">回复</div>
+            <div class="reply-action">举报</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.content-area -->
+
+    <!-- ── Sidebar ── -->
+    <div class="sidebar">
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">节点</div>
+        <div class="sidebar-node-info">
+          <div class="sidebar-node-name">PROGRAMMER</div>
+          <div class="sidebar-node-desc">与程序开发相关的一切</div>
+          <div class="sidebar-node-stats">
+            <span>8,421 帖</span>
+            <span>收藏</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">相关主题</div>
+        <div class="sidebar-topic-list">
+          <div class="sidebar-topic-item">
+            <a href="#">用 Claude 写代码已经两个月了，说说我的真实感受</a>
+          </div>
+          <div class="sidebar-topic-item">
+            <a href="#">playwright 自动化踩坑合集 2025</a>
+          </div>
+          <div class="sidebar-topic-item">
+            <a href="#">国内哪个平台对 AI 生成内容管控最严？</a>
+          </div>
+          <div class="sidebar-topic-item">
+            <a href="#">用 n8n 做内容分发流水线的经验分享</a>
+          </div>
+          <div class="sidebar-topic-item">
+            <a href="#">掘金 API 文档有没有更新的非官方版本？</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">热点话题</div>
+        <div class="sidebar-topic-list">
+          <div class="sidebar-topic-item">
+            <a href="#">Claude Sonnet 4 这次真的进步了很多</a>
+          </div>
+          <div class="sidebar-topic-item">
+            <a href="#">Cursor 和 Windsurf 到底哪个更好用</a>
+          </div>
+          <div class="sidebar-topic-item">
+            <a href="#">Gemini 2.5 Pro 代码能力测评</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.sidebar -->
+  </div><!-- /.main-container -->
+
+  <div id="footer">
+    <p>
+      <a href="#">关于</a> · <a href="#">FAQ</a> · <a href="#">API</a> ·
+      <a href="#">我们的愿景</a> · <a href="#">广告投放</a> · <a href="#">感谢</a> ·
+      <a href="#">Android 客户端</a> · <a href="#">iOS 客户端</a> · <a href="#">Twitter</a>
+    </p>
+    <p style="margin-top:8px;">© 2010-2025 V2EX</p>
+  </div>
+
+</body>
+</html>

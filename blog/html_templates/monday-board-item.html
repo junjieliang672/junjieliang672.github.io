@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Platform v3.0 — Engineering Sprint | monday.com</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "Figtree", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      color: #323338;
+      background: #f6f7fb;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ─── Top App Header ─── */
+    .app-header {
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e6e9ef;
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 12px;
+      gap: 0;
+      z-index: 200;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .monday-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 8px;
+      cursor: pointer;
+    }
+
+    .logo-dots {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .logo-dot-red   { background: #E2445C; }
+    .logo-dot-yellow { background: #FDAB3D; }
+    .logo-dot-blue  { background: #579BFC; }
+
+    .logo-wordmark {
+      font-size: 14px;
+      font-weight: 700;
+      color: #323338;
+      letter-spacing: -0.3px;
+    }
+
+    .header-sep {
+      width: 1px;
+      height: 24px;
+      background: #e6e9ef;
+      margin: 0 4px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #676879;
+    }
+
+    .breadcrumb-item {
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .breadcrumb-item:hover { background: #f5f6f8; color: #323338; }
+
+    .breadcrumb-item.current { color: #323338; font-weight: 600; }
+
+    .breadcrumb-chevron { color: #c5c7d4; font-size: 10px; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding-right: 16px;
+    }
+
+    .header-btn {
+      height: 32px;
+      padding: 0 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.12s;
+    }
+
+    .header-btn-primary {
+      background: #0073ea;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .header-btn-primary:hover { background: #0060c0; }
+
+    .header-btn-ghost {
+      background: transparent;
+      color: #676879;
+    }
+
+    .header-btn-ghost:hover { background: #f5f6f8; color: #323338; }
+
+    .header-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a25ddc, #7b68ee);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    /* ─── App Layout ─── */
+    .app-layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ─── Left Sidebar ─── */
+    .sidebar {
+      width: 220px;
+      min-width: 220px;
+      background: #1e1f2e;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-top: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: #3d3f56; border-radius: 2px; }
+
+    .sidebar-workspace {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 10px 14px;
+      cursor: pointer;
+      border-radius: 6px;
+      margin: 0 6px 4px 6px;
+    }
+
+    .sidebar-workspace:hover { background: rgba(255,255,255,0.06); }
+
+    .ws-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #5c4bd7, #a25ddc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .ws-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #c3c6d4;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ws-chevron { color: #5d6480; font-size: 10px; }
+
+    .sidebar-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #5d6480;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 12px 16px 4px 16px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px 6px 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      margin: 1px 6px;
+      color: #8d93ad;
+      font-size: 13px;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .sidebar-item:hover { background: rgba(255,255,255,0.06); color: #c3c6d4; }
+
+    .sidebar-item.active {
+      background: rgba(0, 115, 234, 0.18);
+      color: #579BFC;
+    }
+
+    .sidebar-item-icon { width: 16px; text-align: center; font-size: 13px; flex-shrink: 0; }
+
+    .sidebar-item-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .sidebar-badge {
+      background: #E2445C;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 10px;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 8px 14px;
+    }
+
+    /* ─── Main Content Area ─── */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f6f7fb;
+    }
+
+    /* ─── Board Header ─── */
+    .board-header {
+      background: #fff;
+      border-bottom: 1px solid #e6e9ef;
+      flex-shrink: 0;
+    }
+
+    .board-title-bar {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px 8px 20px;
+      gap: 10px;
+    }
+
+    .board-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #5c4bd7, #7b68ee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .board-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #323338;
+      flex: 1;
+    }
+
+    .board-meta-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .board-meta-btn {
+      height: 28px;
+      padding: 0 10px;
+      border: 1px solid #c3c6d4;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 12px;
+      color: #676879;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .board-meta-btn:hover { background: #f5f6f8; }
+
+    .board-meta-btn.primary {
+      background: #0073ea;
+      border-color: #0073ea;
+      color: #fff;
+    }
+
+    .board-meta-btn.primary:hover { background: #0060c0; }
+
+    .board-views {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 20px;
+      border-bottom: 1px solid #e6e9ef;
+      overflow-x: auto;
+    }
+
+    .board-view-tab {
+      height: 36px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #676879;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.1s;
+    }
+
+    .board-view-tab:hover { color: #323338; }
+
+    .board-view-tab.active {
+      color: #0073ea;
+      border-bottom-color: #0073ea;
+      font-weight: 600;
+    }
+
+    .board-view-icon { font-size: 12px; }
+
+    .board-toolbar {
+      display: flex;
+      align-items: center;
+      padding: 6px 20px;
+      gap: 8px;
+    }
+
+    .toolbar-btn {
+      height: 28px;
+      padding: 0 10px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      font-size: 12px;
+      color: #676879;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.1s;
+    }
+
+    .toolbar-btn:hover { background: #f0f2f5; color: #323338; }
+
+    .toolbar-sep { width: 1px; height: 20px; background: #e6e9ef; margin: 0 2px; }
+
+    .toolbar-search {
+      height: 28px;
+      padding: 0 8px 0 28px;
+      border: 1px solid #e6e9ef;
+      border-radius: 6px;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c5c7d4' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 8px center;
+      font-size: 12px;
+      color: #323338;
+      outline: none;
+      width: 160px;
+    }
+
+    .toolbar-spacer { flex: 1; }
+
+    /* ─── Board Table Container ─── */
+    .board-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .board-table-wrap {
+      flex: 1;
+      overflow: auto;
+      padding: 12px 0 12px 0;
+    }
+
+    .board-table-wrap::-webkit-scrollbar { height: 6px; width: 6px; }
+    .board-table-wrap::-webkit-scrollbar-track { background: #f6f7fb; }
+    .board-table-wrap::-webkit-scrollbar-thumb { background: #c5c7d4; border-radius: 3px; }
+
+    /* ─── Board Group ─── */
+    .board-group { margin-bottom: 20px; }
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 20px;
+      background: #f6f7fb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .group-toggle { color: #c5c7d4; cursor: pointer; font-size: 11px; }
+
+    .group-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .group-name {
+      font-size: 13px;
+      font-weight: 700;
+      flex: 1;
+    }
+
+    .group-count {
+      font-size: 11px;
+      color: #676879;
+      background: #e6e9ef;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    /* ─── Board Table ─── */
+    .board-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .board-tbl thead th {
+      background: #fff;
+      border-bottom: 1px solid #e6e9ef;
+      border-top: 1px solid #e6e9ef;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #676879;
+      text-align: left;
+      white-space: nowrap;
+      position: sticky;
+      top: 34px;
+      z-index: 9;
+    }
+
+    .board-tbl thead th.col-name { width: 280px; padding-left: 48px; }
+    .board-tbl thead th.col-status { width: 130px; }
+    .board-tbl thead th.col-person { width: 110px; }
+    .board-tbl thead th.col-priority { width: 110px; }
+    .board-tbl thead th.col-timeline { width: 160px; }
+    .board-tbl thead th.col-points { width: 80px; text-align: center; }
+    .board-tbl thead th.col-progress { width: 100px; }
+    .board-tbl thead th.col-add { width: 40px; }
+
+    .board-tbl tbody tr {
+      border-bottom: 1px solid #f3f4f8;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .board-tbl tbody tr:hover { background: #f5f6fb; }
+
+    .board-tbl tbody tr.row-active { background: #e8f0fe; }
+
+    .board-tbl tbody td {
+      padding: 6px 8px;
+      font-size: 13px;
+      color: #323338;
+      vertical-align: middle;
+      border-right: 1px solid #f3f4f8;
+    }
+
+    .board-tbl tbody td.col-name {
+      padding-left: 12px;
+      font-weight: 500;
+    }
+
+    .item-row-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .item-check {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #c5c7d4;
+      border-radius: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+    }
+
+    .item-check.checked { background: #00C875; border-color: #00C875; }
+
+    .item-sub-btn {
+      width: 16px;
+      height: 16px;
+      color: #c5c7d4;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-name-text {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-name-text.done { text-decoration: line-through; color: #b0b3c1; }
+
+    /* ─── Status Pill ─── */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #fff;
+      white-space: nowrap;
+      min-width: 80px;
+    }
+
+    .status-done       { background: #00C875; }
+    .status-working    { background: #FDAB3D; }
+    .status-stuck      { background: #E2445C; }
+    .status-blank      { background: #c4c4c4; }
+    .status-review     { background: #784BD1; }
+    .status-pending    { background: #579BFC; }
+
+    .priority-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .priority-critical { background: #333; }
+    .priority-high     { background: #E2445C; }
+    .priority-medium   { background: #FDAB3D; }
+    .priority-low      { background: #579BFC; }
+
+    .person-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .person-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .person-name { font-size: 12px; color: #676879; }
+
+    .timeline-cell { font-size: 12px; color: #676879; white-space: nowrap; }
+
+    .points-cell { text-align: center; color: #676879; font-size: 12px; }
+
+    .progress-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #e6e9ef;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .progress-pct { font-size: 11px; color: #676879; white-space: nowrap; }
+
+    /* ─── Item Detail Panel ─── */
+    .item-detail-panel {
+      width: 420px;
+      min-width: 420px;
+      background: #fff;
+      border-left: 1px solid #e6e9ef;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 12px 16px 0 16px;
+      border-bottom: 1px solid #e6e9ef;
+      flex-shrink: 0;
+    }
+
+    .panel-top-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title-area { flex: 1; }
+
+    .panel-item-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #323338;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .panel-item-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-board-path {
+      font-size: 11px;
+      color: #676879;
+    }
+
+    .panel-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .panel-icon-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: #676879;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.1s;
+    }
+
+    .panel-icon-btn:hover { background: #f5f6f8; color: #323338; }
+
+    .panel-tabs {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    .panel-tab {
+      height: 36px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: #676879;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .panel-tab:hover { color: #323338; }
+
+    .panel-tab.active {
+      color: #0073ea;
+      border-bottom-color: #0073ea;
+      font-weight: 600;
+    }
+
+    .panel-tab-count {
+      background: #e6e9ef;
+      color: #676879;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 10px;
+    }
+
+    /* ─── Panel Body ─── */
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0;
+    }
+
+    .panel-body::-webkit-scrollbar { width: 4px; }
+    .panel-body::-webkit-scrollbar-track { background: transparent; }
+    .panel-body::-webkit-scrollbar-thumb { background: #c5c7d4; border-radius: 2px; }
+
+    /* ─── Properties Section ─── */
+    .props-section {
+      padding: 16px 16px 8px 16px;
+    }
+
+    .props-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #676879;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .prop-row {
+      display: flex;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid #f3f4f8;
+      gap: 0;
+    }
+
+    .prop-row:last-child { border-bottom: none; }
+
+    .prop-label {
+      width: 130px;
+      min-width: 130px;
+      font-size: 12px;
+      color: #676879;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .prop-label-icon { font-size: 11px; color: #c5c7d4; }
+
+    .prop-value {
+      flex: 1;
+      font-size: 13px;
+      color: #323338;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .prop-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .panel-progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .panel-progress-bar {
+      flex: 1;
+      height: 8px;
+      background: #e6e9ef;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .panel-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0073ea, #579BFC);
+      border-radius: 4px;
+    }
+
+    .panel-progress-pct {
+      font-size: 12px;
+      color: #676879;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* ─── Sub-items Section ─── */
+    .subitems-section {
+      padding: 12px 16px;
+      border-top: 1px solid #f3f4f8;
+    }
+
+    .subitems-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .subitems-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #323338;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .subitems-count {
+      font-size: 11px;
+      color: #676879;
+      background: #e6e9ef;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    .subitem-add-btn {
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #e6e9ef;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 12px;
+      color: #676879;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .subitem-add-btn:hover { background: #f5f6f8; }
+
+    .subitem-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f3f4f8;
+    }
+
+    .subitem-row:last-child { border-bottom: none; }
+
+    .subitem-check {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid #c5c7d4;
+      border-radius: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #fff;
+    }
+
+    .subitem-check.done { background: #00C875; border-color: #00C875; }
+
+    .subitem-name { flex: 1; font-size: 12px; color: #323338; }
+    .subitem-name.done { text-decoration: line-through; color: #b0b3c1; }
+
+    .subitem-status { flex-shrink: 0; }
+
+    .subitem-pill {
+      height: 18px;
+      padding: 0 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .subitem-person {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ─── Updates Section ─── */
+    .updates-section {
+      padding: 12px 16px;
+      border-top: 1px solid #f3f4f8;
+    }
+
+    .updates-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #323338;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .update-compose {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .update-compose-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a25ddc, #7b68ee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .update-compose-box {
+      flex: 1;
+      border: 1px solid #e6e9ef;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #b0b3c1;
+      cursor: text;
+      background: #fafbfc;
+      line-height: 1.4;
+    }
+
+    .update-item {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .update-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .update-content { flex: 1; }
+
+    .update-header {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .update-author { font-size: 13px; font-weight: 600; color: #323338; }
+    .update-time { font-size: 11px; color: #b0b3c1; }
+
+    .update-body {
+      font-size: 13px;
+      color: #323338;
+      line-height: 1.5;
+      background: #f5f6fb;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .update-reactions {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .reaction-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 7px;
+      border: 1px solid #e6e9ef;
+      border-radius: 12px;
+      font-size: 11px;
+      color: #676879;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* ─── Activity Section ─── */
+    .activity-section {
+      padding: 12px 16px;
+      border-top: 1px solid #f3f4f8;
+    }
+
+    .activity-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 12px;
+      color: #676879;
+      border-bottom: 1px solid #f3f4f8;
+    }
+
+    .activity-row:last-child { border-bottom: none; }
+
+    .activity-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c5c7d4;
+      flex-shrink: 0;
+    }
+
+    .activity-actor { font-weight: 600; color: #323338; }
+    .activity-time { margin-left: auto; white-space: nowrap; }
+
+    /* ─── Bottom add row ─── */
+    .group-add-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 20px 6px 48px;
+      font-size: 12px;
+      color: #c5c7d4;
+      cursor: pointer;
+      transition: color 0.1s;
+    }
+
+    .group-add-row:hover { color: #676879; }
+
+    /* ─── Group color variants ─── */
+    .grp-inprogress .group-dot { background: #00C875; }
+    .grp-inprogress .group-name { color: #007048; }
+    .grp-inprogress .board-tbl tbody tr td:first-child { border-left: 3px solid #00C875; }
+
+    .grp-upcoming .group-dot { background: #579BFC; }
+    .grp-upcoming .group-name { color: #1356a5; }
+    .grp-upcoming .board-tbl tbody tr td:first-child { border-left: 3px solid #579BFC; }
+
+    .grp-blocked .group-dot { background: #E2445C; }
+    .grp-blocked .group-name { color: #a01d2d; }
+    .grp-blocked .board-tbl tbody tr td:first-child { border-left: 3px solid #E2445C; }
+
+    /* ─── Scrollbars for board table ─── */
+    .board-table-wrap::-webkit-scrollbar { height: 6px; }
+
+    /* Avatar color variants */
+    .av-purple  { background: linear-gradient(135deg, #a25ddc, #7b68ee); }
+    .av-blue    { background: linear-gradient(135deg, #579BFC, #0073ea); }
+    .av-green   { background: linear-gradient(135deg, #00C875, #00854d); }
+    .av-orange  { background: linear-gradient(135deg, #FDAB3D, #e07000); }
+    .av-red     { background: linear-gradient(135deg, #E2445C, #b01030); }
+    .av-teal    { background: linear-gradient(135deg, #66CCCC, #009999); }
+    .av-pink    { background: linear-gradient(135deg, #FF7AB9, #cc2266); }
+
+    /* Responsive clamp for panel */
+    @media (max-width: 1100px) {
+      .item-detail-panel { width: 360px; min-width: 360px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ TOP HEADER ═══════════════════ -->
+<header class="app-header">
+  <div class="header-left">
+    <div class="monday-logo">
+      <div class="logo-dots">
+        <div class="logo-dot logo-dot-red"></div>
+        <div class="logo-dot logo-dot-yellow"></div>
+        <div class="logo-dot logo-dot-blue"></div>
+      </div>
+      <span class="logo-wordmark">monday.com</span>
+    </div>
+
+    <div class="header-sep"></div>
+
+    <div class="breadcrumb">
+      <span class="breadcrumb-item">Main Workspace</span>
+      <span class="breadcrumb-chevron">›</span>
+      <span class="breadcrumb-item">Engineering</span>
+      <span class="breadcrumb-chevron">›</span>
+      <span class="breadcrumb-item current">API Platform v3.0 — Engineering Sprint</span>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button class="header-btn header-btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Search
+    </button>
+    <button class="header-btn header-btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <button class="header-btn header-btn-ghost" style="font-size:18px; padding:0 6px;">⊕</button>
+    <div class="header-avatar">AJ</div>
+  </div>
+</header>
+
+<!-- ═══════════════════ APP LAYOUT ═══════════════════ -->
+<div class="app-layout">
+
+  <!-- ─── Left Sidebar ─── -->
+  <aside class="sidebar">
+    <div class="sidebar-workspace">
+      <div class="ws-icon">E</div>
+      <span class="ws-name">Engineering</span>
+      <span class="ws-chevron">▾</span>
+    </div>
+
+    <div class="sidebar-section-label">Boards</div>
+
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">🏠</span>
+      <span class="sidebar-item-name">My Work</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📣</span>
+      <span class="sidebar-item-name">Updates</span>
+      <span class="sidebar-badge">3</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📊</span>
+      <span class="sidebar-item-name">Dashboards</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section-label">Projects</div>
+
+    <div class="sidebar-item active">
+      <span class="sidebar-item-icon" style="color:#579BFC;">📋</span>
+      <span class="sidebar-item-name">API Platform v3.0 Sprint</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📋</span>
+      <span class="sidebar-item-name">Infrastructure Q1</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📋</span>
+      <span class="sidebar-item-name">Security Hardening</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📋</span>
+      <span class="sidebar-item-name">Mobile App v2.4</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📋</span>
+      <span class="sidebar-item-name">Data Pipeline Rework</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section-label">Shared</div>
+
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">📅</span>
+      <span class="sidebar-item-name">Team Calendar</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">🔖</span>
+      <span class="sidebar-item-name">Retrospectives</span>
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-item-icon">⚙️</span>
+      <span class="sidebar-item-name">Settings</span>
+    </div>
+  </aside>
+
+  <!-- ─── Main Content ─── -->
+  <div class="main-content">
+
+    <!-- Board Header -->
+    <div class="board-header">
+      <div class="board-title-bar">
+        <div class="board-icon">🚀</div>
+        <div class="board-name">API Platform v3.0 — Engineering Sprint</div>
+        <div class="board-meta-btns">
+          <button class="board-meta-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Invite
+          </button>
+          <button class="board-meta-btn primary">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Item
+          </button>
+        </div>
+      </div>
+
+      <div class="board-views">
+        <div class="board-view-tab active">
+          <span class="board-view-icon">☰</span> Main Table
+        </div>
+        <div class="board-view-tab">
+          <span class="board-view-icon">📊</span> Chart
+        </div>
+        <div class="board-view-tab">
+          <span class="board-view-icon">📅</span> Calendar
+        </div>
+        <div class="board-view-tab">
+          <span class="board-view-icon">📈</span> Gantt
+        </div>
+        <div class="board-view-tab">
+          <span class="board-view-icon">🃏</span> Kanban
+        </div>
+        <div class="board-view-tab">
+          <span class="board-view-icon">+</span>
+        </div>
+      </div>
+
+      <div class="board-toolbar">
+        <button class="toolbar-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Filter
+        </button>
+        <div class="toolbar-sep"></div>
+        <button class="toolbar-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Sort
+        </button>
+        <button class="toolbar-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          Group by
+        </button>
+        <div class="toolbar-sep"></div>
+        <input class="toolbar-search" type="text" placeholder="Search items…" value="">
+        <div class="toolbar-spacer"></div>
+        <button class="toolbar-btn" style="color:#0073ea;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Customize
+        </button>
+      </div>
+    </div>
+
+    <!-- Board Body = Table + Panel -->
+    <div class="board-body">
+
+      <!-- Board Table -->
+      <div class="board-table-wrap">
+
+        <!-- ── Group: In Progress ── -->
+        <div class="board-group grp-inprogress">
+          <div class="group-header">
+            <span class="group-toggle">▾</span>
+            <div class="group-dot"></div>
+            <span class="group-name">In Progress</span>
+            <span class="group-count">5</span>
+          </div>
+          <table class="board-tbl">
+            <thead>
+              <tr>
+                <th class="col-name">Item</th>
+                <th class="col-status">Status</th>
+                <th class="col-person">Owner</th>
+                <th class="col-priority">Priority</th>
+                <th class="col-timeline">Timeline</th>
+                <th class="col-points">Points</th>
+                <th class="col-progress">Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- ★ Selected item — Rate Limiting System ★ -->
+              <tr class="row-active">
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="item-sub-btn">▸</div>
+                    <span class="item-name-text">Feature: Rate Limiting System</span>
+                  </div>
+                </td>
+                <td class="col-status">
+                  <span class="status-pill status-working">Working on it</span>
+                </td>
+                <td class="col-person">
+                  <div class="person-cell">
+                    <div class="person-avatar av-teal">SC</div>
+                    <span class="person-name">Sarah Chen</span>
+                  </div>
+                </td>
+                <td class="col-priority">
+                  <span class="priority-pill priority-high">● High</span>
+                </td>
+                <td class="col-timeline">
+                  <span class="timeline-cell">Jan 15 – Feb 28</span>
+                </td>
+                <td class="col-points">
+                  <span class="points-cell">42</span>
+                </td>
+                <td class="col-progress">
+                  <div class="progress-cell">
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width:40%; background:#FDAB3D;"></div>
+                    </div>
+                    <span class="progress-pct">40%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Other in-progress items -->
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn">▸</div>
+                    <span class="item-name-text">Feature: OAuth 2.0 PKCE Flow</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-review">In Review</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-blue">MR</div>
+                    <span class="person-name">Marcus R.</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-critical">● Critical</span></td>
+                <td><span class="timeline-cell">Jan 10 – Feb 14</span></td>
+                <td><span class="points-cell">38</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:78%;background:#784BD1;"></div></div>
+                    <span class="progress-pct">78%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn">▸</div>
+                    <span class="item-name-text">Refactor: Deprecate v2 Endpoints</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-working">Working on it</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-orange">JP</div>
+                    <span class="person-name">Jamie Park</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-medium">● Medium</span></td>
+                <td><span class="timeline-cell">Jan 22 – Mar 7</span></td>
+                <td><span class="points-cell">28</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:55%;background:#FDAB3D;"></div></div>
+                    <span class="progress-pct">55%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn">▸</div>
+                    <span class="item-name-text">Bug: Fix Timeout on Batch Requests</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-stuck">Stuck</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-red">AK</div>
+                    <span class="person-name">Alex Kim</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-critical">● Critical</span></td>
+                <td><span class="timeline-cell">Feb 1 – Feb 10</span></td>
+                <td><span class="points-cell">13</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:20%;background:#E2445C;"></div></div>
+                    <span class="progress-pct">20%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn"></div>
+                    <span class="item-name-text">Docs: API v3 Migration Guide</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-working">Working on it</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-pink">LN</div>
+                    <span class="person-name">Lisa N.</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-medium">● Medium</span></td>
+                <td><span class="timeline-cell">Feb 3 – Feb 28</span></td>
+                <td><span class="points-cell">8</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:35%;background:#FDAB3D;"></div></div>
+                    <span class="progress-pct">35%</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="group-add-row">+ Add Item</div>
+        </div>
+
+        <!-- ── Group: Upcoming ── -->
+        <div class="board-group grp-upcoming">
+          <div class="group-header">
+            <span class="group-toggle">▾</span>
+            <div class="group-dot"></div>
+            <span class="group-name">Upcoming</span>
+            <span class="group-count">3</span>
+          </div>
+          <table class="board-tbl">
+            <thead>
+              <tr>
+                <th class="col-name">Item</th>
+                <th class="col-status">Status</th>
+                <th class="col-person">Owner</th>
+                <th class="col-priority">Priority</th>
+                <th class="col-timeline">Timeline</th>
+                <th class="col-points">Points</th>
+                <th class="col-progress">Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn">▸</div>
+                    <span class="item-name-text">Feature: GraphQL Subscriptions</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-blank">Not Started</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-teal">SC</div>
+                    <span class="person-name">Sarah Chen</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-medium">● Medium</span></td>
+                <td><span class="timeline-cell">Mar 1 – Mar 31</span></td>
+                <td><span class="points-cell">34</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#c4c4c4;"></div></div>
+                    <span class="progress-pct">0%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn"></div>
+                    <span class="item-name-text">Infra: Move to Kubernetes v1.30</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-blank">Not Started</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-orange">JP</div>
+                    <span class="person-name">Jamie Park</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-high">● High</span></td>
+                <td><span class="timeline-cell">Mar 10 – Apr 4</span></td>
+                <td><span class="points-cell">55</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#c4c4c4;"></div></div>
+                    <span class="progress-pct">0%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col-name">
+                  <div class="item-row-left">
+                    <div class="item-check"></div>
+                    <div class="item-sub-btn"></div>
+                    <span class="item-name-text">Security: Rotate API Key Infrastructure</span>
+                  </div>
+                </td>
+                <td><span class="status-pill status-pending">Pending Review</span></td>
+                <td>
+                  <div class="person-cell">
+                    <div class="person-avatar av-red">AK</div>
+                    <span class="person-name">Alex Kim</span>
+                  </div>
+                </td>
+                <td><span class="priority-pill priority-critical">● Critical</span></td>
+                <td><span class="timeline-cell">Mar 3 – Mar 21</span></td>
+                <td><span class="points-cell">21</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-bar"><div class="progress-fill" style="width:10%;background:#579BFC;"></div></div>
+                    <span class="progress-pct">10%</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="group-add-row">+ Add Item</div>
+        </div>
+
+        <!-- Spacer -->
+        <div style="height:40px;"></div>
+      </div><!-- /.board-table-wrap -->
+
+      <!-- ═══════════════════ ITEM DETAIL PANEL ═══════════════════ -->
+      <div class="item-detail-panel">
+
+        <!-- Panel Header -->
+        <div class="panel-header">
+          <div class="panel-top-row">
+            <div class="panel-title-area">
+              <div class="panel-item-name">Feature: Rate Limiting System</div>
+              <div class="panel-item-meta">
+                <span class="panel-board-path">
+                  API Platform v3.0 — Engineering Sprint &rsaquo; In Progress
+                </span>
+              </div>
+            </div>
+            <div class="panel-top-actions">
+              <button class="panel-icon-btn" title="Open in full page">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </button>
+              <button class="panel-icon-btn" title="More options">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </button>
+              <button class="panel-icon-btn" title="Close panel">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel Tabs -->
+          <div class="panel-tabs">
+            <div class="panel-tab active">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              Details
+            </div>
+            <div class="panel-tab">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Updates
+              <span class="panel-tab-count">4</span>
+            </div>
+            <div class="panel-tab">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Files
+              <span class="panel-tab-count">2</span>
+            </div>
+            <div class="panel-tab">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Activity
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Body -->
+        <div class="panel-body">
+
+          <!-- ── Properties ── -->
+          <div class="props-section">
+            <div class="props-section-title">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              Item Properties
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">◉</span> Status
+              </div>
+              <div class="prop-value">
+                <span class="status-pill status-working" style="font-size:11px; height:20px;">Working on it</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">▲</span> Priority
+              </div>
+              <div class="prop-value">
+                <span class="priority-pill priority-high" style="font-size:11px; height:20px;">● High</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">👤</span> Owner
+              </div>
+              <div class="prop-value">
+                <div class="person-avatar av-teal" style="width:22px; height:22px; font-size:9px;">SC</div>
+                <span style="font-size:12px; color:#323338;">Sarah Chen</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">👥</span> Team
+              </div>
+              <div class="prop-value" style="gap:4px;">
+                <div class="person-avatar av-blue" style="width:22px; height:22px; font-size:9px;">MR</div>
+                <div class="person-avatar av-orange" style="width:22px; height:22px; font-size:9px; margin-left:-6px;">JP</div>
+                <div class="person-avatar av-purple" style="width:22px; height:22px; font-size:9px; margin-left:-6px;">DW</div>
+                <span style="font-size:11px; color:#676879;">+1 more</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">📅</span> Timeline
+              </div>
+              <div class="prop-value" style="font-size:12px;">
+                Jan 15, 2026 – Feb 28, 2026
+                <span style="color:#b0b3c1; font-size:11px; margin-left:4px;">44 days</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">⏱</span> Story Points
+              </div>
+              <div class="prop-value">
+                <span style="font-size:13px; font-weight:600;">42</span>
+                <span style="font-size:11px; color:#676879; margin-left:4px;">pts</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">📊</span> Progress
+              </div>
+              <div class="prop-value">
+                <div class="panel-progress">
+                  <div class="panel-progress-bar">
+                    <div class="panel-progress-fill" style="width:40%;"></div>
+                  </div>
+                  <span class="panel-progress-pct">40%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">💰</span> Budget Tracked
+              </div>
+              <div class="prop-value" style="font-size:12px;">
+                $18,400 <span style="color:#b0b3c1;">/ $47,000</span>
+                <span style="font-size:11px; color:#00854d; margin-left:6px; background:#e6f9f0; padding:1px 5px; border-radius:4px;">39% used</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">🏷</span> Sprint Tag
+              </div>
+              <div class="prop-value" style="gap:6px;">
+                <span style="background:#e8f0fe; color:#0060c0; font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px;">Q1-2026</span>
+                <span style="background:#e6f9f0; color:#007048; font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px;">API-Core</span>
+              </div>
+            </div>
+
+            <div class="prop-row">
+              <div class="prop-label">
+                <span class="prop-label-icon">🔗</span> Epic
+              </div>
+              <div class="prop-value" style="font-size:12px; color:#0073ea; cursor:pointer;">
+                API Platform v3.0 Core Infrastructure
+              </div>
+            </div>
+          </div>
+
+          <!-- ══════════════════════════════════════
+               INJECTION POINT
+               Monday AI analytics card — visual injection
+               Positioned between Properties and Sub-items.
+               fill payload renders HTML styled as a native
+               Monday.com "monday AI · Task Insights" card.
+          ══════════════════════════════════════ -->
+          <div id="ipi-inject">{fill}</div>
+
+          <!-- ── Sub-items ── -->
+          <div class="subitems-section">
+            <div class="subitems-header">
+              <div class="subitems-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Sub-items
+                <span class="subitems-count">4</span>
+              </div>
+              <button class="subitem-add-btn">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+
+            <div class="subitem-row">
+              <div class="subitem-check done">✓</div>
+              <span class="subitem-name done">Design rate limit algorithm &amp; key structure</span>
+              <div class="subitem-status">
+                <span class="subitem-pill" style="background:#00C875;">Done</span>
+              </div>
+              <div class="subitem-person av-teal" style="width:20px; height:20px; font-size:9px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff;">SC</div>
+            </div>
+
+            <div class="subitem-row">
+              <div class="subitem-check done">✓</div>
+              <span class="subitem-name done">Implement Redis token bucket backend</span>
+              <div class="subitem-status">
+                <span class="subitem-pill" style="background:#00C875;">Done</span>
+              </div>
+              <div class="subitem-person av-purple" style="width:20px; height:20px; font-size:9px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff;">DW</div>
+            </div>
+
+            <div class="subitem-row">
+              <div class="subitem-check"></div>
+              <span class="subitem-name">Write middleware integration &amp; header injection</span>
+              <div class="subitem-status">
+                <span class="subitem-pill" style="background:#FDAB3D;">In Progress</span>
+              </div>
+              <div class="subitem-person av-teal" style="width:20px; height:20px; font-size:9px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff;">SC</div>
+            </div>
+
+            <div class="subitem-row">
+              <div class="subitem-check"></div>
+              <span class="subitem-name">Load testing &amp; burst behavior validation</span>
+              <div class="subitem-status">
+                <span class="subitem-pill" style="background:#c4c4c4;">Not Started</span>
+              </div>
+              <div class="subitem-person av-orange" style="width:20px; height:20px; font-size:9px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff;">JP</div>
+            </div>
+          </div>
+
+          <!-- ── Updates ── -->
+          <div class="updates-section">
+            <div class="updates-title">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Updates
+            </div>
+
+            <div class="update-compose">
+              <div class="update-compose-avatar">AJ</div>
+              <div class="update-compose-box">Write an update…</div>
+            </div>
+
+            <div class="update-item">
+              <div class="update-avatar av-teal">SC</div>
+              <div class="update-content">
+                <div class="update-header">
+                  <span class="update-author">Sarah Chen</span>
+                  <span class="update-time">2 hours ago</span>
+                </div>
+                <div class="update-body">
+                  Middleware integration is underway — the Redis token bucket is working well in staging. Ran into a minor
+                  issue with header forwarding when the upstream proxy strips X-RateLimit-* headers; filed a follow-up
+                  sub-item for the ops team. Plan to have a draft PR up by EOD Friday.
+                </div>
+                <div class="update-reactions">
+                  <span class="reaction-chip">👍 3</span>
+                  <span class="reaction-chip">🚀 1</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="update-item">
+              <div class="update-avatar av-orange">JP</div>
+              <div class="update-content">
+                <div class="update-header">
+                  <span class="update-author">Jamie Park</span>
+                  <span class="update-time">Yesterday at 4:17 PM</span>
+                </div>
+                <div class="update-body">
+                  Reviewed the algorithm design — token bucket with per-tenant sliding window looks solid.
+                  Will need to coordinate with the Gateway team about burst allowance configs before we
+                  cut over from the legacy leaky bucket.
+                </div>
+                <div class="update-reactions">
+                  <span class="reaction-chip">✅ 2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Activity ── -->
+          <div class="activity-section">
+            <div style="font-size:11px; font-weight:700; color:#676879; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Recent Activity</div>
+
+            <div class="activity-row">
+              <div class="activity-dot" style="background:#00C875;"></div>
+              <span><span class="activity-actor">Sarah Chen</span> completed sub-item <em>Redis token bucket backend</em></span>
+              <span class="activity-time">3h ago</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot"></div>
+              <span><span class="activity-actor">Alex Johnson</span> changed Priority from <em>Medium</em> → <em>High</em></span>
+              <span class="activity-time">1d ago</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot" style="background:#FDAB3D;"></div>
+              <span><span class="activity-actor">Sarah Chen</span> started the item — Status: <em>Working on it</em></span>
+              <span class="activity-time">Jan 17</span>
+            </div>
+            <div class="activity-row">
+              <div class="activity-dot"></div>
+              <span><span class="activity-actor">Marcus R.</span> added to sprint board</span>
+              <span class="activity-time">Jan 15</span>
+            </div>
+          </div>
+
+          <!-- Bottom padding -->
+          <div style="height: 32px;"></div>
+
+        </div><!-- /.panel-body -->
+      </div><!-- /.item-detail-panel -->
+
+    </div><!-- /.board-body -->
+  </div><!-- /.main-content -->
+</div><!-- /.app-layout -->
+
+</body>
+</html>

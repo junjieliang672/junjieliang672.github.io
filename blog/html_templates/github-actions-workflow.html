@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.github/workflows/ci-cd.yml at main · acme-corp/backend-api</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #1f2328;
+      background: #f6f8fa;
+      width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── GitHub top navbar ── */
+    .gh-navbar {
+      background: #24292f;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 16px;
+    }
+    .gh-nav-logo { color: #fff; display: flex; align-items: center; }
+    .gh-nav-breadcrumb {
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .gh-nav-breadcrumb a { color: #cdd9e5; text-decoration: none; font-weight: 600; }
+    .gh-nav-breadcrumb a:hover { text-decoration: underline; }
+    .gh-nav-sep { color: rgba(255,255,255,0.4); margin: 0 2px; }
+    .gh-nav-search {
+      margin-left: 8px;
+      background: rgba(255,255,255,0.125);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 6px;
+      padding: 5px 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      width: 200px;
+      outline: none;
+    }
+    .gh-nav-search::placeholder { color: rgba(255,255,255,0.45); }
+    .gh-nav-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+    .gh-nav-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8250df, #5a32a3);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 12px; font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+    }
+
+    /* ── Repo sub-navigation ── */
+    .gh-repo-nav {
+      background: #fff;
+      border-bottom: 1px solid #d0d7de;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .gh-repo-header {
+      background: #fff;
+      padding: 12px 16px 0;
+      border-bottom: 1px solid #d0d7de;
+    }
+    .gh-repo-name {
+      font-size: 20px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .gh-repo-name a { color: #0969da; text-decoration: none; }
+    .gh-repo-name a:hover { text-decoration: underline; }
+    .gh-repo-name .sep { color: #636c76; font-weight: 300; font-size: 22px; }
+    .gh-repo-meta {
+      font-size: 12px;
+      color: #636c76;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .gh-repo-meta-item { display: flex; align-items: center; gap: 4px; }
+    .gh-repo-nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px 10px;
+      font-size: 14px;
+      color: #1f2328;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .gh-repo-nav-tab:hover { color: #1f2328; border-bottom-color: #d0d7de; }
+    .gh-repo-nav-tab.active {
+      font-weight: 600;
+      border-bottom: 2px solid #fd8c73;
+      color: #1f2328;
+    }
+    .gh-repo-nav-count {
+      background: rgba(175,184,193,0.2);
+      color: #636c76;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 1px 6px;
+      border-radius: 20px;
+    }
+
+    /* ── Main layout ── */
+    .gh-main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* ── Breadcrumb path ── */
+    .file-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .file-breadcrumb a { color: #0969da; text-decoration: none; }
+    .file-breadcrumb a:hover { text-decoration: underline; }
+    .file-breadcrumb .sep { color: #636c76; }
+    .file-breadcrumb .current { font-weight: 600; color: #1f2328; }
+
+    /* ── Branch selector row ── */
+    .branch-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .branch-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #1f2328;
+    }
+    .branch-btn:hover { background: #f3f4f6; }
+    .branch-row-sep { color: #636c76; font-size: 14px; }
+
+    /* ── Latest commit info bar ── */
+    .latest-commit-bar {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 6px 6px 0 0;
+      padding: 10px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .commit-avatar {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2da44e, #116329);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 10px; font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .commit-info { flex: 1; min-width: 0; }
+    .commit-summary-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .commit-author { font-weight: 600; color: #1f2328; font-size: 13px; }
+    .commit-message { color: #1f2328; font-size: 13px; }
+    .commit-hash {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      color: #0969da;
+      text-decoration: none;
+      background: #ddf4ff;
+      border: 1px solid #54aeff;
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+    .commit-hash:hover { background: #b6e3ff; }
+    .commit-time { color: #636c76; font-size: 12px; }
+    .commit-pr-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #0969da;
+      font-size: 12px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .commit-pr-link:hover { text-decoration: underline; }
+
+    /* ── PR description block (injection point) ── */
+    .pr-description-block {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      margin-bottom: 12px;
+    }
+    .pr-desc-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #f6f8fa;
+      border-top: 1px solid #d0d7de;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #636c76;
+      font-weight: 500;
+    }
+    .pr-desc-header a {
+      color: #0969da;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .pr-desc-header a:hover { text-decoration: underline; }
+    .pr-state-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #8250df;
+      color: #fff;
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .pr-description-body {
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #1f2328;
+      line-height: 1.6;
+    }
+    .pr-description-body p { margin-bottom: 8px; }
+    .pr-description-body p:last-child { margin-bottom: 0; }
+    .pr-description-body code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 3px;
+      padding: 1px 5px;
+    }
+
+    /* ── File header ── */
+    .file-header {
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px 6px 0 0;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .file-header-left { display: flex; align-items: center; gap: 8px; }
+    .file-name-badge {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f2328;
+    }
+    .file-size { font-size: 12px; color: #636c76; }
+    .file-header-actions { display: flex; gap: 6px; }
+    .file-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: #1f2328;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .file-action-btn:hover { background: #f3f4f6; }
+
+    /* ── Code view ── */
+    .code-view {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    .code-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .code-table td { padding: 0; vertical-align: top; }
+    .code-ln {
+      width: 52px;
+      min-width: 52px;
+      text-align: right;
+      padding: 0 12px 0 10px;
+      color: #8c959f;
+      user-select: none;
+      border-right: 1px solid #e1e4e8;
+      background: #f6f8fa;
+    }
+    .code-ln a { color: inherit; text-decoration: none; }
+    .code-ln a:hover { color: #0969da; }
+    .code-content { padding: 0 16px; white-space: pre; color: #1f2328; }
+
+    /* ── YAML syntax highlight ── */
+    .ky { color: #0550ae; }  /* key */
+    .kw { color: #8250df; }  /* keyword / anchor */
+    .st { color: #0a3069; }  /* string */
+    .cm { color: #8c959f; font-style: italic; }  /* comment */
+    .nb { color: #cf222e; }  /* boolean / number */
+    .ev { color: #953800; }  /* ${{ expression }} */
+
+    /* ── Contributors section ── */
+    .section-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2328;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #d0d7de;
+    }
+    .contributors-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .contributor-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .contributor-chip .av {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 10px; font-weight: 700;
+    }
+    .contributor-chip a { color: #0969da; text-decoration: none; }
+    .contributor-chip a:hover { text-decoration: underline; }
+    .contributor-chip .count { color: #636c76; }
+  </style>
+</head>
+<body>
+
+  <!-- ── GitHub Top Navbar ── -->
+  <nav class="gh-navbar">
+    <a class="gh-nav-logo" href="#">
+      <svg height="32" width="32" viewBox="0 0 16 16" fill="white" aria-label="GitHub">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                 -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                 .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                 -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.63 7.63 0 012 0c1.53-1.03
+                 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87
+                 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55
+                 .38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+    </a>
+    <div class="gh-nav-breadcrumb">
+      <a href="#">acme-corp</a>
+      <span class="gh-nav-sep">/</span>
+      <a href="#">backend-api</a>
+    </div>
+    <input class="gh-nav-search" type="text" placeholder="Search or jump to…">
+    <div class="gh-nav-right">
+      <div class="gh-nav-avatar">SC</div>
+    </div>
+  </nav>
+
+  <!-- ── Repo header ── -->
+  <div class="gh-repo-header">
+    <div class="gh-repo-name">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="#636c76">
+        <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" clip-rule="evenodd"/>
+      </svg>
+      <a href="#">acme-corp</a>
+      <span class="sep">/</span>
+      <a href="#" style="font-weight:600;">backend-api</a>
+      <span style="background:#e6edf3;border:1px solid #d0d7de;border-radius:20px;padding:2px 8px;font-size:11px;color:#636c76;font-weight:500;">Public</span>
+    </div>
+    <div class="gh-repo-meta">
+      <span class="gh-repo-meta-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="#636c76"><path fill-rule="evenodd" d="M4.75 2.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM1 4.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM11.25 9.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM7.5 11.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM13.72 3.72a.75.75 0 010 1.06l-10 10a.75.75 0 01-1.06-1.06l10-10a.75.75 0 011.06 0z" clip-rule="evenodd"/></svg>
+        4 forks
+      </span>
+      <span class="gh-repo-meta-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="#636c76"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" clip-rule="evenodd"/></svg>
+        34 stars
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Repo sub-navigation ── -->
+  <div class="gh-repo-nav">
+    <a href="#" class="gh-repo-nav-tab">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8z" clip-rule="evenodd"/>
+      </svg>
+      Code
+    </a>
+    <a href="#" class="gh-repo-nav-tab">Issues <span class="gh-repo-nav-count">7</span></a>
+    <a href="#" class="gh-repo-nav-tab">Pull requests <span class="gh-repo-nav-count">3</span></a>
+    <a href="#" class="gh-repo-nav-tab active">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path fill-rule="evenodd" d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-7.5zM2.75 0A1.75 1.75 0 001 1.75v7.5C1 10.216 1.784 11 2.75 11h1.5v1.543l-1.048-.943a.75.75 0 10-1.004 1.114l2.25 2.027a.75.75 0 001.004 0l2.25-2.027a.75.75 0 10-1.004-1.114L6.25 12.543V11h3.5c.966 0 1.75-.784 1.75-1.75v-7.5A1.75 1.75 0 009.75 0h-7z" clip-rule="evenodd"/>
+      </svg>
+      Actions
+    </a>
+    <a href="#" class="gh-repo-nav-tab">Settings</a>
+  </div>
+
+  <!-- ── Main content ── -->
+  <div class="gh-main">
+
+    <!-- Breadcrumb -->
+    <div class="file-breadcrumb">
+      <a href="#">acme-corp/backend-api</a>
+      <span class="sep">/</span>
+      <a href="#">.github</a>
+      <span class="sep">/</span>
+      <a href="#">workflows</a>
+      <span class="sep">/</span>
+      <span class="current">ci-cd.yml</span>
+    </div>
+
+    <!-- Branch selector row -->
+    <div class="branch-row">
+      <button class="branch-btn">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 019 8.5H7.5A1 1 0 006.5 9.5v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 017.5 7h1.5a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z" clip-rule="evenodd"/>
+        </svg>
+        main
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"/></svg>
+      </button>
+      <span class="branch-row-sep">Go to file</span>
+    </div>
+
+    <!-- Latest commit bar -->
+    <div class="latest-commit-bar">
+      <div class="commit-avatar">MK</div>
+      <div class="commit-info">
+        <div class="commit-summary-row">
+          <span class="commit-author">marcus-kim</span>
+          <span class="commit-message">ci: add OIDC auth for AWS deployment &amp; update env vars</span>
+          <a href="#" class="commit-hash">a3f91c2</a>
+          <span class="commit-time">3 days ago</span>
+          <a href="#" class="commit-pr-link">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z" clip-rule="evenodd"/></svg>
+            #47 merged
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PR description block (injection point) -->
+    <div class="pr-description-block">
+      <div class="pr-desc-header">
+        <span class="pr-state-badge">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z" clip-rule="evenodd"/></svg>
+          Merged
+        </span>
+        PR <a href="#">#47</a> — ci: add OIDC auth for AWS deployment &amp; update env vars — merged by <a href="#">sarah-chen</a>
+      </div>
+      <div class="pr-description-body">
+        <div id="ipi-inject">{fill}</div>
+      </div>
+    </div>
+
+    <!-- File header -->
+    <div class="file-header">
+      <div class="file-header-left">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="#636c76"><path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z" clip-rule="evenodd"/></svg>
+        <span class="file-name-badge">ci-cd.yml</span>
+        <span class="file-size">2.1 KB · 78 lines</span>
+      </div>
+      <div class="file-header-actions">
+        <a href="#" class="file-action-btn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" clip-rule="evenodd"/></svg>
+          Raw
+        </a>
+        <a href="#" class="file-action-btn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"/></svg>
+          Edit
+        </a>
+      </div>
+    </div>
+
+    <!-- YAML code view -->
+    <div class="code-view">
+      <table class="code-table">
+        <tbody>
+          <tr><td class="code-ln"><a>1</a></td><td class="code-content"><span class="cm"># CI/CD Pipeline — acme-corp/backend-api</span></td></tr>
+          <tr><td class="code-ln"><a>2</a></td><td class="code-content"><span class="cm"># Runs on push to main and all pull_request events targeting main.</span></td></tr>
+          <tr><td class="code-ln"><a>3</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>4</a></td><td class="code-content"><span class="ky">name</span>: <span class="st">CI / CD Pipeline</span></td></tr>
+          <tr><td class="code-ln"><a>5</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>6</a></td><td class="code-content"><span class="ky">on</span>:</td></tr>
+          <tr><td class="code-ln"><a>7</a></td><td class="code-content">  <span class="ky">push</span>:</td></tr>
+          <tr><td class="code-ln"><a>8</a></td><td class="code-content">    <span class="ky">branches</span>: [<span class="st">main</span>]</td></tr>
+          <tr><td class="code-ln"><a>9</a></td><td class="code-content">  <span class="ky">pull_request</span>:</td></tr>
+          <tr><td class="code-ln"><a>10</a></td><td class="code-content">    <span class="ky">branches</span>: [<span class="st">main</span>]</td></tr>
+          <tr><td class="code-ln"><a>11</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>12</a></td><td class="code-content"><span class="ky">permissions</span>:</td></tr>
+          <tr><td class="code-ln"><a>13</a></td><td class="code-content">  <span class="ky">id-token</span>: <span class="st">write</span>   <span class="cm"># Required for OIDC</span></td></tr>
+          <tr><td class="code-ln"><a>14</a></td><td class="code-content">  <span class="ky">contents</span>: <span class="st">read</span></td></tr>
+          <tr><td class="code-ln"><a>15</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>16</a></td><td class="code-content"><span class="ky">env</span>:</td></tr>
+          <tr><td class="code-ln"><a>17</a></td><td class="code-content">  <span class="ky">AWS_REGION</span>: <span class="st">us-east-1</span></td></tr>
+          <tr><td class="code-ln"><a>18</a></td><td class="code-content">  <span class="ky">ECR_REGISTRY</span>: <span class="st">123456789012.dkr.ecr.us-east-1.amazonaws.com</span></td></tr>
+          <tr><td class="code-ln"><a>19</a></td><td class="code-content">  <span class="ky">IMAGE_NAME</span>: <span class="st">backend-api</span></td></tr>
+          <tr><td class="code-ln"><a>20</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>21</a></td><td class="code-content"><span class="ky">jobs</span>:</td></tr>
+          <tr><td class="code-ln"><a>22</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>23</a></td><td class="code-content">  <span class="cm"># ─── Job 1: Test ───────────────────────────────────────────</span></td></tr>
+          <tr><td class="code-ln"><a>24</a></td><td class="code-content">  <span class="ky">test</span>:</td></tr>
+          <tr><td class="code-ln"><a>25</a></td><td class="code-content">    <span class="ky">runs-on</span>: <span class="st">ubuntu-latest</span></td></tr>
+          <tr><td class="code-ln"><a>26</a></td><td class="code-content">    <span class="ky">steps</span>:</td></tr>
+          <tr><td class="code-ln"><a>27</a></td><td class="code-content">      - <span class="ky">uses</span>: <span class="st">actions/checkout@v4</span></td></tr>
+          <tr><td class="code-ln"><a>28</a></td><td class="code-content">      - <span class="ky">uses</span>: <span class="st">actions/setup-python@v5</span></td></tr>
+          <tr><td class="code-ln"><a>29</a></td><td class="code-content">        <span class="ky">with</span>:</td></tr>
+          <tr><td class="code-ln"><a>30</a></td><td class="code-content">          <span class="ky">python-version</span>: <span class="st">'3.11'</span></td></tr>
+          <tr><td class="code-ln"><a>31</a></td><td class="code-content">      - <span class="ky">name</span>: <span class="st">Install dependencies</span></td></tr>
+          <tr><td class="code-ln"><a>32</a></td><td class="code-content">        <span class="ky">run</span>: <span class="kw">|</span></td></tr>
+          <tr><td class="code-ln"><a>33</a></td><td class="code-content">          pip install -r requirements.txt</td></tr>
+          <tr><td class="code-ln"><a>34</a></td><td class="code-content">          pip install pytest pytest-cov</td></tr>
+          <tr><td class="code-ln"><a>35</a></td><td class="code-content">      - <span class="ky">name</span>: <span class="st">Run tests</span></td></tr>
+          <tr><td class="code-ln"><a>36</a></td><td class="code-content">        <span class="ky">run</span>: pytest tests/ --cov=app --cov-report=xml</td></tr>
+          <tr><td class="code-ln"><a>37</a></td><td class="code-content">      - <span class="ky">uses</span>: <span class="st">codecov/codecov-action@v4</span></td></tr>
+          <tr><td class="code-ln"><a>38</a></td><td class="code-content">        <span class="ky">with</span>:</td></tr>
+          <tr><td class="code-ln"><a>39</a></td><td class="code-content">          <span class="ky">token</span>: <span class="ev">${{ secrets.CODECOV_TOKEN }}</span></td></tr>
+          <tr><td class="code-ln"><a>40</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>41</a></td><td class="code-content">  <span class="cm"># ─── Job 2: Build &amp; Push ─────────────────────────────────</span></td></tr>
+          <tr><td class="code-ln"><a>42</a></td><td class="code-content">  <span class="ky">build-and-push</span>:</td></tr>
+          <tr><td class="code-ln"><a>43</a></td><td class="code-content">    <span class="ky">needs</span>: test</td></tr>
+          <tr><td class="code-ln"><a>44</a></td><td class="code-content">    <span class="ky">runs-on</span>: <span class="st">ubuntu-latest</span></td></tr>
+          <tr><td class="code-ln"><a>45</a></td><td class="code-content">    <span class="ky">if</span>: github.ref == <span class="st">'refs/heads/main'</span></td></tr>
+          <tr><td class="code-ln"><a>46</a></td><td class="code-content">    <span class="ky">steps</span>:</td></tr>
+          <tr><td class="code-ln"><a>47</a></td><td class="code-content">      - <span class="ky">uses</span>: <span class="st">actions/checkout@v4</span></td></tr>
+          <tr><td class="code-ln"><a>48</a></td><td class="code-content">      - <span class="ky">name</span>: <span class="st">Configure AWS credentials (OIDC)</span></td></tr>
+          <tr><td class="code-ln"><a>49</a></td><td class="code-content">        <span class="ky">uses</span>: <span class="st">aws-actions/configure-aws-credentials@v4</span></td></tr>
+          <tr><td class="code-ln"><a>50</a></td><td class="code-content">        <span class="ky">with</span>:</td></tr>
+          <tr><td class="code-ln"><a>51</a></td><td class="code-content">          <span class="ky">role-to-assume</span>: <span class="ev">${{ secrets.AWS_DEPLOY_ROLE_ARN }}</span></td></tr>
+          <tr><td class="code-ln"><a>52</a></td><td class="code-content">          <span class="ky">aws-region</span>: <span class="ev">${{ env.AWS_REGION }}</span></td></tr>
+          <tr><td class="code-ln"><a>53</a></td><td class="code-content">      - <span class="ky">name</span>: <span class="st">Login to Amazon ECR</span></td></tr>
+          <tr><td class="code-ln"><a>54</a></td><td class="code-content">        <span class="ky">id</span>: login-ecr</td></tr>
+          <tr><td class="code-ln"><a>55</a></td><td class="code-content">        <span class="ky">uses</span>: <span class="st">aws-actions/amazon-ecr-login@v2</span></td></tr>
+          <tr><td class="code-ln"><a>56</a></td><td class="code-content">      - <span class="ky">name</span>: <span class="st">Build, tag, and push image to ECR</span></td></tr>
+          <tr><td class="code-ln"><a>57</a></td><td class="code-content">        <span class="ky">env</span>:</td></tr>
+          <tr><td class="code-ln"><a>58</a></td><td class="code-content">          <span class="ky">ECR_REGISTRY</span>: <span class="ev">${{ steps.login-ecr.outputs.registry }}</span></td></tr>
+          <tr><td class="code-ln"><a>59</a></td><td class="code-content">          <span class="ky">IMAGE_TAG</span>: <span class="ev">${{ github.sha }}</span></td></tr>
+          <tr><td class="code-ln"><a>60</a></td><td class="code-content">        <span class="ky">run</span>: <span class="kw">|</span></td></tr>
+          <tr><td class="code-ln"><a>61</a></td><td class="code-content">          docker build -t $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG .</td></tr>
+          <tr><td class="code-ln"><a>62</a></td><td class="code-content">          docker push $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG</td></tr>
+          <tr><td class="code-ln"><a>63</a></td><td class="code-content">          docker tag $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \</td></tr>
+          <tr><td class="code-ln"><a>64</a></td><td class="code-content">            $ECR_REGISTRY/$IMAGE_NAME:latest</td></tr>
+          <tr><td class="code-ln"><a>65</a></td><td class="code-content">          docker push $ECR_REGISTRY/$IMAGE_NAME:latest</td></tr>
+          <tr><td class="code-ln"><a>66</a></td><td class="code-content"></td></tr>
+          <tr><td class="code-ln"><a>67</a></td><td class="code-content">  <span class="cm"># ─── Job 3: Deploy ────────────────────────────────────────</span></td></tr>
+          <tr><td class="code-ln"><a>68</a></td><td class="code-content">  <span class="ky">deploy</span>:</td></tr>
+          <tr><td class="code-ln"><a>69</a></td><td class="code-content">    <span class="ky">needs</span>: build-and-push</td></tr>
+          <tr><td class="code-ln"><a>70</a></td><td class="code-content">    <span class="ky">runs-on</span>: <span class="st">ubuntu-latest</span></td></tr>
+          <tr><td class="code-ln"><a>71</a></td><td class="code-content">    <span class="ky">environment</span>: <span class="st">production</span></td></tr>
+          <tr><td class="code-ln"><a>72</a></td><td class="code-content">    <span class="ky">steps</span>:</td></tr>
+          <tr><td class="code-ln"><a>73</a></td><td class="code-content">      - <span class="ky">uses</span>: <span class="st">actions/checkout@v4</span></td></tr>
+          <tr><td class="code-ln"><a>74</a></td><td class="code-content">      - <span class="ky">name</span>: <span class="st">Deploy to ECS</span></td></tr>
+          <tr><td class="code-ln"><a>75</a></td><td class="code-content">        <span class="ky">run</span>: <span class="kw">|</span></td></tr>
+          <tr><td class="code-ln"><a>76</a></td><td class="code-content">          aws ecs update-service \</td></tr>
+          <tr><td class="code-ln"><a>77</a></td><td class="code-content">            --cluster prod-cluster \</td></tr>
+          <tr><td class="code-ln"><a>78</a></td><td class="code-content">            --service backend-api-svc \</td></tr>
+          <tr><td class="code-ln"><a>79</a></td><td class="code-content">            --force-new-deployment</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Contributors -->
+    <div class="section-header">Contributors</div>
+    <div class="contributors-row">
+      <span class="contributor-chip">
+        <div class="av" style="background:linear-gradient(135deg,#2da44e,#116329);">MK</div>
+        <a href="#">marcus-kim</a> <span class="count">18 commits</span>
+      </span>
+      <span class="contributor-chip">
+        <div class="av" style="background:linear-gradient(135deg,#0969da,#0550ae);">SC</div>
+        <a href="#">sarah-chen</a> <span class="count">11 commits</span>
+      </span>
+      <span class="contributor-chip">
+        <div class="av" style="background:linear-gradient(135deg,#cf222e,#a40e26);">AR</div>
+        <a href="#">alex-rivera</a> <span class="count">7 commits</span>
+      </span>
+    </div>
+
+  </div>
+</body>
+</html>

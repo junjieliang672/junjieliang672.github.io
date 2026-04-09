@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=900" />
+  <title>#4892133: Unable to process returns for enterprise customers — Zendesk</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f3f4f6;
+      color: #2f3941;
+      font-size: 13px;
+      width: 900px;
+    }
+
+    /* ── Top Navigation ── */
+    .topnav {
+      background: #1f2f3d;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 4px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topnav-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+      padding: 0 8px;
+      min-width: 110px;
+    }
+    .topnav-logo svg { flex-shrink: 0; }
+    .topnav-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 8px;
+    }
+    .topnav-search {
+      flex: 1;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 0 10px;
+      height: 32px;
+      gap: 8px;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+    .topnav-search svg { flex-shrink: 0; opacity: 0.6; }
+    .topnav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-icon-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+    }
+    .topnav-icon-btn:hover { background: rgba(255,255,255,0.1); }
+    .topnav-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #d14836;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 4px;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 48px);
+    }
+
+    /* ── Left Sidebar ── */
+    .sidebar {
+      width: 56px;
+      background: #1f2f3d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .sidebar-item {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      position: relative;
+    }
+    .sidebar-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+    .sidebar-item.active { background: rgba(255,255,255,0.15); color: #fff; }
+    .sidebar-item .badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: #cc3340;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      min-width: 14px;
+      height: 14px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+    }
+
+    /* ── Views Panel ── */
+    .views-panel {
+      width: 220px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .views-panel-header {
+      padding: 14px 16px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #68737d;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .view-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      gap: 10px;
+      cursor: pointer;
+      color: #2f3941;
+      font-size: 13px;
+    }
+    .view-item:hover { background: #f8f9fa; }
+    .view-item.active { background: #e8f4fd; color: #1f73b7; font-weight: 500; }
+    .view-item svg { flex-shrink: 0; opacity: 0.7; }
+    .view-item .view-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: #68737d;
+      background: #f3f4f6;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .view-item.active .view-count {
+      background: #c8e2f7;
+      color: #1f73b7;
+    }
+    .views-section-label {
+      padding: 12px 16px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #68737d;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Main Content ── */
+    .main {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Ticket Header ── */
+    .ticket-header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 16px;
+    }
+    .ticket-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 0 6px;
+      font-size: 12px;
+      color: #68737d;
+    }
+    .ticket-breadcrumb a { color: #1f73b7; text-decoration: none; }
+    .ticket-breadcrumb a:hover { text-decoration: underline; }
+    .ticket-breadcrumb-sep { color: #c8c8c8; }
+    .ticket-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+    }
+    .ticket-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2f3941;
+      flex: 1;
+    }
+    .ticket-id {
+      font-size: 13px;
+      color: #68737d;
+      font-weight: 400;
+    }
+    .ticket-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn {
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary { background: #1f73b7; color: #fff; border-color: #1f73b7; }
+    .btn-primary:hover { background: #145d98; }
+    .btn-secondary { background: #fff; color: #2f3941; border-color: #d8dcde; }
+    .btn-secondary:hover { background: #f8f9fa; }
+    .btn-ghost { background: transparent; color: #68737d; border-color: transparent; }
+    .status-tabs {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid #f0f0f0;
+    }
+    .status-tab {
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #68737d;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .status-tab.active { color: #1f73b7; border-bottom-color: #1f73b7; }
+
+    /* ── Ticket Body ── */
+    .ticket-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Conversation ── */
+    .conversation {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .message-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+    .message-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .avatar-customer { background: #5293c7; }
+    .avatar-agent { background: #3d9a49; }
+    .avatar-system { background: #68737d; }
+    .message-meta { flex: 1; }
+    .message-author {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2f3941;
+    }
+    .message-author span {
+      font-size: 11px;
+      font-weight: 400;
+      color: #68737d;
+      margin-left: 6px;
+    }
+    .message-timestamp {
+      font-size: 11px;
+      color: #68737d;
+      margin-top: 1px;
+    }
+    .message-channel-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      color: #68737d;
+      font-weight: 500;
+    }
+    .message-content {
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2f3941;
+    }
+    .message-content p { margin-bottom: 8px; }
+    .message-content p:last-child { margin-bottom: 0; }
+
+    /* Internal note */
+    .message-card.internal-note { border-left: 3px solid #f79a3e; }
+    .message-card.internal-note .message-header { background: #fff9f0; }
+    .internal-note-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #fef3e3;
+      color: #c97b0e;
+      font-weight: 600;
+      border: 1px solid #f5d89e;
+    }
+
+    /* ── Ticket Description (first message) ── */
+    .message-card.ticket-description { border-top: 3px solid #1f73b7; }
+    .message-card.ticket-description .message-header { background: #f0f7ff; }
+    .ticket-body-text {
+      padding: 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #2f3941;
+    }
+    .ticket-body-text p { margin-bottom: 10px; }
+    .ticket-body-text p:last-child { margin-bottom: 0; }
+
+    /* ── Reply Box ── */
+    .reply-box {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .reply-box-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+    .reply-type-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid #d8dcde;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-right: 8px;
+    }
+    .reply-type-btn {
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #68737d;
+      background: #fff;
+    }
+    .reply-type-btn.active { background: #e8f4fd; color: #1f73b7; }
+    .toolbar-sep { width: 1px; height: 20px; background: #e0e0e0; margin: 0 4px; }
+    .toolbar-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      color: #68737d;
+      cursor: pointer;
+    }
+    .toolbar-btn:hover { background: #f3f4f6; }
+    .reply-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px 14px;
+      border: none;
+      outline: none;
+      resize: none;
+      font-family: inherit;
+      font-size: 13px;
+      color: #68737d;
+    }
+    .reply-box-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    /* ── Properties Panel ── */
+    .properties-panel {
+      width: 240px;
+      background: #fff;
+      border-left: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .prop-section {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 12px 14px;
+    }
+    .prop-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #68737d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .prop-row {
+      margin-bottom: 8px;
+    }
+    .prop-label {
+      font-size: 11px;
+      color: #68737d;
+      margin-bottom: 3px;
+    }
+    .prop-value {
+      font-size: 13px;
+      color: #2f3941;
+      font-weight: 500;
+    }
+    .prop-value.muted { font-weight: 400; color: #49545c; }
+
+    /* Status badges */
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-open { background: #fff0e5; color: #c97b0e; }
+    .badge-pending { background: #e8f4fd; color: #1f73b7; }
+    .badge-solved { background: #e9f5ec; color: #287d3c; }
+    .badge-closed { background: #f3f4f6; color: #68737d; }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .badge-open .badge-dot { background: #c97b0e; }
+    .badge-pending .badge-dot { background: #1f73b7; }
+    .badge-solved .badge-dot { background: #287d3c; }
+
+    /* Priority */
+    .badge-priority {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .badge-normal { background: #f3f4f6; color: #49545c; }
+    .badge-high { background: #ffecec; color: #cc3340; }
+    .badge-urgent { background: #cc3340; color: #fff; }
+
+    /* Requester avatar */
+    .requester-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .requester-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #5293c7;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .requester-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2f3941;
+    }
+    .requester-org {
+      font-size: 11px;
+      color: #68737d;
+    }
+
+    /* Tags */
+    .tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .tag {
+      padding: 2px 8px;
+      background: #e8ecef;
+      border-radius: 10px;
+      font-size: 11px;
+      color: #49545c;
+    }
+
+    /* Macro suggestion banner */
+    .macro-banner {
+      background: #f0f7ff;
+      border: 1px solid #b8d9f4;
+      border-radius: 5px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #2f3941;
+    }
+    .macro-banner svg { flex-shrink: 0; margin-top: 1px; color: #1f73b7; }
+    .macro-banner strong { display: block; font-weight: 600; margin-bottom: 2px; }
+
+    /* Timeline event */
+    .timeline-event {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 0;
+      font-size: 11px;
+      color: #68737d;
+    }
+    .timeline-event::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c8c8c8;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top Navigation ── -->
+  <nav class="topnav">
+    <div class="topnav-logo">
+      <!-- Zendesk "Z" wordmark approximation -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="4" fill="#03363D"/>
+        <path d="M5 7h14v2L9 17h10v2H5v-2l10-8H5V7z" fill="#fff"/>
+      </svg>
+      <span style="color:#fff;">Zendesk</span>
+    </div>
+    <div class="topnav-divider"></div>
+    <div class="topnav-search">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M6.5 1a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm4.78 9.573l2.647 2.647-.707.707-2.647-2.647a6.5 6.5 0 1 1 .707-.707z"/>
+      </svg>
+      <span>Search tickets, customers…</span>
+    </div>
+    <div class="topnav-right">
+      <div class="topnav-icon-btn">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.5-11v3.5h3v1h-3V13h-1V9.5h-3v-1h3V5h1z"/></svg>
+      </div>
+      <div class="topnav-icon-btn" style="position:relative;">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/></svg>
+        <span class="badge" style="position:absolute;top:5px;right:5px;background:#cc3340;color:#fff;font-size:9px;font-weight:700;min-width:14px;height:14px;border-radius:7px;display:flex;align-items:center;justify-content:center;padding:0 3px;">3</span>
+      </div>
+      <div class="topnav-avatar">JK</div>
+    </div>
+  </nav>
+
+  <div class="layout">
+
+    <!-- ── Left Icon Sidebar ── -->
+    <nav class="sidebar">
+      <div class="sidebar-item active" title="Tickets">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+      </div>
+      <div class="sidebar-item" title="Views">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M2 2h2v2H2V2zm0 4h2v2H2V6zm0 4h2v2H2v-2zm4-8h8v2H6V2zm0 4h8v2H6V6zm0 4h8v2H6v-2z"/></svg>
+        <span class="badge">12</span>
+      </div>
+      <div class="sidebar-item" title="Customers">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.025 10 8 10c-2.025 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>
+      </div>
+      <div class="sidebar-item" title="Reporting">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z"/></svg>
+      </div>
+      <div class="sidebar-item" title="Admin">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.892 3.433-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.892-1.64-.901-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/></svg>
+      </div>
+    </nav>
+
+    <!-- ── Views Panel ── -->
+    <div class="views-panel">
+      <div class="views-panel-header">Views</div>
+      <div class="view-item active">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"/></svg>
+        My open tickets
+        <span class="view-count">8</span>
+      </div>
+      <div class="view-item">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+        All unassigned
+        <span class="view-count">24</span>
+      </div>
+      <div class="view-item">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/></svg>
+        Pending
+        <span class="view-count">5</span>
+      </div>
+      <div class="view-item">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+        Recently updated
+        <span class="view-count">31</span>
+      </div>
+      <div class="views-section-label">Groups</div>
+      <div class="view-item">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
+        Enterprise Support
+        <span class="view-count">3</span>
+      </div>
+      <div class="view-item">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3A1.5 1.5 0 0 1 15 10.5v3A1.5 1.5 0 0 1 13.5 15h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+        Billing
+        <span class="view-count">7</span>
+      </div>
+    </div>
+
+    <!-- ── Main Content ── -->
+    <div class="main">
+
+      <!-- Ticket Header -->
+      <div class="ticket-header">
+        <div class="ticket-breadcrumb">
+          <a href="#">Tickets</a>
+          <span class="ticket-breadcrumb-sep">›</span>
+          <a href="#">My open tickets</a>
+          <span class="ticket-breadcrumb-sep">›</span>
+          <span>#4892133</span>
+        </div>
+        <div class="ticket-title-row">
+          <div>
+            <div class="ticket-title">
+              Unable to process returns for enterprise customers
+              <span class="ticket-id">#4892133</span>
+            </div>
+          </div>
+          <div class="ticket-actions">
+            <button class="btn btn-secondary">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/></svg>
+              Macro
+            </button>
+            <button class="btn btn-secondary">Merge</button>
+            <button class="btn btn-primary">Submit as Open ▾</button>
+          </div>
+        </div>
+        <div class="status-tabs">
+          <div class="status-tab active">Conversation (4)</div>
+          <div class="status-tab">Customer Context</div>
+          <div class="status-tab">Related Tickets</div>
+        </div>
+      </div>
+
+      <!-- Conversation + Properties -->
+      <div class="ticket-body">
+
+        <!-- Conversation Thread -->
+        <div class="conversation">
+
+          <!-- AI Macro suggestion -->
+          <div class="macro-banner">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+            <div>
+              <strong>Suggested macro: Enterprise Returns — Escalation Path</strong>
+              Zendesk AI matched this to your returns handling workflow for enterprise tier customers.
+              <span style="color:#1f73b7;cursor:pointer;margin-left:4px;">Apply macro ›</span>
+            </div>
+          </div>
+
+          <!-- Initial ticket message from customer -->
+          <div class="message-card ticket-description">
+            <div class="message-header">
+              <div class="message-avatar avatar-customer">MW</div>
+              <div class="message-meta">
+                <div class="message-author">Marcus Webb <span>via Email</span></div>
+                <div class="message-timestamp">Today at 9:14 AM · Ticket created</div>
+              </div>
+              <span class="message-channel-badge">📧 Email</span>
+            </div>
+            <div class="ticket-body-text">
+              <p>Hi Support Team,</p>
+              <p>We're experiencing an issue with processing return requests for our enterprise customers. Since this morning (approx. 08:45 AM PST), our support agents are unable to initiate return authorizations through the customer portal. The "Process Return" button in the order management panel appears greyed out for all orders placed under our enterprise billing account (Account ID: ENT-004821).</p>
+              <p>{fill}</p>
+              <p>This is affecting approximately 47 enterprise customers with pending return requests totaling over $28,000 in order value. We need this resolved urgently as we have SLA commitments to our enterprise tier.</p>
+              <p>Affected order IDs: ORD-8841002, ORD-8839174, ORD-8840551, ORD-8841233 (and 43 others)<br>
+              Account tier: Enterprise (Platinum)<br>
+              CSM contact: Rachel Torres (r.torres@acmecorp.com)</p>
+              <p>Best regards,<br>Marcus Webb<br>Director of Customer Operations, Acme Corp</p>
+            </div>
+          </div>
+
+          <!-- Agent reply 1 -->
+          <div class="message-card">
+            <div class="message-header">
+              <div class="message-avatar avatar-agent">JK</div>
+              <div class="message-meta">
+                <div class="message-author">Jamie Kim <span>· Support Agent</span></div>
+                <div class="message-timestamp">Today at 9:31 AM</div>
+              </div>
+              <span class="message-channel-badge">💬 Reply</span>
+            </div>
+            <div class="message-content">
+              <p>Hi Marcus,</p>
+              <p>Thank you for reaching out. I've confirmed the issue on our end — there's a known permissions flag that occasionally triggers for enterprise accounts during our billing cycle refresh. Our technical team has been alerted and is investigating.</p>
+              <p>I'm escalating this to Priority 1 and our Enterprise Support team will reach out within the next 30 minutes. In the meantime, our team can manually process returns on your behalf — could you share the complete list of affected order IDs?</p>
+              <p>Jamie</p>
+            </div>
+          </div>
+
+          <!-- Internal note -->
+          <div class="message-card internal-note">
+            <div class="message-header">
+              <div class="message-avatar avatar-system">🔒</div>
+              <div class="message-meta">
+                <div class="message-author">Jamie Kim <span>· Internal Note</span></div>
+                <div class="message-timestamp">Today at 9:35 AM</div>
+              </div>
+              <span class="internal-note-badge">Internal Note</span>
+            </div>
+            <div class="message-content">
+              <p>Checked in Salesforce — Acme Corp is a Platinum Enterprise account, $2.4M ARR. Assigned to Rachel Torres as CSM. The permissions issue seems related to the billing flag change in the June 3rd deployment. Looping in Tier 2 (Sofia Martinez) for backend access. Do NOT offer a refund without manager approval per enterprise policy EN-14.</p>
+            </div>
+          </div>
+
+          <!-- Customer follow-up -->
+          <div class="message-card">
+            <div class="message-header">
+              <div class="message-avatar avatar-customer">MW</div>
+              <div class="message-meta">
+                <div class="message-author">Marcus Webb <span>via Email</span></div>
+                <div class="message-timestamp">Today at 10:02 AM</div>
+              </div>
+              <span class="message-channel-badge">📧 Email</span>
+            </div>
+            <div class="message-content">
+              <p>Jamie, thank you for the quick response. I'm attaching the full list of 47 affected order IDs as requested. Our team is standing by. Please note that two of our clients (Brixton Logistics and ValorHealth) have contracts with a 2-hour resolution SLA, so we're on the clock.</p>
+            </div>
+          </div>
+
+          <!-- Reply box -->
+          <div class="reply-box">
+            <div class="reply-box-toolbar">
+              <div class="reply-type-toggle">
+                <div class="reply-type-btn active">Reply</div>
+                <div class="reply-type-btn">Note</div>
+              </div>
+              <div class="toolbar-sep"></div>
+              <div class="toolbar-btn" title="Bold">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8.21 13c2.106 0 3.412-1.087 3.412-2.823 0-1.306-.984-2.283-2.324-2.386v-.055a2.176 2.176 0 0 0 1.852-2.14c0-1.51-1.162-2.46-3.014-2.46H3.843V13H8.21zM5.908 4.674h1.696c.963 0 1.517.451 1.517 1.244 0 .834-.629 1.32-1.73 1.32H5.908V4.674zm0 6.788V8.598h1.73c1.217 0 1.88.492 1.88 1.415 0 .943-.643 1.449-1.832 1.449H5.907z"/></svg>
+              </div>
+              <div class="toolbar-btn" title="Italic">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M7.991 11.674 9.53 4.455c.123-.595.246-.71 1.347-.807l.11-.52H7.211l-.11.52c1.06.096 1.128.212 1.005.807L6.57 11.674c-.123.595-.246.71-1.346.806l-.11.52h3.774l.11-.52c-1.06-.095-1.129-.211-1.006-.806z"/></svg>
+              </div>
+              <div class="toolbar-btn" title="Link">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 9H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/></svg>
+              </div>
+              <div class="toolbar-sep"></div>
+              <div class="toolbar-btn" title="Attach file">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/></svg>
+              </div>
+            </div>
+            <textarea class="reply-textarea" placeholder="Type a reply…" readonly></textarea>
+            <div class="reply-box-footer">
+              <button class="btn btn-primary" style="font-size:12px;padding:5px 12px;">Submit as Open ▾</button>
+              <button class="btn btn-secondary" style="font-size:12px;padding:5px 12px;">Save draft</button>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div style="margin-top:4px;">
+            <div class="timeline-event">Ticket created by Marcus Webb · Today 9:14 AM</div>
+            <div class="timeline-event">Assigned to Jamie Kim · Today 9:16 AM</div>
+            <div class="timeline-event">Priority changed to Urgent · Today 9:31 AM</div>
+            <div class="timeline-event">Tag added: enterprise, billing, returns · Today 9:31 AM</div>
+          </div>
+
+        </div>
+
+        <!-- Properties Panel -->
+        <div class="properties-panel">
+
+          <div class="prop-section">
+            <div class="prop-section-title">Ticket Properties</div>
+            <div class="prop-row">
+              <div class="prop-label">Status</div>
+              <div class="prop-value">
+                <span class="badge-status badge-open">
+                  <span class="badge-dot"></span>Open
+                </span>
+              </div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Priority</div>
+              <div class="prop-value">
+                <span class="badge-priority badge-high">High</span>
+              </div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Type</div>
+              <div class="prop-value muted">Problem</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Group</div>
+              <div class="prop-value muted">Enterprise Support</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Assignee</div>
+              <div class="prop-value">Jamie Kim</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Created</div>
+              <div class="prop-value muted">Today 9:14 AM (2h ago)</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Last updated</div>
+              <div class="prop-value muted">Today 10:02 AM (43m ago)</div>
+            </div>
+          </div>
+
+          <div class="prop-section">
+            <div class="prop-section-title">Requester</div>
+            <div class="requester-info">
+              <div class="requester-avatar">MW</div>
+              <div>
+                <div class="requester-name">Marcus Webb</div>
+                <div class="requester-org">Acme Corp · Enterprise</div>
+              </div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Email</div>
+              <div class="prop-value muted" style="font-size:12px;">m.webb@acmecorp.com</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Account Tier</div>
+              <div class="prop-value" style="color:#c97b0e;font-size:12px;">⭐ Platinum Enterprise</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Open tickets</div>
+              <div class="prop-value muted">3 (view all ›)</div>
+            </div>
+          </div>
+
+          <div class="prop-section">
+            <div class="prop-section-title">Tags</div>
+            <div class="tags-list">
+              <span class="tag">enterprise</span>
+              <span class="tag">billing</span>
+              <span class="tag">returns</span>
+              <span class="tag">permissions</span>
+              <span class="tag">urgent</span>
+            </div>
+          </div>
+
+          <div class="prop-section">
+            <div class="prop-section-title">Linked Records</div>
+            <div class="prop-row">
+              <div class="prop-label">Salesforce Account</div>
+              <div class="prop-value muted" style="font-size:12px;">Acme Corp (ENT-004821) ›</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">CSM</div>
+              <div class="prop-value muted">Rachel Torres</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">ARR</div>
+              <div class="prop-value muted">$2,400,000</div>
+            </div>
+          </div>
+
+          <div class="prop-section">
+            <div class="prop-section-title">SLA</div>
+            <div class="prop-row">
+              <div class="prop-label">First reply time</div>
+              <div class="prop-value" style="color:#287d3c;font-size:12px;">✓ Met (17m)</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Next reply due</div>
+              <div class="prop-value" style="color:#cc3340;font-size:12px;">⏱ 18 min remaining</div>
+            </div>
+            <div class="prop-row">
+              <div class="prop-label">Resolution due</div>
+              <div class="prop-value muted" style="font-size:12px;">Today 1:14 PM</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

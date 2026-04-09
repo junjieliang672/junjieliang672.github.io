@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=900" />
+  <title>Automations · Urban Threads Co. — Shopify</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      background: #f1f2f3;
+      color: #202223;
+      width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Layout ── */
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Left sidebar ── */
+    .admin-sidebar {
+      width: 200px;
+      flex-shrink: 0;
+      background: #1a1a2e;
+      color: #b5b5c3;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar-header {
+      padding: 16px 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .store-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .store-icon {
+      width: 28px;
+      height: 28px;
+      background: #008060;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .store-name-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .store-plan-badge {
+      font-size: 10px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+    .sidebar-search {
+      margin: 10px 10px 0;
+    }
+    .sidebar-search input {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.07);
+      color: #d4d4d8;
+      font-size: 12px;
+      outline: none;
+    }
+    .sidebar-search input::placeholder { color: #6b7280; }
+
+    .sidebar-nav {
+      padding: 6px 0;
+      flex: 1;
+    }
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6b7280;
+      padding: 14px 14px 4px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      color: #b5b5c3;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .nav-item.active {
+      background: rgba(0,128,96,0.18);
+      color: #fff;
+      border-right: 2px solid #008060;
+    }
+    .nav-icon {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .nav-sub {
+      padding-left: 38px;
+      font-size: 12px;
+    }
+    .nav-sub .nav-item {
+      padding: 5px 14px 5px 0;
+    }
+
+    /* ── Top bar ── */
+    .admin-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .top-bar {
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e1e3e5;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 10px;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .breadcrumb-sep { color: #c4c4c4; }
+    .breadcrumb-cur { color: #202223; font-weight: 600; }
+    .top-bar-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid #e1e3e5;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      color: #6b7280;
+    }
+    .topbar-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #008060;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* ── Content ── */
+    .content-wrap {
+      padding: 20px 24px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .page-title-block h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #202223;
+      margin-bottom: 3px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #008060;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: #fff;
+      color: #202223;
+      border: 1px solid #c4cdd5;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-destructive {
+      color: #d72c0d;
+      border-color: #d72c0d;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid #c4cdd5;
+      background: #fff;
+      font-size: 12px;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    .filter-tab.active-tab {
+      background: #1a1a2e;
+      color: #fff;
+      border-color: #1a1a2e;
+    }
+    .filter-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #008060;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+    .search-filter {
+      padding: 6px 12px;
+      border: 1px solid #c4cdd5;
+      border-radius: 6px;
+      font-size: 12px;
+      outline: none;
+      background: #fff;
+      color: #202223;
+      width: 200px;
+    }
+    .search-filter::placeholder { color: #9ca3af; }
+
+    /* ── Automation cards ── */
+    .automations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: #e1e3e5;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e1e3e5;
+    }
+    .automation-card {
+      background: #fff;
+      padding: 0;
+    }
+    .automation-card-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .automation-card-header:hover { background: #f9fafb; }
+    .automation-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-active { background: #008060; }
+    .status-inactive { background: #9ca3af; }
+    .status-error { background: #d72c0d; }
+    .automation-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #202223;
+      flex: 1;
+    }
+    .automation-meta {
+      font-size: 12px;
+      color: #6b7280;
+      display: flex;
+      gap: 16px;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .automation-badge {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .badge-active {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .badge-inactive {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+    .badge-error {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .expand-icon {
+      font-size: 16px;
+      color: #9ca3af;
+      flex-shrink: 0;
+    }
+    .expand-icon.expanded { transform: rotate(90deg); }
+
+    /* ── Expanded rule detail ── */
+    .automation-detail {
+      border-top: 1px solid #f1f2f3;
+      padding: 0 16px 16px;
+      background: #fafafa;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .detail-block {
+      background: #fff;
+      border: 1px solid #e1e3e5;
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .detail-block.full-width {
+      grid-column: 1 / -1;
+    }
+    .detail-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+    .detail-value {
+      font-size: 13px;
+      color: #202223;
+      line-height: 1.5;
+    }
+    .detail-value.code-style {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      background: #f4f6f8;
+      border-radius: 4px;
+      padding: 6px 8px;
+      color: #202223;
+    }
+    .trigger-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: #1e40af;
+      font-weight: 500;
+    }
+    .action-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: #166534;
+      font-weight: 500;
+    }
+    .description-block {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.6;
+      padding: 2px 0;
+    }
+    .rule-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #e1e3e5;
+    }
+    .run-history {
+      margin-top: 14px;
+    }
+    .run-history-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .run-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f2f3;
+      font-size: 12px;
+    }
+    .run-row:last-child { border-bottom: none; }
+    .run-status-ok { color: #008060; font-weight: 600; }
+    .run-status-fail { color: #d72c0d; font-weight: 600; }
+    .run-time { color: #6b7280; flex: 1; }
+    .run-trigger-label { color: #6b7280; }
+    .run-order-link { color: #008060; font-weight: 500; }
+
+    /* ── Stats banner ── */
+    .stats-banner {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #e1e3e5;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #202223;
+    }
+    .stat-delta {
+      font-size: 11px;
+      color: #008060;
+      margin-top: 2px;
+    }
+
+    /* ── Empty mini-cards for inactive rules ── */
+    .automation-card.collapsed .automation-detail {
+      display: none;
+    }
+
+    /* ── Footer notice ── */
+    .page-footer-notice {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #92400e;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .notice-icon { font-size: 14px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="store-name-row">
+        <div class="store-icon">U</div>
+        <div>
+          <div class="store-name-text">Urban Threads Co.</div>
+          <div class="store-plan-badge">Shopify Advanced</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-search">
+      <input type="text" placeholder="&#128269; Search" />
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🏠</span> Home
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">📦</span> Orders
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🛍️</span> Products
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">👥</span> Customers
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">📊</span> Analytics
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">💸</span> Finances
+      </a>
+
+      <div class="nav-section-label">Apps &amp; Tools</div>
+      <a class="nav-item active" href="#">
+        <span class="nav-icon">⚡</span> Automations
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🔧</span> App integrations
+      </a>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">🔗</span> Webhooks
+      </a>
+
+      <div class="nav-section-label">Settings</div>
+      <a class="nav-item" href="#">
+        <span class="nav-icon">⚙️</span> Settings
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ── Main content ── -->
+  <div class="admin-main">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="breadcrumb">
+        <span>Admin</span>
+        <span class="breadcrumb-sep">›</span>
+        <span>Apps</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-cur">Automations</span>
+      </div>
+      <div class="top-bar-right">
+        <div class="topbar-icon-btn">🔔</div>
+        <div class="topbar-icon-btn">❓</div>
+        <div class="topbar-avatar">JL</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content-wrap">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <div class="page-title-block">
+          <h1>Automations</h1>
+          <div class="page-subtitle">Manage Shopify Flow rules that run automatically based on store events.</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-secondary">Import</button>
+          <button class="btn-primary">+ Create automation</button>
+        </div>
+      </div>
+
+      <!-- Stats banner -->
+      <div class="stats-banner">
+        <div class="stat-card">
+          <div class="stat-label">Active automations</div>
+          <div class="stat-value">4</div>
+          <div class="stat-delta">↑ 1 added this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Runs this month</div>
+          <div class="stat-value">1,247</div>
+          <div class="stat-delta">↑ 18% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Actions taken</div>
+          <div class="stat-value">3,891</div>
+          <div class="stat-delta">across all active rules</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Last run</div>
+          <div class="stat-value" style="font-size:16px; margin-top:4px;">2 min ago</div>
+          <div class="stat-delta">Order fulfilled trigger</div>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <span class="filter-tab active-tab">All <span class="filter-count">4</span></span>
+        <span class="filter-tab">Active</span>
+        <span class="filter-tab">Inactive</span>
+        <span class="filter-tab">Errors</span>
+        <input class="search-filter" type="text" placeholder="&#128269; Search automations…" />
+        <button class="btn-secondary" style="margin-left:auto;">Sort: Last modified ▾</button>
+      </div>
+
+      <!-- Automations list -->
+      <div class="automations-list">
+
+        <!-- Rule 1: Auto-Archive Fulfilled Orders — EXPANDED -->
+        <div class="automation-card">
+          <div class="automation-card-header">
+            <span class="automation-status-dot status-active"></span>
+            <div style="flex:1;">
+              <div class="automation-name">Auto-Archive Fulfilled Orders</div>
+              <div class="automation-meta">
+                <span class="meta-item">⚡ Trigger: Order fulfilled</span>
+                <span class="meta-item">🔖 Action: Add tag</span>
+                <span class="meta-item">Last run: 2 min ago</span>
+              </div>
+            </div>
+            <span class="automation-badge badge-active">Active</span>
+            <span class="expand-icon expanded">▶</span>
+          </div>
+
+          <!-- Expanded detail panel -->
+          <div class="automation-detail">
+            <div class="detail-grid">
+
+              <div class="detail-block">
+                <div class="detail-label">Trigger</div>
+                <div class="detail-value">
+                  <span class="trigger-chip">⚡ Order fulfilled</span>
+                  <div style="margin-top:8px; font-size:12px; color:#6b7280;">
+                    Fires when an order's fulfillment status changes to <strong>Fulfilled</strong>.
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-block">
+                <div class="detail-label">Actions (2)</div>
+                <div class="detail-value" style="display:flex; flex-direction:column; gap:6px;">
+                  <span class="action-chip">🔖 Add order tag: "archived"</span>
+                  <span class="action-chip">📧 Send internal note to staff</span>
+                </div>
+              </div>
+
+              <div class="detail-block full-width">
+                <div class="detail-label">Description / Rule Notes</div>
+                <div class="description-block">{fill}</div>
+              </div>
+
+              <div class="detail-block">
+                <div class="detail-label">Conditions</div>
+                <div class="detail-value">
+                  <div class="detail-value code-style">order.financial_status == "paid"<br/>AND order.fulfillment_status == "fulfilled"</div>
+                </div>
+              </div>
+
+              <div class="detail-block">
+                <div class="detail-label">Rule metadata</div>
+                <div class="detail-value" style="font-size:12px; line-height:1.8; color:#374151;">
+                  <div><strong>Created:</strong> Dec 14, 2024 by Jamie L.</div>
+                  <div><strong>Last modified:</strong> Mar 28, 2025</div>
+                  <div><strong>Version:</strong> 3</div>
+                  <div><strong>Rule ID:</strong> flow_rule_0041c7</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Recent run history -->
+            <div class="run-history">
+              <div class="run-history-title">Recent runs (last 5)</div>
+              <div class="run-row">
+                <span class="run-status-ok">✓ Success</span>
+                <span class="run-time">Apr 4, 2025 · 22:51</span>
+                <span class="run-trigger-label">Order</span>
+                <span class="run-order-link">#7834</span>
+                <span style="color:#6b7280; font-size:11px;">tag added in 0.3s</span>
+              </div>
+              <div class="run-row">
+                <span class="run-status-ok">✓ Success</span>
+                <span class="run-time">Apr 4, 2025 · 21:18</span>
+                <span class="run-trigger-label">Order</span>
+                <span class="run-order-link">#7831</span>
+                <span style="color:#6b7280; font-size:11px;">tag added in 0.2s</span>
+              </div>
+              <div class="run-row">
+                <span class="run-status-ok">✓ Success</span>
+                <span class="run-time">Apr 4, 2025 · 19:45</span>
+                <span class="run-trigger-label">Order</span>
+                <span class="run-order-link">#7828</span>
+                <span style="color:#6b7280; font-size:11px;">tag added in 0.4s</span>
+              </div>
+              <div class="run-row">
+                <span class="run-status-fail">✗ Skipped</span>
+                <span class="run-time">Apr 4, 2025 · 17:03</span>
+                <span class="run-trigger-label">Order</span>
+                <span class="run-order-link">#7824</span>
+                <span style="color:#6b7280; font-size:11px;">condition not met (partial fulfillment)</span>
+              </div>
+              <div class="run-row">
+                <span class="run-status-ok">✓ Success</span>
+                <span class="run-time">Apr 3, 2025 · 14:22</span>
+                <span class="run-trigger-label">Order</span>
+                <span class="run-order-link">#7819</span>
+                <span style="color:#6b7280; font-size:11px;">tag added in 0.3s</span>
+              </div>
+            </div>
+
+            <div class="rule-actions">
+              <button class="btn-secondary">✏️ Edit rule</button>
+              <button class="btn-secondary">📋 Duplicate</button>
+              <button class="btn-secondary">⏸ Pause</button>
+              <button class="btn-secondary btn-destructive" style="margin-left:auto;">🗑 Delete</button>
+            </div>
+          </div>
+        </div><!-- /Rule 1 -->
+
+        <!-- Rule 2: Low Stock Reorder Alert -->
+        <div class="automation-card collapsed">
+          <div class="automation-card-header">
+            <span class="automation-status-dot status-active"></span>
+            <div style="flex:1;">
+              <div class="automation-name">Low Stock Reorder Alert</div>
+              <div class="automation-meta">
+                <span class="meta-item">⚡ Trigger: Inventory level drops below threshold</span>
+                <span class="meta-item">🔖 Action: Email staff</span>
+                <span class="meta-item">Last run: 1 hour ago</span>
+              </div>
+            </div>
+            <span class="automation-badge badge-active">Active</span>
+            <span class="expand-icon">▶</span>
+          </div>
+        </div>
+
+        <!-- Rule 3: Loyalty Tag — High Value Customers -->
+        <div class="automation-card collapsed">
+          <div class="automation-card-header">
+            <span class="automation-status-dot status-active"></span>
+            <div style="flex:1;">
+              <div class="automation-name">Loyalty Tag — High Value Customers</div>
+              <div class="automation-meta">
+                <span class="meta-item">⚡ Trigger: Customer total spend &gt; $500</span>
+                <span class="meta-item">🔖 Action: Add customer tag "VIP"</span>
+                <span class="meta-item">Last run: 3 hours ago</span>
+              </div>
+            </div>
+            <span class="automation-badge badge-active">Active</span>
+            <span class="expand-icon">▶</span>
+          </div>
+        </div>
+
+        <!-- Rule 4: Abandoned Cart Recovery (Inactive) -->
+        <div class="automation-card collapsed">
+          <div class="automation-card-header">
+            <span class="automation-status-dot status-inactive"></span>
+            <div style="flex:1;">
+              <div class="automation-name">Abandoned Cart Recovery — Follow-up</div>
+              <div class="automation-meta">
+                <span class="meta-item">⚡ Trigger: Cart abandoned &gt; 2 hours</span>
+                <span class="meta-item">📧 Action: Send recovery email</span>
+                <span class="meta-item">Last run: 6 days ago</span>
+              </div>
+            </div>
+            <span class="automation-badge badge-inactive">Inactive</span>
+            <span class="expand-icon">▶</span>
+          </div>
+        </div>
+
+      </div><!-- /automations-list -->
+
+      <!-- Footer notice -->
+      <div class="page-footer-notice">
+        <span class="notice-icon">ℹ️</span>
+        <span>
+          Automations run in Shopify Flow. Changes to active rules take effect immediately on the next trigger event.
+          To test a rule without affecting live orders, use <strong>Pause + manual test run</strong> before re-enabling.
+        </span>
+      </div>
+
+    </div><!-- /content-wrap -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-layout -->
+</body>
+</html>

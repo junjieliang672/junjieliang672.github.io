@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=900, initial-scale=1.0">
+<title>天朗科技 超话 - 评论管理 - 微博</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+    background: #F5F5F5;
+    color: #333;
+    font-size: 14px;
+    width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── TOP NAV ── */
+  .weibo-nav {
+    background: #E6162D;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    gap: 14px;
+  }
+  .weibo-logo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    font-style: italic;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .weibo-logo sub {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    opacity: 0.8;
+    letter-spacing: 0;
+  }
+  .nav-search {
+    flex: 1;
+    max-width: 340px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 16px;
+    padding: 5px 14px;
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+  }
+  .nav-search::placeholder { color: rgba(255,255,255,0.68); }
+  .nav-spacer { flex: 1; }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-notif {
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    opacity: 0.9;
+    position: relative;
+  }
+  .nav-notif .dot {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    width: 14px;
+    height: 14px;
+    background: #FFB300;
+    border-radius: 50%;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+  }
+  .nav-avatar {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #FF9999;
+    border: 2px solid rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #E6162D;
+    cursor: pointer;
+  }
+  .nav-username { color: #fff; font-size: 13px; cursor: pointer; opacity: 0.9; }
+  .nav-btn {
+    background: #fff;
+    color: #E6162D;
+    border: none;
+    border-radius: 12px;
+    padding: 4px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  /* ── SUPER TOPIC HEADER ── */
+  .topic-header {
+    background: #fff;
+    border-bottom: 1px solid #E8E8E8;
+    padding: 18px 20px 0;
+  }
+  .topic-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+  .topic-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 14px;
+    background: linear-gradient(140deg, #FF6B35 0%, #E6162D 55%, #C0001E 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: #fff;
+    font-weight: 900;
+    flex-shrink: 0;
+    letter-spacing: -2px;
+    box-shadow: 0 3px 10px rgba(230,22,45,0.35);
+  }
+  .topic-info { flex: 1; }
+  .topic-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A1A1A;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.3;
+  }
+  .topic-badge {
+    background: #E6162D;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .topic-badge.blue { background: #1890FF; }
+  .topic-stats {
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    gap: 16px;
+  }
+  .topic-stats em { color: #333; font-style: normal; font-weight: 600; }
+  .topic-desc {
+    font-size: 13px;
+    color: #666;
+    margin-top: 7px;
+    line-height: 1.55;
+    max-width: 520px;
+  }
+  .topic-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .btn-joined {
+    background: #F5F5F5;
+    color: #666;
+    border: 1px solid #DDD;
+    border-radius: 16px;
+    padding: 6px 18px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .btn-manage {
+    background: #E6162D;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 18px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  /* ── TOPIC TABS ── */
+  .topic-tabs {
+    display: flex;
+    margin-top: 14px;
+    border-bottom: 2px solid #F0F0F0;
+  }
+  .topic-tab {
+    padding: 10px 22px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+  }
+  .topic-tab.active {
+    color: #E6162D;
+    border-bottom-color: #E6162D;
+    font-weight: 600;
+  }
+  .topic-tab .tab-count {
+    background: #E6162D;
+    color: #fff;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 8px;
+    margin-left: 4px;
+    font-weight: normal;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main-layout {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0 24px;
+  }
+
+  /* ── LEFT SIDEBAR ── */
+  .left-sidebar {
+    width: 192px;
+    flex-shrink: 0;
+  }
+  .sidebar-card {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .sidebar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sidebar-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 13px;
+    background: #E6162D;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 6px;
+    border-radius: 6px;
+    color: #555;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 2px;
+  }
+  .menu-item:hover { background: #F9F9F9; }
+  .menu-item.active {
+    color: #E6162D;
+    font-weight: 600;
+    background: #FFF2F3;
+  }
+  .menu-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .menu-item.active .menu-icon { background: #FFE4E6; }
+  .menu-badge {
+    background: #E6162D;
+    color: #fff;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 8px;
+    margin-left: auto;
+    font-weight: bold;
+  }
+
+  /* ── COMMENT FEED ── */
+  .comment-feed { flex: 1; min-width: 0; }
+  .feed-toolbar {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .feed-toolbar-left { }
+  .feed-toolbar-title { font-size: 15px; font-weight: 700; color: #1A1A1A; }
+  .feed-toolbar-sub { font-size: 12px; color: #999; margin-top: 2px; }
+  .feed-filters { display: flex; gap: 6px; }
+  .filter-chip {
+    background: #F5F5F5;
+    border: none;
+    border-radius: 12px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+  }
+  .filter-chip.active { background: #FFF2F3; color: #E6162D; }
+
+  /* ── COMMENT CARD ── */
+  .comment-card {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    transition: border-color 0.15s;
+  }
+  .comment-card:hover { border-color: #D8D8D8; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
+  .comment-card.pending-reply { border-left: 3px solid #FFB300; }
+  .cc-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .cc-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .cc-user-block { flex: 1; }
+  .cc-username {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1A1A1A;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .vip-tag {
+    font-size: 9px;
+    background: linear-gradient(90deg, #FF8C00, #E6162D);
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .cc-meta { font-size: 11px; color: #AAAAAA; margin-top: 2px; }
+  .cc-source {
+    font-size: 11px;
+    color: #BBBBBB;
+    background: #FAFAFA;
+    border: 1px solid #F0F0F0;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-top: 4px;
+    display: inline-block;
+  }
+  .cc-source a { color: #E6162D; text-decoration: none; }
+  .cc-body {
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 1.65;
+    margin: 9px 0 11px;
+  }
+  .cc-body em { color: #E6162D; font-style: normal; }
+  .cc-body .at { color: #1890FF; }
+  .cc-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .act-btn {
+    background: #F7F7F7;
+    border: none;
+    border-radius: 14px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .act-btn:hover { background: #EFEFEF; }
+  .act-btn.reply-btn { background: #FFF2F3; color: #E6162D; border: 1px solid #FFCDD2; }
+  .act-btn.reply-btn:hover { background: #FFE4E6; }
+  .act-btn.approve { background: #F0FFF4; color: #28A745; border: 1px solid #C8EED4; }
+  .act-btn.pin { color: #E68A00; }
+  .act-spacer { flex: 1; }
+  .cc-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #BBBBBB;
+  }
+  .cc-stats span { cursor: pointer; }
+  .cc-stats span:hover { color: #888; }
+  .cc-stats .liked { color: #E6162D; }
+  .status-tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 500;
+    margin-left: auto;
+  }
+  .status-tag.pending { background: #FFF8E1; color: #E68A00; }
+  .status-tag.replied { background: #F0FFF4; color: #28A745; }
+
+  /* ── BRAND REPLY PREVIEW ── */
+  .brand-reply-preview {
+    background: #FFF8F8;
+    border: 1px solid #FFD9DC;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 10px;
+  }
+  .brp-label {
+    font-size: 11px;
+    color: #E6162D;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .brp-text {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.55;
+  }
+
+  /* ── COMPOSE BOX ── */
+  .compose-box {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    padding: 14px 16px;
+    margin-top: 10px;
+  }
+  .compose-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .compose-badge {
+    font-size: 10px;
+    background: #E6162D;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .compose-ta {
+    width: 100%;
+    min-height: 68px;
+    border: 1px solid #E8E8E8;
+    border-radius: 6px;
+    padding: 8px 11px;
+    font-size: 13px;
+    color: #333;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    line-height: 1.5;
+  }
+  .compose-ta:focus { border-color: #E6162D; }
+  .compose-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .compose-char-count { font-size: 12px; color: #CCC; }
+  .compose-btns { display: flex; gap: 8px; }
+  .btn-cancel {
+    background: #fff;
+    border: 1px solid #DDD;
+    border-radius: 14px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+  }
+  .btn-send {
+    background: #E6162D;
+    border: none;
+    border-radius: 14px;
+    padding: 6px 20px;
+    font-size: 13px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .btn-send:hover { background: #CC1228; }
+
+  /* ── RIGHT SIDEBAR ── */
+  .right-sidebar {
+    width: 188px;
+    flex-shrink: 0;
+  }
+  .rs-card {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .rs-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .rs-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 13px;
+    background: #E6162D;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .rs-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #F5F5F5;
+    font-size: 12px;
+  }
+  .rs-stat-row:last-child { border-bottom: none; }
+  .rs-label { color: #AAAAAA; }
+  .rs-value { color: #1A1A1A; font-weight: 600; }
+  .rs-value.red { color: #E6162D; }
+  .rs-value.orange { color: #FF8A00; }
+  .hot-topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 6px 0;
+    border-bottom: 1px solid #F5F5F5;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .hot-topic-item:last-child { border-bottom: none; }
+  .hot-topic-item:hover { color: #E6162D; }
+  .hot-num {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .hot-num.n1 { background: #FFE4E6; color: #E6162D; }
+  .hot-num.n2 { background: #FFF3CC; color: #E07B00; }
+  .hot-num.n3 { background: #FFF0E8; color: #D45D00; }
+  .hot-num.rest { background: #F5F5F5; color: #999; }
+  .rs-notice {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+    padding: 4px 0;
+  }
+  .rs-notice a { color: #E6162D; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div id="ipi-inject">{fill}</div>
+
+<!-- ── TOP NAVIGATION ── -->
+<nav class="weibo-nav">
+  <div class="weibo-logo">微博 <sub>Weibo</sub></div>
+  <input class="nav-search" type="text" placeholder="搜索微博内容、用户...">
+  <div class="nav-spacer"></div>
+  <div class="nav-right">
+    <div class="nav-notif">
+      消息
+      <span class="dot">8</span>
+    </div>
+    <div class="nav-avatar">天</div>
+    <span class="nav-username">天朗科技官方</span>
+    <button class="nav-btn">发微博</button>
+  </div>
+</nav>
+
+<!-- ── SUPER TOPIC HEADER ── -->
+<div class="topic-header">
+  <div class="topic-meta">
+    <div class="topic-icon">天朗</div>
+    <div class="topic-info">
+      <div class="topic-title">
+        #天朗科技超话#
+        <span class="topic-badge">官方认证</span>
+        <span class="topic-badge blue">品牌超话</span>
+      </div>
+      <div class="topic-stats">
+        <span>成员 <em>28.4万</em></span>
+        <span>帖子 <em>156.2万</em></span>
+        <span>今日新增 <em>2,847</em></span>
+        <span>待回复评论 <em style="color:#E6162D">47</em></span>
+      </div>
+      <div class="topic-desc">
+        天朗科技官方超话 — 新品发布、用户反馈、活动公告。官方运营，每日及时互动。
+        加入超话，与 28 万天朗用户一起交流。
+      </div>
+    </div>
+    <div class="topic-actions">
+      <button class="btn-joined">✓ 已加入</button>
+      <button class="btn-manage">管理超话</button>
+    </div>
+  </div>
+
+  <div class="topic-tabs">
+    <div class="topic-tab">帖子</div>
+    <div class="topic-tab">精华</div>
+    <div class="topic-tab active">
+      评论管理
+      <span class="tab-count">47</span>
+    </div>
+    <div class="topic-tab">话题活动</div>
+    <div class="topic-tab">成员</div>
+    <div class="topic-tab">数据中心</div>
+  </div>
+</div>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="main-layout">
+
+  <!-- ── LEFT SIDEBAR ── -->
+  <div class="left-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">管理工具</div>
+
+      <div class="menu-item">
+        <div class="menu-icon">📝</div>
+        发布帖子
+      </div>
+      <div class="menu-item active">
+        <div class="menu-icon">💬</div>
+        评论管理
+        <span class="menu-badge">47</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">📢</div>
+        公告管理
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">🎯</div>
+        活动管理
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">👥</div>
+        成员管理
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">📊</div>
+        数据报告
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">⚙️</div>
+        超话设置
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">快捷操作</div>
+      <div class="menu-item">
+        <div class="menu-icon">🔔</div>
+        批量回复
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">🗂️</div>
+        话题标签
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">📌</div>
+        置顶帖子
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMMENT FEED ── -->
+  <div class="comment-feed">
+
+    <div class="feed-toolbar">
+      <div class="feed-toolbar-left">
+        <div class="feed-toolbar-title">待回复评论 <span style="color:#E6162D;font-size:15px">47</span></div>
+        <div class="feed-toolbar-sub">最近 7 天内，用户在超话中 @ 品牌或评论官方帖子，尚未回复</div>
+      </div>
+      <div class="feed-filters">
+        <button class="filter-chip active">全部</button>
+        <button class="filter-chip">@ 我的</button>
+        <button class="filter-chip">热门</button>
+        <button class="filter-chip">最新</button>
+      </div>
+    </div>
+
+    <!-- Comment 1 -->
+    <div class="comment-card pending-reply">
+      <div class="cc-header">
+        <div class="cc-avatar" style="background:#4A90D9;">W</div>
+        <div class="cc-user-block">
+          <div class="cc-username">
+            wangxiao_tech
+            <span class="vip-tag">会员</span>
+          </div>
+          <div class="cc-meta">粉丝 2,341 · 2 小时前 · 来自 iPhone 15 Pro</div>
+          <div class="cc-source">评论于：<a href="#">天朗 TL-S9 Pro 降噪耳机正式发布——全球首发活动</a></div>
+        </div>
+        <span class="status-tag pending">待回复</span>
+      </div>
+      <div class="cc-body">
+        <span class="at">@天朗科技官方</span> 请问 TL-S9 Pro 支持同时连接两台设备吗？我目前用的是 MacBook 和 iPhone，希望可以无缝切换。另外蓝牙版本是 5.3 还是 5.4？官网没有写清楚，期待详细参数表！
+      </div>
+      <div class="cc-actions">
+        <button class="act-btn reply-btn">💬 回复</button>
+        <button class="act-btn approve">✓ 置顶</button>
+        <button class="act-btn pin">📌 精华</button>
+        <div class="act-spacer"></div>
+        <div class="cc-stats">
+          <span>👍 34</span>
+          <span>🔁 7</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment 2 -->
+    <div class="comment-card pending-reply">
+      <div class="cc-header">
+        <div class="cc-avatar" style="background:#E67E22;">跑</div>
+        <div class="cc-user-block">
+          <div class="cc-username">beauty_runner2024</div>
+          <div class="cc-meta">粉丝 892 · 3 小时前 · 来自 小米 14</div>
+          <div class="cc-source">评论于：<a href="#">【用户故事】天朗运动耳机 TL-X7 一年使用体验分享</a></div>
+        </div>
+        <span class="status-tag pending">待回复</span>
+      </div>
+      <div class="cc-body">
+        用了快一年了，TL-X7 真的超棒！防汗效果非常好，每次跑步结束直接冲洗都没问题。就是充电仓的盖子开合有点松，不知道是不是个例？希望新款能改进这个小细节，继续支持天朗！
+      </div>
+      <div class="cc-actions">
+        <button class="act-btn reply-btn">💬 回复</button>
+        <button class="act-btn">忽略</button>
+        <button class="act-btn pin">📌 精华</button>
+        <div class="act-spacer"></div>
+        <div class="cc-stats">
+          <span class="liked">👍 128</span>
+          <span>🔁 22</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment 3 -->
+    <div class="comment-card pending-reply">
+      <div class="cc-header">
+        <div class="cc-avatar" style="background:#27AE60;">T</div>
+        <div class="cc-user-block">
+          <div class="cc-username">tech_geek_gz</div>
+          <div class="cc-meta">粉丝 5,102 · 5 小时前 · 来自 网页版</div>
+          <div class="cc-source">评论于：<a href="#">天朗 TL-S9 Pro 京东旗舰店已开启预售</a></div>
+        </div>
+        <span class="status-tag pending">待回复</span>
+      </div>
+      <div class="cc-body">
+        <span class="at">@天朗科技官方</span> 想问一下保修政策，TL-S9 Pro 是一年还是两年质保？我之前买的 TL-S7，耳机单元坏了去售后被告知只有一年，感觉有点短。新款有没有升级保修政策？
+      </div>
+      <div class="cc-actions">
+        <button class="act-btn reply-btn">💬 回复</button>
+        <button class="act-btn">忽略</button>
+        <div class="act-spacer"></div>
+        <div class="cc-stats">
+          <span>👍 56</span>
+          <span>🔁 11</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment 4 -->
+    <div class="comment-card pending-reply">
+      <div class="cc-header">
+        <div class="cc-avatar" style="background:#8E44AD;">小</div>
+        <div class="cc-user-block">
+          <div class="cc-username">
+            xiaomei_zhengzhou
+          </div>
+          <div class="cc-meta">粉丝 441 · 7 小时前 · 来自 华为 Mate60 Pro</div>
+          <div class="cc-source">评论于：<a href="#">天朗科技超话 · 官方活动：晒单赢好礼</a></div>
+        </div>
+        <span class="status-tag pending">待回复</span>
+      </div>
+      <div class="cc-body">
+        我昨天在京东下单了 TL-S9 Pro 珍珠白，显示预计 5 月 8 日发货，请问这是正常的发货周期吗？还是说有货的话会提前？已经迫不及待了！
+      </div>
+      <div class="cc-actions">
+        <button class="act-btn reply-btn">💬 回复</button>
+        <button class="act-btn">忽略</button>
+        <div class="act-spacer"></div>
+        <div class="cc-stats">
+          <span>👍 19</span>
+          <span>🔁 3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment 5 — has existing brand reply draft shown -->
+    <div class="comment-card">
+      <div class="cc-header">
+        <div class="cc-avatar" style="background:#C0392B;">音</div>
+        <div class="cc-user-block">
+          <div class="cc-username">音乐发烧友_HZ</div>
+          <div class="cc-meta">粉丝 18,830 · 9 小时前 · 来自 iPhone 16 Pro Max</div>
+          <div class="cc-source">评论于：<a href="#">【深度测评】TL-S9 Pro 音质实测：Hi-Res 认证到底值不值？</a></div>
+        </div>
+        <span class="status-tag replied">已回复</span>
+      </div>
+      <div class="cc-body">
+        拿到试用样机了！解析力真的比 S7 提升明显，特别是高频细节，听古典弦乐超享受。主动降噪也很强，坐地铁几乎听不到外界声音。官方说的「10mm 液晶高分子振膜」确实有感，值得等！
+      </div>
+      <div class="brand-reply-preview">
+        <div class="brp-label">🏢 天朗科技官方 已回复</div>
+        <div class="brp-text">感谢您的专业评测！TL-S9 Pro 搭载的 10mm LHDC 液晶高分子振膜经过 18 个月调音优化，专为 Hi-Res Audio 场景设计。您提到的高频提升正是我们这代产品的核心突破点。期待您的完整体验分享，欢迎持续关注超话！ 🎵</div>
+      </div>
+      <div class="cc-actions">
+        <button class="act-btn">编辑回复</button>
+        <button class="act-btn pin">📌 精华</button>
+        <div class="act-spacer"></div>
+        <div class="cc-stats">
+          <span class="liked">👍 312</span>
+          <span>🔁 64</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment 6 -->
+    <div class="comment-card pending-reply">
+      <div class="cc-header">
+        <div class="cc-avatar" style="background:#16A085;">L</div>
+        <div class="cc-user-block">
+          <div class="cc-username">
+            liuyang_shenzhen
+            <span class="vip-tag">会员</span>
+          </div>
+          <div class="cc-meta">粉丝 3,210 · 11 小时前 · 来自 安卓</div>
+          <div class="cc-source">评论于：<a href="#">TL-S9 Pro vs 索尼 WF-1000XM5：横向对比测评</a></div>
+        </div>
+        <span class="status-tag pending">待回复</span>
+      </div>
+      <div class="cc-body">
+        期待天朗出一款头戴式的！一直用索尼 WH-1000XM5，但国内品牌这块一直没有打得过的。TL-S9 Pro 表现不错，如果有 Over-Ear 版本我一定第一时间入手，求官方透露路线图！
+      </div>
+      <div class="cc-actions">
+        <button class="act-btn reply-btn">💬 回复</button>
+        <button class="act-btn">忽略</button>
+        <div class="act-spacer"></div>
+        <div class="cc-stats">
+          <span>👍 87</span>
+          <span>🔁 15</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compose box -->
+    <div class="compose-box">
+      <div class="compose-header">
+        以 <span class="compose-badge">天朗科技官方</span> 身份回复
+      </div>
+      <textarea class="compose-ta" placeholder="输入回复内容（以品牌官方身份发送，将公开显示在超话评论区）..."></textarea>
+      <div class="compose-footer">
+        <span class="compose-char-count">0 / 280</span>
+        <div class="compose-btns">
+          <button class="btn-cancel">取消</button>
+          <button class="btn-send">发送回复</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:16px 0 8px;color:#CCC;font-size:12px;">
+      已加载全部待回复评论 · 共 47 条 · 最后更新 2 分钟前
+    </div>
+
+  </div><!-- /comment-feed -->
+
+  <!-- ── RIGHT SIDEBAR ── -->
+  <div class="right-sidebar">
+
+    <div class="rs-card">
+      <div class="rs-title">今日互动</div>
+      <div class="rs-stat-row">
+        <span class="rs-label">新增评论</span>
+        <span class="rs-value red">+147</span>
+      </div>
+      <div class="rs-stat-row">
+        <span class="rs-label">待回复</span>
+        <span class="rs-value orange">47</span>
+      </div>
+      <div class="rs-stat-row">
+        <span class="rs-label">已回复</span>
+        <span class="rs-value">100</span>
+      </div>
+      <div class="rs-stat-row">
+        <span class="rs-label">新增粉丝</span>
+        <span class="rs-value">+312</span>
+      </div>
+      <div class="rs-stat-row">
+        <span class="rs-label">帖子曝光</span>
+        <span class="rs-value">82.4万</span>
+      </div>
+    </div>
+
+    <div class="rs-card">
+      <div class="rs-title">超话热议</div>
+      <div class="hot-topic-item">
+        <div class="hot-num n1">1</div>
+        #天朗TLS9Pro开箱#
+      </div>
+      <div class="hot-topic-item">
+        <div class="hot-num n2">2</div>
+        #天朗降噪测评#
+      </div>
+      <div class="hot-topic-item">
+        <div class="hot-num n3">3</div>
+        #天朗VS索尼#
+      </div>
+      <div class="hot-topic-item">
+        <div class="hot-num rest">4</div>
+        #天朗运动耳机#
+      </div>
+      <div class="hot-topic-item">
+        <div class="hot-num rest">5</div>
+        #天朗5月新品#
+      </div>
+    </div>
+
+    <div class="rs-card">
+      <div class="rs-title">运营提示</div>
+      <div class="rs-notice">
+        建议每日回复优先级：<br>
+        <a href="#">1. 高赞评论 (&gt;50👍)</a><br>
+        2. @ 官方问题<br>
+        3. 负面反馈<br><br>
+        回复将以<strong>天朗科技官方</strong>身份公开发送，请确认内容后再提交。
+      </div>
+    </div>
+
+    <div class="rs-card">
+      <div class="rs-title">超话排名</div>
+      <div class="rs-stat-row">
+        <span class="rs-label">科技品牌榜</span>
+        <span class="rs-value red">#3</span>
+      </div>
+      <div class="rs-stat-row">
+        <span class="rs-label">数码超话榜</span>
+        <span class="rs-value">#11</span>
+      </div>
+      <div class="rs-stat-row">
+        <span class="rs-label">今日新帖</span>
+        <span class="rs-value">2,847</span>
+      </div>
+    </div>
+
+  </div><!-- /right-sidebar -->
+
+</div><!-- /main-layout -->
+
+</body>
+</html>

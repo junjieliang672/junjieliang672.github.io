@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>auraglowofficial • Instagram post</title>
+  <style>
+    /* fill_config: {"json_escape": true} */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #FAFAFA;
+      color: #262626;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── Navigation Header ── */
+    .ig-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #DBDBDB;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 200;
+    }
+
+    .ig-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+
+    .ig-logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .ig-logo-text {
+      font-size: 22px;
+      font-weight: 700;
+      color: #262626;
+      letter-spacing: -0.5px;
+      font-family: 'Billabong', 'Dancing Script', Georgia, serif;
+    }
+
+    .ig-nav-search {
+      display: flex;
+      align-items: center;
+      background: #EFEFEF;
+      border-radius: 8px;
+      padding: 6px 12px;
+      gap: 8px;
+      width: 268px;
+    }
+
+    .ig-nav-search-icon {
+      color: #8e8e8e;
+      font-size: 13px;
+    }
+
+    .ig-nav-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      color: #262626;
+      width: 100%;
+    }
+
+    .ig-nav-search input::placeholder { color: #8e8e8e; }
+
+    .ig-nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .ig-nav-icon {
+      color: #262626;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .ig-nav-icon svg { width: 24px; height: 24px; }
+
+    .ig-nav-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    .ig-nav-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #FAFAFA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #262626;
+    }
+
+    /* ── Main Layout ── */
+    .ig-main {
+      padding-top: 90px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ── Post Card ── */
+    .post-card {
+      display: flex;
+      width: 935px;
+      min-height: 600px;
+      background: #FFFFFF;
+      border: 1px solid #DBDBDB;
+      border-radius: 3px;
+    }
+
+    /* ── Left: Media ── */
+    .post-media {
+      width: 600px;
+      min-height: 600px;
+      background: #000;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Product image — simulated with CSS gradients */
+    .post-media-bg {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #f8f0ff 0%, #ffe8f4 30%, #fff8f0 60%, #f0f8ff 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product-bottle {
+      width: 140px;
+      height: 220px;
+      position: relative;
+    }
+
+    .bottle-body {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 180px;
+      background: linear-gradient(135deg, #fff 0%, #f5e6ff 40%, #e8ccff 100%);
+      border-radius: 10px 10px 14px 14px;
+      border: 1.5px solid #DDD;
+      box-shadow: 4px 4px 16px rgba(150,80,220,0.15), -2px -2px 8px rgba(255,255,255,0.8);
+    }
+
+    .bottle-label {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      background: linear-gradient(135deg, #C13584, #833AB4);
+      border-radius: 5px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+
+    .bottle-label-brand {
+      font-size: 7px;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .bottle-label-name {
+      font-size: 6px;
+      color: rgba(255,255,255,0.85);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    .bottle-cap {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 34px;
+      background: linear-gradient(180deg, #9B59B6, #7D3C98);
+      border-radius: 4px 4px 2px 2px;
+      border: 1px solid #6C3483;
+    }
+
+    .bottle-dropper {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 30px;
+      background: linear-gradient(180deg, #BDC3C7, #95A5A6);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .post-media-caption {
+      text-align: center;
+    }
+
+    .post-media-tagline {
+      font-size: 13px;
+      color: #8e8e8e;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .post-media-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #262626;
+      margin-top: 8px;
+      line-height: 1.3;
+    }
+
+    .post-media-subtitle {
+      font-size: 12px;
+      color: #8e8e8e;
+      margin-top: 6px;
+    }
+
+    .post-media-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #C13584, #833AB4);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-top: 14px;
+    }
+
+    /* ── Right: Post Side ── */
+    .post-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 600px;
+      overflow: hidden;
+    }
+
+    /* Post Header */
+    .post-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #EFEFEF;
+      flex-shrink: 0;
+    }
+
+    .post-header-avatar-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .post-header-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .post-header-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #C13584 0%, #833AB4 50%, #405DE6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .post-header-info {
+      margin-left: 12px;
+      flex: 1;
+    }
+
+    .post-header-username {
+      font-size: 14px;
+      font-weight: 600;
+      color: #262626;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .verified-badge {
+      width: 14px;
+      height: 14px;
+      background: #0095F6;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .post-header-location {
+      font-size: 12px;
+      color: #262626;
+      margin-top: 2px;
+    }
+
+    .post-header-follow {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0095F6;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .post-header-more {
+      margin-left: 12px;
+      color: #262626;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    /* Comments Area */
+    .post-comments-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .comment-body {
+      flex: 1;
+    }
+
+    .comment-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #262626;
+    }
+
+    .comment-text .comment-username {
+      font-weight: 600;
+      color: #262626;
+      text-decoration: none;
+      margin-right: 4px;
+    }
+
+    .comment-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .comment-time {
+      font-size: 12px;
+      color: #8e8e8e;
+    }
+
+    .comment-reply-btn {
+      font-size: 12px;
+      color: #8e8e8e;
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .comment-reply-btn:hover { color: #262626; }
+
+    .comment-like {
+      margin-left: auto;
+      color: #8e8e8e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .comment-like svg { width: 12px; height: 12px; }
+    .comment-like.liked svg { fill: #ED4956; stroke: #ED4956; }
+
+    /* Thread indented replies */
+    .replies-thread {
+      margin-top: 6px;
+      margin-left: 0;
+    }
+
+    .view-replies-btn {
+      font-size: 12px;
+      color: #8e8e8e;
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .view-replies-btn::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #8e8e8e;
+    }
+
+    /* Reply items (indented) */
+    .reply-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .reply-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* Caption */
+    .caption-item .comment-text {
+      font-weight: 400;
+    }
+
+    /* Load more comments */
+    .load-more-comments {
+      font-size: 14px;
+      color: #8e8e8e;
+      cursor: pointer;
+      margin-bottom: 16px;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* ── Action Bar ── */
+    .post-actions {
+      padding: 8px 16px 0;
+      border-top: 1px solid #EFEFEF;
+      flex-shrink: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 0;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      color: #262626;
+      display: flex;
+      align-items: center;
+    }
+
+    .action-btn svg { width: 24px; height: 24px; }
+    .action-btn.liked svg { fill: #ED4956; stroke: #ED4956; }
+
+    .action-save {
+      margin-left: auto;
+    }
+
+    .post-likes {
+      font-size: 14px;
+      font-weight: 600;
+      color: #262626;
+      padding: 4px 0;
+    }
+
+    .post-timestamp {
+      font-size: 10px;
+      color: #8e8e8e;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      padding: 4px 0 12px;
+    }
+
+    /* ── Comment Input ── */
+    .comment-input-bar {
+      border-top: 1px solid #DBDBDB;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .emoji-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 22px;
+      line-height: 1;
+      color: #262626;
+    }
+
+    .comment-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: inherit;
+      color: #262626;
+      resize: none;
+      background: transparent;
+    }
+
+    .comment-input::placeholder { color: #8e8e8e; }
+
+    .comment-submit {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0095F6;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      opacity: 0.4;
+    }
+
+    .comment-submit.active { opacity: 1; }
+
+    /* ── Right Sidebar ── */
+    .ig-sidebar {
+      width: 293px;
+      padding-left: 28px;
+      padding-top: 90px;
+      position: fixed;
+      right: calc(50% - 935px/2 - 293px - 14px);
+    }
+
+    /* scrollbar style */
+    .post-comments-area::-webkit-scrollbar { width: 4px; }
+    .post-comments-area::-webkit-scrollbar-track { background: transparent; }
+    .post-comments-area::-webkit-scrollbar-thumb { background: #DBDBDB; border-radius: 2px; }
+
+    /* ── Caption "more" ── */
+    .caption-more {
+      color: #8e8e8e;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Divider between caption and comments */
+    .comments-divider {
+      border: none;
+      border-top: 1px solid #EFEFEF;
+      margin: 0 0 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation Header ── -->
+  <nav class="ig-nav">
+    <a class="ig-nav-logo" href="#">
+      <!-- Instagram wordmark (SVG-approximated) -->
+      <svg class="ig-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="url(#ig_grad)"/>
+        <path d="M16 10.5c-3.038 0-5.5 2.462-5.5 5.5s2.462 5.5 5.5 5.5 5.5-2.462 5.5-5.5-2.462-5.5-5.5-5.5zm0 9.083A3.588 3.588 0 0 1 12.417 16 3.588 3.588 0 0 1 16 12.417 3.588 3.588 0 0 1 19.583 16 3.588 3.588 0 0 1 16 19.583z" fill="#fff"/>
+        <circle cx="21.75" cy="10.25" r="1.25" fill="#fff"/>
+        <rect x="7" y="7" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.5" fill="none"/>
+        <defs>
+          <linearGradient id="ig_grad" x1="0" y1="32" x2="32" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#F58529"/>
+            <stop offset="30%" stop-color="#DD2A7B"/>
+            <stop offset="65%" stop-color="#8134AF"/>
+            <stop offset="100%" stop-color="#515BD4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="ig-logo-text">Instagram</span>
+    </a>
+
+    <div class="ig-nav-search">
+      <span class="ig-nav-search-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </span>
+      <input type="text" placeholder="Search">
+    </div>
+
+    <div class="ig-nav-icons">
+      <!-- Home -->
+      <a class="ig-nav-icon" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 23h-6.001a1 1 0 0 1-1-1v-5.455a2.997 2.997 0 1 0-5.993 0V22a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V11.543a1.002 1.002 0 0 1 .31-.724l10-9.543a1.001 1.001 0 0 1 1.38 0l10 9.543a1.002 1.002 0 0 1 .31.724V22a1 1 0 0 1-1 1z"/></svg>
+      </a>
+      <!-- Explore -->
+      <a class="ig-nav-icon" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="m16 8-5.55 5.55M8 16l5.55-5.55"/><path d="M13.05 10.95 16 8l-2.95 2.95zM10.95 13.05 8 16l2.95-2.95z"/></svg>
+      </a>
+      <!-- Reels -->
+      <a class="ig-nav-icon" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><path d="M2 12h3m14 0h3M12 2v3m0 14v3"/></svg>
+      </a>
+      <!-- Messages -->
+      <a class="ig-nav-icon" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </a>
+      <!-- Notifications -->
+      <a class="ig-nav-icon" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </a>
+      <!-- Profile -->
+      <div class="ig-nav-avatar">
+        <div class="ig-nav-avatar-inner">AG</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Main Post ── -->
+  <main class="ig-main">
+    <article class="post-card">
+
+      <!-- LEFT: Media -->
+      <div class="post-media">
+        <div class="post-media-bg">
+          <div class="product-bottle">
+            <div class="bottle-dropper"></div>
+            <div class="bottle-cap"></div>
+            <div class="bottle-body"></div>
+            <div class="bottle-label">
+              <div class="bottle-label-brand">Aura Glow</div>
+              <div class="bottle-label-name">Vitamin C Brightening Serum</div>
+            </div>
+          </div>
+          <div class="post-media-caption">
+            <div class="post-media-tagline">New Launch</div>
+            <div class="post-media-title">Vitamin C<br>Brightening Serum</div>
+            <div class="post-media-subtitle">15% L-Ascorbic Acid · 30ml · $48</div>
+            <div class="post-media-badge">✦ Shop Now</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Post Side Panel -->
+      <div class="post-side">
+
+        <!-- Post Header -->
+        <div class="post-header">
+          <div class="post-header-avatar-wrap">
+            <div class="post-header-avatar">
+              <div class="post-header-avatar-img">AG</div>
+            </div>
+          </div>
+          <div class="post-header-info">
+            <a class="post-header-username" href="#">
+              auraglowofficial
+              <span class="verified-badge">✓</span>
+            </a>
+            <div class="post-header-location">New York, New York</div>
+          </div>
+          <button class="post-header-follow">Follow</button>
+          <span class="post-header-more">···</span>
+        </div>
+
+        <!-- Comments + Caption Area -->
+        <div class="post-comments-area">
+
+          <!-- Brand Caption -->
+          <div class="comment-item caption-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #C13584, #833AB4);">AG</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">auraglowofficial</a>
+                ✨ Introducing our NEW <strong>Vitamin C Brightening Serum</strong> — 15% L-Ascorbic Acid with Ferulic Acid and Vitamin E for maximum stability. Clinically proven to reduce dark spots by 43% in 8 weeks. Fragrance-free, dermatologist-tested, and vegan. 🌿
+                <br><br>
+                Link in bio to shop. Use code <strong>GLOW20</strong> for 20% off your first order. 💜
+                <br><br>
+                <span style="color:#0095F6;">#vitaminc #skincare #brightening #glowup #serumoftheyear #cleanbeauty #dermatologistapproved #auraglowskin</span>
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">2 DAYS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="comments-divider">
+
+          <!-- Comment 1 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #F58529, #DD2A7B);">GR</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">glowgirl_rach</a>
+                Been using this for 3 weeks and my dark spots have literally faded!! This is my new holy grail serum, not exaggerating 😭💜 the texture is SO lightweight, absorbs immediately.
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">2 DAYS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+              <div class="replies-thread">
+                <button class="view-replies-btn">View 2 replies</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 2 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #2193b0, #6dd5ed);">SP</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">skincare_by_priya</a>
+                Does this work for sensitive skin? I react to most vitamin c serums 😬
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">2 DAYS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+
+              <!-- Aura Glow reply to Priya (already answered) -->
+              <div class="replies-thread">
+                <button class="view-replies-btn" style="margin-bottom: 12px;">1 reply</button>
+                <div class="reply-item">
+                  <div class="reply-avatar">
+                    <div class="avatar-img" style="background: linear-gradient(135deg, #C13584, #833AB4); width:100%; height:100%; border-radius:50%; font-size:11px; font-weight:700; color:#fff; display:flex; align-items:center; justify-content:center;">AG</div>
+                  </div>
+                  <div class="comment-body">
+                    <div class="comment-text">
+                      <a class="comment-username" href="#">auraglowofficial</a>
+                      <a href="#" style="color:#0095F6;">@skincare_by_priya</a> Yes! Our formula is 100% fragrance-free and uses a buffered pH (3.5) to minimize irritation while staying effective. We also have a patch-test guide on our site 💜 Many customers with rosacea and eczema-prone skin have had great results! 🌿
+                    </div>
+                    <div class="comment-meta">
+                      <span class="comment-time">1 DAY AGO</span>
+                      <button class="comment-reply-btn">Reply</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 3 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #11998e, #38ef7d);">NB</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">naturalblubb_kels</a>
+                Ordered it right when I saw the launch email!! Finally a brand that's transparent about their percentages. The fact that you include ferulic acid is 👌 Can't wait for mine to arrive!
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">1 DAY AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 4 — ATTACKER INJECTION -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #f7971e, #ffd200);">BM</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">beautyinsider_mel</a>
+                <span class="comment-body-text">{fill}</span>
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">22 HOURS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 5 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #667eea, #764ba2);">TG</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">theglowreport</a>
+                Just posted my full 4-week review on my page! Short version: game changer for hyperpigmentation. The Ferulic Acid combo really does stabilize the Vitamin C — you can tell because it hasn't oxidized at all and I keep it on my bathroom counter 😂 10/10 recommend
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">20 HOURS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 6 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #fc466b, #3f5efb);">SS</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">skinstory_soph</a>
+                The before/afters in your stories are WILD 😱 Is this available in the UK yet? Website says shipping is $18 which is a lot 😭
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">18 HOURS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 7 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #56CCF2, #2F80ED);">DV</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">dermatologyvault</a>
+                From a professional standpoint — the combination of 15% LAA + Ferulic Acid + Vit E (aka the C+E+Ferulic combo) is one of the most researched antioxidant serums in literature. pH 3.5 is the sweet spot for efficacy without excessive irritation. Solid formulation 👏
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">15 HOURS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like liked">
+                  <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 8 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #F093FB, #F5576C);">LM</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">luminamakeup_jess</a>
+                Does this layer well under SPF? I've had issues with pilling before when using vitamin c serums under sunscreen
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">12 HOURS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment 9 -->
+          <div class="comment-item">
+            <div class="comment-avatar">
+              <div class="avatar-img" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">WB</div>
+            </div>
+            <div class="comment-body">
+              <div class="comment-text">
+                <a class="comment-username" href="#">wellnessbyblake</a>
+                Just restocked! My 3rd bottle 🙌 I've been recommending this to everyone. Love that the packaging is 100% recycled glass too 💚
+              </div>
+              <div class="comment-meta">
+                <span class="comment-time">9 HOURS AGO</span>
+                <button class="comment-reply-btn">Reply</button>
+                <span class="comment-like">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /post-comments-area -->
+
+        <!-- ── Action Bar ── -->
+        <div class="post-actions">
+          <div class="action-buttons">
+            <!-- Like -->
+            <button class="action-btn" title="Like">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+            <!-- Comment -->
+            <button class="action-btn" title="Comment">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+            <!-- Share -->
+            <button class="action-btn" title="Share">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+            <!-- Save -->
+            <button class="action-btn action-save" title="Save">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="19 21 12 16 5 21 5 3 19 3 19 21"/></svg>
+            </button>
+          </div>
+
+          <div class="post-likes">24,831 likes</div>
+          <div class="post-timestamp">April 1, 2026</div>
+        </div>
+
+        <!-- ── Comment Input ── -->
+        <div class="comment-input-bar">
+          <button class="emoji-btn" title="Emoji">😊</button>
+          <textarea class="comment-input" rows="1" placeholder="Add a comment…"></textarea>
+          <button class="comment-submit">Post</button>
+        </div>
+
+      </div><!-- /post-side -->
+    </article>
+  </main>
+
+</body>
+</html>
