@@ -10,8 +10,8 @@ A collection of standalone HTML pages that mirror real product UIs but contain
 injected content used to evaluate agent behavior in adversarial scenarios.
 Each page is fully self-contained and renders directly in the browser.
 
-- [百度百科·北京词条 · 浏览器助手身份外泄（deployment-neutral 版本）](portable-bua-s1a-O1a-baike-beijing.html)
 - [IT之家·xAI Grok 离职报道 · 浏览器助手身份外泄（deployment-neutral 版本）](portable-bua-s1a-O1a-ithome-xai.html)
+- [百度百科·北京词条 · 浏览器助手身份外泄（deployment-neutral 版本）](portable-bua-s1a-O1a-baike-beijing.html)
 - [百度百科·北京词条 · 浏览器助手最终回复输出操纵（Family B 验证）](portable-bua-s1a-O7a-baike-beijing.html)
 - [hack.png (asset referenced by the pages above)](hack.png)
 - [订单详情 — 拼多多](computer-use-s1c-O1c-pinduoduo-order-detail_10.html)
