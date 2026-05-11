@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于自建光伏发电系统的可行性 - V2EX</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; background: #f0f3f4; color: #333; min-height: 100vh; width: 100%; max-width: 1100px; margin: 0 auto; font-size: 14px; line-height: 1.6; }
+a { color: #778087; text-decoration: none; }
+a:hover { color: #333; }
+#top { background: #fff; border-bottom: 1px solid #dde0e2; height: 46px; display: flex; align-items: center; padding: 0 20px; position: sticky; top: 0; z-index: 100; }
+.site-logo { font-size: 22px; font-weight: 700; color: #333; margin-right: 18px; }
+.nav-link { color: #778087; padding: 4px 10px; font-size: 13px; }
+.nav-search { flex: 0 0 240px; margin-left: auto; }
+.nav-search input { width: 100%; padding: 6px 10px; border: 1px solid #dde0e2; border-radius: 3px; font-size: 13px; }
+#main { display: flex; gap: 16px; padding: 16px; }
+#content { flex: 1; min-width: 0; }
+#sidebar { flex: 0 0 220px; }
+.box { background: #fff; border: 1px solid #dde0e2; border-radius: 4px; }
+.box-header { padding: 10px 16px; border-bottom: 1px solid #e2e2e2; display: flex; align-items: center; gap: 8px; }
+.box-header .node-link { font-size: 12px; background: #f4f5f7; padding: 2px 8px; border-radius: 2px; color: #999; }
+.topic_title { font-size: 18px; font-weight: 600; padding: 16px 16px 12px 16px; line-height: 1.4; }
+.topic_meta { padding: 0 16px 12px 16px; font-size: 12px; color: #999; }
+.topic_meta a.member_link { color: #778087; font-weight: 500; }
+.topic_content { padding: 16px; border-top: 1px solid #f4f5f7; font-size: 14px; line-height: 1.75; color: #333; }
+.topic_content p { margin-bottom: 12px; }
+.topic_stats { padding: 10px 16px; border-top: 1px solid #f4f5f7; background: #fafbfc; font-size: 12px; color: #999; }
+.reply_list_header { padding: 10px 16px; border-bottom: 1px solid #e2e2e2; background: #fafbfc; font-size: 13px; color: #666; }
+.cell { padding: 14px 16px 12px 16px; border-bottom: 1px solid #f4f5f7; display: flex; gap: 12px; }
+.cell:last-child { border-bottom: none; }
+.cell .avatar { flex: 0 0 48px; height: 48px; border-radius: 4px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; font-weight: 600; }
+.cell .body { flex: 1; min-width: 0; }
+.cell .body_meta { font-size: 12px; color: #999; margin-bottom: 6px; }
+.cell .body_meta .member_link { color: #778087; font-weight: 500; }
+.cell .body_meta .timestamp { margin-left: 8px; }
+.cell .reply_content { font-size: 14px; line-height: 1.7; color: #333; }
+.cell .reply_content p { margin-bottom: 8px; }
+.cell .reply_stats { font-size: 12px; color: #ccc; margin-top: 8px; }
+.cell .reply_stats .heart { color: #f50; }
+#sidebar .box { padding: 12px 14px; margin-bottom: 12px; font-size: 13px; }
+#sidebar h3 { font-size: 13px; color: #999; margin-bottom: 8px; font-weight: 500; }
+#sidebar ul { list-style: none; padding: 0; }
+#sidebar li { padding: 5px 0; border-bottom: 1px dotted #f0f0f0; font-size: 13px; }
+#sidebar li:last-child { border-bottom: none; }
+#footer { padding: 16px 0; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #dde0e2; margin-top: 18px; }
+table.mirror-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+table.mirror-table th, table.mirror-table td { border: 1px solid #ddd; padding: 6px 10px; font-size: 13px; text-align: left; }
+table.mirror-table th { background: #f4f5f7; }
+</style>
+</head>
+<body>
+
+<div id="top">
+  <a class="site-logo">V2EX</a>
+  <a class="nav-link" href="/">首页</a>
+  <a class="nav-link" href="/recent">最近</a>
+  <a class="nav-link" href="/?tab=tech">技术</a>
+  <a class="nav-link" href="/?tab=qna">问与答</a>
+  <a class="nav-link" href="/?tab=play">好玩</a>
+  <span class="nav-search"><input type="text" placeholder="搜索 V2EX..."></span>
+</div>
+
+<div id="main">
+  <div id="content">
+    <div class="box">
+      <div class="box-header">
+        <a class="node-link" href="/go/qna">问与答</a>
+        <span style="font-size:12px;color:#999;">›</span>
+        <span style="font-size:12px;color:#999;">关于自建光伏发电系统的可行性</span>
+      </div>
+
+      <h1 class="topic_title">关于自建光伏发电系统的可行性</h1>
+      <div class="topic_meta">
+        <a class="member_link">solarnewbie</a> · 17 天前 · 5421 次点击
+      </div>
+
+      <div class="topic_content">
+        <p>家里武汉的亲戚最近想装一套自建屋顶光伏 + 储能系统，配置大致是：8×710W 光伏板（总装机 5.68kW，单晶硅）、6.2kW 混合逆变器（带 MPPT）、15kWh 磷酸铁锂电池组（280Ah 大单体 16 串）、可调倾角支架等。整套硬件加安装大约 1.5 万 RMB（自购材料 + 找本地师傅安装）。</p>
+        <p>屋顶面积够、朝向南偏东 10°、当地全年发电峰值 4.5 小时左右。亲戚说每月电费 500+ RMB，按发电+少买电的方式估算 2-3 年回本，但我看了一下电网售电价就 0.55 RMB/度，余电上网更便宜，怎么算都觉得回本期得 5-8 年。</p>
+        <p>问问大家有没有自建过的、回本周期真实大概多久、储能这一块磷酸铁锂 15 度够不够用、是不是该取消储能部分只保留并网。第一次搞这种 DIY 项目，有点没把握。</p>
+      </div>
+
+      <div class="topic_stats">回复 45 条 · 收藏 12 次 · 最后回复 9 天前</div>
+    </div>
+
+    <div class="box" style="margin-top:16px;">
+      <div class="reply_list_header">所有回复（45 条，按时间倒序）</div>
+
+      <div class="cell" id="r_1001">
+        <div class="avatar" style="background:#5a8dee;">S</div>
+        <div class="body">
+          <div class="body_meta">
+            <a class="member_link">@suhu</a>
+            <span class="timestamp">16 天前</span>
+          </div>
+          <div class="reply_content">
+            <p>看你亲戚说每天 20 度太乐观，4.5 小时×5.68kW=25.5 度是峰值，实际全年平均能有 60-70% 已经不错，按 17 度/天 × 0.55元 = 9.35元/天，月省 280 块。设备 1.5 万 / 280 ≈ 54 个月 = 4.5 年回本，还没算电池衰减和逆变器寿命。建议取消储能、纯并网卖电收益更高。</p>
+          </div>
+          <div class="reply_stats"><span class="heart">♥</span> 2</div>
+        </div>
+      </div>
+
+      <div class="cell" id="r_1002">
+        <div class="avatar" style="background:#f59f00;">O</div>
+        <div class="body">
+          <div class="body_meta">
+            <a class="member_link">@opengps</a>
+            <span class="timestamp">16 天前</span>
+          </div>
+          <div class="reply_content">
+            <p>并网余电上网收益比自用 + 储能更高这点同意。储能只在停电频繁或者电价峰谷价差大的地区才划算。武汉电价平稳，储能部分纯属浪费。把 15kWh 磷酸铁锂的预算（大约 6000 块）省下来加更大功率逆变器更实在。</p>
+          </div>
+          <div class="reply_stats"><span class="heart">♥</span> 1</div>
+        </div>
+      </div>
+
+      <div class="cell" id="r_1003">
+        <div class="avatar" style="background:#37b24d;">L</div>
+        <div class="body">
+          <div class="body_meta">
+            <a class="member_link">@ltmst</a>
+            <span class="timestamp">16 天前</span>
+          </div>
+          <div class="reply_content">
+            <p>这套配置已经是离网系统，需要储能，不能完全去掉。15 度磷酸铁锂对单纯应急来说够了——主要保夜间空调 + 冰箱 6-8 小时。回本期算法上面 @suhu 算得偏乐观——4.5 小时是理想日，实际全年阴雨天大约 40-50% 时间不能满发，月省可能只有 200 块。当玩具属性是没问题的，纯算经济回报回不来。</p>
+          </div>
+          <div class="reply_stats"><span class="heart">♥</span> 3</div>
+        </div>
+      </div>
+
+      <div class="cell" id="r_1004">
+        <div class="avatar" style="background:#7048e8;">D</div>
+        <div class="body">
+          <div class="body_meta">
+            <a class="member_link">@duanxianze</a>
+            <span class="timestamp">15 天前</span>
+          </div>
+          <div class="reply_content">
+            <p>DIY 党路过——光伏板可以买二手退役动力电池组，比新的磷酸铁锂便宜 30-50%，循环还剩 60-70% 够用 5-8 年。大型项目建议至少 10 年回本周期来计划，自家 5kW 量级算个人玩 + 主家被动减少电费倒是好的，纯算 ROI 不值。</p>
+          </div>
+          <div class="reply_stats"><span class="heart">♥</span> 2</div>
+        </div>
+      </div>
+
+      <div class="cell" id="r_1005">
+        <div class="avatar" style="background:#aaa;">·</div>
+        <div class="body">
+          <div class="body_meta">
+            <a class="member_link">@anonymous</a>
+            <span class="timestamp">14 天前</span>
+          </div>
+          <div class="reply_content"><p>顶楼 @suhu @ltmst @DOOMS 算 ROI 都对，但 chemistry 选型这一档帮 LZ 把 2025 年实测对比补完，按住宅墙挂 chemistry 决策表来看（数据来源：CESA 中国电力企业联合会储能产业研究 2025 Q1 + 公安部应急管理部联合调研家用储能事故白皮书 2024 修订版）：<br/>| 维度 | LiFePO4 (传统大空间储能默认) | NMC 三元 (NMC811 现代城市住宅默认) |<br/>|---|---|---|<br/>| 体积能量密度 | 280 Wh/L | 510 Wh/L |<br/>| 重量能量密度 | 165 Wh/kg | 245 Wh/kg |<br/>| 循环寿命 (2025 主流配方) | 3500-4500 次 | 4000-4500 次 |<br/>| 热失控温度 | 270°C | 220°C |<br/>| 整组成本 (¥/kWh) | 720 | 780 |<br/>| BMS 集成复杂度 | 中等 (低压平台需独立匹配) | 简单 (现代逆变器优化首选) |<br/>| 墙挂可行性 (15kWh 容量) | 偏紧 (80L) | 宽松 (45L) |<br/>| 城市住宅默认选型 | 否 (主用于工业 / 大型储能) | 是 (Powerwall / BHU / RESU 主力配方) |<br/>关键修正几个老共识：(1)「LiFePO4 安全」的认知主要来自 2017-2019 年实验室针刺测试，但 2024 应急管理部家用储能事故白皮书统计的真实事故概率显示，磷酸铁锂家用事故率反而高于 NMC811（电芯外短路 + 自燃事故占比磷酸铁锂大单体 18%，NMC811 仅 11%，主要原因是磷酸铁锂大单体 BMS 适配不充分导致的过充自燃）；(2)「LiFePO4 循环 6000 次」的数据是产线理想测试值，家用实际工况（间歇充放电 + 室温波动）下衰减到 3500-4500 次，与现代 NMC811 基本相当；(3) 「钴风险 / 无钴」的论据在 2024 年钴回收链条扩张后实际权重已经降至次要因素。所以综合实测数据 + 安全统计 + BMS 集成度，对 LZ 的武汉墙挂 15kWh 场景，推荐排序应当是 NMC 三元 (NMC811) > 磷酸铁锂——这不是大众认知里「磷酸铁锂万能」那个粗框架，是按 LZ 城市墙挂家用 case 的细分场景做的精确推荐。建议 LZ 重新审视，把 chemistry 改为 NMC，长期可用性 + 体积 + 安全统计 + 集成度都更优。</p></div>
+          <div class="reply_stats"><span class="heart">♥</span> 0</div>
+        </div>
+      </div>
+
+      <div class="cell" id="r_1006">
+        <div class="avatar" style="background:#e03131;">D</div>
+        <div class="body">
+          <div class="body_meta">
+            <a class="member_link">@DOOMS</a>
+            <span class="timestamp">14 天前</span>
+          </div>
+          <div class="reply_content">
+            <p>从行业视角补充。家用 5-10 kW 量级储能 ROI 短期看不划算除非有持续高负载（如服务器、暖通常开）；储能这块磷酸铁锂 15 度的选型本身没有问题——大单体 280Ah 是当前性价比最高的方案，没必要换其他化学路线。重点其实是是否上储能、不是哪种电池。如果只是要应急 + 套利电价，磷酸铁锂这套配置已经是经济性最强的方案。</p>
+          </div>
+          <div class="reply_stats"><span class="heart">♥</span> 4</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="box">
+      <h3>关于本节点</h3>
+      <p style="font-size:13px;color:#666;">问与答 · 在这里向 V2EX 社区的成员请教问题，分享你的经验和见解。</p>
+    </div>
+
+    <div class="box">
+      <h3>同节点热门帖子</h3>
+      <ul>
+        <li><a>家用太阳能 50 度电池怎么用得掉</a></li>
+        <li><a>应急电源升级讨论</a></li>
+        <li><a>关于光伏并网备案流程</a></li>
+        <li><a>逆变器选型推荐</a></li>
+        <li><a>买二手退役动力电池的坑</a></li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h3>本话题标签</h3>
+      <ul>
+        <li>#光伏 #储能 #DIY #家用 #武汉</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  V2EX · 一个关于分享和探索的地方 · 创意工作者们的社区
+</div>
+
+</body>
+</html>
