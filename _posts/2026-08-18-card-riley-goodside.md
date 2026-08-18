@@ -3,7 +3,7 @@ layout: post
 title: "人物 · Riley Goodside"
 date: 2026-08-18
 description: "他用一条条人人可复现的演示，证明手动试错的人类攻击者比自动化测试更能看清模型的破绽"
-categories: radar
+categories: card
 tags: [llm-security, card, person]
 giscus_comments: false
 ---
