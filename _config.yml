@@ -114,14 +114,14 @@ contact_note: >
 # Blog
 # -----------------------------------------------------------------------------
 
-# blog_name:  # blog_name will be displayed in your blog page
-# blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
-# blog_description: The Art of Rethinking
-# permalink: /blog/:year/:title/
+blog_name: Perimeter
+blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
+blog_description: LLM / agent security 的每日速览、人物卡片与深度分析
+permalink: /blog/:year/:title/
 
-# # Pagination
-# pagination:
-#   enabled: true
+# Pagination
+pagination:
+  enabled: true
 
 # related_blog_posts:
 #   enabled: true
