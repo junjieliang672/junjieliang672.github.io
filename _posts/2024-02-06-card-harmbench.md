@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "bench · HarmBench（自动化红队标准评测框架）"
+title: "评测集/基准 · HarmBench（自动化红队标准评测框架）"
 date: 2024-02-06
 description: "510 条有害行为 + 一个 Llama-2-13B 判定器，量的是「单轮请求下模型有没有吐出实质有害内容」这一件事"
-categories: card
-tags: [llm-security, card, bench]
+categories: brief
+tags: [llm-security, brief, bench]
 giscus_comments: false
 ---
 **510 条有害行为 + 一个 Llama-2-13B 判定器，量的是「单轮请求下模型有没有吐出实质有害内容」这一件事**

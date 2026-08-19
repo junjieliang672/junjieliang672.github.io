@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "incident · EchoLeak (CVE-2025-32711)"
+title: "真实事故 · EchoLeak (CVE-2025-32711)"
 date: 2025-06-11
 description: "微软 365 Copilot 的零点击数据外泄：一封没人点开的邮件，穿过四道防线"
-categories: card
-tags: [llm-security, card, incident]
+categories: brief
+tags: [llm-security, brief, incident]
 giscus_comments: false
 ---
 **微软 365 Copilot 的零点击数据外泄：一封没人点开的邮件，穿过四道防线**

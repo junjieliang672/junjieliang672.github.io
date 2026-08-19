@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "defense · CaMeL (Capabilities for Machine Learning)"
+title: "防御机制 · CaMeL (Capabilities for Machine Learning)"
 date: 2025-03-24
 description: "把 prompt injection 降级成信息流控制问题的 agent 防御：AgentDojo 上 233 次成功攻击压到 0，代价是 84%→77%"
-categories: card
-tags: [llm-security, card, defense]
+categories: brief
+tags: [llm-security, brief, defense]
 giscus_comments: false
 ---
 **把 prompt injection 降级成信息流控制问题的 agent 防御：AgentDojo 上 233 次成功攻击压到 0，代价是 84%→77%**

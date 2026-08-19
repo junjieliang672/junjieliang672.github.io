@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "tool · Llama Guard（Meta 内容安全分类器系列）"
+title: "系统/工具 · Llama Guard（Meta 内容安全分类器系列）"
 date: 2023-12-07
 description: "把安全策略当 prompt 执行的 8B 分类器，输出只有两行；828 篇论文拿它当裁判"
-categories: card
-tags: [llm-security, card, tool]
+categories: brief
+tags: [llm-security, brief, tool]
 giscus_comments: false
 ---
 **把安全策略当 prompt 执行的 8B 分类器，输出只有两行；828 篇论文拿它当裁判**

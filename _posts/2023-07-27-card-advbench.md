@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "bench · AdvBench（GCG 论文附带的有害行为/有害字符串集）"
+title: "评测集/基准 · AdvBench（GCG 论文附带的有害行为/有害字符串集）"
 date: 2023-07-27
 description: "被引最多的越狱评测集：520 条明晃晃的有害祈使句，45% 在 0.95 相似度下是近重复"
-categories: card
-tags: [llm-security, card, bench]
+categories: brief
+tags: [llm-security, brief, bench]
 giscus_comments: false
 ---
 **被引最多的越狱评测集：520 条明晃晃的有害祈使句，45% 在 0.95 相似度下是近重复**
