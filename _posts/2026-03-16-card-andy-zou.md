@@ -4,7 +4,7 @@ title: "人物 · Andy Zou"
 date: 2026-03-16
 description: "把「能不能骗过 AI」从手工试探变成能自动搜索、能打分、能上万人反复跑的流程"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/andy-zou.png" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

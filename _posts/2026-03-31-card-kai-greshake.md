@@ -4,7 +4,7 @@ title: "人物 · Kai Greshake"
 date: 2026-03-31
 description: "2023 年他和合著者演示并命名了「间接提示注入」：模型读到的任何外部内容都可能变成对它的命令"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, indie]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/kai-greshake.webp" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

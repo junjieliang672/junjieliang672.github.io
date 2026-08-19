@@ -4,7 +4,7 @@ title: "人物 · Xiaogeng Liu"
 date: 2026-06-01
 description: "把「越狱」攻击从人工写模板变成自动搜索，也反复指出安全评测的数字靠不住"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/xiaogeng-liu.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

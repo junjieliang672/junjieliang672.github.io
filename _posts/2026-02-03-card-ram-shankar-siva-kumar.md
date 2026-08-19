@@ -4,7 +4,7 @@ title: "人物 · Ram Shankar Siva Kumar"
 date: 2026-02-03
 description: "把「上线前有人负责攻击自家 AI」变成微软内部的固定岗位、固定流程和开源工具"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, exec]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/ram-shankar-siva-kumar.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

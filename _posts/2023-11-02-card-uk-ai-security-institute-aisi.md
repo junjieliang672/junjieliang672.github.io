@@ -4,7 +4,7 @@ title: "机构 · UK AI Security Institute (AISI)"
 date: 2023-11-02
 description: "英国政府出钱养的模型测试队：能在模型发布前上手测，但拦不住任何一次发布"
 categories: card
-tags: [llm-security, card, org]
+tags: [llm-security, card, org, org]
 giscus_comments: false
 ---
 **英国政府出钱养的模型测试队：能在模型发布前上手测，但拦不住任何一次发布**

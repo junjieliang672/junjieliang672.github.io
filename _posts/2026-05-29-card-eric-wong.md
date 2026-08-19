@@ -4,7 +4,7 @@ title: "人物 · Eric Wong"
 date: 2026-05-29
 description: "他让「AI 被骗出有害回答」这件事第一次能被不同论文用同一把尺子量出来"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/eric-wong.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

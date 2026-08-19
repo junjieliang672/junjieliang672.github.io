@@ -4,7 +4,7 @@ title: "人物 · Simon Willison"
 date: 2026-08-11
 description: "他给「AI 被别人塞进来的文字牵着走」这件事起了名字，并连续四年在博客上记录哪些修法失败了"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, indie]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/simon-willison.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

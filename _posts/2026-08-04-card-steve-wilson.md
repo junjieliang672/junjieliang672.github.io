@@ -4,7 +4,7 @@ title: "人物 · Steve Wilson"
 date: 2026-08-04
 description: "他发起并主持 OWASP 的大模型安全风险清单，这份清单成了企业审查 AI 应用时的默认表格"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, exec]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/steve-wilson.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

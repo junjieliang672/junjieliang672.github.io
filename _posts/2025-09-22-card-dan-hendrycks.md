@@ -4,7 +4,7 @@ title: "人物 · Dan Hendrycks"
 date: 2025-09-22
 description: "他把「AI 会不会出事」这类说不清的担忧，一次次改造成所有人都得报分数的公开考卷"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/dan-hendrycks.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

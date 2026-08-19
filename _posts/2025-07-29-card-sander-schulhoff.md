@@ -4,7 +4,7 @@ title: "人物 · Sander Schulhoff"
 date: 2025-07-29
 description: "办了史上最大的 AI 攻击众包比赛，把「怎么骗过 AI」从段子变成了 60 万条可统计的数据"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, indie]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/sander-schulhoff.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

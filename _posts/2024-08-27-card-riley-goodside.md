@@ -4,7 +4,7 @@ title: "人物 · Riley Goodside"
 date: 2024-08-27
 description: "他在推特上一条条演示大模型分不清「指令」和「数据」，让这类攻击变成整个行业都认的问题"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/riley-goodside.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

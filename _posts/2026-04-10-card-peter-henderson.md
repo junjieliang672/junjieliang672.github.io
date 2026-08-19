@@ -4,7 +4,7 @@ title: "人物 · Peter Henderson"
 date: 2026-04-10
 description: "反复证明大模型的「安全」只是薄薄一层可拆的开关，并用法学训练把这个结论推成责任与免责规则的主张"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/peter-henderson.png" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

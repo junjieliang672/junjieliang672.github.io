@@ -4,7 +4,7 @@ title: "人物 · Nouha Dziri"
 date: 2025-06-27
 description: "她把「怎么测一个模型安不安全」做成了免费开源的整套工具，现在很多人拿它当尺子"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/nouha-dziri.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

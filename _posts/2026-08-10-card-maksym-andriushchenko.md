@@ -4,7 +4,7 @@ title: "人物 · Maksym Andriushchenko"
 date: 2026-08-10
 description: "他专门证明「这个模型很安全」是没被认真攻击过，并把该怎么打做成别人能直接跑的测试集"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/maksym-andriushchenko.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

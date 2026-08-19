@@ -4,7 +4,7 @@ title: "人物 · Radha Poovendran"
 date: 2025-09-23
 description: "他带的实验室专挑「模型读到你的话之前」那层格式壳下手找漏洞，再配一个不加第二个模型的便宜防御"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/radha-poovendran.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

@@ -4,7 +4,7 @@ title: "人物 · Johann Rehberger"
 date: 2026-05-18
 description: "四年在个人博客上一条条公开真实 AI 助手被攻破的完整过程，并把这些案例带进了学术论文"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, indie]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/johann-rehberger.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

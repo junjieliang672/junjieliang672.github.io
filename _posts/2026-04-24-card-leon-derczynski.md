@@ -4,7 +4,7 @@ title: "人物 · Leon Derczynski"
 date: 2026-04-24
 description: "写了 garak——一条命令就能把学术论文里的越狱攻击对着自己的模型跑一遍的开源扫描器"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/leon-derczynski.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

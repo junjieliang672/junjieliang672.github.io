@@ -4,7 +4,7 @@ title: "人物 · Alexander Robey"
 date: 2026-05-29
 description: "证明越狱不只让聊天机器人说脏话——同样的手法能让商用机器狗执行危险动作；也做了大家绕不开的越狱评测标尺"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/alexander-robey.png" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

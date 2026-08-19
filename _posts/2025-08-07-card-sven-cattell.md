@@ -4,7 +4,7 @@ title: "人物 · Sven Cattell"
 date: 2025-08-07
 description: "他在 DEF CON 办了三届公开的模型找茬大赛，每届都先公开承认上一届没用，再改规则重办"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, indie]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/sven-cattell.webp" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

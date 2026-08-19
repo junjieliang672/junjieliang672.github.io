@@ -4,7 +4,7 @@ title: "人物 · Chaowei Xiao"
 date: 2026-06-21
 description: "把「越狱」从人手写咒语变成程序自动搜索，做出的攻击工具被大量论文当成默认测试标准"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/chaowei-xiao.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

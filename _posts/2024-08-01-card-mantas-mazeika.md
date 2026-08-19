@@ -4,7 +4,7 @@ title: "人物 · Mantas Mazeika"
 date: 2024-08-01
 description: "把「模型有多危险」从各说各话变成能打分、能复现的公共测试，别人现在都拿他的题目跑分"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/mantas-mazeika.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

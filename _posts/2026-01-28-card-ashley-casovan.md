@@ -4,7 +4,7 @@ title: "人物 · Ashley Casovan"
 date: 2026-01-28
 description: "她在加拿大政府写了给算法风险分级的规定，又在 IAPP 把「AI 治理」做成了有考试和证书的职业"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, policy]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/ashley-casovan.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

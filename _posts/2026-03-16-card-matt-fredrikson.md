@@ -4,7 +4,7 @@ title: "人物 · Matt Fredrikson"
 date: 2026-03-16
 description: "把「骗过 AI 的安全限制」从段子变成可自动搜索、可计分的工程，又开公司让几万人下场攻"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/matt-fredrikson.png" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

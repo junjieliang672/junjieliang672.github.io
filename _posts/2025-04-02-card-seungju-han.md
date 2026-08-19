@@ -4,7 +4,7 @@ title: "人物 · Seungju Han"
 date: 2025-04-02
 description: "做出了 WildGuard——一个开源工具，能同时判断一句话危不危险、是不是越狱、模型有没有该拒不拒"
 categories: card
-tags: [llm-security, card, person]
+tags: [llm-security, card, person, academic]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/seungju-han.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">
