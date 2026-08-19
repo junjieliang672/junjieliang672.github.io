@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "概念 · 间接提示注入（indirect prompt injection）"
-date: 2026-08-18
+date: 2023-02-01
 description: "攻击者不跟 AI 说话，只把指令藏进 AI 迟早要读的那份内容里，等它自己读进去"
 categories: card
 tags: [llm-security, card, concept]
