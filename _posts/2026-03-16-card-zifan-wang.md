@@ -13,7 +13,7 @@ giscus_comments: false
 
 - **身份**：Meta Superintelligence Labs 研究科学家（本人主页自述）
 - **主页**：[https://zifanw.github.io/](https://zifanw.github.io/)
-- **从哪读起**：先读 A Red Teaming Roadmap Towards System-Level Safety（arXiv 2506.05376，他一作，十几页、没有公式），这是他把过去几年攻击经验总结成「以后该怎么测」的一篇。
+- **从哪读起**：先读 A Red Teaming Roadmap Towards System-Level Safety（arXiv [2506.05376](https://arxiv.org/abs/2506.05376)，他一作，十几页、没有公式），这是他把过去几年攻击经验总结成「以后该怎么测」的一篇。
 
 | 时期 | |
 |---|---|

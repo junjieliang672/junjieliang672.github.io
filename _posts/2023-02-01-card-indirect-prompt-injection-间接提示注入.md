@@ -51,7 +51,7 @@ Aim Labs 公开的载荷片段里有这么一句（英文原文，不是整封�
 
 **把优先级训进模型**（OpenAI 的 instruction hierarchy、SecAlign 一类）：在固定的测试集上目前最耐打。但面对自适应攻击者——每次被拒绝就看结果改写、再试——仍然会被磨穿。具体的绕过率数字我只在二手转述里见过，这里不引。
 
-**架构隔离**：让模型只负责「提议要做什么动作」，一个模型之外的、确定性的策略引擎决定这个动作能不能执行。Willison 的 Dual LLM 设想是这一类，Google 那篇 CaMeL（arXiv:2503.18813，Debenedetti、Shumailov、Carlini 等）把它做成了可以证明安全性质的系统。代价写在论文里：在 AgentDojo 这个 agent 任务基准上，无防御系统完成 84% 的任务，CaMeL 完成 77%，另外工程复杂度高得多。真正落地进产品的极少。
+**架构隔离**：让模型只负责「提议要做什么动作」，一个模型之外的、确定性的策略引擎决定这个动作能不能执行。Willison 的 Dual LLM 设想是这一类，Google 那篇 CaMeL（arXiv:[2503.18813](https://arxiv.org/abs/2503.18813)，Debenedetti、Shumailov、Carlini 等）把它做成了可以证明安全性质的系统。代价写在论文里：在 AgentDojo 这个 agent 任务基准上，无防御系统完成 84% 的任务，CaMeL 完成 77%，另外工程复杂度高得多。真正落地进产品的极少。
 
 ## 上线前砍哪一条
 

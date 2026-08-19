@@ -43,7 +43,7 @@ giscus_comments: false
 
 ## 从个人演示到可量化的红队数据
 
-2024 年 8 月的论文《LLM Defenses Are Not Robust to Multi-Turn Human Jailbreaks Yet》（arXiv 2408.15221）他是九位作者之一。这篇的结论对不做安全的人也很有用。
+2024 年 8 月的论文《LLM Defenses Are Not Robust to Multi-Turn Human Jailbreaks Yet》（arXiv [2408.15221](https://arxiv.org/abs/2408.15221)）他是九位作者之一。这篇的结论对不做安全的人也很有用。
 
 背景：jailbreak（越狱）指的是绕过模型的安全限制，让它说出本该拒绝的内容。业界评估防御效果时，普遍用自动化攻击去打——写个程序批量生成攻击句子，统计有多少条成功。很多防御方案在这种测法下报出的成功率是个位数百分比。
 

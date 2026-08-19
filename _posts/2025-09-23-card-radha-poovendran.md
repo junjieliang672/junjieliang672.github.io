@@ -13,7 +13,7 @@ giscus_comments: false
 
 - **身份**：华盛顿大学电气与计算机工程系教授，Network Security Lab 创始主任
 - **主页**：[https://people.ece.uw.edu/radha/](https://people.ece.uw.edu/radha/)
-- **从哪读起**：先读 ArtPrompt（arXiv 2402.11753）那篇的图 1——把一个敏感词画成 ASCII 字符画就能绕过安全对齐，一眼就能看懂他这个实验室找漏洞的角度；再读 SafeDecoding（arXiv 2402.08983）看他的防御为什么只做在开头几个词上。
+- **从哪读起**：先读 ArtPrompt（arXiv [2402.11753](https://arxiv.org/abs/2402.11753)）那篇的图 1——把一个敏感词画成 ASCII 字符画就能绕过安全对齐，一眼就能看懂他这个实验室找漏洞的角度；再读 SafeDecoding（arXiv [2402.08983](https://arxiv.org/abs/2402.08983)）看他的防御为什么只做在开头几个词上。
 
 | 时期 | |
 |---|---|

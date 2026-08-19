@@ -13,7 +13,7 @@ giscus_comments: false
 
 - **身份**：Johns Hopkins University DSAI 博士生（导师 Chaowei Xiao）
 - **主页**：[https://xiaogeng-liu.com/](https://xiaogeng-liu.com/)
-- **从哪读起**：先看 AutoDAN 那篇（arXiv 2310.04451）：它是后来大量论文用来做对照的攻击基线，读它能明白「越狱」到底是怎么被自动化的。
+- **从哪读起**：先看 AutoDAN 那篇（arXiv [2310.04451](https://arxiv.org/abs/2310.04451)）：它是后来大量论文用来做对照的攻击基线，读它能明白「越狱」到底是怎么被自动化的。
 
 | 时期 | |
 |---|---|

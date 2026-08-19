@@ -13,7 +13,7 @@ giscus_comments: false
 
 - **身份**：NVIDIA 研究科学家（2026 年 4 月起，据本人主页）
 - **主页**：[https://liweijiang.github.io/](https://liweijiang.github.io/)
-- **从哪读起**：先读 WildTeaming（arXiv 2406.18510）第 2 节，看她们怎么从真人跟聊天机器人的对话里挖出越狱话术——这是理解她全部工作的入口。
+- **从哪读起**：先读 WildTeaming（arXiv [2406.18510](https://arxiv.org/abs/2406.18510)）第 2 节，看她们怎么从真人跟聊天机器人的对话里挖出越狱话术——这是理解她全部工作的入口。
 
 | 时期 | |
 |---|---|

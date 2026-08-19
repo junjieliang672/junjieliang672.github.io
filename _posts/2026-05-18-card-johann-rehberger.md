@@ -47,7 +47,7 @@ Embrace The Red（embracethered.com）是他持续更新的个人博客，署名
 
 ## 从博客写手到学术论文的共同作者
 
-他不写传统论文，但 2025 年底和 2026 年成为两篇系统性论文的共同作者：《Systems Security Foundations for Agentic Computing》（arXiv 2512.01295）和《Agent Security is a Systems Problem》（arXiv 2605.18991），合作者包括 Earlence Fernandes、Somesh Jha、Kamalika Chaudhuri、Mihai Christodorescu。前一篇明确收录了 11 个真实攻击案例。
+他不写传统论文，但 2025 年底和 2026 年成为两篇系统性论文的共同作者：《Systems Security Foundations for Agentic Computing》（arXiv [2512.01295](https://arxiv.org/abs/2512.01295)）和《Agent Security is a Systems Problem》（arXiv [2605.18991](https://arxiv.org/abs/2605.18991)），合作者包括 Earlence Fernandes、Somesh Jha、Kamalika Chaudhuri、Mihai Christodorescu。前一篇明确收录了 11 个真实攻击案例。
 
 论文里的结论和他博客上的经验一致：靠模型自己判断的防御——安全对齐、安全分类器、在系统提示里写规则——只在它见过的那类攻击附近有效，换一种结构的攻击就明显失效；比较可靠的是放在模型外面的确定性机制，比如沙箱、权限边界、干脆不给出网能力。另一条是：agent 会把工具和插件返回的内容直接读进上下文，不区分这段文字的来源，所以一个被攻陷的工具服务器可以直接给 agent 下指令。
 

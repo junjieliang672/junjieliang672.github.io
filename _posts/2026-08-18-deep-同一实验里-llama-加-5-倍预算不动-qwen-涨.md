@@ -7,7 +7,7 @@ categories: deep
 tags: [llm-security, analysis]
 giscus_comments: false
 ---
-「Llama stays at 0.12 while Qwen rises to 0.40, at matched static safety ≤0.10」——这是 GCG 从标准 100 步加到 500 步之后的结果，出自 skill-merged LLM 的自适应越狱基准（2608.08542）。两个 math merge 在静态筛查下的 ASR 都 ≤0.10，看起来一样安全；把攻击预算翻五倍，一个纹丝不动，另一个翻了三倍多。
+「Llama stays at 0.12 while Qwen rises to 0.40, at matched static safety ≤0.10」——这是 GCG 从标准 100 步加到 500 步之后的结果，出自 skill-merged LLM 的自适应越狱基准（[2608.08542](https://arxiv.org/abs/2608.08542)）。两个 math merge 在静态筛查下的 ASR 都 ≤0.10，看起来一样安全；把攻击预算翻五倍，一个纹丝不动，另一个翻了三倍多。
 
 先把威胁模型摆出来，否则这两个数字什么也不说明。攻击者有 white-box gradient access，跑 GCG；静态 ASR 在 400 条 HarmBench behaviors 上测，自适应 ASR 在其中 seeded 的 50-behavior 子集上测，判定用两个 judge 的 AND 规则。同一篇里还有 PAIR 和 Crescendo/template 这类黑盒或灰盒攻击，固定算力预算。三个模型族的分布是：Qwen 的 merge 远在对角线上方（静态看着安全、自适应脆），Llama 的落在对角线上，Mistral 两个轴都不安全。
 

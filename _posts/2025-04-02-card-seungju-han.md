@@ -13,7 +13,7 @@ giscus_comments: false
 
 - **身份**：Stanford 计算机系博士生（2025 年秋入学），导师 Yejin Choi
 - **主页**：[https://seungjuhan.me/](https://seungjuhan.me/)
-- **从哪读起**：直接读 WildGuard 论文（arXiv 2406.18495）的第 1 节和表格：它把「模型有没有拒答」列成一项独立任务，这是当时别的审核工具都没做的事。
+- **从哪读起**：直接读 WildGuard 论文（arXiv [2406.18495](https://arxiv.org/abs/2406.18495)）的第 1 节和表格：它把「模型有没有拒答」列成一项独立任务，这是当时别的审核工具都没做的事。
 
 | 时期 | |
 |---|---|

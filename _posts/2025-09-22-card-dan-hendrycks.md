@@ -13,7 +13,7 @@ giscus_comments: false
 
 - **身份**：Center for AI Safety 执行与研究总监
 - **主页**：[https://people.eecs.berkeley.edu/~hendrycks/](https://people.eecs.berkeley.edu/~hendrycks/)
-- **从哪读起**：先读 HarmBench 那篇（arXiv 2402.04249）的实验表格，不看方法只看那张「18 种攻击 × 33 个模型与防御」的矩阵——一眼就能看出为什么「这个模型的安全分是 X」这句话是没有意义的。
+- **从哪读起**：先读 HarmBench 那篇（arXiv [2402.04249](https://arxiv.org/abs/2402.04249)）的实验表格，不看方法只看那张「18 种攻击 × 33 个模型与防御」的矩阵——一眼就能看出为什么「这个模型的安全分是 X」这句话是没有意义的。
 
 | 时期 | |
 |---|---|
