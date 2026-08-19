@@ -15,7 +15,7 @@ giscus_comments: false
 - StructBreak 在 SafeBench 的 100 条 harmful query 上，GPT-5 95%、Gemini 2.5 Flash 97%、GPT-4o 93%、Claude 4 Sonnet 82%。攻击者黑盒 API，用一个辅助 LLM 把有害 query 编成结构化图像。
 - Malicious font injection：GPT-4.1 在 Corporate/Political 两类上 76.67% / 80%，而 Claude-3-Haiku 50%、Claude-3-Sonnet 39.47%。
 - VIGIL 的 tool stream injection：弱模型往往因为语义解析能力不足而"benign failure"，强推理模型反而把注入的恶意规则当成 authoritative constraint，优先于用户意图。
-- Shadows in the Code 在 ChatDev 上跨 GPT/Claude/Gemini/Llama/DeepSeek 五个族测：「in most cases, more advanced base models are more vulnerable」。
+- Shadows in the Code（2511.18467） 在 ChatDev 上跨 GPT/Claude/Gemini/Llama/DeepSeek 五个族测：「in most cases, more advanced base models are more vulnerable」。
 - fine-tuning 生命周期那篇综述提的是训练期投毒——注意这是另一个威胁模型，攻击者能注入 poisoned instruction data，不是运行时内容控制。别把它和上面五条混在一起算。
 
 反方向只有两条真正带数字的。一条是 MIRAGE 在 Qwen3-VL 族内做纯参数缩放：8B 28.9% → 32B 23.0%，6pp。作者自己写了「at best a partial mitigation」，因为同一批实验里 cross-intent spread 约 82pp、cross-application 约 23pp、cross-model spread 只有约 7pp。另一条是 AgentRedBench：Claude Sonnet 4.6 32.1% ASR，次好的 gpt-5.4-nano 63.7%，而 Anthropic 内部 Sonnet–Haiku 的差距是 47.4pp——作者把这条差距归给 alignment training。
@@ -24,7 +24,7 @@ giscus_comments: false
 
 > 翻供条件：若 2027 年 6 月前出现一个跨厂商、≥6 模型的注入基准，其能力分数与 ASR 的 Spearman 相关系数落在 [-0.3, 0.3]，且置信区间不含 0.5 以上，则"能力正相关"这条作废，退回原来的"无关"表述。
 
-有一条容易被忽略的交叉证据：PUZZLED 那篇的结论是「LLMs with stronger safety filters may, paradoxically, be more vulnerable to indirect attacks that exploit their reasoning capabilities」——它是被归到"能力无关"那一侧的，但它自己说的其实是能力（多步推理重构被 mask 的有害指令）带来的脆弱性。这条应该改边。
+有一条容易被忽略的交叉证据：PUZZLED（2508.01306） 那篇的结论是「LLMs with stronger safety filters may, paradoxically, be more vulnerable to indirect attacks that exploit their reasoning capabilities」——它是被归到"能力无关"那一侧的，但它自己说的其实是能力（多步推理重构被 mask 的有害指令）带来的脆弱性。这条应该改边。
 
 **必须交代的实验条件缺口。** 上面全部七条正向证据，攻击者预算都是同一档：黑盒 API，无梯度，控制注入内容（文档、工具描述、字体、结构化图像），单次或固定次数投递，不做自适应重试。没有一篇报告"给攻击者 N 次尝试 + 目标模型反馈"这个维度下的曲线。AgentRedBench 那 47.4pp 的对齐断层，是在攻击者只能控制 integration content、不能改 user/system prompt 的条件下测的。**在这个预算下的抗性差距，不能直接外推到自适应攻击者。**
 
