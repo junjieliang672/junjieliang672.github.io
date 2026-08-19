@@ -7,7 +7,7 @@ categories: deep
 tags: [llm-security, analysis]
 giscus_comments: false
 ---
-先把数字摆出来。Evaluating Privilege Usage of Agents with Real-World Tools 在 ReAct 模式下测出的 per-LLM ASR：GPT-5 90.20%、Gemini3-Flash 94.60%、Qwen3-Max 91.60%、Deepseek-v3 85.80%。作者的解释是「high-capability LLMs tend to be more vulnerable in privilege usage, as their ability to follow complex instructions makes them easier to manipulate」。威胁模型：indirect prompt injection，攻击者把听起来自然的请求嵌进 agent 能读到的内容里，无白盒权重访问。
+先把数字摆出来。Evaluating Privilege Usage of Agents with Real-World Tools 在 ReAct 模式下测出的 per-LLM ASR：GPT-5 90.20%、Gemini3-Flash 94.60%、Qwen3-Max 91.60%、Deepseek-v3 85.80%。作者的解释是「high-capability LLMs tend to be more vulnerable in privilege usage, as their ability to follow complex instructions makes them easier to manipulate」（[2603.28166](https://arxiv.org/abs/2603.28166)）。威胁模型：indirect prompt injection，攻击者把听起来自然的请求嵌进 agent 能读到的内容里，无白盒权重访问。
 
 这不是孤例。同方向的还有六条：
 
