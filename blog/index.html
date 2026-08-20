@@ -46,7 +46,10 @@ title: blog
                     border:1px solid var(--px-rule); border-radius:3px; }
   .px-legend { font-family:var(--px-mono); font-size:.75rem; color:var(--px-read);
                white-space:nowrap; }
-  .px-legend b { color:var(--px-live); font-weight:400; }
+  .px-dot { display:inline-block; width:.5rem; height:.5rem; border-radius:50%;
+             margin:0 .3rem 0 0; vertical-align:baseline; }
+  .px-dot-read { margin-left:.9rem; background:var(--px-read); }
+  .px-dot-live { background:var(--px-live); }
 
   .px-sec { margin:0 0 2rem; }
   .px-sec > h2 { font-size:1.05rem; margin:0 0 .1rem; letter-spacing:.02em; }
@@ -83,7 +86,9 @@ title: blog
   <div class="px-tools">
     <input id="px-q" type="search" placeholder="输入名字或关键词，过滤全部 {{ site.posts.size }} 篇"
            aria-label="过滤" autocomplete="off">
-    <span class="px-legend"><b>未读</b> · 已读</span>
+    <span class="px-legend" aria-hidden="true">
+      <i class="px-dot px-dot-live"></i>未读<i class="px-dot px-dot-read"></i>已读（浏览器记录）
+    </span>
   </div>
 
   {%- comment -%} 速览：唯一该按日期排的一类。一行一天，看得见空档。 {%- endcomment -%}
