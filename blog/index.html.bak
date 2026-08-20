@@ -1,0 +1,65 @@
+---
+layout: default
+title: blog
+pagination:
+  enabled: true
+  collection: posts
+  permalink: /page/:num/
+  per_page: 5
+  sort_field: date
+  sort_reverse: true
+  trail:
+    before: 1 # The number of links before the current page
+    after: 3  # The number of links after the current page
+---
+
+<div class="post">
+
+  <div class="header-bar">
+    <h1>{{ site.blog_name }}</h1>
+    <h2>{{ site.blog_description }}</h2>
+  </div>
+
+  {% assign sections = "digest,card,brief,deep" | split: "," %}
+  {% assign labels = "每日速览,知识卡：人物与研究组,资讯卡：评测 / 事故 / 系统 / 防御机制,深度分析" | split: "," %}
+
+  <div class="tag-list">
+    <ul class="p-0 m-0">
+      {% for s in sections %}
+        <li>
+          <i class="fas fa-tag fa-sm"></i>
+          <a href="{{ s | prepend: '/blog/category/' | relative_url }}">{{ labels[forloop.index0] }}</a>
+        </li>
+        {% unless forloop.last %}<p>&bull;</p>{% endunless %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for sec in sections %}
+    {% assign posts = site.posts | where_exp: "p", "p.categories contains sec" %}
+    {% if posts.size > 0 %}
+
+  <div class="section-head" style="display:flex;align-items:baseline;justify-content:space-between;
+       border-bottom:2px solid var(--global-divider-color);margin:2.4rem 0 .4rem;padding-bottom:.3rem">
+    <h2 style="margin:0;font-size:1.35rem">{{ labels[forloop.index0] }}</h2>
+    <a href="{{ sec | prepend: '/blog/category/' | relative_url }}" style="font-size:.9rem">
+      全部 {{ posts.size }} 篇 &rsaquo;</a>
+  </div>
+
+  <ul class="post-list">
+    {% for post in posts limit: 4 %}
+      {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+    <li>
+      <h3><a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+      <p>{{ post.description }}</p>
+      <p class="post-meta">
+        {{ read_time }} min read &nbsp; &middot; &nbsp; {{ post.date | date: '%Y-%m-%d' }}
+      </p>
+    </li>
+    {% endfor %}
+  </ul>
+
+    {% endif %}
+  {% endfor %}
+
+</div>
