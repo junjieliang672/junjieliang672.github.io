@@ -53,6 +53,13 @@ title: blog
 
   .px-sec { margin:0 0 2rem; }
   .px-sec > h2 { font-size:1.05rem; margin:0 0 .1rem; letter-spacing:.02em; }
+  .px-sec > h2 a,
+  .px-sec > h2 a:link,
+  .px-sec > h2 a:visited { color: var(--global-text-color); }
+  .px-sec > h2 a::after { content:" →"; font-size:.72rem; color:var(--px-read);
+                          vertical-align:.08em; }
+  .px-sec > h2 a:hover { color: var(--global-hover-color); text-decoration:none; }
+  .px-sec > h2 a:hover::after { color: var(--global-hover-color); }
   .px-axis { font-family:var(--px-mono); font-size:.75rem; color:var(--px-read);
              margin:0 0 .7rem; padding-bottom:.4rem;
              border-bottom:1px solid var(--px-rule); }
@@ -99,7 +106,7 @@ title: blog
 
   {%- comment -%} 速览：唯一该按日期排的一类。一行一天，看得见空档。 {%- endcomment -%}
   <section class="px-sec">
-    <h2>速览</h2>
+    <h2><a href="{{ '/blog/category/digest/' | relative_url }}">速览</a></h2>
     <div class="px-axis">按天 · {{ digests.size }} 期 · 空档表示那天窗口内没有新论文</div>
     <div class="px-days">
       {%- for p in digests -%}
@@ -111,7 +118,7 @@ title: blog
 
   {%- comment -%} 知识卡：按人查，所以按 lane 分组把名字全列出来，不按日期。 {%- endcomment -%}
   <section class="px-sec">
-    <h2>知识卡</h2>
+    <h2><a href="{{ '/blog/category/card/' | relative_url }}">知识卡</a></h2>
     <div class="px-axis">按人 · {{ cards.size }} 张 · 人物与研究组</div>
     {%- assign lanes = "academic,indie,exec,policy,org" | split: "," -%}
     {%- assign lane_zh = "学者,独立,高管,政策,机构" | split: "," -%}
@@ -134,7 +141,7 @@ title: blog
 
   {%- comment -%} 资讯卡：按名字查，所以按子类分组。 {%- endcomment -%}
   <section class="px-sec">
-    <h2>资讯卡</h2>
+    <h2><a href="{{ '/blog/category/brief/' | relative_url }}">资讯卡</a></h2>
     <div class="px-axis">按类型 · {{ briefs.size }} 张 · 评测集 / 事故 / 系统 / 防御机制</div>
     {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
     {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
@@ -157,7 +164,7 @@ title: blog
 
   {%- comment -%} 长文：标题本身就是论断，所以整句列出，不截断。 {%- endcomment -%}
   <section class="px-sec">
-    <h2>长文</h2>
+    <h2><a href="{{ '/blog/category/deep/' | relative_url }}">长文</a></h2>
     <div class="px-axis">按论断 · {{ deeps.size }} 篇 · 标题即论断</div>
     <ul class="px-claims">
       {%- for p in deeps -%}

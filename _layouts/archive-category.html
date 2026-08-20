@@ -2,26 +2,144 @@
 layout: default
 ---
 
-<div class="post">
+{%- comment -%}
+  分类页和首页共用一套判断：**每一类按它实际被查找的轴组织**。
+  首页是全景（只列名字，一屏看完），这里是该类的完整列表（名字 + 日期 + 摘要）。
+  card 按 lane 分组、brief 按子类、digest 按天、deep 平铺（标题即论断）。
+  原模板是一张英文日期表格，四类共用——那等于说四类的查找方式一样，而它们不一样。
+{%- endcomment -%}
 
-  <header class="post-header">
-    <h1 class="post-title"> <i class="fas fa-tag fa-sm"></i> {{ page.title }} </h1>
-    <p class="post-description"> an archive of posts in this category </p>
-  </header>
+{%- assign cat = page.title -%}
+{%- case cat -%}
+  {%- when 'digest' -%}{%- assign zh = '速览' -%}{%- assign axis = '按天' -%}
+  {%- when 'card'   -%}{%- assign zh = '知识卡' -%}{%- assign axis = '按人 · 人物与研究组' -%}
+  {%- when 'brief'  -%}{%- assign zh = '资讯卡' -%}{%- assign axis = '按类型 · 评测集 / 事故 / 系统 / 防御机制' -%}
+  {%- when 'deep'   -%}{%- assign zh = '长文' -%}{%- assign axis = '按论断 · 标题即论断' -%}
+  {%- else -%}{%- assign zh = cat -%}{%- assign axis = '' -%}
+{%- endcase -%}
 
-  <article>
-    <div class="table-responsive">
-      <table class="table table-sm table-borderless">
-        {% for post in page.posts %}
-        <tr>
-          <th scope="row">{{ post.date | date: "%b %-d, %Y" }}</th>
-          <td>
-              <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </td>
-        </tr>
-      {% endfor %}
-      </table>
-    </div>
-  </article>
+<style>
+  .px { --px-live: var(--global-theme-color);
+        --px-read: var(--global-text-color-light);
+        --px-rule: var(--global-divider-color);
+        --px-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  .px a { border-bottom: none; }
+  .px a:link    { color: var(--px-live); }
+  .px a:visited { color: var(--px-read); }
+  .px a:hover   { color: var(--global-hover-color); text-decoration: underline; }
+  .px a:focus-visible { outline:2px solid var(--global-hover-color); outline-offset:2px; }
 
+  .px-head { display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin:0 0 .3rem; }
+  .px-head h1 { margin:0; font-size:1.6rem; line-height:1.1; }
+  .px-stat { font-family:var(--px-mono); font-size:.78rem; color:var(--px-read); }
+  .px-back { font-family:var(--px-mono); font-size:.78rem; }
+
+  .px-tools { display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+              border-top:1px solid var(--px-rule); border-bottom:1px solid var(--px-rule);
+              padding:.6rem 0; margin:.9rem 0 1.6rem; }
+  .px-tools input { flex:1 1 16rem; min-width:12rem; padding:.35rem .6rem;
+                    font-family:var(--px-mono); font-size:.85rem;
+                    color:var(--global-text-color); background:var(--global-bg-color);
+                    border:1px solid var(--px-rule); border-radius:3px; }
+  .px-legend { font-family:var(--px-mono); font-size:.75rem; color:var(--px-read); white-space:nowrap; }
+  .px-dot { display:inline-block; width:.5rem; height:.5rem; border-radius:50%;
+            margin:0 .3rem 0 0; vertical-align:baseline; }
+  .px-dot-live { background:var(--px-live); }
+  .px-dot-read { margin-left:.9rem; background:var(--px-read); }
+
+  .px-grp { margin:0 0 1.6rem; }
+  .px-grp > h2 { font-size:.85rem; font-family:var(--px-mono); font-weight:400;
+                 color:var(--px-read); margin:0 0 .5rem; padding-bottom:.3rem;
+                 border-bottom:1px solid var(--px-rule); letter-spacing:.03em; }
+  .px-item { display:flex; gap:.8rem; align-items:baseline; padding:.3rem 0; }
+  .px-when { flex:0 0 5.4rem; font-family:var(--px-mono); font-size:.74rem;
+             color:var(--px-read); text-align:right; }
+  .px-what { flex:1 1 auto; }
+  .px-what a { font-size:.98rem; }
+  .px-desc { display:block; color:var(--px-read); font-size:.82rem; line-height:1.5;
+             margin-top:.1rem; }
+  .px-empty { color:var(--px-read); font-size:.85rem; }
+  @media (max-width:600px){ .px-when { flex-basis:4.2rem; } }
+</style>
+
+<div class="post px" id="px">
+
+  <div class="px-head">
+    <h1>{{ zh }}</h1>
+    <span class="px-stat">{{ page.posts.size }} 篇{% if axis %} · {{ axis }}{% endif %}</span>
+    <a class="px-back" href="{{ '/blog/' | relative_url }}">← 全部</a>
+  </div>
+
+  <div class="px-tools">
+    <input id="px-q" type="search" placeholder="在这 {{ page.posts.size }} 篇里过滤"
+           aria-label="过滤" autocomplete="off">
+    <span class="px-legend" aria-hidden="true">
+      <i class="px-dot px-dot-live"></i>未读<i class="px-dot px-dot-read"></i>已读（浏览器记录）
+    </span>
+  </div>
+
+  {%- comment -%} 知识卡按 lane 分组，资讯卡按子类，其余平铺 {%- endcomment -%}
+  {%- if cat == 'card' -%}
+    {%- assign keys = "academic,indie,exec,policy,org" | split: "," -%}
+    {%- assign keys_zh = "学者,独立研究者,高管,政策,研究组与机构" | split: "," -%}
+  {%- elsif cat == 'brief' -%}
+    {%- assign keys = "bench,incident,tool,defense" | split: "," -%}
+    {%- assign keys_zh = "评测集,事故,系统与工具,防御机制" | split: "," -%}
+  {%- else -%}
+    {%- assign keys = "" | split: "," -%}
+  {%- endif -%}
+
+  {%- if keys.size > 0 -%}
+    {%- for k in keys -%}
+      {%- assign grp = page.posts | where_exp: "p", "p.tags contains k" | sort: "title" -%}
+      {%- if grp.size > 0 -%}
+      <section class="px-grp">
+        <h2>{{ keys_zh[forloop.index0] }} · {{ grp.size }}</h2>
+        {%- for p in grp -%}
+        <div class="px-item" data-px="{{ p.title | downcase }} {{ p.description | downcase }}">
+          <span class="px-when">{{ p.date | date: "%Y-%m-%d" }}</span>
+          <span class="px-what">
+            <a href="{{ p.url | relative_url }}">{{ p.title | split: " · " | last }}</a>
+            {%- if p.description %}<span class="px-desc">{{ p.description }}</span>{% endif -%}
+          </span>
+        </div>
+        {%- endfor -%}
+      </section>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+      <section class="px-grp">
+        {%- for p in page.posts -%}
+        <div class="px-item" data-px="{{ p.title | downcase }} {{ p.description | downcase }}">
+          <span class="px-when">{{ p.date | date: "%Y-%m-%d" }}</span>
+          <span class="px-what">
+            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+            {%- if p.description %}<span class="px-desc">{{ p.description }}</span>{% endif -%}
+          </span>
+        </div>
+        {%- endfor -%}
+      </section>
+  {%- endif -%}
+
+  <p class="px-empty" id="px-none" hidden>没有匹配的条目。</p>
 </div>
+
+<script>
+(function () {
+  var q = document.getElementById('px-q');
+  if (!q) return;
+  var items = Array.prototype.slice.call(document.querySelectorAll('#px .px-item'));
+  var none = document.getElementById('px-none');
+  q.addEventListener('input', function () {
+    var s = q.value.trim().toLowerCase(), hit = 0;
+    items.forEach(function (el) {
+      var show = !s || el.getAttribute('data-px').indexOf(s) !== -1;
+      el.hidden = !show; if (show) hit++;
+    });
+    document.querySelectorAll('#px .px-grp').forEach(function (g) {
+      g.hidden = g.querySelectorAll('.px-item:not([hidden])').length === 0;
+    });
+    if (none) none.hidden = hit !== 0;
+  });
+})();
+</script>
