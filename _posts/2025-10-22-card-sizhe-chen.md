@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：UC Berkeley CS 博士生（BAIR，导师 David Wagner）
 - **主页**：[https://sizhe-chen.github.io/](https://sizhe-chen.github.io/)
 - **从哪读起**：先读 SecAlign 项目页（https://sizhe-chen.github.io/SecAlign-Website/），它把「用偏好优化拉开好坏回答的 likelihood margin」这条主线讲得最清楚，再回头看 StruQ 的分隔符设计。
+- **成名作**：一作 [StruQ: Defending Against Prompt Injection with Structured Queries](https://arxiv.org/abs/2402.06363)（USENIX Security 2025）和后续 [SecAlign](https://arxiv.org/abs/2410.05451)。前者用结构化分离指令与数据通道，后者用偏好优化让模型自己更喜欢安全输出，把攻击成功率压到 10% 以下且报出可用性代价。
 
 | 时期 | |
 |---|---|

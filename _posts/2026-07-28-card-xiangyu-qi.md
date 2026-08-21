@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：OpenAI, Member of Technical Staff
 - **主页**：[https://xiangyuqi.com/](https://xiangyuqi.com/)
 - **从哪读起**：先读 arXiv [2310.03693](https://arxiv.org/abs/2310.03693)《Fine-tuning Aligned Language Models Compromises Safety》的摘要和第 3 节——十条样例、两毛钱把 GPT-3.5 的拒答能力打掉，这是他后面所有工作的起点。
+- **成名作**：一作 [Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!](https://arxiv.org/abs/2310.03693)（ICLR 2024 Oral）。出名在于只用 10 条数据、不到 0.2 美元的微调就拆掉了 GPT-3.5 的安全护栏，连善意微调也会让对齐退化。
 
 | 时期 | |
 |---|---|

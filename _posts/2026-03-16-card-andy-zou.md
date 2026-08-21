@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：CMU 计算机系博士生；Gray Swan AI 联合创始人
 - **主页**：[https://andyzoujm.github.io/](https://andyzoujm.github.io/)
 - **从哪读起**：先读 [2307.15043](https://arxiv.org/abs/2307.15043)（GCG 那篇）的第 1、2 节，看一段乱码后缀是怎么被算出来的；再跳到 [2507.20526](https://arxiv.org/abs/2507.20526)，看同一套思路做成上万人竞赛之后得到的结果有多不乐观。
+- **成名作**：[Universal and Transferable Adversarial Attacks on Aligned Language Models](https://arxiv.org/abs/2307.15043)：提出 GCG，用梯度自动搜出一串乱码后缀贴在问题后面，就能让 ChatGPT、Claude、Llama 一起破防，从此越狱研究有了可自动化、可复现的基线。
 
 | 时期 | |
 |---|---|

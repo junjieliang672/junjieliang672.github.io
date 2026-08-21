@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：ELLIS Institute Tübingen / Max Planck Institute for Intelligent Systems，AI Safety and Alignment 组负责人（2025 年 9 月起）
 - **主页**：[https://www.andriushchenko.me/](https://www.andriushchenko.me/)
 - **从哪读起**：先读 arXiv [2407.11969](https://arxiv.org/abs/2407.11969)《Does Refusal Training in LLMs Generalize to the Past Tense?》——五页就能看懂，把有害问题改成过去时提问，GPT-4o 的配合率从 1% 涨到 88%，这一个数字能让你明白他所有工作的出发点。
+- **成名作**：[Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks](https://arxiv.org/abs/2404.02151)：用随机搜索加手写提示模板，对当时几乎所有主流对齐模型打出接近 100% 成功率，证明所谓鲁棒性大多只是没被针对性攻击过。
 
 | 时期 | |
 |---|---|

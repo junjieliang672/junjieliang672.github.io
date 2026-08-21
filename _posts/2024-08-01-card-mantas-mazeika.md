@@ -13,6 +13,7 @@ giscus_comments: false
 
 - **身份**：Center for AI Safety 研究科学家；欧盟 AI Act 科学专家组成员
 - **从哪读起**：先读 HarmBench 论文（arXiv [2402.04249](https://arxiv.org/abs/2402.04249)）的第 5 节那张攻击×防御矩阵——一眼就能看出「我们的模型很稳健」这句话为什么单独说没有意义。
+- **成名作**：[HarmBench](https://arxiv.org/abs/2402.04249)：把 18 种自动红队方法对 33 个模型和防御跑成一张统一的对照表，攻击方和防御方第一次在同一套题目、同一个判定器上比分。他也是 [WMDP](https://arxiv.org/abs/2403.03218) 危险知识基准的作者之一。
 
 | 时期 | |
 |---|---|

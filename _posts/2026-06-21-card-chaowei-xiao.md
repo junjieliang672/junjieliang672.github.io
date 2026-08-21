@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：约翰霍普金斯大学助理教授，SaFoLab 负责人（主页自述同时任职 NVIDIA Research）
 - **主页**：[https://xiaocw11.github.io/](https://xiaocw11.github.io/)
 - **从哪读起**：先读 AutoDAN 的项目页（autodans.github.io/AutoDAN），它用最短的篇幅说清了「让机器自己写出读得通的越狱提示」是怎么回事，也是他后面所有工作的起点。
+- **成名作**：[AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models](https://arxiv.org/abs/2310.04451)：用层次化遗传算法自动进化出通顺的越狱提示，不像 GCG 那样是乱码，因此能绕过按困惑度过滤的防御，成为论文里默认要测的攻击基线。
 
 | 时期 | |
 |---|---|

@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：NVIDIA（AI 系统安全方向；NVIDIA 技术博客作者页自述「now works at NVIDIA」，最近署名文章 2025 年 11 月）
 - **主页**：[https://kai-greshake.de/](https://kai-greshake.de/)
 - **从哪读起**：先读他主页上 2024 年 3 月的《Prompt Injection Defenses Should Suck Less》，因为那是他自己说清楚「这事在模型层面修不好、只能在系统层面围堵」的一篇，比论文更能看出他现在怎么想。
+- **成名作**：[Not what you've signed up for](https://arxiv.org/abs/2302.12173)：首次系统命名并演示「间接提示注入」——模型读到的网页、邮件、文档里藏一句话，就能变成对它的命令。这篇是整个 LLM 应用安全领域被引最多的奠基论文之一。
 
 | 时期 | |
 |---|---|

@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：独立 AI 安全研究者，博客 Embrace The Red；截至 2025 年底任 Electronic Arts 红队总监
 - **主页**：[https://embracethered.com/blog/](https://embracethered.com/blog/)
 - **从哪读起**：先读 monthofaibugs.com 里那篇《I Spent $500 To Test Devin AI For Prompt Injection》——一个完整、可复现的攻击链从头走到尾，比任何综述都快让人明白问题出在哪。
+- **成名作**：[SpAIware](https://embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/)：一次提示注入把窃密指令写进 ChatGPT 长期记忆，之后每开一个新会话都持续外传聊天内容。2025 年他连续披露数十个真实漏洞，被 Simon Willison 称为 [The Summer of Johann](https://simonwillison.net/2025/Aug/15/the-summer-of-johann/)。
 
 | 时期 | |
 |---|---|

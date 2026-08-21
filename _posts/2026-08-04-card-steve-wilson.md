@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Exabeam Chief AI and Product Officer；OWASP Gen AI Security Project 创始人、董事会共同主席
 - **主页**：[https://github.com/virtualsteve-star](https://github.com/virtualsteve-star)
 - **从哪读起**：先读 OWASP 项目主页 owasp.org/www-project-top-10-for-large-language-model-applications 的第一条风险「prompt injection」及其缓解章节——它开头就承认「在模型内部没有万无一失的防法」，这句话比清单本身更能说明这个领域现在的处境。
+- **成名作**：发起并主持 [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)，2023 年首版把 prompt injection 列为头号风险。这份清单汇集 18 国 600 多名贡献者，成了企业审查 AI 应用时最常被引用的那张表。
 
 | 时期 | |
 |---|---|

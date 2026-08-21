@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：University of Pennsylvania 计算机与信息科学系助理教授，Brachio Lab
 - **主页**：[https://www.cis.upenn.edu/~exwong/](https://www.cis.upenn.edu/~exwong/)
 - **从哪读起**：先看 jailbreakbench.github.io 的排行榜和它公开存档的攻击提示词——你能直接看到别人是用哪句话把某个模型骗过去的，比读论文快。
+- **成名作**：[JailbreakBench](https://arxiv.org/abs/2404.01318)：把越狱攻击的 100 条有害行为、判定模型、攻击成功率口径全部固定下来，此前每篇论文自己定题目自己判分，成功率根本没法横向比较。他还是 [PAIR](https://arxiv.org/abs/2310.08419) 的合著者。
 
 | 时期 | |
 |---|---|

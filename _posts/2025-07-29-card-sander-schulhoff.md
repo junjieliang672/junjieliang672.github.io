@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Learn Prompting 与 HackAPrompt 创始人（个人主页现自述为 InventoryQuant CEO）
 - **主页**：[https://sanderschulhoff.com/](https://sanderschulhoff.com/)
 - **从哪读起**：先读 HackAPrompt 论文（arXiv [2311.16119](https://arxiv.org/abs/2311.16119)）的结果部分——里面有「对模型说『请』并不提高攻击成功率」这类只有拿到几十万条真实攻击才能得出的结论。
+- **成名作**：[Ignore This Title and HackAPrompt](https://arxiv.org/abs/2311.16119)：全球规模的提示攻击竞赛，收集到 60 万条真实对抗提示并公开数据集与分类法，拿下 EMNLP 2023 最佳主题论文。
 
 | 时期 | |
 |---|---|

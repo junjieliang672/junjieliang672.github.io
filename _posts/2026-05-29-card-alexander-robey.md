@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Thinking Machines Lab 技术团队成员（据其个人主页）
 - **主页**：[https://arobey1.github.io/](https://arobey1.github.io/)
 - **从哪读起**：先读 RoboPAIR 那篇《Jailbreaking LLM-Controlled Robots》（arXiv [2410.13691](https://arxiv.org/abs/2410.13691)）——它把「越狱」从一段文字变成一个真机器狗执行的动作，不需要任何背景知识就能看懂危害在哪。
+- **成名作**：[Jailbreaking LLM-Controlled Robots](https://arxiv.org/abs/2410.13691)：他的 RoboPAIR 让 Unitree Go2 机器狗和自动驾驶模拟器执行放炸弹、撞人等指令，第一次证明越狱能从文字输出变成物理伤害；他也是越狱评测标尺 [JailbreakBench](https://arxiv.org/abs/2404.01318) 的作者。
 
 | 时期 | |
 |---|---|

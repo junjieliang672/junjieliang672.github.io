@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Center for AI Safety 执行与研究总监
 - **主页**：[https://people.eecs.berkeley.edu/~hendrycks/](https://people.eecs.berkeley.edu/~hendrycks/)
 - **从哪读起**：先读 HarmBench 那篇（arXiv [2402.04249](https://arxiv.org/abs/2402.04249)）的实验表格，不看方法只看那张「18 种攻击 × 33 个模型与防御」的矩阵——一眼就能看出为什么「这个模型的安全分是 X」这句话是没有意义的。
+- **成名作**：[Measuring Massive Multitask Language Understanding (MMLU)](https://arxiv.org/abs/2009.03300)：57 个学科的选择题考卷，把「模型到底懂多少」变成一个所有厂商发布模型时都得报的数字；他后续的 MATH、HLE 沿用同一套路数。
 
 | 时期 | |
 |---|---|

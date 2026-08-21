@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：曾任 Scale AI 提示工程师；2025 年 10 月有报道称加入 Google DeepMind（无一手来源确认，现职不明）
 - **主页**：[https://x.com/goodside](https://x.com/goodside)
 - **从哪读起**：先看 Simon Willison 2022 年 9 月 12 日那篇 Prompt injection attacks against GPT-3——里面完整贴着 Goodside 前一天做的那个演示，两百字你就明白这类攻击长什么样。
+- **成名作**：2022 年 9 月他在推特上演示：给 GPT-3 的待翻译文本里塞一句「忽略上面的指令」，模型就照做了。这批例子直接催生了 prompt injection 这个术语，见 [Simon Willison 的记录](https://simonwillison.net/2022/Sep/12/prompt-injection/)。
 
 | 时期 | |
 |---|---|

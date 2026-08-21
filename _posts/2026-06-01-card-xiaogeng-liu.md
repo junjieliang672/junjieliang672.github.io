@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Johns Hopkins University DSAI 博士生（导师 Chaowei Xiao）
 - **主页**：[https://xiaogeng-liu.com/](https://xiaogeng-liu.com/)
 - **从哪读起**：先看 AutoDAN 那篇（arXiv [2310.04451](https://arxiv.org/abs/2310.04451)）：它是后来大量论文用来做对照的攻击基线，读它能明白「越狱」到底是怎么被自动化的。
+- **成名作**：一作 [AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models](https://arxiv.org/abs/2310.04451)（ICLR 2024）。它用分层遗传算法自动进化越狱提示词，既保持了人写模板的语义通顺（能绕过困惑度检测），又不再需要人工手搓。
 
 | 时期 | |
 |---|---|

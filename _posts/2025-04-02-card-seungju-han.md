@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Stanford 计算机系博士生（2025 年秋入学），导师 Yejin Choi
 - **主页**：[https://seungjuhan.me/](https://seungjuhan.me/)
 - **从哪读起**：直接读 WildGuard 论文（arXiv [2406.18495](https://arxiv.org/abs/2406.18495)）的第 1 节和表格：它把「模型有没有拒答」列成一项独立任务，这是当时别的审核工具都没做的事。
+- **成名作**：一作 [WildGuard: Open One-Stop Moderation Tools for Safety Risks, Jailbreaks, and Refusals of LLMs](https://arxiv.org/abs/2406.18495)（NeurIPS 2024）。出名在于它把三件事合成一个开源小模型：判输入有害、判输出有害、判模型有没有该拒不拒，效果压过 GPT-4 审核，成了开源安全护栏的默认基线。
 
 | 时期 | |
 |---|---|

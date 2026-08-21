@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：NVIDIA LLM 安全方向研究员（截至 2025 年 10 月可核实）；ITU Copenhagen 学术职位
 - **主页**：[https://www.derczynski.com/](https://www.derczynski.com/)
 - **从哪读起**：先读 garak 的 README 并对任意一个模型跑一次默认扫描（github.com/NVIDIA/garak），十分钟就能看到 HTML 报告长什么样；再读 arXiv [2406.11036](https://arxiv.org/abs/2406.11036) 那篇论文里关于 detector 的部分，那才是他真正想说的话。
+- **成名作**：[garak](https://arxiv.org/abs/2406.11036)（[GitHub](https://github.com/NVIDIA/garak)）：LLM 界的 nmap，一条命令把论文里的越狱、数据泄露、有害生成探针成套跑一遍自己的模型，把散落在各篇论文里的攻击变成了可直接调用的扫描器。
 
 | 时期 | |
 |---|---|

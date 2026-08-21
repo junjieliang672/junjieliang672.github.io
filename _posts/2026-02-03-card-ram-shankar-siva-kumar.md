@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：微软 AI Red Team，自称 Data Cowboy（截至 2026 年 7 月的微软官方博客署名）
 - **主页**：[https://www.ram-shankar.com/bio](https://www.ram-shankar.com/bio)
 - **从哪读起**：先读《Lessons From Red Teaming 100 Generative AI Products》（arXiv [2501.07238](https://arxiv.org/abs/2501.07238)）的八条结论——不用读正文，八条标题就能让你看出自己现在的 AI 测试流程漏了哪一层。
+- **成名作**：2018 年在微软创立 AI Red Team，把上线前攻击自家 AI 变成常设岗位与流程，并开源了命令行红队工具 [Counterfit](https://www.microsoft.com/en-us/security/blog/2021/05/03/ai-security-risk-assessment-using-counterfit/)，让安全工程师能像扫漏洞一样系统地测 AI 系统。
 
 | 时期 | |
 |---|---|

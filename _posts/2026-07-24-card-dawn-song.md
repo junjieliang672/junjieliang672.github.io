@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Meta Superintelligence Labs AI Research 副总裁（2026 年 6 月宣布）；UC Berkeley 计算机系教授
 - **主页**：[https://dawnsong.io](https://dawnsong.io)
 - **从哪读起**：先看 2018 年那篇 Robust Physical-World Attacks（openaccess.thecvf.com 上有全文，看图就够），它用一张贴了几片黑白贴纸的停车牌，一句话说清了她做事的方式：不争论风险存不存在，直接做一个能拍照的证据出来。
+- **成名作**：[Robust Physical-World Attacks on Deep Learning Visual Classification](https://arxiv.org/abs/1707.08945)：在停车标志上贴几块黑白胶带，就让识别模型稳定读成「限速 45」，第一次证明对抗样本能在真实光照和视角下生效，是物理世界攻击的奠基工作。
 
 | 时期 | |
 |---|---|

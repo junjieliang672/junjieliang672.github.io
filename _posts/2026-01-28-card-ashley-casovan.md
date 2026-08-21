@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：IAPP AI Governance Center Managing Director（2023 年 10 月上任，2026 年 5 月的报告署名仍为此职）
 - **主页**：[https://vectorinstitute.ai/team/ashley-casovan/](https://vectorinstitute.ai/team/ashley-casovan/)
 - **从哪读起**：先读加拿大的 Directive on Automated Decision-Making 附带的 Algorithmic Impact Assessment 问卷（aia.guide 有导读），那份问卷是理解她全部做法的入口：填完题目就自动决定你要接受多严的审查。
+- **成名作**：在加拿大政府主持了全球首个国家级算法监管规则 [Directive on Automated Decision-Making](https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-scope-directive-automated-decision-making.html)，配套的算法影响评估把政府 AI 系统按风险分四级；后在 IAPP 推出 AIGP 认证，把 AI 治理变成一门有考试的职业。
 
 | 时期 | |
 |---|---|

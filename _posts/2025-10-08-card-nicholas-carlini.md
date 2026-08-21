@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Anthropic 研究科学家（2025 年 3 月起）
 - **主页**：[https://nicholas.carlini.com/](https://nicholas.carlini.com/)
 - **从哪读起**：先读他 2023 年 11 月那篇《让 ChatGPT 一直重复 poem》的博客（not-just-memorization.github.io），二十分钟能看懂全过程，而且能看出他做研究的一贯做法：找一个荒谬到没人试过的输入，然后老老实实统计它漏出了多少东西。
+- **成名作**：[Towards Evaluating the Robustness of Neural Networks](https://arxiv.org/abs/1608.04644)，即 C&W 攻击：它打穿了当时号称有效的防御性蒸馏，此后新防御必须先扛住 C&W 才算数；他还与人合著 [Obfuscated Gradients Give a False Sense of Security](https://arxiv.org/abs/1802.00420)，一口气推翻 ICLR 2018 的 7 篇防御。
 
 | 时期 | |
 |---|---|

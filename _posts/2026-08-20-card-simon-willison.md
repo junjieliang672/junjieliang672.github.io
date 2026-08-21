@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：独立开源开发者（Datasette 作者），每周一天在 Jesse Vincent 的 Prime Radiant
 - **主页**：[https://simonwillison.net/](https://simonwillison.net/)
 - **从哪读起**：先读 2022-09-12 那篇《Prompt injection attacks against GPT-3》，再读 2025-06-16 的《The lethal trifecta》——一篇是命名，一篇是他给普通用户的检查清单，中间三年的立场变化都在这两篇之间。
+- **成名作**：2022 年 9 月博文 [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection/) 亲手给这类攻击命名。他类比 SQL 注入指出：拼接字符串的 prompt 天生分不清指令和数据，而且过滤式防御只要漏一次就全盘皆输，因此必须做架构隔离。
 
 | 时期 | |
 |---|---|

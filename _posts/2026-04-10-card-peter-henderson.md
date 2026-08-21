@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：普林斯顿大学计算机系与公共与国际事务学院助理教授，Polaris Lab
 - **主页**：[https://www.peterhenderson.co/](https://www.peterhenderson.co/)
 - **从哪读起**：读 arXiv:[2310.03693](https://arxiv.org/abs/2310.03693)《Fine-tuning Aligned Language Models Compromises Safety》——一篇论文里能同时看到他的攻击结论、他造的评测集，以及他对平台该负什么责的推论。
+- **成名作**：[Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!](https://arxiv.org/abs/2310.03693)：只用几十条样本微调 GPT-3.5 与 Llama-2，对齐几乎全被拆掉，直接推动了微调 API 的安全审查与监管讨论。
 
 | 时期 | |
 |---|---|

@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Meta Superintelligence Labs 研究科学家（本人主页自述）
 - **主页**：[https://zifanw.github.io/](https://zifanw.github.io/)
 - **从哪读起**：先读 A Red Teaming Roadmap Towards System-Level Safety（arXiv [2506.05376](https://arxiv.org/abs/2506.05376)，他一作，十几页、没有公式），这是他把过去几年攻击经验总结成「以后该怎么测」的一篇。
+- **成名作**：合著 [Universal and Transferable Adversarial Attacks on Aligned Language Models](https://arxiv.org/abs/2307.15043)（即 GCG 后缀攻击）与 [HarmBench](https://arxiv.org/abs/2402.04249)。前者证明梯度搜出的乱码后缀能跨模型迁移越狱，后者统一了红队评测口径，二者至今是越狱研究的标配基线。
 
 | 时期 | |
 |---|---|

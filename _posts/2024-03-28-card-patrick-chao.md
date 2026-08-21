@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：OpenAI 研究员（据本人主页自述，做强化学习方向）
 - **主页**：[https://patrickrchao.github.io/](https://patrickrchao.github.io/)
 - **从哪读起**：先读 PAIR 那篇（arXiv [2310.08419](https://arxiv.org/abs/2310.08419)）的第 3 节，看攻击者模型改写提示词的实际对话记录；再翻 JailbreakBench 网站上公开的对抗提示词仓库，看那些真正骗过模型的句子长什么样。
+- **成名作**：[Jailbreaking Black Box Large Language Models in Twenty Queries](https://arxiv.org/abs/2310.08419)（PAIR）：用一个攻击者 LLM 反复改写提示，平均二十次查询就越狱一个黑盒模型；他随后建了 [JailbreakBench](https://arxiv.org/abs/2404.01318)，统一了越狱成功率的算法。
 
 | 时期 | |
 |---|---|

@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Cohere Labs 资深研究科学家（senior research scientist）
 - **主页**：[https://nouhadziri.github.io/](https://nouhadziri.github.io/)
 - **从哪读起**：先读 WildGuard 论文（arXiv [2406.18495](https://arxiv.org/abs/2406.18495)）的第 1、2 节——它把「判一句话有没有害」拆成三个互相纠缠的子问题，是理解整套工具为什么长这样的入口。
+- **成名作**：[WildGuard: Open One-Stop Moderation Tools for Safety Risks, Jailbreaks, and Refusals of LLMs](https://arxiv.org/abs/2406.18495)：一个开源 7B 审核模型，同时判断提问是否恶意、回答是否有害、模型是否拒答，覆盖 13 类风险，成了很多团队默认的安全评测尺子。
 
 | 时期 | |
 |---|---|

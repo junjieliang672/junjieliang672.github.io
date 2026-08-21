@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：DEF CON AI Village 创始人；nbhd.ai 创始人
 - **主页**：[https://aivillage.org/about/](https://aivillage.org/about/)
 - **从哪读起**：先读 aivillage.org 上 GRT3 的公告页——他在那页里直接写「第一届没有发现任何未知缺陷」，一页之内能看到他三次改规则的完整理由链。
+- **成名作**：2018 年创办 DEF CON AI Village，并主办 2023 年 DEF CON 31 的 [Generative Red Team Challenge](https://aivillage.org/blog/generative-recap/)：约 2200 名黑客现场围攻 8 家厂商的模型，是史上规模最大的公开生成式 AI 红队演练，还获白宫背书。
 
 | 时期 | |
 |---|---|

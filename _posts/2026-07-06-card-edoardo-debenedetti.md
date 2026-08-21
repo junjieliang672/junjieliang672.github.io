@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：AI Sequrity Company 研究科学家；ETH Zurich 计算机博士（SPY Lab，收尾阶段）
 - **主页**：[https://edoardo.science/](https://edoardo.science/)
 - **从哪读起**：先看 AgentDojo 的代码仓库 github.com/ethz-spylab/agentdojo：里面 97 个模拟任务（收邮件、转账、订机票）和 629 个攻击用例，跑一遍就能直观看到一个智能体是怎么被一封邮件骗走的。
+- **成名作**：[AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents](https://arxiv.org/abs/2406.13352)：97 个收发邮件、网银转账之类的真实任务加 629 个注入场景，成了测智能体抗提示注入的通用考场；他也参与了不靠模型自觉的防御方案 [CaMeL](https://arxiv.org/abs/2503.18813)。
 
 | 时期 | |
 |---|---|

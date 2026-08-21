@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：NVIDIA 研究科学家（2026 年 4 月起，据本人主页）
 - **主页**：[https://liweijiang.github.io/](https://liweijiang.github.io/)
 - **从哪读起**：先读 WildTeaming（arXiv [2406.18510](https://arxiv.org/abs/2406.18510)）第 2 节，看她们怎么从真人跟聊天机器人的对话里挖出越狱话术——这是理解她全部工作的入口。
+- **成名作**：[WildTeaming at Scale](https://arxiv.org/abs/2406.18510)：从真实用户与聊天机器人的对话里挖出人类自发使用的越狱套路，组合成 26 万条的 WildJailbreak 训练集，让红队数据来源从研究者拍脑袋改成了野外真实攻击。
 
 | 时期 | |
 |---|---|

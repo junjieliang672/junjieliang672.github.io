@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Gray Swan AI 联合创始人兼 CEO；卡内基梅隆大学计算机系副教授
 - **主页**：[https://www.cs.cmu.edu/~mfredrik/](https://www.cs.cmu.edu/~mfredrik/)
 - **从哪读起**：先读 2023 年那篇 GCG 论文（arXiv [2307.15043](https://arxiv.org/abs/2307.15043)，《Universal and Transferable Adversarial Attacks on Aligned Language Models》），它是后面所有事情的起点；然后读 2025 年的竞赛报告 arXiv [2507.20526](https://arxiv.org/abs/2507.20526)，看几万人真去攻会发生什么。
+- **成名作**：[GCG 攻击](https://arxiv.org/abs/2307.15043)：用梯度搜索自动生成一串乱码后缀贴在问题后面，就能让对齐模型照答，而且这串后缀能从开源模型迁移到 ChatGPT 和 Bard，把越狱从手工段子变成可优化的算法问题。
 
 | 时期 | |
 |---|---|
