@@ -114,7 +114,7 @@ contact_note: >
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: LLM Security 雷达
+blog_name: LLM Security 雷达 — fully driven by AI
 blog_nav_title: radar # your blog must have a title for it to be displayed in the nav bar
 blog_description: LLM / agent security 的每日速览、知识卡（人物与研究组）、资讯卡（评测集 / 事故 / 系统 / 防御机制）与深度分析
 permalink: /radar/:year/:title/
