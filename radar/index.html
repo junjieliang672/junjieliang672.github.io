@@ -1,0 +1,242 @@
+---
+layout: default
+title: radar
+---
+
+{%- comment -%}
+  排版的判断：**日期只对速览是正确的排序轴**。
+  速览是日志，日期就是它的身份（「08-19 那期」）；
+  知识卡按人查（没人记得 Dawn Song 那张是 07-24 写的）；
+  资讯卡按名字查（「AdvBench 那张」）；长文按论断查（标题本身就是论断）。
+  原来四栏一律按日期倒序、各显示最新 4 篇，所以读起来像流水账，
+  而锚在 2023 年的资讯卡在 66 篇里排到 50 名开外，翻不到。
+
+  已读/未读用 :visited。出于隐私，浏览器只允许 :visited 改
+  color / background-color / border-color —— 改 opacity 或 font-weight 无效。
+{%- endcomment -%}
+
+{%- assign cards = site.posts | where_exp: "p", "p.categories contains 'card'" -%}
+{%- assign briefs = site.posts | where_exp: "p", "p.categories contains 'brief'" -%}
+{%- assign deeps = site.posts | where_exp: "p", "p.categories contains 'deep'" -%}
+{%- assign digests = site.posts | where_exp: "p", "p.categories contains 'digest'" -%}
+
+<style>
+  .px { --px-live: var(--global-theme-color);
+        --px-read: var(--global-text-color-light);
+        --px-rule: var(--global-divider-color);
+        --px-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  .px a { border-bottom: none; }
+  .px a:link    { color: var(--px-live); }
+  .px a:visited { color: var(--px-read); }
+  .px a:hover   { color: var(--global-hover-color); text-decoration: underline; }
+  .px a:focus-visible { outline: 2px solid var(--global-hover-color); outline-offset: 2px; }
+
+  .px-head { display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
+             margin:0 0 .9rem; }
+  /* 雷达盘：盘面是静态 SVG，扫描束是叠在上面的旋转圆锥渐变。
+     四个光点 = 这页每天扫到的四类内容（速览/知识卡/资讯卡/长文）。 */
+  .px-radar { position:relative; width:46px; height:46px; flex:none; }
+  .px-radar svg { display:block; }
+  .px-sweep { position:absolute; inset:1px; border-radius:50%; pointer-events:none;
+              background:conic-gradient(from 0deg,
+                color-mix(in srgb, var(--px-live) 55%, transparent) 0deg,
+                color-mix(in srgb, var(--px-live) 12%, transparent) 55deg,
+                transparent 70deg 360deg);
+              -webkit-mask:radial-gradient(circle, #000 0 66%, transparent 67%);
+              mask:radial-gradient(circle, #000 0 66%, transparent 67%);
+              animation:px-sweep 4s linear infinite; }
+  @keyframes px-sweep { to { transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .px-sweep { animation:none; transform:rotate(300deg); }
+  }
+  .px-head h1 { margin:0; font-size:1.6rem; line-height:1.1; letter-spacing:-.01em; }
+  .px-stat { font-family:var(--px-mono); font-size:.78rem; color:var(--px-read);
+             line-height:1.5; }
+
+  .px-tools { display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+              border-top:1px solid var(--px-rule); border-bottom:1px solid var(--px-rule);
+              padding:.6rem 0; margin-bottom:1.6rem; }
+  .px-tools input { flex:1 1 16rem; min-width:12rem; padding:.35rem .6rem;
+                    font-family:var(--px-mono); font-size:.85rem;
+                    color:var(--global-text-color); background:var(--global-bg-color);
+                    border:1px solid var(--px-rule); border-radius:3px; }
+  .px-legend { font-family:var(--px-mono); font-size:.75rem; color:var(--px-read);
+               white-space:nowrap; }
+  .px-dot { display:inline-block; width:.5rem; height:.5rem; border-radius:50%;
+             margin:0 .3rem 0 0; vertical-align:baseline; }
+  .px-dot-read { margin-left:.9rem; background:var(--px-read); }
+  .px-dot-live { background:var(--px-live); }
+
+  .px-sec { margin:0 0 2rem; }
+  .px-sec > h2 { font-size:1.05rem; margin:0 0 .1rem; letter-spacing:.02em; }
+  .px-sec > h2 a,
+  .px-sec > h2 a:link,
+  .px-sec > h2 a:visited { color: var(--global-text-color); }
+  .px-sec > h2 a::after { content:" →"; font-size:.72rem; color:var(--px-read);
+                          vertical-align:.08em; }
+  .px-sec > h2 a:hover { color: var(--global-hover-color); text-decoration:none; }
+  .px-sec > h2 a:hover::after { color: var(--global-hover-color); }
+  .px-axis { font-family:var(--px-mono); font-size:.75rem; color:var(--px-read);
+             margin:0 0 .7rem; padding-bottom:.4rem;
+             border-bottom:1px solid var(--px-rule); }
+
+  .px-row { display:flex; gap:.7rem; align-items:baseline; padding:.16rem 0; }
+  .px-key { flex:0 0 5.2rem; font-family:var(--px-mono); font-size:.75rem;
+            color:var(--px-read); text-align:right; }
+  .px-items { flex:1 1 auto; line-height:1.85; }
+  .px-items a { margin-right:.15rem; }
+  .px-sep { color:var(--px-rule); margin:0 .35rem 0 .2rem; }
+
+  .px-days { font-family:var(--px-mono); font-size:.82rem; line-height:2; }
+  .px-days a { margin-right:.9rem; white-space:nowrap; }
+  .px-n { font-size:.7rem; color:var(--px-read); }
+
+  .px-claims li { margin:.3rem 0; line-height:1.5; }
+  .px-claims { list-style:none; padding:0; margin:0; }
+
+  .px-empty { color:var(--px-read); font-size:.85rem; }
+  @media (max-width:600px){ .px-key { flex-basis:4rem; } }
+</style>
+
+<div class="post px" id="px">
+
+  {%- comment -%}
+    标题原来是一个占满整屏的 h1 加三行描述，而那三行说的是「速览、知识卡、资讯卡、
+    深度分析」——这四个词下面四栏的标题里各出现一次，纯重复，唯一效果是把真正的
+    内容推到折叠线以下。换成一行：名字 + 当下的数，数是每天在变的、描述不是。
+  {%- endcomment -%}
+  <div class="px-head">
+    <span class="px-radar" aria-hidden="true">
+      <svg viewBox="0 0 48 48" width="46" height="46" role="img">
+        <g fill="none" stroke="var(--px-rule)" stroke-width="1">
+          <circle cx="24" cy="24" r="22"/>
+          <circle cx="24" cy="24" r="14.5"/>
+          <circle cx="24" cy="24" r="7"/>
+          <path d="M24 2v44M2 24h44" stroke-dasharray="2 3"/>
+        </g>
+        <g fill="var(--px-live)">
+          <circle cx="33" cy="13" r="2.1"/>
+          <circle cx="13.5" cy="20" r="1.7"/>
+          <circle cx="29" cy="33.5" r="1.7"/>
+          <circle cx="19" cy="38" r="1.4"/>
+        </g>
+        <circle cx="24" cy="24" r="1.6" fill="var(--px-live)"/>
+      </svg>
+      <span class="px-sweep"></span>
+    </span>
+    <h1>{{ site.blog_name }}</h1>
+    <span class="px-stat">{{ digests.size }} 期速览 · {{ cards.size }} 知识卡 ·
+      {{ briefs.size }} 资讯卡 · {{ deeps.size }} 长文 ·
+      最新 {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>
+  </div>
+
+  <div class="px-tools">
+    <input id="px-q" type="search" placeholder="输入名字或关键词，过滤全部 {{ site.posts.size }} 篇"
+           aria-label="过滤" autocomplete="off">
+    <span class="px-legend" aria-hidden="true">
+      <i class="px-dot px-dot-live"></i>未读<i class="px-dot px-dot-read"></i>已读（浏览器记录）
+    </span>
+  </div>
+
+  {%- comment -%} 速览：唯一该按日期排的一类。一行一天，看得见空档。 {%- endcomment -%}
+  <section class="px-sec">
+    <h2><a href="{{ '/radar/category/digest/' | relative_url }}">速览</a></h2>
+    <div class="px-axis">按天 · {{ digests.size }} 期 · 空档表示那天窗口内没有新论文</div>
+    <div class="px-days">
+      {%- for p in digests -%}
+        <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+           >{{ p.date | date: "%m-%d" }}<span class="px-n"> {{ p.title | split: "：" | last }}</span></a>
+      {%- endfor -%}
+    </div>
+  </section>
+
+  {%- comment -%} 知识卡：按人查，所以按 lane 分组把名字全列出来，不按日期。 {%- endcomment -%}
+  <section class="px-sec">
+    <h2><a href="{{ '/radar/category/card/' | relative_url }}">知识卡</a></h2>
+    <div class="px-axis">按人 · {{ cards.size }} 张 · 人物与研究组</div>
+    {%- assign lanes = "academic,indie,exec,policy,org" | split: "," -%}
+    {%- assign lane_zh = "学者,独立,高管,政策,机构" | split: "," -%}
+    {%- for ln in lanes -%}
+      {%- assign grp = cards | where_exp: "p", "p.tags contains ln" -%}
+      {%- if grp.size > 0 -%}
+      <div class="px-row">
+        <span class="px-key">{{ lane_zh[forloop.index0] }} {{ grp.size }}</span>
+        <span class="px-items">
+          {%- for p in grp -%}
+            <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+               >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+            {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
+          {%- endfor -%}
+        </span>
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </section>
+
+  {%- comment -%} 资讯卡：按名字查，所以按子类分组。 {%- endcomment -%}
+  <section class="px-sec">
+    <h2><a href="{{ '/radar/category/brief/' | relative_url }}">资讯卡</a></h2>
+    <div class="px-axis">按类型 · {{ briefs.size }} 张 · 评测集 / 事故 / 系统 / 防御机制</div>
+    {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
+    {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
+    {%- for sb in subs -%}
+      {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" -%}
+      {%- if grp.size > 0 -%}
+      <div class="px-row">
+        <span class="px-key">{{ sub_zh[forloop.index0] }} {{ grp.size }}</span>
+        <span class="px-items">
+          {%- for p in grp -%}
+            <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+               >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+            {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
+          {%- endfor -%}
+        </span>
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </section>
+
+  {%- comment -%} 长文：标题本身就是论断，所以整句列出，不截断。 {%- endcomment -%}
+  <section class="px-sec">
+    <h2><a href="{{ '/radar/category/deep/' | relative_url }}">长文</a></h2>
+    <div class="px-axis">按论断 · {{ deeps.size }} 篇 · 标题即论断</div>
+    <ul class="px-claims">
+      {%- for p in deeps -%}
+      <li><a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}">{{ p.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </section>
+
+  <p class="px-empty" id="px-none" hidden>没有匹配的条目。</p>
+</div>
+
+<script>
+(function () {
+  var q = document.getElementById('px-q');
+  if (!q) return;
+  var items = Array.prototype.slice.call(document.querySelectorAll('#px [data-px]'));
+  var none = document.getElementById('px-none');
+  function apply() {
+    var s = q.value.trim().toLowerCase();
+    var hit = 0;
+    items.forEach(function (a) {
+      var show = !s || a.getAttribute('data-px').indexOf(s) !== -1
+                    || a.textContent.toLowerCase().indexOf(s) !== -1;
+      // 隐藏时连同它后面那个分隔点一起隐藏，否则会留下一串孤零零的「·」
+      a.hidden = !show;
+      var sep = a.nextElementSibling;
+      if (sep && sep.classList.contains('px-sep')) sep.hidden = !show;
+      if (show) hit++;
+    });
+    // 整组被过滤空的行也收起来
+    document.querySelectorAll('#px .px-row').forEach(function (row) {
+      row.hidden = row.querySelectorAll('[data-px]:not([hidden])').length === 0;
+    });
+    document.querySelectorAll('#px .px-sec').forEach(function (sec) {
+      sec.hidden = sec.querySelectorAll('[data-px]:not([hidden])').length === 0;
+    });
+    if (none) none.hidden = hit !== 0;
+  }
+  q.addEventListener('input', apply);
+})();
+</script>
