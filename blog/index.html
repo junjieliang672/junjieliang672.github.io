@@ -123,7 +123,7 @@ title: blog
     {%- assign lanes = "academic,indie,exec,policy,org" | split: "," -%}
     {%- assign lane_zh = "学者,独立,高管,政策,机构" | split: "," -%}
     {%- for ln in lanes -%}
-      {%- assign grp = cards | where_exp: "p", "p.tags contains ln" | sort: "title" -%}
+      {%- assign grp = cards | where_exp: "p", "p.tags contains ln" -%}
       {%- if grp.size > 0 -%}
       <div class="px-row">
         <span class="px-key">{{ lane_zh[forloop.index0] }} {{ grp.size }}</span>
@@ -146,7 +146,7 @@ title: blog
     {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
     {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
     {%- for sb in subs -%}
-      {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" | sort: "title" -%}
+      {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" -%}
       {%- if grp.size > 0 -%}
       <div class="px-row">
         <span class="px-key">{{ sub_zh[forloop.index0] }} {{ grp.size }}</span>

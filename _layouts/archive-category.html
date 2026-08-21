@@ -91,7 +91,7 @@ layout: default
 
   {%- if keys.size > 0 -%}
     {%- for k in keys -%}
-      {%- assign grp = page.posts | where_exp: "p", "p.tags contains k" | sort: "title" -%}
+      {%- assign grp = page.posts | where_exp: "p", "p.tags contains k" -%}
       {%- if grp.size > 0 -%}
       <section class="px-grp">
         <h2>{{ keys_zh[forloop.index0] }} · {{ grp.size }}</h2>
