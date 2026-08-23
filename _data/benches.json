@@ -44,9 +44,11 @@
   {
    "name": "Escalating Delusions longitudinal evaluation (untitled, 30-day / 30-message script)",
    "date": "2026-08-13",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "用同一 30 条逐步加重的精神病性叙述脚本连发 30 天，评 15 个 LLM 是识别并安全干预还是共构妄想",
+   "labels": [
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.13017",
    "code_url": "",
    "card": null,
    "score": null,
@@ -56,10 +58,13 @@
   {
    "name": "DelusionEval",
    "date": "2026-08-05",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用589段真实妄想用户的对话历史喂模型，LLM判官测16种迎合妄想/鼓励自伤等行为",
+   "labels": [
+    "llm",
+    "deception-alignment"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.05004",
+   "code_url": "https://github.com/jlcmoore/llm-delusion-eval",
    "card": null,
    "score": null,
    "cited_by": 0,
@@ -68,9 +73,13 @@
   {
    "name": "MulRobBench",
    "date": "2026-07-26",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "无人机VLA在退化观测与安全协议约束下能否选出合规安全动作，3024题离线评分",
+   "labels": [
+    "agent-embodied",
+    "multimodal",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2607.23870",
    "code_url": "",
    "card": null,
    "score": null,
@@ -80,9 +89,16 @@
   {
    "name": "SkillSec-Eval",
    "date": "2026-07-15",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "按 skill 全生命周期（入库/检索/选择/执行/更新）注入恶意 skill，测 agent 被劫持率与防御效果",
+   "labels": [
+    "ipi",
+    "poisoning-backdoor",
+    "agent-tool",
+    "rag",
+    "mcp-harness",
+    "guardrail-eval"
+   ],
+   "paper_url": "https://arxiv.org/abs/2607.13987",
    "code_url": "",
    "card": null,
    "score": null,
@@ -92,10 +108,14 @@
   {
    "name": "PASB (Personal Agent Sycophancy Benchmark)",
    "date": "2026-07-12",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "1600 任务测个人 agent 是否把用户错误主张写入长期记忆/技能并在后续中立问题中复用",
+   "labels": [
+    "deception-alignment",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2607.10526",
+   "code_url": "https://github.com/henrymao2004/agent-sycophancy",
    "card": null,
    "score": null,
    "cited_by": 0,
@@ -104,9 +124,15 @@
   {
    "name": "Polymorphic Sybil Poisoning RAG Failure-Mode Benchmark",
    "date": "2026-07-04",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "多条改写的 sybil 毒文档投入 RAG 语料，按 gold/hijack/abstention/drift 四分类测 reader 被劫持程度",
+   "labels": [
+    "poisoning-backdoor",
+    "ipi",
+    "rag",
+    "llm",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2607.03739",
    "code_url": "",
    "card": null,
    "score": null,
@@ -135,9 +161,12 @@
   {
    "name": "Multilingual Criminal Law Over-Alignment benchmark (Measuring & Mitigating Over-Alignment for LLMs in Multilingual Criminal Law Courts)",
    "date": "2026-06-22",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "用瑞士刑事判决原文做四语翻译/摘要，测 LLM 过度拒答与免责声明对任务的损害",
+   "labels": [
+    "overrefusal-utility",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.23375",
    "code_url": "",
    "card": null,
    "score": null,
@@ -147,9 +176,12 @@
   {
    "name": "Phantoms and Disclosures privacy auditing framework (untitled)",
    "date": "2026-06-15",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "用训练/留出集假设检验审计 LLM 合成数据是否泄露训练记录，等价于无需模型访问的成员推断",
+   "labels": [
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.16952",
    "code_url": "",
    "card": null,
    "score": null,
@@ -159,10 +191,14 @@
   {
    "name": "FORGE (Fake Online Recommendations in Generative Environments)",
    "date": "2026-06-11",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "伪造检索网页中的产品信息，测搜索增强 LLM 是否会推荐不存在的假产品",
+   "labels": [
+    "poisoning-backdoor",
+    "rag",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.13610",
+   "code_url": "https://github.com/leoluolol/forge-benchmark",
    "card": null,
    "score": null,
    "cited_by": 1,
@@ -171,10 +207,13 @@
   {
    "name": "RELIANCE",
    "date": "2026-06-10",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "409 条 TikTok 孕产健康句子由 3 名临床医生标注真伪，测 LLM 事实核查准确率",
+   "labels": [
+    "llm",
+    "other:misinformation-factcheck"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.18285",
+   "code_url": "https://realize-lab.github.io/RELIANCE/",
    "card": null,
    "score": null,
    "cited_by": 0,
@@ -183,10 +222,14 @@
   {
    "name": "BenSyc",
    "date": "2026-06-08",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "孟加拉语 Reddit 帖评对构建，测 LLM 识别与生成回复时的迎合/附和程度（五级量表）",
+   "labels": [
+    "deception-alignment",
+    "llm",
+    "other:sycophancy"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.10061",
+   "code_url": "https://huggingface.co/datasets/Sajib-006/bensyc",
    "card": null,
    "score": null,
    "cited_by": 0,
@@ -230,9 +273,12 @@
   {
    "name": "Pander Score",
    "date": "2026-06-05",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "换用户立场问同一命题，用 LLM 判官量模型表态随用户偏移的程度（谄媚）",
+   "labels": [
+    "deception-alignment",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.07897",
    "code_url": "",
    "card": null,
    "score": null,
@@ -242,9 +288,14 @@
   {
    "name": "Execution-Grounded Security Testing for Coding Agents (red-team harness, untitled)",
    "date": "2026-06-01",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "把危险操作伪装成测试/复现任务喂给编码 agent，用沙箱执行证据而非口头拒绝判定攻击是否得手",
+   "labels": [
+    "jailbreak",
+    "code-security",
+    "agent-code",
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2607.22569",
    "code_url": "",
    "card": null,
    "score": null,
@@ -254,9 +305,13 @@
   {
    "name": "Lost in Delusion multi-turn delusion/distress safety simulation",
    "date": "2026-05-31",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "模拟妄想+痛苦用户多轮对话，测 LLM 是否因接受妄想前提而漏掉安全干预",
+   "labels": [
+    "llm",
+    "deception-alignment",
+    "overrefusal-utility"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.00975",
    "code_url": "",
    "card": null,
    "score": null,
@@ -1625,10 +1680,14 @@
   {
    "name": "DarkBench",
    "date": "2025-03-13",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "660 条提示诱出 LLM 六类暗模式（谄媚、隐瞒、品牌偏向等），LLM 评审打分",
+   "labels": [
+    "deception-alignment",
+    "toxicity-bias",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2503.10728",
+   "code_url": "https://github.com/apartresearch/darkbench",
    "card": null,
    "score": null,
    "cited_by": 35,
@@ -1815,10 +1874,16 @@
   {
    "name": "SafeRAG",
    "date": "2025-01-28",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "往 RAG 知识库塞噪声、矛盾、软广、伪安全警告四类攻击文本，测检索器/过滤器/LLM 是否被带偏或诱导拒答",
+   "labels": [
+    "ipi",
+    "rag",
+    "robustness",
+    "llm",
+    "guardrail-eval"
+   ],
+   "paper_url": "https://arxiv.org/abs/2501.18636",
+   "code_url": "https://github.com/IAAR-Shanghai/SafeRAG",
    "card": null,
    "score": null,
    "cited_by": 42,
@@ -2294,10 +2359,15 @@
   {
    "name": "AI-LieDar",
    "date": "2024-09-13",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "Sotopia 多轮模拟中让 agent 目标与诚实冲突，量化欺骗率与任务达成率的权衡",
+   "labels": [
+    "deception-alignment",
+    "llm",
+    "multi-agent",
+    "overrefusal-utility"
+   ],
+   "paper_url": "https://arxiv.org/abs/2409.09013",
+   "code_url": "https://llm-liar.github.io/",
    "card": null,
    "score": null,
    "cited_by": 37,
@@ -3757,10 +3827,14 @@
   {
    "name": "Hoodwinked",
    "date": "2023-07-05",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "狼人杀式文字游戏，测 LLM 做杀手时撒谎甩锅、其他玩家识谎的能力",
+   "labels": [
+    "deception-alignment",
+    "llm",
+    "multi-agent"
+   ],
+   "paper_url": "https://arxiv.org/abs/2308.01404",
+   "code_url": "https://github.com/aogara-ds/hoodwinked",
    "card": null,
    "score": null,
    "cited_by": 59,
@@ -3820,10 +3894,13 @@
   {
    "name": "TrustGPT",
    "date": "2023-06-20",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用社会规范模板提示，测 LLM 的毒性、分组偏见和价值对齐（主动/被动任务）。",
+   "labels": [
+    "toxicity-bias",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2306.11507",
+   "code_url": "https://github.com/HowieHwong/TrustGPT",
    "card": null,
    "score": null,
    "cited_by": 77,
@@ -3832,10 +3909,13 @@
   {
    "name": "PromptRobust",
    "date": "2023-06-07",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "给任务指令加错字/同义词/干扰句等对抗扰动，测 LLM 在 8 类 NLP 任务上性能下降幅度",
+   "labels": [
+    "robustness",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2306.04528",
+   "code_url": "https://github.com/microsoft/promptbench",
    "card": null,
    "score": null,
    "cited_by": 324,
@@ -4020,10 +4100,14 @@
   {
    "name": "DiaSafety",
    "date": "2021-10-16",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "标注人机对话里语境相关的不安全回复，评对话模型与安全分类器的检出能力",
+   "labels": [
+    "toxicity-bias",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2110.08466",
+   "code_url": "https://github.com/thu-coai/DiaSafety",
    "card": null,
    "score": null,
    "cited_by": 118,

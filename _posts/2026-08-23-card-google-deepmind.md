@@ -4,7 +4,7 @@ title: "机构 · Google DeepMind"
 date: 2026-08-23
 description: "用自适应攻击把自己和同行的注入防御逐个打穿，并把这套打法定成防御评测的及格线"
 categories: card
-tags: [llm-security, card, org, org]
+tags: [llm-security, card, org, notaperson]
 giscus_comments: false
 ---
 **用自适应攻击把自己和同行的注入防御逐个打穿，并把这套打法定成防御评测的及格线**
