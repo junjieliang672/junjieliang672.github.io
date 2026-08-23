@@ -4,7 +4,7 @@ title: "人物 · Zifan Wang"
 date: 2026-03-16
 description: "合著了当今测 AI 越狱最常用的几把尺子，然后花两年证明这些尺子量出来的分数偏高"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/zifan-wang.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

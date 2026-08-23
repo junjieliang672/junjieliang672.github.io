@@ -4,7 +4,7 @@ title: "人物 · Edoardo Debenedetti"
 date: 2026-07-06
 description: "做出了业内测 AI 智能体被骗程度的标准考场，也做出了不靠模型自觉的防御方案"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/edoardo-debenedetti.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

@@ -4,7 +4,7 @@ title: "人物 · Dawn Song"
 date: 2026-07-24
 description: "AI 安全领域先把「怎么测」定下来的人：从贴纸骗过路牌识别，到今天给 AI 智能体做红队评测"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/dawn-song.png" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

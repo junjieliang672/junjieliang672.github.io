@@ -4,7 +4,7 @@ title: "人物 · Patrick Chao"
 date: 2024-03-28
 description: "做出了自动越狱攻击 PAIR，又建了 JailbreakBench，让「越狱成功率」这个数字第一次能被别人复算"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/patrick-chao.png" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

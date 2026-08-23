@@ -4,7 +4,7 @@ title: "人物 · Nicholas Carlini"
 date: 2025-10-08
 description: "专门去打破别人宣称安全的 AI 防御，用一次次攻破逼出这个领域的评测标准"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/nicholas-carlini.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

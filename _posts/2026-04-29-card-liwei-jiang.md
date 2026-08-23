@@ -4,7 +4,7 @@ title: "人物 · Liwei Jiang"
 date: 2026-04-29
 description: "她把 AI 安全做成可下载的数据集和判定模型，又反复证明这些东西换个场景就失灵"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/liwei-jiang.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">

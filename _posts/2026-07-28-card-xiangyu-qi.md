@@ -4,7 +4,7 @@ title: "人物 · Xiangyu Qi"
 date: 2026-07-28
 description: "反复证明「我们的模型很安全」这句话背后的证据不成立：十条数据就能拆掉安全训练，而测安全的实验本身在高估防护"
 categories: card
-tags: [llm-security, card, person, academic]
+tags: [llm-security, card, person, industry]
 giscus_comments: false
 ---
 <img src="/assets/img/radar/xiangyu-qi.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">
