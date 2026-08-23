@@ -79,8 +79,8 @@ layout: default
 
   {%- comment -%} 知识卡按 lane 分组，资讯卡按子类，其余平铺 {%- endcomment -%}
   {%- if cat == 'card' -%}
-    {%- assign keys = "academic,indie,exec,policy,org" | split: "," -%}
-    {%- assign keys_zh = "学者,独立研究者,高管,政策,研究组与机构" | split: "," -%}
+    {%- assign keys = "academic,industry,indie,exec,policy,org" | split: "," -%}
+    {%- assign keys_zh = "学者,产业研究者,独立研究者,高管,政策,研究组与机构" | split: "," -%}
   {%- elsif cat == 'brief' -%}
     {%- assign keys = "bench,incident,tool,defense" | split: "," -%}
     {%- assign keys_zh = "评测集,事故,系统与工具,防御机制" | split: "," -%}

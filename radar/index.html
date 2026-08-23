@@ -153,8 +153,8 @@ title: radar
   <section class="px-sec">
     <h2><a href="{{ '/radar/category/card/' | relative_url }}">知识卡</a></h2>
     <div class="px-axis">按人 · {{ cards.size }} 张 · 人物与研究组</div>
-    {%- assign lanes = "academic,indie,exec,policy,org" | split: "," -%}
-    {%- assign lane_zh = "学者,独立,高管,政策,机构" | split: "," -%}
+    {%- assign lanes = "academic,industry,indie,exec,policy,org" | split: "," -%}
+    {%- assign lane_zh = "学者,产业研究者,独立,高管,政策,机构" | split: "," -%}
     {%- for ln in lanes -%}
       {%- assign grp = cards | where_exp: "p", "p.tags contains ln" -%}
       {%- if grp.size > 0 -%}
