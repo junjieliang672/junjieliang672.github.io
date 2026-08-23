@@ -7,7 +7,7 @@ title: radar
   排版的判断：**日期只对速览是正确的排序轴**。
   速览是日志，日期就是它的身份（「08-19 那期」）；
   知识卡按人查（没人记得 Dawn Song 那张是 07-24 写的）；
-  资讯卡按名字查（「AdvBench 那张」）；长文按论断查（标题本身就是论断）。
+  资讯卡按名字查（「AdvBench 那张」）。
   原来四栏一律按日期倒序、各显示最新 4 篇，所以读起来像流水账，
   而锚在 2023 年的资讯卡在 66 篇里排到 50 名开外，翻不到。
 
@@ -17,7 +17,6 @@ title: radar
 
 {%- assign cards = site.posts | where_exp: "p", "p.categories contains 'card'" -%}
 {%- assign briefs = site.posts | where_exp: "p", "p.categories contains 'brief'" -%}
-{%- assign deeps = site.posts | where_exp: "p", "p.categories contains 'deep'" -%}
 {%- assign digests = site.posts | where_exp: "p", "p.categories contains 'digest'" -%}
 
 <style>
@@ -34,7 +33,7 @@ title: radar
   .px-head { display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
              margin:0 0 .9rem; }
   /* 雷达盘：盘面是静态 SVG，扫描束是叠在上面的旋转圆锥渐变。
-     四个光点 = 这页每天扫到的四类内容（速览/知识卡/资讯卡/长文）。 */
+     光点 = 雷达扫到的目标（速览/知识卡/资讯卡）。 */
   .px-radar { position:relative; width:46px; height:46px; flex:none; }
   .px-radar svg { display:block; }
   .px-sweep { position:absolute; inset:1px; border-radius:50%; pointer-events:none;
@@ -126,7 +125,7 @@ title: radar
     </span>
     <h1>{{ site.blog_name }}</h1>
     <span class="px-stat">{{ digests.size }} 期速览 · {{ cards.size }} 知识卡 ·
-      {{ briefs.size }} 资讯卡 · {{ deeps.size }} 长文 ·
+      {{ briefs.size }} 资讯卡 ·
       最新 {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>
   </div>
 
@@ -194,17 +193,6 @@ title: radar
       </div>
       {%- endif -%}
     {%- endfor -%}
-  </section>
-
-  {%- comment -%} 长文：标题本身就是论断，所以整句列出，不截断。 {%- endcomment -%}
-  <section class="px-sec">
-    <h2><a href="{{ '/radar/category/deep/' | relative_url }}">长文</a></h2>
-    <div class="px-axis">按论断 · {{ deeps.size }} 篇 · 标题即论断</div>
-    <ul class="px-claims">
-      {%- for p in deeps -%}
-      <li><a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}">{{ p.title }}</a></li>
-      {%- endfor -%}
-    </ul>
   </section>
 
   <p class="px-empty" id="px-none" hidden>没有匹配的条目。</p>
