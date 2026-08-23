@@ -55,6 +55,8 @@ layout: default
              color:var(--px-read); text-align:right; }
   .px-what { flex:1 1 auto; }
   .px-what a { font-size:.98rem; }
+  .px-grp-more { font-family:var(--px-mono); font-size:.72rem; font-weight:400;
+                 color:var(--px-read); margin-left:.5rem; }
   .px-desc { display:block; color:var(--px-read); font-size:.82rem; line-height:1.5;
              margin-top:.1rem; }
   .px-empty { color:var(--px-read); font-size:.85rem; }
@@ -93,7 +95,15 @@ layout: default
       {%- assign grp = page.posts | where_exp: "p", "p.tags contains k" -%}
       {%- if grp.size > 0 -%}
       <section class="px-grp">
+        {%- comment -%} 评测集：站上有卡的只是注册表的一部分，标题链到专页并把
+            两个数都写出来，免得读者以为一共就这么多（2026-08-23 反馈：
+            详细页没跟上首页的改动）{%- endcomment -%}
+        {%- if k == 'bench' and site.data.benches -%}
+        <h2><a href="{{ '/radar/bench/' | relative_url }}">{{ keys_zh[forloop.index0] }} · {{ grp.size }} 张卡</a>
+          <span class="px-grp-more">／注册表共 {{ site.data.benches.rows | size }} 个，按时间与子类筛选 →</span></h2>
+        {%- else -%}
         <h2>{{ keys_zh[forloop.index0] }} · {{ grp.size }}</h2>
+        {%- endif -%}
         {%- for p in grp -%}
         {%- comment -%} 事故卡的标题自带事故日（写卡日≠事故日），用标题里那个 {%- endcomment -%}
         {%- assign tp = p.title | split: " · " -%}
