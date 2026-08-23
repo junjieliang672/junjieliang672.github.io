@@ -266,10 +266,13 @@
   {
    "name": "Truthful AI Advisors (cheap-talk honesty benchmark)",
    "date": "2026-05-31",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用 cheap-talk 博弈测 LLM 当利益冲突顾问时是否如实报信息，以互信息对比理论均衡",
+   "labels": [
+    "deception-alignment",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.01456",
+   "code_url": "https://github.com/iHamidHasani/cheap-talk-llm-benchmark",
    "card": null,
    "score": null,
    "cited_by": 2,
@@ -278,10 +281,15 @@
   {
    "name": "Dual-surface prompt injection evaluation (tool output vs. tool description)",
    "date": "2026-05-28",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "同一注入载荷分别塞进工具返回和工具描述，对比13个LLM在AgentDojo上的攻击成功率",
+   "labels": [
+    "ipi",
+    "agent-tool",
+    "llm",
+    "mcp-harness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2605.30454",
+   "code_url": "https://github.com/syed-nazmus-sakib/surface-adaptive-injection",
    "card": null,
    "score": null,
    "cited_by": 0,
@@ -552,9 +560,14 @@
   {
    "name": "AttackVLA",
    "date": "2025-11-15",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "统一框架对 VLA 机器人模型做图像/文本对抗攻击与后门投毒，仿真+真机评动作被操控率",
+   "labels": [
+    "robustness",
+    "poisoning-backdoor",
+    "multimodal",
+    "agent-embodied"
+   ],
+   "paper_url": "https://arxiv.org/abs/2511.12149",
    "code_url": "",
    "card": null,
    "score": null,
@@ -2130,9 +2143,15 @@
   {
    "name": "NetSafe",
    "date": "2024-10-21",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "在不同拓扑的 LLM 多agent网络里安插攻击者传播虚假/偏见/有害信息，测结构对安全的影响",
+   "labels": [
+    "multi-agent",
+    "llm",
+    "toxicity-bias",
+    "jailbreak",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2410.15686",
    "code_url": "",
    "card": null,
    "score": null,
