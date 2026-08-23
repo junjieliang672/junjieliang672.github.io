@@ -1,0 +1,13 @@
+{%- comment -%}
+  一个条目在列表里显示成什么字。首页与归档页共用——两边曾各写一份，
+  改一处漏一处（2026-08-23）。
+  参数：post（文章）、group（_data/taxonomy.yml 里的那一组）
+  规则：标题里的 kind 前缀（「防御机制 · Qwen3Guard」）和中文括号注记去掉；
+       事故卡的标题是「日期 · 小标题」，取小标题那半。
+{%- endcomment -%}
+{%- assign _t = include.post.title | split: " · " -%}
+{%- if include.group.date_in_title and _t.size > 1 -%}
+{{- _t | last -}}
+{%- else -%}
+{{- _t | last | split: "（" | first -}}
+{%- endif -%}

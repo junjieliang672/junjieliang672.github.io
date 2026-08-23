@@ -1,0 +1,33 @@
+# 分类清单的**唯一出处**。首页（radar/index.html）与归档页
+# （_layouts/archive-category.html）都从这里读。
+#
+# 为什么要有这份文件：2026-08-23 之前两个模板各写各的分类数组，
+# 改一次分组顺序、加一条 lane、换一个中文名，都要在两处各改一遍——
+# 漏改一处的表现就是「详细页没跟着首页更新」，使用者已经撞到一次。
+# 管道侧同一个形状的坑（render.py 与 publish.py 两条渲染路径）中过三次。
+#
+# 每一项的字段：
+#   key   文章 tags 里的那个键，决定归组
+#   zh    显示名（首页与归档页共用，不再各起一个）
+#   note  只有归档页用：这一组的说明
+#   more  只有首页用：这一组要不要折叠成「前 N 个 + 入口」
+
+card:                       # 知识卡：按 lane 分组
+  axis_home: "按人 · 人物与研究组"
+  axis_archive: "按人 · 人物与研究组"
+  groups:
+    - {key: academic, zh: 学者}
+    - {key: industry, zh: 产业研究者}
+    - {key: indie,    zh: 独立研究者}
+    - {key: exec,     zh: 高管}
+    - {key: policy,   zh: 政策}
+    - {key: org,      zh: 研究组与机构}
+
+brief:                      # 资讯卡：按子类分组，顺序是使用者定的
+  axis_home: "按类型 · 评测集有专页，事故按日合并，系统与防御各自排队"
+  axis_archive: "按类型 · 评测集 / 事故 / 系统 / 防御机制"
+  groups:
+    - {key: bench,    zh: 评测集,   index_url: /radar/bench/, home_limit: 6}
+    - {key: incident, zh: 事故,     date_in_title: true}
+    - {key: tool,     zh: 系统与工具}
+    - {key: defense,  zh: 防御机制}

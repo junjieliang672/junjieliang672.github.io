@@ -154,18 +154,17 @@ title: radar
   {%- comment -%} 知识卡：按人查，所以按 lane 分组把名字全列出来，不按日期。 {%- endcomment -%}
   <section class="px-sec">
     <h2><a href="{{ '/radar/category/card/' | relative_url }}">知识卡</a></h2>
-    <div class="px-axis">按人 · {{ cards.size }} 张 · 人物与研究组</div>
-    {%- assign lanes = "academic,industry,indie,exec,policy,org" | split: "," -%}
-    {%- assign lane_zh = "学者,产业研究者,独立,高管,政策,机构" | split: "," -%}
-    {%- for ln in lanes -%}
-      {%- assign grp = cards | where_exp: "p", "p.tags contains ln" -%}
+    <div class="px-axis">{{ site.data.taxonomy.card.axis_home }} · {{ cards.size }} 张</div>
+    {%- comment -%} 分组清单来自 _data/taxonomy.yml（唯一出处，归档页读同一份）{%- endcomment -%}
+    {%- for g in site.data.taxonomy.card.groups -%}
+      {%- assign grp = cards | where_exp: "p", "p.tags contains g.key" -%}
       {%- if grp.size > 0 -%}
       <div class="px-row">
-        <span class="px-key">{{ lane_zh[forloop.index0] }} {{ grp.size }}</span>
+        <span class="px-key">{{ g.zh }} {{ grp.size }}</span>
         <span class="px-items">
           {%- for p in grp -%}
             <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
-               >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+               >{% include px-label.html post=p group=g %}</a>
             {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
           {%- endfor -%}
         </span>
@@ -177,38 +176,32 @@ title: radar
   {%- comment -%} 资讯卡：按名字查，所以按子类分组。 {%- endcomment -%}
   <section class="px-sec">
     <h2><a href="{{ '/radar/category/brief/' | relative_url }}">资讯卡</a></h2>
-    <div class="px-axis">按类型 · 评测集有专页，事故按日合并，系统与防御各自排队</div>
-    {%- comment -%} 顺序：评测集、事故、系统、防御（2026-08-23 使用者定）。
-        四类同一种行、同一号字；事故的每一条前面带事故日——它按天出卡，
-        日期是它的身份，但不因此换成速览那种等宽小字。 {%- endcomment -%}
-    {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
-    {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
-    {%- for sb in subs -%}
-      {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" -%}
+    <div class="px-axis">{{ site.data.taxonomy.brief.axis_home }}</div>
+    {%- comment -%} 分组、顺序、显示名、哪一组折叠——全部来自 _data/taxonomy.yml。
+        四类同一种行、同一号字；事故条目前带事故日（它按天出卡，日期是身份）。{%- endcomment -%}
+    {%- for g in site.data.taxonomy.brief.groups -%}
+      {%- assign grp = briefs | where_exp: "p", "p.tags contains g.key" -%}
       {%- if grp.size > 0 -%}
+      {%- if g.key == "bench" -%}{%- assign total = site.data.benches.rows | size -%}
+      {%- else -%}{%- assign total = grp.size -%}{%- endif -%}
       <div class="px-row">
-        <span class="px-key">{%- if sb == "bench" -%}<a href="{{ '/radar/bench/' | relative_url }}">{{ sub_zh[forloop.index0] }} {{ site.data.benches.rows | size }}</a>{%- else -%}{{ sub_zh[forloop.index0] }} {{ grp.size }}{%- endif -%}</span>
+        <span class="px-key">
+          {%- if g.index_url -%}<a href="{{ g.index_url | relative_url }}">{{ g.zh }} {{ total }}</a>
+          {%- else -%}{{ g.zh }} {{ total }}{%- endif -%}
+        </span>
         <span class="px-items">
-          {%- if sb == "incident" -%}
-            {%- for p in grp -%}
-              {%- comment -%} 日期取标题里的事故日，不是 p.date（写卡日：
-                  08-19/21/22 三张卡都写于 08-23，用 p.date 会全显示同一天）{%- endcomment -%}
-              {%- assign t = p.title | split: " · " -%}
+          {%- if g.home_limit -%}
+            {%- for p in grp limit: g.home_limit -%}
               <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
-                 >{%- if t.size > 1 -%}<span class="px-when-inline">{{ t | first | slice: 5, 5 }}</span> {% endif -%}{{ t | last }}</a>
-              {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
-            {%- endfor -%}
-          {%- elsif sb == "bench" -%}
-            {%- for p in grp limit: 6 -%}
-              <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
-                 >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+                 >{% include px-label.html post=p group=g %}</a>
               <span class="px-sep">·</span>
             {%- endfor -%}
-            <a href="{{ '/radar/bench/' | relative_url }}">全部 {{ site.data.benches.rows | size }} 个（按时间与子类筛选）→</a>
+            <a href="{{ g.index_url | relative_url }}">全部 {{ total }} 个（按时间与子类筛选）→</a>
           {%- else -%}
             {%- for p in grp -%}
               <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
-                 >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+                 >{%- if g.date_in_title -%}<span class="px-when-inline">{% include px-when.html post=p group=g fmt="%m-%d" %}</span> {% endif -%}
+                 {%- include px-label.html post=p group=g -%}</a>
               {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
             {%- endfor -%}
           {%- endif -%}

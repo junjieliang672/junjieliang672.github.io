@@ -12,8 +12,8 @@ layout: default
 {%- assign cat = page.title -%}
 {%- case cat -%}
   {%- when 'digest' -%}{%- assign zh = '速览' -%}{%- assign axis = '按天' -%}
-  {%- when 'card'   -%}{%- assign zh = '知识卡' -%}{%- assign axis = '按人 · 人物与研究组' -%}
-  {%- when 'brief'  -%}{%- assign zh = '资讯卡' -%}{%- assign axis = '按类型 · 评测集 / 事故 / 系统 / 防御机制 · 评测集全量索引见 /radar/bench/' -%}
+  {%- when 'card'   -%}{%- assign zh = '知识卡' -%}{%- assign axis = site.data.taxonomy.card.axis_archive -%}
+  {%- when 'brief'  -%}{%- assign zh = '资讯卡' -%}{%- assign axis = site.data.taxonomy.brief.axis_archive -%}
   {%- else -%}{%- assign zh = cat -%}{%- assign axis = '' -%}
 {%- endcase -%}
 
@@ -80,39 +80,27 @@ layout: default
   </div>
 
   {%- comment -%} 知识卡按 lane 分组，资讯卡按子类，其余平铺 {%- endcomment -%}
-  {%- if cat == 'card' -%}
-    {%- assign keys = "academic,industry,indie,exec,policy,org" | split: "," -%}
-    {%- assign keys_zh = "学者,产业研究者,独立研究者,高管,政策,研究组与机构" | split: "," -%}
-  {%- elsif cat == 'brief' -%}
-    {%- assign keys = "bench,incident,tool,defense" | split: "," -%}
-    {%- assign keys_zh = "评测集,事故,系统与工具,防御机制" | split: "," -%}
-  {%- else -%}
-    {%- assign keys = "" | split: "," -%}
-  {%- endif -%}
+  {%- comment -%} 分组清单来自 _data/taxonomy.yml（唯一出处，首页读同一份）{%- endcomment -%}
+  {%- assign spec = site.data.taxonomy[cat] -%}
 
-  {%- if keys.size > 0 -%}
-    {%- for k in keys -%}
-      {%- assign grp = page.posts | where_exp: "p", "p.tags contains k" -%}
+  {%- if spec -%}
+    {%- for g in spec.groups -%}
+      {%- assign grp = page.posts | where_exp: "p", "p.tags contains g.key" -%}
       {%- if grp.size > 0 -%}
       <section class="px-grp">
-        {%- comment -%} 评测集：站上有卡的只是注册表的一部分，标题链到专页并把
-            两个数都写出来，免得读者以为一共就这么多（2026-08-23 反馈：
-            详细页没跟上首页的改动）{%- endcomment -%}
-        {%- if k == 'bench' and site.data.benches -%}
-        <h2><a href="{{ '/radar/bench/' | relative_url }}">{{ keys_zh[forloop.index0] }} · {{ grp.size }} 张卡</a>
+        {%- comment -%} 有独立索引页的组（评测集）：标题链过去，并把「站上有卡」
+            与「注册表总数」两个数都写出来，免得读者以为一共就这么多 {%- endcomment -%}
+        {%- if g.index_url and site.data.benches -%}
+        <h2><a href="{{ g.index_url | relative_url }}">{{ g.zh }} · {{ grp.size }} 张卡</a>
           <span class="px-grp-more">／注册表共 {{ site.data.benches.rows | size }} 个，按时间与子类筛选 →</span></h2>
         {%- else -%}
-        <h2>{{ keys_zh[forloop.index0] }} · {{ grp.size }}</h2>
+        <h2>{{ g.zh }} · {{ grp.size }}</h2>
         {%- endif -%}
         {%- for p in grp -%}
-        {%- comment -%} 事故卡的标题自带事故日（写卡日≠事故日），用标题里那个 {%- endcomment -%}
-        {%- assign tp = p.title | split: " · " -%}
-        {%- assign is_inc = false -%}
-        {%- if p.tags contains 'incident' and tp.size > 1 -%}{%- assign is_inc = true -%}{%- endif -%}
         <div class="px-item" data-px="{{ p.title | downcase }} {{ p.description | downcase }}">
-          <span class="px-when">{% if is_inc %}{{ tp | first }}{% else %}{{ p.date | date: "%Y-%m-%d" }}{% endif %}</span>
+          <span class="px-when">{% include px-when.html post=p group=g fmt="%Y-%m-%d" %}</span>
           <span class="px-what">
-            <a href="{{ p.url | relative_url }}">{{ tp | last }}</a>
+            <a href="{{ p.url | relative_url }}">{% include px-label.html post=p group=g %}</a>
             {%- if p.description %}<span class="px-desc">{{ p.description }}</span>{% endif -%}
           </span>
         </div>
