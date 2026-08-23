@@ -101,7 +101,7 @@
    "paper_url": "https://arxiv.org/abs/2606.12747",
    "code_url": "",
    "card": null,
-   "score": 24.52,
+   "score": 24.64,
    "cited_by": 0,
    "df_metric": 0
   },
@@ -613,9 +613,13 @@
   {
    "name": "SceneJailEval",
    "date": "2025-08-08",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "评测越狱判定框架本身：对14类场景的user-response对打越狱状态+危害分数，比对F1",
+   "labels": [
+    "jailbreak",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2508.06194",
    "code_url": "",
    "card": null,
    "score": 25.1,
@@ -673,9 +677,12 @@
   {
    "name": "Poly-Guard",
    "date": "2025-06-18",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "多领域、基于真实安全策略构建的护栏数据集，测19个护栏模型跨8个领域的检测能力",
+   "labels": [
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2506.19054",
    "code_url": "",
    "card": null,
    "score": 37.41,
@@ -842,10 +849,13 @@
   {
    "name": "PENGUIN",
    "date": "2025-05-24",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "测LLM能否根据用户隐性背景（如健康、心理状态）个性化调整回答以避免同一回答对不同用户造成不同伤害",
+   "labels": [
+    "llm",
+    "other:personalized-safety"
+   ],
+   "paper_url": "https://arxiv.org/abs/2505.18882",
+   "code_url": "https://github.com/yuchenlwu/PersonalizedSafety",
    "card": null,
    "score": 29.97,
    "cited_by": 15,
@@ -854,9 +864,14 @@
   {
    "name": "CAPTURE",
    "date": "2025-05-18",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "评测提示注入护栏模型的漏检与误拒率，兼顾攻击检测和过度防御两方面",
+   "labels": [
+    "dpi",
+    "guardrail-eval",
+    "overrefusal-utility",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2505.12368",
    "code_url": "",
    "card": null,
    "score": 16.32,
@@ -914,9 +929,12 @@
   {
    "name": "X-Teaming",
    "date": "2025-04-15",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "用规划-攻击-验证三个协作智能体自动生成多轮越狱对话，测LLM在多轮场景下的抗越狱能力",
+   "labels": [
+    "jailbreak",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2504.13203",
    "code_url": "",
    "card": null,
    "score": 32.41,
@@ -978,12 +996,16 @@
   {
    "name": "CaMeL",
    "date": "2025-03-24",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "给工具调用 agent 加系统层防护，隔离控制流与数据流以防间接提示注入，在 AgentDojo 上测有效性",
+   "labels": [
+    "ipi",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2503.18813",
+   "code_url": "https://github.com/google-research/camel-prompt-injection",
    "card": null,
-   "score": 17.19,
+   "score": 42.18,
    "cited_by": null,
    "df_metric": 9
   },
@@ -1074,9 +1096,12 @@
   {
    "name": "ELBA-Bench",
    "date": "2025-02-22",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "统一评测框架，比较12种针对LLM的后门攻击方法在18数据集12模型上的效果",
+   "labels": [
+    "poisoning-backdoor",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2502.18511",
    "code_url": "",
    "card": null,
    "score": 22.15,
@@ -1086,14 +1111,36 @@
   {
    "name": "HateBench",
    "date": "2025-01-28",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用6个LLM生成仇恨言论数据集，评测8种仇恨言论检测器/护栏的识别效果",
+   "labels": [
+    "toxicity-bias",
+    "guardrail-eval",
+    "jailbreak",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2501.16750",
+   "code_url": "https://github.com/trustairlab/hatebench",
    "card": null,
    "score": 23.27,
    "cited_by": 28,
    "df_metric": 0
+  },
+  {
+   "name": "PromptShield",
+   "date": "2025-01-25",
+   "one_liner": "评测独立提示注入检测器在低误报率下识别对话式与应用场景注入样本的能力",
+   "labels": [
+    "guardrail-eval",
+    "dpi",
+    "ipi",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2501.15145",
+   "code_url": "",
+   "card": null,
+   "score": 37.19,
+   "cited_by": 68,
+   "df_metric": 3
   },
   {
    "name": "Jailbreak-AudioBench",
@@ -1181,9 +1228,14 @@
   {
    "name": "MedGuard",
    "date": "2024-11-20",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "1000题医学安全基准，从真实性/抗扰/公平/鲁棒/隐私五维评测LLM医疗回答，对比人类医生",
+   "labels": [
+    "llm",
+    "toxicity-bias",
+    "privacy",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2411.14487",
    "code_url": "",
    "card": null,
    "score": 16.69,
@@ -1193,10 +1245,14 @@
   {
    "name": "RapidResponseBench",
    "date": "2024-11-12",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "测试仅见少量越狱样本后，快速微调分类器等防御方法能否拦截同类新越狱攻击",
+   "labels": [
+    "jailbreak",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2411.07494",
+   "code_url": "https://github.com/rapidresponsebench/rapidresponsebench",
    "card": null,
    "score": 28.06,
    "cited_by": 15,
@@ -1224,9 +1280,13 @@
   {
    "name": "HarmLevelBench",
    "date": "2024-11-11",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "评测越狱攻击在不同危害等级下的成功率，并研究模型量化对越狱鲁棒性的影响",
+   "labels": [
+    "jailbreak",
+    "llm",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2411.06835",
    "code_url": "",
    "card": null,
    "score": 18.73,
@@ -1303,10 +1363,14 @@
   {
    "name": "N-gram Perplexity Threat Model",
    "date": "2024-10-21",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用1T token训练的N-gram模型做可解释困惑度阈值，统一比较各类LLM越狱攻击真实成功率",
+   "labels": [
+    "jailbreak",
+    "llm",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2410.16222",
+   "code_url": "https://github.com/valentyn1boreiko/llm-threat-model",
    "card": null,
    "score": 17.47,
    "cited_by": 10,
@@ -1467,26 +1531,18 @@
   {
    "name": "EditAttack",
    "date": "2024-07-29",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用知识编辑技术直接改模型参数注入虚假信息/偏见，测评这种编辑能否绕过安全对齐并污染LLM输出",
+   "labels": [
+    "llm",
+    "poisoning-backdoor",
+    "toxicity-bias"
+   ],
+   "paper_url": "https://arxiv.org/abs/2407.20224",
+   "code_url": "https://github.com/llm-editing/editing-attack",
    "card": null,
    "score": 30.43,
    "cited_by": 27,
    "df_metric": 1
-  },
-  {
-   "name": "C^2-Eval",
-   "date": "2024-07-23",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
-   "card": null,
-   "score": 19.41,
-   "cited_by": 15,
-   "df_metric": 0
   },
   {
    "name": "AIR-Bench 2024",
@@ -1675,18 +1731,6 @@
    "df_metric": 72
   },
   {
-   "name": "PromptShield",
-   "date": "2024-06-19",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
-   "card": null,
-   "score": 32.35,
-   "cited_by": 68,
-   "df_metric": 3
-  },
-  {
    "name": "SPA-VL",
    "date": "2024-06-17",
    "one_liner": "VLM 安全偏好对齐数据集，附图文有害问答集和帮助性集，测有害率与效用",
@@ -1705,10 +1749,17 @@
   {
    "name": "garak",
    "date": "2024-06-16",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "NVIDIA出的LLM红队扫描框架，用多种探针(越狱/注入/毒性/泄露/恶意代码)批量测漏洞",
+   "labels": [
+    "jailbreak",
+    "dpi",
+    "toxicity-bias",
+    "privacy",
+    "code-security",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2406.11036",
+   "code_url": "https://github.com/NVIDIA/garak",
    "card": null,
    "score": 23.77,
    "cited_by": 58,
@@ -1765,10 +1816,16 @@
   {
    "name": "MultiTrust",
    "date": "2024-06-11",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "多模态大模型可信度基准，覆盖真实性/安全/鲁棒/公平/隐私5维度32个任务",
+   "labels": [
+    "jailbreak",
+    "toxicity-bias",
+    "privacy",
+    "robustness",
+    "multimodal"
+   ],
+   "paper_url": "https://arxiv.org/abs/2406.07057",
+   "code_url": "https://multi-trust.github.io/",
    "card": null,
    "score": 23.89,
    "cited_by": 56,
@@ -1892,9 +1949,11 @@
   {
    "name": "CulturalTeaming",
    "date": "2024-04-10",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "人机协作红队构造跨文化知识题，测LLM在多元文化常识上的知识盲区，非安全/毒性评测",
+   "labels": [
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2404.06664",
    "code_url": "",
    "card": null,
    "score": 24.1,
@@ -1937,10 +1996,14 @@
   {
    "name": "Red Teaming GPT-4V benchmark",
    "date": "2024-04-04",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "构造1445道有害问题，测GPT-4V等模型面对单/多模态越狱攻击的安全性",
+   "labels": [
+    "jailbreak",
+    "multimodal",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2404.03411",
+   "code_url": "https://github.com/chenxshuo/RedTeamingGPT4V",
    "card": null,
    "score": 18.12,
    "cited_by": 38,
@@ -1997,10 +2060,13 @@
   {
    "name": "EasyJailbreak",
    "date": "2024-03-18",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "统一框架，用Selector/Mutator/Constraint/Evaluator组件复现11种越狱攻击，测LLM被攻破概率",
+   "labels": [
+    "jailbreak",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2403.12171",
+   "code_url": "https://github.com/EasyJailbreak/EasyJailbreak",
    "card": null,
    "score": 25.46,
    "cited_by": 70,
@@ -2009,9 +2075,13 @@
   {
    "name": "CodeAttack",
    "date": "2024-03-12",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "把有害请求改写成代码补全任务，测LLM安全对齐能否泛化到代码领域",
+   "labels": [
+    "jailbreak",
+    "dpi",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2403.07865",
    "code_url": "",
    "card": null,
    "score": 23.51,
@@ -2329,10 +2399,14 @@
   {
    "name": "How Many Unicorns Are in This Image? (VLLM Safety Benchmark)",
    "date": "2023-11-27",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "评测Vision LLM在OOD输入和对抗性视觉/语言越狱攻击下的安全性与鲁棒性",
+   "labels": [
+    "multimodal",
+    "robustness",
+    "jailbreak"
+   ],
+   "paper_url": "https://arxiv.org/abs/2311.16101",
+   "code_url": "https://github.com/UCSC-VLAA/vllm-safety-benchmark",
    "card": null,
    "score": 21.43,
    "cited_by": 114,
@@ -2386,9 +2460,13 @@
   {
    "name": "JADE",
    "date": "2023-11-01",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "用语言学变换自动生成跨模型通用的高危越狱问题，测LLM安全对齐的稳健性",
+   "labels": [
+    "jailbreak",
+    "llm",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2311.00286",
    "code_url": "",
    "card": null,
    "score": 13.3,
@@ -2638,10 +2716,14 @@
   {
    "name": "Instruction-Following Robustness Benchmark (Prompt Injection)",
    "date": "2023-08-17",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "把对抗指令拼进prompt模拟第三方网页/文档注入，测LLM能否分辨并只服从原始指令",
+   "labels": [
+    "ipi",
+    "llm",
+    "robustness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2308.10819",
+   "code_url": "https://github.com/Leezekun/instruction-following-robustness-eva",
    "card": null,
    "score": 17.83,
    "cited_by": 83,
