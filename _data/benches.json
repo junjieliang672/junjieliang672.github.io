@@ -42,6 +42,157 @@
    "df_metric": 1
   },
   {
+   "name": "ToolHazard",
+   "date": "2026-08-12",
+   "one_liner": "在合成的有状态多工具环境里嵌入间接提示注入，测LLM agent长程任务中被劫持执行危险工具调用的脆弱性",
+   "labels": [
+    "ipi",
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.11878",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "IO Factory",
+   "date": "2026-08-11",
+   "one_liner": "未查到公开资料，无法确定其测什么、怎么测",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Prompt Privilege Benchmark",
+   "date": "2026-08-09",
+   "one_liner": "测LLM对同一意图但表达方式不同（专家提示vs低文化水平提示）的用户是否给出不同质量答案",
+   "labels": [
+    "toxicity-bias"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.08942",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "AGENTCHAOSBENCH",
+   "date": "2026-08-04",
+   "one_liner": "向多智能体系统的执行轨迹注入10类运行时故障（工具/委派/护栏/模型调用），测LLM能否诊断定位故障，非安全攻击评测",
+   "labels": [
+    "agent-tool",
+    "multi-agent",
+    "mcp-harness",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.14680",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "OpenART",
+   "date": "2026-08-01",
+   "one_liner": "自动演化有状态工具环境来红队测试长程agent，用环境状态转移攻击而非固定测试集",
+   "labels": [
+    "agent-tool",
+    "ipi"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.00677",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "INCLUD (cross-lingual safety dataset)",
+   "date": "2026-07-26",
+   "one_liner": "疑似跨语言安全评测集，但未能查证到原始论文，无法确认具体测什么、怎么测",
+   "labels": [
+    "llm",
+    "toxicity-bias"
+   ],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "AIP-Bench",
+   "date": "2026-07-23",
+   "one_liner": "测电商代理与平台协议层的33个结构性漏洞，攻击对模型无关、100%确定性成功",
+   "labels": [
+    "agent-tool",
+    "mcp-harness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2607.21824",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SelectBench",
+   "date": "2026-07-22",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 1
+  },
+  {
+   "name": "Bad Memory",
+   "date": "2026-07-16",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "IABench-CA",
+   "date": "2026-07-08",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "CrackedPDFs",
+   "date": "2026-07-03",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
    "name": "AI-Infra-Guard",
    "date": "2026-06-30",
    "one_liner": "腾讯朱雀四层红队平台：AI 基础设施 CVE 扫描、MCP/skill 审计、agent 多轮红队、LLM 越狱评测",
@@ -58,6 +209,66 @@
    "card": null,
    "score": 38.93,
    "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "Harmful ASCII Art VLM Detection Benchmark (L1-L8 construction modes)",
+   "date": "2026-06-28",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Narrative-Induced Moral Reasoning Degradation Benchmark",
+   "date": "2026-06-27",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "PixJail",
+   "date": "2026-06-23",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SkillVetBench",
+   "date": "2026-06-14",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "Prefill Awareness Benchmark",
+   "date": "2026-06-10",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
    "df_metric": 0
   },
   {
@@ -97,15 +308,380 @@
    "df_metric": 0
   },
   {
+   "name": "KSAFE-MM",
+   "date": "2026-05-27",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Voluntary Collusion Multi-Agent Framework (Liar's Bar & Cleanup)",
+   "date": "2026-05-26",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "LLM-as-a-Reviewer Benchmark",
+   "date": "2026-05-25",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "Boiling the Frog",
+   "date": "2026-05-21",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "LLM Overton Window Red-Teaming Framework",
+   "date": "2026-05-20",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "REBAR (Reference Ethical Benchmark for Autonomy Readiness)",
+   "date": "2026-05-18",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Typographic Attack Household Manipulation Benchmark",
+   "date": "2026-05-18",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "ROK-FORTRESS",
+   "date": "2026-05-13",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "BenchJack",
+   "date": "2026-05-12",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 7,
+   "df_metric": 0
+  },
+  {
+   "name": "MonitoringBench",
+   "date": "2026-05-10",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "FakeWiki",
+   "date": "2026-05-07",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
    "name": "DecodingTrust-Agent Platform (DTap)",
+   "date": "2026-05-06",
+   "one_liner": "自动红队平台，用 200+ 攻击策略跨 prompt/工具/环境注入向量攻击 agent，用可验证判官评判是否达成恶意目标",
+   "labels": [
+    "dpi",
+    "ipi",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2605.04808",
+   "code_url": "https://github.com/AI-secure/DecodingTrust-Agent",
+   "card": null,
+   "score": 41.49,
+   "cited_by": 6,
+   "df_metric": 0
+  },
+  {
+   "name": "WAAA (Web Adversaries Against Agentic Browsers)",
    "date": "2026-05-06",
    "one_liner": "",
    "labels": [],
    "paper_url": "",
    "code_url": "",
    "card": null,
-   "score": 41.49,
-   "cited_by": 6,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "Clinical Harm Therapy Safety Benchmark (PE/CBT scenarios)",
+   "date": "2026-04-25",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "Smart Grid Operations Jailbreak Benchmark (NERC Standards)",
+   "date": "2026-04-25",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "CSTM-Bench",
+   "date": "2026-04-22",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "The Granularity Gap Sycophancy Audit",
+   "date": "2026-04-19",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "LinuxArena",
+   "date": "2026-04-16",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 1
+  },
+  {
+   "name": "AtomEval",
+   "date": "2026-04-09",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "PCSA (Persona-based Client Simulation Attack)",
+   "date": "2026-04-06",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "FreakOut-LLM",
+   "date": "2026-04-05",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Multi-Modal Typography",
+   "date": "2026-04-05",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Kill-Chain Canaries",
+   "date": "2026-03-30",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 3,
+   "df_metric": 0
+  },
+  {
+   "name": "A Security Analysis of the OpenClaw AI Agent Framework",
+   "date": "2026-03-29",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "ToxicGSM",
+   "date": "2026-03-26",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 1
+  },
+  {
+   "name": "ISC-Bench",
+   "date": "2026-03-04",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 5,
+   "df_metric": 0
+  },
+  {
+   "name": "SafeSciBench",
+   "date": "2026-03-02",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 1
+  },
+  {
+   "name": "LSR (Linguistic Safety Robustness Benchmark)",
+   "date": "2026-02-27",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "Multi-Turn Fraud and Cybercrime Misuse Evaluation",
+   "date": "2026-02-25",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Comment-Based Attack Benchmark for LLM Security Code Review",
+   "date": "2026-02-18",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "IndicJR (Indic Jailbreak Robustness)",
+   "date": "2026-02-18",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 4,
    "df_metric": 0
   },
   {
@@ -1841,6 +2417,18 @@
    "df_metric": 38
   },
   {
+   "name": "GPQA",
+   "date": "2023-11-20",
+   "one_liner": "研究生级科学知识问答基准，测模型专业推理能力，非安全评测集",
+   "labels": [],
+   "paper_url": "https://arxiv.org/abs/2311.12022",
+   "code_url": "https://github.com/idavidrein/gpqa",
+   "card": null,
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
    "name": "FigStep",
    "date": "2023-11-09",
    "one_liner": "把有害问句渲染成排版图片喂给视觉语言模型，测其安全对齐是否被跨模态绕过",
@@ -2399,6 +2987,30 @@
    "score": 17.05,
    "cited_by": 1815,
    "df_metric": 11
+  },
+  {
+   "name": "AIDev",
+   "date": "",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
+   "name": "CodeAct",
+   "date": "",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
   }
  ]
 }
