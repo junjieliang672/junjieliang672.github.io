@@ -1,0 +1,131 @@
+---
+layout: default
+title: 评测集
+permalink: /radar/bench/
+---
+
+{%- comment -%}
+  评测集索引：数据在 _data/benches.json（管道 publish_bench_index 生成）。
+  单列表按首发日降序；子类标签非互斥，顶部 chips 多选=交集筛选。
+  已读色沿用 :visited（只允许改 color/background-color/border-color）。
+{%- endcomment -%}
+
+<style>
+  .bx { --bx-live: var(--global-theme-color);
+        --bx-read: var(--global-text-color-light);
+        --bx-rule: var(--global-divider-color);
+        --bx-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  .bx a { border-bottom: none; }
+  .bx a:link    { color: var(--bx-live); }
+  .bx a:visited { color: var(--bx-read); }
+  .bx a:hover   { color: var(--global-hover-color); text-decoration: underline; }
+
+  .bx-head { display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin:0 0 .6rem; }
+  .bx-head h1 { margin:0; font-size:1.45rem; }
+  .bx-stat { font-family:var(--bx-mono); font-size:.78rem; color:var(--bx-read); }
+  .bx-back { font-size:.85rem; }
+
+  .bx-chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.6rem 0 1rem; }
+  .bx-chip { font-family:var(--bx-mono); font-size:.72rem; padding:.14rem .5rem;
+             border:1px solid var(--bx-rule); border-radius:999px; cursor:pointer;
+             color:var(--bx-read); background:transparent; user-select:none; }
+  .bx-chip.on { color:var(--bx-live); border-color:var(--bx-live); }
+  .bx-chip .n { opacity:.6; margin-left:.25rem; }
+
+  .bx-row { display:grid; grid-template-columns: 6.2rem 1fr; gap:.2rem .9rem;
+            padding:.5rem 0; border-top:1px solid var(--bx-rule); }
+  .bx-when { font-family:var(--bx-mono); font-size:.78rem; color:var(--bx-read);
+             padding-top:.12rem; }
+  .bx-name { font-weight:650; }
+  .bx-name .ext { font-family:var(--bx-mono); font-size:.72rem; font-weight:400;
+                  margin-left:.5rem; }
+  .bx-tags { display:inline-flex; flex-wrap:wrap; gap:.3rem; margin-left:.6rem;
+             vertical-align:middle; }
+  .bx-tag { font-family:var(--bx-mono); font-size:.66rem; padding:.05rem .38rem;
+            border:1px solid var(--bx-rule); border-radius:999px; color:var(--bx-read); }
+  .bx-desc { font-size:.86rem; color:var(--global-text-color); opacity:.92;
+             margin:.15rem 0 0; grid-column:2; }
+  .bx-met { font-family:var(--bx-mono); font-size:.7rem; color:var(--bx-read);
+            margin-left:.6rem; white-space:nowrap; }
+  .bx-empty { color:var(--bx-read); margin:1.2rem 0; }
+  @media (max-width: 640px) {
+    .bx-row { grid-template-columns: 1fr; }
+    .bx-desc { grid-column:1; }
+  }
+</style>
+
+{%- assign B = site.data.benches -%}
+<div class="bx post">
+  <div class="bx-head">
+    <h1>评测集</h1>
+    <span class="bx-stat">{{ B.rows | size }} 个 · 按首发时间降序 · 标签可多选（交集）</span>
+    <a class="bx-back" href="{{ '/radar/' | relative_url }}">← 雷达</a>
+  </div>
+
+  <div class="bx-chips" id="bx-chips"></div>
+
+  <div id="bx-list">
+    {%- for b in B.rows -%}
+    <div class="bx-row" data-labels="{{ b.labels | join: ' ' }}"
+         data-px="{{ b.name | downcase }} {{ b.one_liner | downcase }}">
+      <span class="bx-when">{{ b.date | default: "—" }}</span>
+      <div>
+        <span class="bx-name">
+          {%- if b.card -%}
+            {%- assign card_post = site.posts | where_exp: "p", "p.url contains b.card" | first -%}
+            {%- if card_post -%}<a href="{{ card_post.url | relative_url }}">{{ b.name }}</a>
+            {%- else -%}{{ b.name }}{%- endif -%}
+          {%- elsif b.paper_url != "" -%}
+            <a href="{{ b.paper_url }}">{{ b.name }}</a>
+          {%- else -%}{{ b.name }}{%- endif -%}
+          {%- if b.card == nil and b.paper_url != "" -%}<span class="ext">论文</span>{%- endif -%}
+        </span>
+        <span class="bx-tags">
+          {%- for l in b.labels -%}<span class="bx-tag" data-l="{{ l }}">{{ l }}</span>{%- endfor -%}
+        </span>
+        <span class="bx-met">
+          {%- if b.cited_by -%}引用 {{ b.cited_by }}{%- endif -%}
+          {%- if b.df_metric and b.df_metric > 0 %} · 语料尺子 {{ b.df_metric }}{%- endif -%}
+        </span>
+        {%- if b.one_liner != "" -%}<p class="bx-desc">{{ b.one_liner }}</p>{%- endif -%}
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+  <p class="bx-empty" id="bx-none" hidden>没有同时带上这几个标签的评测集。</p>
+</div>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#bx-list .bx-row'));
+  var counts = {};
+  rows.forEach(function (r) {
+    (r.getAttribute('data-labels') || '').split(' ').forEach(function (l) {
+      if (l) counts[l] = (counts[l] || 0) + 1;
+    });
+  });
+  var box = document.getElementById('bx-chips');
+  var active = new Set();
+  Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })
+    .forEach(function (l) {
+      var c = document.createElement('span');
+      c.className = 'bx-chip'; c.setAttribute('data-l', l);
+      c.innerHTML = l + '<span class="n">' + counts[l] + '</span>';
+      c.onclick = function () {
+        active.has(l) ? active.delete(l) : active.add(l);
+        c.classList.toggle('on'); apply();
+      };
+      box.appendChild(c);
+    });
+  function apply() {
+    var shown = 0;
+    rows.forEach(function (r) {
+      var ls = (r.getAttribute('data-labels') || '').split(' ');
+      var ok = true;
+      active.forEach(function (l) { if (ls.indexOf(l) < 0) ok = false; });
+      r.hidden = !ok; if (ok) shown++;
+    });
+    document.getElementById('bx-none').hidden = shown > 0;
+  }
+})();
+</script>

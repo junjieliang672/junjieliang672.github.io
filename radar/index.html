@@ -178,17 +178,28 @@ title: radar
     <div class="px-axis">按类型 · {{ briefs.size }} 张 · 评测集 / 事故 / 系统 / 防御机制</div>
     {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
     {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
+    {%- comment -%} 评测集有专页（/radar/bench/：全量索引+子类标签筛选），
+        首页只露最近 6 张卡 + 入口；其余三类照旧全列。 {%- endcomment -%}
     {%- for sb in subs -%}
       {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" -%}
       {%- if grp.size > 0 -%}
       <div class="px-row">
-        <span class="px-key">{{ sub_zh[forloop.index0] }} {{ grp.size }}</span>
+        <span class="px-key">{%- if sb == "bench" -%}<a href="{{ '/radar/bench/' | relative_url }}">{{ sub_zh[forloop.index0] }} {{ site.data.benches.rows | size }}</a>{%- else -%}{{ sub_zh[forloop.index0] }} {{ grp.size }}{%- endif -%}</span>
         <span class="px-items">
-          {%- for p in grp -%}
-            <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
-               >{{ p.title | split: " · " | last | split: "（" | first }}</a>
-            {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
-          {%- endfor -%}
+          {%- if sb == "bench" -%}
+            {%- for p in grp limit: 6 -%}
+              <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+                 >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+              <span class="px-sep">·</span>
+            {%- endfor -%}
+            <a href="{{ '/radar/bench/' | relative_url }}">全部 {{ site.data.benches.rows | size }} 个（按时间与子类筛选）→</a>
+          {%- else -%}
+            {%- for p in grp -%}
+              <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+                 >{{ p.title | split: " · " | last | split: "（" | first }}</a>
+              {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
+            {%- endfor -%}
+          {%- endif -%}
         </span>
       </div>
       {%- endif -%}
