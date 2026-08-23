@@ -373,7 +373,7 @@
    "date": "2025-11-28",
    "one_liner": "未能检索到匹配的 PSP 评测集，无法确定其测试内容",
    "labels": [],
-   "paper_url": "",
+   "paper_url": "https://arxiv.org/abs/2511.23174",
    "code_url": "",
    "card": null,
    "score": 19.37,
@@ -625,21 +625,6 @@
    "score": 25.1,
    "cited_by": 2,
    "df_metric": 1
-  },
-  {
-   "name": "Over-Refusal",
-   "date": "2025-07-29",
-   "one_liner": "用看似有害实则无害的提示测模型是否误拒，衡量安全对齐的效用代价",
-   "labels": [
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "",
-   "code_url": "",
-   "card": null,
-   "score": 19.52,
-   "cited_by": null,
-   "df_metric": 7
   },
   {
    "name": "ART (Agent Red Teaming)",
