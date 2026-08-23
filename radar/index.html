@@ -125,7 +125,7 @@ title: radar
     </span>
     <h1>{{ site.blog_name }}</h1>
     <span class="px-stat">{{ digests.size }} 期速览 · {{ cards.size }} 知识卡 ·
-      {{ briefs.size }} 资讯卡 ·
+      资讯卡：评测集 {{ site.data.benches.rows | size }}（{{ briefs | where_exp: "p", "p.tags contains 'bench'" | size }} 有卡）· 事故 {{ briefs | where_exp: "p", "p.tags contains 'incident'" | size }} · 系统 {{ briefs | where_exp: "p", "p.tags contains 'tool'" | size }} · 防御 {{ briefs | where_exp: "p", "p.tags contains 'defense'" | size }} ·
       最新 {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>
   </div>
 
@@ -175,7 +175,7 @@ title: radar
   {%- comment -%} 资讯卡：按名字查，所以按子类分组。 {%- endcomment -%}
   <section class="px-sec">
     <h2><a href="{{ '/radar/category/brief/' | relative_url }}">资讯卡</a></h2>
-    <div class="px-axis">按类型 · {{ briefs.size }} 张 · 评测集 / 事故 / 系统 / 防御机制</div>
+    <div class="px-axis">按类型 · 评测集有专页，事故按日合并，系统与防御各自排队</div>
     {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
     {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
     {%- comment -%} 评测集有专页（/radar/bench/：全量索引+子类标签筛选），
