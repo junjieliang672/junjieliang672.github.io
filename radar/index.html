@@ -89,10 +89,8 @@ title: radar
   .px-days { font-family:var(--px-mono); font-size:.82rem; line-height:2; }
   .px-days a { margin-right:.9rem; white-space:nowrap; }
   .px-n { font-size:.7rem; color:var(--px-read); }
-  /* 事故行：和速览同款等宽小字，但一天一条、标题比「N 篇」长，所以允许换行 */
-  .px-row-days { align-items:flex-start; }
-  .px-row-days .px-days { line-height:1.9; }
-  .px-row-days .px-days a { margin-right:1.1rem; white-space:normal; }
+  /* 事故条目前的日期：同号字，等宽体，颜色压一档——它是定位用的前缀不是标题 */
+  .px-when-inline { font-family:var(--px-mono); color:var(--px-read); }
 
   .px-claims li { margin:.3rem 0; line-height:1.5; }
   .px-claims { list-style:none; padding:0; margin:0; }
@@ -180,33 +178,27 @@ title: radar
   <section class="px-sec">
     <h2><a href="{{ '/radar/category/brief/' | relative_url }}">资讯卡</a></h2>
     <div class="px-axis">按类型 · 评测集有专页，事故按日合并，系统与防御各自排队</div>
+    {%- comment -%} 顺序：评测集、事故、系统、防御（2026-08-23 使用者定）。
+        四类同一种行、同一号字；事故的每一条前面带事故日——它按天出卡，
+        日期是它的身份，但不因此换成速览那种等宽小字。 {%- endcomment -%}
     {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
     {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
-    {%- comment -%} 事故按天出卡，所以和速览同一种呈现：一行一天、等宽小字、
-        日期打头 + 标题（2026-08-23 反馈）。评测集有专页，首页只露最近 6 张。 {%- endcomment -%}
-    {%- assign incidents = briefs | where_exp: "p", "p.tags contains 'incident'" -%}
-    {%- if incidents.size > 0 -%}
-    <div class="px-row px-row-days">
-      <span class="px-key">事故 {{ incidents.size }}</span>
-      <div class="px-days">
-        {%- for p in incidents -%}
-          {%- comment -%} 日期取标题里的**事故日**，不是 p.date（那是写卡日：
-              三张 08-19/21/22 的卡都写于 08-23，用 p.date 会全显示同一天）{%- endcomment -%}
-          {%- assign t = p.title | split: " · " -%}
-          <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
-             >{{ t | first | slice: 5, 5 }}<span class="px-n"> {{ t | last }}</span></a>
-        {%- endfor -%}
-      </div>
-    </div>
-    {%- endif -%}
     {%- for sb in subs -%}
-      {%- if sb == "incident" -%}{%- continue -%}{%- endif -%}
       {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" -%}
       {%- if grp.size > 0 -%}
       <div class="px-row">
         <span class="px-key">{%- if sb == "bench" -%}<a href="{{ '/radar/bench/' | relative_url }}">{{ sub_zh[forloop.index0] }} {{ site.data.benches.rows | size }}</a>{%- else -%}{{ sub_zh[forloop.index0] }} {{ grp.size }}{%- endif -%}</span>
         <span class="px-items">
-          {%- if sb == "bench" -%}
+          {%- if sb == "incident" -%}
+            {%- for p in grp -%}
+              {%- comment -%} 日期取标题里的事故日，不是 p.date（写卡日：
+                  08-19/21/22 三张卡都写于 08-23，用 p.date 会全显示同一天）{%- endcomment -%}
+              {%- assign t = p.title | split: " · " -%}
+              <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+                 >{%- if t.size > 1 -%}<span class="px-when-inline">{{ t | first | slice: 5, 5 }}</span> {% endif -%}{{ t | last }}</a>
+              {%- unless forloop.last %}<span class="px-sep">·</span>{% endunless -%}
+            {%- endfor -%}
+          {%- elsif sb == "bench" -%}
             {%- for p in grp limit: 6 -%}
               <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
                  >{{ p.title | split: " · " | last | split: "（" | first }}</a>
