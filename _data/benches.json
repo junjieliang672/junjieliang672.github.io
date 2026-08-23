@@ -42,6 +42,78 @@
    "df_metric": 1
   },
   {
+   "name": "Escalating Delusions longitudinal evaluation (untitled, 30-day / 30-message script)",
+   "date": "2026-08-13",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "DelusionEval",
+   "date": "2026-08-05",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "MulRobBench",
+   "date": "2026-07-26",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SkillSec-Eval",
+   "date": "2026-07-15",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "PASB (Personal Agent Sycophancy Benchmark)",
+   "date": "2026-07-12",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Polymorphic Sybil Poisoning RAG Failure-Mode Benchmark",
+   "date": "2026-07-04",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
    "name": "AI-Infra-Guard",
    "date": "2026-06-30",
    "one_liner": "腾讯朱雀四层红队平台：AI 基础设施 CVE 扫描、MCP/skill 审计、agent 多轮红队、LLM 越狱评测",
@@ -58,6 +130,66 @@
    "card": null,
    "score": 20.56,
    "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "Multilingual Criminal Law Over-Alignment benchmark (Measuring & Mitigating Over-Alignment for LLMs in Multilingual Criminal Law Courts)",
+   "date": "2026-06-22",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Phantoms and Disclosures privacy auditing framework (untitled)",
+   "date": "2026-06-15",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "FORGE (Fake Online Recommendations in Generative Environments)",
+   "date": "2026-06-11",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "RELIANCE",
+   "date": "2026-06-10",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "BenSyc",
+   "date": "2026-06-08",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
    "df_metric": 0
   },
   {
@@ -93,6 +225,66 @@
    "card": null,
    "score": 11.07,
    "cited_by": 11,
+   "df_metric": 0
+  },
+  {
+   "name": "Pander Score",
+   "date": "2026-06-05",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Execution-Grounded Security Testing for Coding Agents (red-team harness, untitled)",
+   "date": "2026-06-01",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Lost in Delusion multi-turn delusion/distress safety simulation",
+   "date": "2026-05-31",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "Truthful AI Advisors (cheap-talk honesty benchmark)",
+   "date": "2026-05-31",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
+  {
+   "name": "Dual-surface prompt injection evaluation (tool output vs. tool description)",
+   "date": "2026-05-28",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
    "df_metric": 0
   },
   {
@@ -355,6 +547,18 @@
    "card": null,
    "score": 10.72,
    "cited_by": 25,
+   "df_metric": 0
+  },
+  {
+   "name": "AttackVLA",
+   "date": "2025-11-15",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 12,
    "df_metric": 0
   },
   {
@@ -1304,22 +1508,6 @@
   {
    "name": "Multi-AudioJail",
    "date": "2025-04-01",
-   "one_liner": "多语言多口音有害语音加混响/回声扰动，测音频 LLM 越狱成功率",
-   "labels": [
-    "jailbreak",
-    "multimodal",
-    "robustness"
-   ],
-   "paper_url": "https://arxiv.org/abs/2504.01094",
-   "code_url": "",
-   "card": null,
-   "score": 11.29,
-   "cited_by": 30,
-   "df_metric": 0
-  },
-  {
-   "name": "Multilingual and Multi-Accent Jailbreaking of Audio LLMs",
-   "date": "2025-04-01",
    "one_liner": "把有害请求做成多语言、多口音并加声学扰动的语音，测音频 LLM 越狱率",
    "labels": [
     "jailbreak",
@@ -1422,6 +1610,18 @@
    "df_metric": 0
   },
   {
+   "name": "DarkBench",
+   "date": "2025-03-13",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 35,
+   "df_metric": 0
+  },
+  {
    "name": "AgentDAM",
    "date": "2025-03-12",
    "one_liner": "给 web agent 含敏感信息的用户资料，看它完成网页任务时会不会多余地泄露无关隐私",
@@ -1483,24 +1683,6 @@
    "card": null,
    "score": 27.03,
    "cited_by": 50,
-   "df_metric": 0
-  },
-  {
-   "name": "Lost in Moderation audit framework",
-   "date": "2025-03-03",
-   "one_liner": "黑盒审计五个商用文本审核 API，测其对群体仇恨言论的漏判与对身份词/反驳言论的误判",
-   "labels": [
-    "guardrail-eval",
-    "toxicity-bias",
-    "overrefusal-utility",
-    "robustness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2503.01623",
-   "code_url": "https://anonymous.4open.science/r/Content-Moderation-API-Pipeline-874B/",
-   "card": null,
-   "score": 11.4,
-   "cited_by": 31,
    "df_metric": 0
   },
   {
@@ -1615,6 +1797,18 @@
    "card": null,
    "score": 10.17,
    "cited_by": 21,
+   "df_metric": 0
+  },
+  {
+   "name": "SafeRAG",
+   "date": "2025-01-28",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 42,
    "df_metric": 0
   },
   {
@@ -1934,6 +2128,18 @@
    "df_metric": 0
   },
   {
+   "name": "NetSafe",
+   "date": "2024-10-21",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 36,
+   "df_metric": 2
+  },
+  {
    "name": "AgentHarm",
    "date": "2024-10-11",
    "one_liner": "用户直说要作恶时，agent 会不会调工具把多步有害任务跑完；附 benign 对照测过度拒答",
@@ -2065,6 +2271,18 @@
    "score": 16.31,
    "cited_by": 28,
    "df_metric": 1
+  },
+  {
+   "name": "AI-LieDar",
+   "date": "2024-09-13",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 37,
+   "df_metric": 0
   },
   {
    "name": "PrivacyLens",
@@ -2547,24 +2765,9 @@
    "df_metric": 1
   },
   {
-   "name": "OR-Bench-Hard",
-   "date": "2024-05-31",
-   "one_liner": "约 1000 条看似有害实则无害的难题，测 LLM 是否过度拒答，附有害对照组",
-   "labels": [
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2405.20947",
-   "code_url": "https://github.com/justincui03/or-bench",
-   "card": null,
-   "score": 31.74,
-   "cited_by": 213,
-   "df_metric": 5
-  },
-  {
    "name": "OR-Bench-Hard-1K",
    "date": "2024-05-31",
-   "one_liner": "1000 条看似有害实则无害的提示，测 LLM 是否过度拒答。",
+   "one_liner": "约 1000 条看似有害实则无害的难题，测 LLM 是否过度拒答，附有害对照组",
    "labels": [
     "overrefusal-utility",
     "llm"
@@ -2760,28 +2963,11 @@
    "df_metric": 6
   },
   {
-   "name": "JBB",
-   "date": "2024-03-28",
-   "one_liner": "100 条有害行为+100 条良性对照，配越狱 artifacts 与榜单，标准化评 LLM 越狱攻防",
-   "labels": [
-    "jailbreak",
-    "robustness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2404.01318",
-   "code_url": "https://github.com/JailbreakBench/jailbreakbench",
-   "card": null,
-   "score": 41.55,
-   "cited_by": 606,
-   "df_metric": 8
-  },
-  {
    "name": "JailbreakBench",
    "date": "2024-03-28",
    "one_liner": "100 条有害行为+攻击 artifacts+统一判定器与防御接口，测 LLM 越狱率和过度拒答",
    "labels": [
     "jailbreak",
-    "overrefusal-utility",
     "robustness",
     "llm"
    ],
@@ -2839,23 +3025,6 @@
    "score": 47.81,
    "cited_by": 509,
    "df_metric": 10
-  },
-  {
-   "name": "GradSafe",
-   "date": "2024-02-21",
-   "one_liner": "用安全关键参数的梯度相似度检测越狱提示，在 ToxicChat/XSTest 上与 Llama Guard 对比",
-   "labels": [
-    "jailbreak",
-    "guardrail-eval",
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2402.13494",
-   "code_url": "https://github.com/xyq7/GradSafe",
-   "card": null,
-   "score": 30.22,
-   "cited_by": 121,
-   "df_metric": 5
   },
   {
    "name": "CatQA",
@@ -3262,22 +3431,6 @@
    "df_metric": 0
   },
   {
-   "name": "SycophancyEval",
-   "date": "2023-10-20",
-   "one_liner": "在问答/反馈/数学题中加入用户立场或质疑，测 LLM 是否为迎合用户而改口说错",
-   "labels": [
-    "deception-alignment",
-    "robustness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2310.13548",
-   "code_url": "https://github.com/meg-tong/sycophancy-eval",
-   "card": null,
-   "score": 23.39,
-   "cited_by": 1224,
-   "df_metric": 0
-  },
-  {
    "name": "Open-Prompt-Injection",
    "date": "2023-10-19",
    "one_liner": "把注入指令混进 LLM 应用的待处理数据里，系统评测 5 种注入攻击与 10 种防御",
@@ -3339,23 +3492,6 @@
    "score": 57.4,
    "cited_by": 1334,
    "df_metric": 43
-  },
-  {
-   "name": "SmoothLLM",
-   "date": "2023-10-05",
-   "one_liner": "对输入提示做随机字符扰动并多副本投票，评测该防御对 GCG 等越狱攻击的抵抗力",
-   "labels": [
-    "jailbreak",
-    "robustness",
-    "guardrail-eval",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2310.03684",
-   "code_url": "https://github.com/arobey1/smooth-llm",
-   "card": null,
-   "score": 47.32,
-   "cited_by": 534,
-   "df_metric": 21
   },
   {
    "name": "PrivQA",
@@ -3600,6 +3736,18 @@
    "df_metric": 39
   },
   {
+   "name": "Hoodwinked",
+   "date": "2023-07-05",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 59,
+   "df_metric": 0
+  },
+  {
    "name": "ProPILE",
    "date": "2023-07-04",
    "one_liner": "用用户自身 PII 构造探测 prompt，测 LLM 是否泄露训练集里的个人信息",
@@ -3651,20 +3799,28 @@
    "df_metric": 1
   },
   {
-   "name": "CommonClaim",
-   "date": "2023-06-15",
-   "one_liner": "2 万条人工标注真/假/不确定常识陈述，训分类器后用 RL 搜 prompt 诱导 GPT-3 说假话",
-   "labels": [
-    "jailbreak",
-    "llm",
-    "robustness"
-   ],
-   "paper_url": "https://arxiv.org/abs/2306.09442",
-   "code_url": "https://github.com/thestephencasper/explore_establish_exploit_llms",
+   "name": "TrustGPT",
+   "date": "2023-06-20",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
    "card": null,
-   "score": 21.39,
-   "cited_by": 141,
-   "df_metric": 1
+   "score": null,
+   "cited_by": 77,
+   "df_metric": 0
+  },
+  {
+   "name": "PromptRobust",
+   "date": "2023-06-07",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 324,
+   "df_metric": 0
   },
   {
    "name": "Jailbreak prompts dataset (Jailbreaking ChatGPT via Prompt Engineering)",
@@ -3809,23 +3965,6 @@
    "df_metric": 0
   },
   {
-   "name": "HH-RLHF",
-   "date": "2022-04-12",
-   "one_liner": "人类偏好对比数据：众包者红队诱导有害输出并标注更无害/更有帮助的回复，用于训练和评测对齐",
-   "labels": [
-    "jailbreak",
-    "overrefusal-utility",
-    "toxicity-bias",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2204.05862",
-   "code_url": "https://github.com/anthropics/hh-rlhf",
-   "card": null,
-   "score": 28.94,
-   "cited_by": 4317,
-   "df_metric": 0
-  },
-  {
    "name": "ToxiGen",
    "date": "2022-03-17",
    "one_liner": "GPT-3 生成的隐性仇恨句集，既测毒性分类器误判，也测 LLM 续写毒性",
@@ -3844,23 +3983,6 @@
   {
    "name": "HHH",
    "date": "2021-12-01",
-   "one_liner": "约200组对话二选一，测模型是否偏好有用、诚实、无害的回复",
-   "labels": [
-    "jailbreak",
-    "deception-alignment",
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2112.00861",
-   "code_url": "https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/hhh_alignment",
-   "card": null,
-   "score": 36.64,
-   "cited_by": 1204,
-   "df_metric": 5
-  },
-  {
-   "name": "HHH Alignment Evaluation",
-   "date": "2021-12-01",
    "one_liner": "给对话和两条候选回复，测模型能否选出更有帮助、诚实、无害的那条，共约 200 题二选一",
    "labels": [
     "jailbreak",
@@ -3872,9 +3994,21 @@
    "paper_url": "https://arxiv.org/abs/2112.00861",
    "code_url": "https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/hhh_alignment",
    "card": null,
-   "score": 23.33,
+   "score": 36.64,
    "cited_by": 1204,
-   "df_metric": 0
+   "df_metric": 5
+  },
+  {
+   "name": "DiaSafety",
+   "date": "2021-10-16",
+   "one_liner": "",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 118,
+   "df_metric": 1
   },
   {
    "name": "BBQ",
