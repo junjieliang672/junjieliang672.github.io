@@ -89,6 +89,10 @@ title: radar
   .px-days { font-family:var(--px-mono); font-size:.82rem; line-height:2; }
   .px-days a { margin-right:.9rem; white-space:nowrap; }
   .px-n { font-size:.7rem; color:var(--px-read); }
+  /* 事故行：和速览同款等宽小字，但一天一条、标题比「N 篇」长，所以允许换行 */
+  .px-row-days { align-items:flex-start; }
+  .px-row-days .px-days { line-height:1.9; }
+  .px-row-days .px-days a { margin-right:1.1rem; white-space:normal; }
 
   .px-claims li { margin:.3rem 0; line-height:1.5; }
   .px-claims { list-style:none; padding:0; margin:0; }
@@ -178,9 +182,25 @@ title: radar
     <div class="px-axis">按类型 · 评测集有专页，事故按日合并，系统与防御各自排队</div>
     {%- assign subs = "bench,incident,tool,defense" | split: "," -%}
     {%- assign sub_zh = "评测集,事故,系统,防御" | split: "," -%}
-    {%- comment -%} 评测集有专页（/radar/bench/：全量索引+子类标签筛选），
-        首页只露最近 6 张卡 + 入口；其余三类照旧全列。 {%- endcomment -%}
+    {%- comment -%} 事故按天出卡，所以和速览同一种呈现：一行一天、等宽小字、
+        日期打头 + 标题（2026-08-23 反馈）。评测集有专页，首页只露最近 6 张。 {%- endcomment -%}
+    {%- assign incidents = briefs | where_exp: "p", "p.tags contains 'incident'" -%}
+    {%- if incidents.size > 0 -%}
+    <div class="px-row px-row-days">
+      <span class="px-key">事故 {{ incidents.size }}</span>
+      <div class="px-days">
+        {%- for p in incidents -%}
+          {%- comment -%} 日期取标题里的**事故日**，不是 p.date（那是写卡日：
+              三张 08-19/21/22 的卡都写于 08-23，用 p.date 会全显示同一天）{%- endcomment -%}
+          {%- assign t = p.title | split: " · " -%}
+          <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
+             >{{ t | first | slice: 5, 5 }}<span class="px-n"> {{ t | last }}</span></a>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
     {%- for sb in subs -%}
+      {%- if sb == "incident" -%}{%- continue -%}{%- endif -%}
       {%- assign grp = briefs | where_exp: "p", "p.tags contains sb" -%}
       {%- if grp.size > 0 -%}
       <div class="px-row">

@@ -95,10 +95,14 @@ layout: default
       <section class="px-grp">
         <h2>{{ keys_zh[forloop.index0] }} · {{ grp.size }}</h2>
         {%- for p in grp -%}
+        {%- comment -%} 事故卡的标题自带事故日（写卡日≠事故日），用标题里那个 {%- endcomment -%}
+        {%- assign tp = p.title | split: " · " -%}
+        {%- assign is_inc = false -%}
+        {%- if p.tags contains 'incident' and tp.size > 1 -%}{%- assign is_inc = true -%}{%- endif -%}
         <div class="px-item" data-px="{{ p.title | downcase }} {{ p.description | downcase }}">
-          <span class="px-when">{{ p.date | date: "%Y-%m-%d" }}</span>
+          <span class="px-when">{% if is_inc %}{{ tp | first }}{% else %}{{ p.date | date: "%Y-%m-%d" }}{% endif %}</span>
           <span class="px-what">
-            <a href="{{ p.url | relative_url }}">{{ p.title | split: " · " | last }}</a>
+            <a href="{{ p.url | relative_url }}">{{ tp | last }}</a>
             {%- if p.description %}<span class="px-desc">{{ p.description }}</span>{% endif -%}
           </span>
         </div>
