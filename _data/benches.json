@@ -1799,10 +1799,14 @@
   {
    "name": "PrivacyLens",
    "date": "2024-08-29",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "从 QA 探测到工具 agent 执行任务，分层测 LLM 会不会违反情境隐私规范泄露信息",
+   "labels": [
+    "privacy",
+    "llm",
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2409.00138",
+   "code_url": "https://github.com/SALT-NLP/PrivacyLens",
    "card": null,
    "score": null,
    "cited_by": 177,
@@ -1811,10 +1815,14 @@
   {
    "name": "MHJ",
    "date": "2024-08-27",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "537 个人类红队多轮越狱对话，测 LLM 防御和遗忘方法在多轮攻击下是否失守",
+   "labels": [
+    "jailbreak",
+    "llm",
+    "harmful-capability"
+   ],
+   "paper_url": "https://arxiv.org/abs/2408.15221",
+   "code_url": "https://huggingface.co/datasets/ScaleAI/mhj",
    "card": null,
    "score": null,
    "cited_by": 166,
@@ -1823,10 +1831,14 @@
   {
    "name": "Cybench",
    "date": "2024-08-15",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "用 40 道真实 CTF 题让 LLM agent 在 Kali 容器里写代码、跑命令拿 flag，测网络攻击能力",
+   "labels": [
+    "harmful-capability",
+    "agent-tool",
+    "agent-code"
+   ],
+   "paper_url": "https://arxiv.org/abs/2408.08926",
+   "code_url": "https://github.com/andyzorigin/cybench",
    "card": null,
    "score": null,
    "cited_by": 166,
@@ -2210,10 +2222,13 @@
   {
    "name": "OR-Bench",
    "date": "2024-05-31",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "8 万条看似有害的无害提示测 LLM 过度拒答，配 1 千条真有害提示看安全-效用权衡",
+   "labels": [
+    "overrefusal-utility",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2405.20947",
+   "code_url": "https://github.com/justincui03/or-bench",
    "card": null,
    "score": null,
    "cited_by": 213,
@@ -2483,10 +2498,13 @@
   {
    "name": "MIMIR",
    "date": "2024-02-12",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "成员推断攻击基准：用 Pile 成员/非成员文本测 LLM 是否泄露训练数据",
+   "labels": [
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2402.07841",
+   "code_url": "https://github.com/iamgroot42/mimir",
    "card": null,
    "score": null,
    "cited_by": 235,
@@ -2569,10 +2587,14 @@
   {
    "name": "VLGuard",
    "date": "2024-02-03",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "图文安全指令集：用有害图或安全图配有害问测 VLLM 拒答，兼测安全微调的效用代价",
+   "labels": [
+    "jailbreak",
+    "multimodal",
+    "overrefusal-utility"
+   ],
+   "paper_url": "https://arxiv.org/abs/2402.02207",
+   "code_url": "https://github.com/ys-zong/VLGuard",
    "card": null,
    "score": null,
    "cited_by": 162,
@@ -2811,10 +2833,14 @@
   {
    "name": "Insider Trading Deception Scenario (Apollo Research)",
    "date": "2023-11-09",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "模拟股票交易 agent 场景，测 GPT-4 是否用内幕消息交易并向上级隐瞒",
+   "labels": [
+    "deception-alignment",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2311.07590",
+   "code_url": "https://github.com/ApolloResearch/insider-trading",
    "card": null,
    "score": null,
    "cited_by": 158,
@@ -2863,10 +2889,15 @@
   {
    "name": "Tensor Trust",
    "date": "2023-11-02",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "在线攻防游戏众包 12.6 万条提示注入，测 LLM 被劫持输出和系统提示被套出",
+   "labels": [
+    "dpi",
+    "robustness",
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2311.01011",
+   "code_url": "https://github.com/HumanCompatibleAI/tensor-trust",
    "card": null,
    "score": null,
    "cited_by": 152,
@@ -3070,10 +3101,14 @@
   {
    "name": "SafetyBench",
    "date": "2023-09-13",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "中英 11,435 道多选题，考 LLM 对冒犯、偏见、健康、违法、伦理、隐私 7 类安全问题的认知。",
+   "labels": [
+    "toxicity-bias",
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2309.07045",
+   "code_url": "https://github.com/thu-coai/SafetyBench",
    "card": null,
    "score": null,
    "cited_by": 250,
@@ -3094,10 +3129,16 @@
   {
    "name": "Do-Not-Answer",
    "date": "2023-08-25",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "939 条不该回答的有害提问，按五类风险测 LLM 拒答，并训分类器自动评分",
+   "labels": [
+    "jailbreak",
+    "toxicity-bias",
+    "privacy",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2308.13387",
+   "code_url": "https://github.com/Libr-AI/do-not-answer",
    "card": null,
    "score": null,
    "cited_by": 211,
@@ -3250,9 +3291,12 @@
   {
    "name": "ProPILE",
    "date": "2023-07-04",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
+   "one_liner": "用用户自身 PII 构造探测 prompt，测 LLM 是否泄露训练集里的个人信息",
+   "labels": [
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2307.01881",
    "code_url": "",
    "card": null,
    "score": null,
@@ -3349,10 +3393,14 @@
   {
    "name": "MACHIAVELLI",
    "date": "2023-04-06",
-   "one_liner": "",
-   "labels": [],
-   "paper_url": "",
-   "code_url": "",
+   "one_liner": "文字冒险游戏中让 LLM 逐步决策，统计其为得分而欺骗、夺权、伤人的频率",
+   "labels": [
+    "deception-alignment",
+    "llm",
+    "other:text-game-agent"
+   ],
+   "paper_url": "https://arxiv.org/abs/2304.03279",
+   "code_url": "https://github.com/aypan17/machiavelli",
    "card": null,
    "score": null,
    "cited_by": 228,
