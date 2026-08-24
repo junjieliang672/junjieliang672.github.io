@@ -1858,7 +1858,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2405.16833",
    "code_url": "https://github.com/IBM/SafeLoRA",
-   "card": null,
+   "card": "card-purebad",
    "score": 34.76,
    "cited_by": 149,
    "df_metric": 5
