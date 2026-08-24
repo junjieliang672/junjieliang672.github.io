@@ -155,7 +155,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.12673",
    "code_url": "https://github.com/benchjack/benchjack",
-   "card": null,
+   "card": "card-benchjack",
    "score": 35.8,
    "cited_by": 7,
    "df_metric": 0
@@ -589,7 +589,7 @@
    "code_url": "https://github.com/zhiqiangwang4/MCPTox-Benchmark",
    "card": null,
    "score": 15.86,
-   "cited_by": 64,
+   "cited_by": 65,
    "df_metric": 0
   },
   {
@@ -703,7 +703,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.14866",
    "code_url": "https://github.com/tml-epfl/os-harm",
-   "card": null,
+   "card": "card-os-harm",
    "score": 35.47,
    "cited_by": 90,
    "df_metric": 0
@@ -1377,7 +1377,7 @@
    "code_url": "https://huggingface.co/datasets/ai-safety-institute/AgentHarm",
    "card": "card-agentharm",
    "score": 53.08,
-   "cited_by": 359,
+   "cited_by": 360,
    "df_metric": 18
   },
   {
@@ -1391,7 +1391,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.13886",
    "code_url": "https://github.com/scaleapi/browser-art",
-   "card": null,
+   "card": "card-browserart",
    "score": 35.55,
    "cited_by": 68,
    "df_metric": 2
@@ -1679,7 +1679,7 @@
    "code_url": "https://github.com/ethz-spylab/agentdojo",
    "card": "card-agentdojo",
    "score": 60.23,
-   "cited_by": 142,
+   "cited_by": 143,
    "df_metric": 72
   },
   {
@@ -1825,7 +1825,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2405.20947",
    "code_url": "https://github.com/justincui03/or-bench",
-   "card": null,
+   "card": "card-or-bench-hard-1k",
    "score": 35.51,
    "cited_by": 213,
    "df_metric": 5
@@ -2006,7 +2006,7 @@
    "code_url": "https://github.com/JailbreakBench/jailbreakbench",
    "card": "card-jailbreakbench",
    "score": 67.74,
-   "cited_by": 606,
+   "cited_by": 607,
    "df_metric": 114
   },
   {
@@ -2180,7 +2180,7 @@
    "code_url": "https://github.com/centerforaisafety/HarmBench",
    "card": "card-harmbench",
    "score": 71.68,
-   "cited_by": 1444,
+   "cited_by": 1445,
    "df_metric": 211
   },
   {
@@ -2297,7 +2297,7 @@
    "code_url": "https://github.com/microsoft/BIPIA",
    "card": "card-bipia",
    "score": 36.55,
-   "cited_by": 327,
+   "cited_by": 328,
    "df_metric": 6
   },
   {
@@ -2372,7 +2372,7 @@
    "code_url": "https://github.com/ThuCCSLab/FigStep",
    "card": "card-figstep",
    "score": 41.28,
-   "cited_by": 431,
+   "cited_by": 432,
    "df_metric": 23
   },
   {
@@ -2615,7 +2615,7 @@
    "code_url": "https://github.com/declare-lab/red-instruct",
    "card": null,
    "score": 31.85,
-   "cited_by": 275,
+   "cited_by": 276,
    "df_metric": 7
   },
   {
@@ -2630,7 +2630,7 @@
    "code_url": "https://github.com/declare-lab/red-instruct",
    "card": "card-harmfulqa",
    "score": 32.45,
-   "cited_by": 275,
+   "cited_by": 276,
    "df_metric": 8
   },
   {
@@ -2645,7 +2645,7 @@
    "code_url": "https://github.com/declare-lab/red-instruct",
    "card": null,
    "score": 26.17,
-   "cited_by": 275,
+   "cited_by": 276,
    "df_metric": 1
   },
   {
