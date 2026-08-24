@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2605.04808](https://arxiv.org/abs/2605.04808)
 - **从哪读起**：先读 arXiv:[2605.04808](https://arxiv.org/abs/2605.04808) 的 §DTap-Bench 构造那几页（全文 279 页 148 图，不要从头读），再去 github.com/AI-secure/DecodingTrust-Agent 打开任意一个域下的 indirect.jsonl 看一条真题长什么样——benchmark 的粒度只有看题才能感觉到。
-- **成名作**：[DecodingTrust-Agent Platform (DTap): A Controllable and Interactive Red-Teaming Platform for AI Agents](https://arxiv.org/abs/2605.04808)——第一个把 Google Workspace、PayPal、Slack 按官方 MCP 和 GUI 复刻成 50+ 可并行沙箱、并用一个自主红队 agent（DTap-Red）批量生产攻击的 agent 安全评测平台。
 
 ## 持仓表里长出一段「MANDATORY CONTROL」
 

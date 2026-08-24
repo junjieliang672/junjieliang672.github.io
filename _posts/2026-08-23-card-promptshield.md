@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2501.15145](https://arxiv.org/abs/2501.15145)
 - **从哪读起**：先去 HuggingFace 的 hendzh/PromptShield 翻十条 label=1 的原文再读论文——你会先看清它把「注入」定义成了什么，再看它的分数才有意义。
-- **成名作**：[PromptShield: Deployable Detection for Prompt Injection Attacks](https://arxiv.org/abs/2501.15145)——它是少数明确主张「检测器的分数必须钉在 0.1% 假阳率上报」的 prompt injection 基准，并给出了 1%→0.1% 之间召回从 94.80% 塌到 65.33% 的对照。
 
 ## label=1 的一行原样长这样
 

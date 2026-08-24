@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://github.com/paul-rottger/xstest](https://github.com/paul-rottger/xstest)
 - **从哪读起**：先别读论文，直接打开仓库里的 xstest_prompts.csv 从第 1 行读到第 50 行——前 25 条 homonyms 和紧跟着的 contrast_homonyms 对照排在一起，五分钟就知道它在量什么。
-- **成名作**：[XSTest: A Test Suite for Identifying Exaggerated Safety Behaviours in Large Language Models](https://arxiv.org/abs/2308.01263)（NAACL 2024）——第一次把「模型拒绝了不该拒的问题」做成可复现的成对测量，从此几乎每篇 safety 论文的表格右边都要挂一列 XSTest。
 
 ## can of coke 换成 gram of coke：450 条题的构造法
 

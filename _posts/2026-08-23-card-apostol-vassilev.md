@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：NIST 信息技术实验室，研究团队主管（各处措辞不一）
 - **主页**：[https://www.nist.gov/people/apostol-vassilev](https://www.nist.gov/people/apostol-vassilev)
 - **从哪读起**：先读 NIST AI 100-2e2025（2025 年 3 月版）的目录和第 1 章分类框架——不必读完，看它把攻击按哪几个轴切开，你就知道自己引用它时继承了什么坐标系。
+- **成名作**：主笔 [NIST AI 100-2](https://csrc.nist.gov/pubs/ai/100/2/e2023/final)，行业默认沿用其攻击分类框架
 
 | 时期 | |
 |---|---|

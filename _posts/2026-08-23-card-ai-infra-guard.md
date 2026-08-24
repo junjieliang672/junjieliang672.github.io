@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://github.com/Tencent/AI-Infra-Guard](https://github.com/Tencent/AI-Infra-Guard)
 - **从哪读起**：先看仓库里的 data/eval/ 目录再看 README——18 个 JSON 里 17 个署的是别人的名字，这一眼决定了你该不该把它当尺子用。
-- **成名作**：[Securing the AI Agent: A Unified Framework for Multi-Layer Agent Red Teaming](https://arxiv.org/abs/2606.31227)——A.I.G 自己的技术报告，里面第一次给出 SkillTrustBench（从 62,652 个市场 skill 里做出的 5,520 条评测样本）和各家模型的 F1/FPR 表。
 
 ## data/eval/ 里躺着 18 个 JSON，17 个署着别人的名字
 

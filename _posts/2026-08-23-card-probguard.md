@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2608.10621](https://arxiv.org/abs/2608.10621)
 - **从哪读起**：先读 arXiv [2608.10621](https://arxiv.org/abs/2608.10621) 摘要和第4节实验设置，弄清楚 ASR≤1% 只在9个模型-数据集组合里成立，再看有没有报良性任务代价——没有
-- **成名作**：[ProbGuard: Calibrated Safety Risk Estimation from LLM Output Distributions](https://arxiv.org/abs/2608.10621)——把安全判断从「生成完了再分类」提前到「生成到第10个token时就估计风险」的护栏方法
 
 ## 看分布，不看结果
 传统 guardrail（比如 Llama-Guard）的做法是等 LLM 把话说完，再对完整输出做一次二分类：安全/不安全。ProbGuard 换了个时间点：只看生成到第10个 decoding step 时的输出概率分布，用蒙特卡洛采样估计「如果继续生成下去，这段续写变成不安全内容的概率」是多少。论文把这个过程称为对「continued generation dynamics」的风险估计，本质上是在生成过程中期插一刀，而不是事后过滤。

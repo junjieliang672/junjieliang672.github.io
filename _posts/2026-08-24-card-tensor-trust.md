@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2311.01011](https://arxiv.org/abs/2311.01011)
 - **从哪读起**：先读论文 [2311.01011](https://arxiv.org/abs/2311.01011) 的 Table 1（16 种攻击策略及出现次数）和第 5 节的指标定义（DV/HRR/ERR），十分钟就能知道这把尺子量的到底是什么；数据本身在 github.com/HumanCompatibleAI/tensor-trust-data。
-- **成名作**：[Tensor Trust: Interpretable Prompt Injection Attacks from an Online Game](https://arxiv.org/abs/2311.01011)（ICLR 2024）—— 用一个真人对战的网页游戏收了 12.6 万条人写的提示注入攻击，是当时最大的人类生成对抗样本集，并从中切出两个可复现的基准子集。
 
 ## 一道题就是一扇密码门：三段防御、500 token 攻击、一条正则说了算
 

@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2607.02072](https://arxiv.org/abs/2607.02072)
 - **从哪读起**：直接看 arXiv HTML 版的 Table 2 和按域拆开的 Table 3/4——摘要只报「competitive F1」，域间三十个点的落差全在表里。
-- **成名作**：[kNNGuard: Turning LLM Hidden Activations into a Training-Free Configurable Guardrail](https://arxiv.org/abs/2607.02072)：不做任何梯度更新，只用每类 50 条标注样本 + 多层激活 kNN，就在话题过滤上打平微调护栏，且延迟只有 Llama Guard 3 的一半以下。
 
 ## 把 8B 模型当尺子：100 条样本、13 个近邻、46.8 毫秒
 

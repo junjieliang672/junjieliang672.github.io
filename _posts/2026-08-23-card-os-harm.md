@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://github.com/tml-epfl/os-harm](https://github.com/tml-epfl/os-harm)
 - **从哪读起**：先读 arXiv [2506.14866](https://arxiv.org/abs/2506.14866) 的 Table 2（五个模型 × 三类分项的 unsafe 率）再回头看 Section 3 的题目构造，顺序反过来会误以为 150 题是 150 个独立场景
-- **成名作**：[OS-Harm: A Benchmark for Measuring Safety of Computer Use Agents](https://arxiv.org/abs/2506.14866)——第一个把 deliberate misuse、prompt injection、model misbehavior 三类放进同一个 OSWorld 真 VM 里跑的 GUI agent 安全基准，NeurIPS 2025 Datasets & Benchmarks Spotlight
 
 ## 三条题目原文：它在桌面上摆的是什么陷阱
 

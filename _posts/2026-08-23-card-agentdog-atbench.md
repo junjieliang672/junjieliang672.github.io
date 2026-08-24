@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2604.02022](https://arxiv.org/abs/2604.02022)
 - **从哪读起**：先读 arXiv:[2604.02022](https://arxiv.org/abs/2604.02022) 的附录案例（corrupted tool feedback 那条），十分钟就能看清输入输出形态：一整条轨迹进去、0/1 加三元组归因出来——比读摘要更快知道它到底考什么。
-- **成名作**：[ATBench: A Diverse and Realistic Agent Trajectory Benchmark for Safety Evaluation and Diagnosis](https://arxiv.org/abs/2604.02022)：把 agent 安全评测从「这句提示词有没有毒」推到「这条九轮的执行轨迹里，风险是从哪一步进来的」，并且给出了一个让所有强模型都塌掉的细粒度归因指标。
 
 ## 考的是裁判，不是被告
 

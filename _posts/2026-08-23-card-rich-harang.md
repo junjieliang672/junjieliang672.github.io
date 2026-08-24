@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：NVIDIA，个人主页自述 Principal Security Architect（NVIDIA 开发者博客作者页写作 security architect）
 - **主页**：[https://rharang.github.io/](https://rharang.github.io/)
 - **从哪读起**：先读 2025-10-02 的《Practical LLM Security Advice from the NVIDIA AI Red Team》——它是几十次实际评估里撞见频次最高的三类 bug，比任何框架都更快让你看出他的判断依据；再回头读 2025-09-11 的 AI Kill Chain。
+- **成名作**：2024年黑帽大会演讲《Practical LLM Security: Takeaways From a Year in the Trenches》，总结NVIDIA红队一年内测出的LLM/RAG应用高发漏洞模式
 
 | 时期 | |
 |---|---|

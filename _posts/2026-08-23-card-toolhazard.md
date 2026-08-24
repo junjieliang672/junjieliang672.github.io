@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2608.11878](https://arxiv.org/abs/2608.11878)
 - **从哪读起**：直接看 arXiv HTML 版的 Figure 10 攻击实例和主结果表——那条 medical_history 载荷和 1.18%–59.14% 的 ASR 区间，比摘要更能说明这把尺子量什么。
-- **成名作**：[ToolHazard: Scaling Adversarial Environments for Security Evaluation and Alignment of LLM-based Agents](https://arxiv.org/abs/2608.11878) —— 用 Environment Simulator + Attacker Agent + User Simulator 自动合成 28 个有状态环境、512 个工具，把 agent 安全评测的任务步长从 AgentDojo 的 4.19 步推到 15.56 步。
 
 ## 注入藏在病历的 medical_history 字段里
 

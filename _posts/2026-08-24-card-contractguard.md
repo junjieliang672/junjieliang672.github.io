@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2606.18550](https://arxiv.org/abs/2606.18550)
 - **从哪读起**：直接读论文 III-B 节的攻击分类（A1/A1′/A2/A3/A4）和 Table VI 的字段消融——那张表是整篇的结论：改 risk 标签没用，改 effects 才有用。
-- **成名作**：[The Gate Is Only as Honest as Its Contracts: ContractGuard for the Contract Layer of Risk-Aware Causal Gating](https://arxiv.org/abs/2606.18550)——它指出上游防御 RACG 把「哪些工具危险」的判断外包给了工具自己声明的合约，攻击者不用说服模型，改说明书就能让门开错。
 
 ## 它补的是谁的漏：RACG 把信任挪进了工具说明书
 

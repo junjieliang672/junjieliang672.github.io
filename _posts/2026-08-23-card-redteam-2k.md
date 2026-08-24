@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://huggingface.co/datasets/JailbreakV-28K/JailBreakV-28k](https://huggingface.co/datasets/JailbreakV-28K/JailBreakV-28k)
 - **从哪读起**：先在 Hugging Face 上把 RedTeam_2K 这个 config 的前几十行翻一遍（每行只有 id/question/policy/from 四个字段），你会立刻看清它是一张带标签的问句表、不是攻击集；再回头读 arXiv [2404.03027](https://arxiv.org/abs/2404.03027) 第 3 节看 JailBreakV-28K 怎么从它展开。
-- **成名作**：作为 [JailBreakV: A Benchmark for Assessing the Robustness of MultiModal Large Language Models against Jailbreak Attacks](https://arxiv.org/abs/2404.03027) 的基础问句集被广泛复用——该文用它 × 5000 条文本越狱模板 × 4 类图片撑起 28000 条测试样本，并得出「图像输入对文本越狱攻击的 ASR 贡献极小」这个被反复引用的结论。
 
 ## 一条真题原样长这样
 

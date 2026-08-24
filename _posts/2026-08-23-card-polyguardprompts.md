@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://huggingface.co/datasets/ToxicityPrompts/PolyGuardPrompts](https://huggingface.co/datasets/ToxicityPrompts/PolyGuardPrompts)
 - **从哪读起**：先在 HF 数据集页把 offset 0 到 16 这十七行拉出来看一眼——同一个 id、十七种语言、标签完全相同，这一屏比论文任何一段都说明它量的是什么。
-- **成名作**：[PolyGuard: A Multilingual Safety Moderation Tool for 17 Languages](https://arxiv.org/abs/2504.04377)（COLM 2025）附带的评测集，是目前被多语言 guardrail 论文引用最多的跨语言安全分类测试集之一。
 
 ## 1,725 条题抄了 17 遍：29,325 是怎么来的
 

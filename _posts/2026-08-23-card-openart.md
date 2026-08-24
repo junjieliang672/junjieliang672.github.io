@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2608.00677](https://arxiv.org/abs/2608.00677)
 - **从哪读起**：先读 arXiv [2608.00677](https://arxiv.org/abs/2608.00677) 的 Section 3.2（场景编译与 evaluator 的定义），因为这一节决定了后面所有 ASR 数字的判定口径；再去 GitHub AI45Lab/OpenART 跑一条 README 里的 CLI，看清一个「场景」在磁盘上到底是什么。
-- **成名作**：[OpenART: Scaling Agent Red Teaming via Open-Ended Environment Evolution](https://arxiv.org/abs/2608.00677)——第一个把红队评测的最小单位定为「可执行环境」而不是「一条 prompt」的公开评测集，配套的 EMHA 攻击在 75 个 agent–模型配置上打出 85.0% 的 pooled strict ASR。
 
 ## 一条题目长什么样：97 次工具调用，和 agent 看不见的那份合同
 

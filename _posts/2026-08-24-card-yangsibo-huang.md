@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：Google DeepMind 研究科学家（纽约），Gemini 推理方向
 - **主页**：[https://hazelsuko07.github.io/yangsibo/](https://hazelsuko07.github.io/yangsibo/)
 - **从哪读起**：先读 Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation（arXiv [2310.06987](https://arxiv.org/abs/2310.06987)）——它用最少的机器就说清了「安全评测跑在默认配置下」这件事有多不成立。
+- **成名作**：首创解码参数越狱：不改一字输入，只调采样超参就把拒答率打穿，见[Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation](https://arxiv.org/abs/2310.06987)
 
 | 时期 | |
 |---|---|

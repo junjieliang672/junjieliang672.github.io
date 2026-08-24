@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2606.07131](https://arxiv.org/abs/2606.07131)
 - **从哪读起**：先读论文里工具评测那张表——同一个 VirusTotal 在 wild 子集上 recall 87.9%、铺到全集只剩 21.6%，这一格能立刻告诉你这个基准为什么不能只报一个总分。
-- **成名作**：[MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills](https://arxiv.org/abs/2606.07131)——第一次把「这条 skill 是不是恶意的」交给 Docker 沙箱里的 syscall 监控来签收，而不是靠标注员看一眼代码。
 
 ## 「runtime-verified」到底签收了什么：syscall 命中一条就算过
 

@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2507.20526](https://arxiv.org/abs/2507.20526)
 - **从哪读起**：先读 arXiv [2507.20526](https://arxiv.org/abs/2507.20526) 正文第 4 节的 direct 5.7% vs indirect 27.1% 那组对比，再回头看它怎么从 6.2 万条成功攻击筛到 4700 条——筛法决定了这把尺子量的是「旧攻击的残留有效性」而不是最坏情况。
-- **成名作**：[Security Challenges in AI Agent Deployment: Insights from a Large Scale Public Competition](https://arxiv.org/abs/2507.20526)——2000 名参赛者对 22 个 frontier agent 提交 180 万条 prompt injection，6.2 万条成功触发违规，作者把结果蒸馏成 ART benchmark；论文最被引用的一句结论是「agent 鲁棒性与模型规模、能力、推理时算力之间只有有限相关性」。
 
 ## 180 万条攻击怎么缩成 4700 条：筛子的形状决定了这把尺子量什么
 

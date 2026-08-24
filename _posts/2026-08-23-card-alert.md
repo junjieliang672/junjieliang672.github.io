@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2404.08676](https://arxiv.org/abs/2404.08676)
 - **从哪读起**：先别读论文，先打开 HuggingFace 上 Babelscape/ALERT 的 dataset viewer 翻前 20 行 crime_injury——题面粒度一眼就懂，比读方法章节省十分钟。
-- **成名作**：[ALERT: A Comprehensive Benchmark for Assessing Large Language Models' Safety through Red Teaming](https://arxiv.org/abs/2404.08676) —— 2024 年第一批把安全评测拆到 32 个细粒度风险类、并把全量 prompt 公开上传的基准，此后大量对齐论文直接拿它的 safety score 当汇报口径。
 
 ## 15k 条题目：Anthropic 红队日志 → 关键词过滤 → 模板填空
 

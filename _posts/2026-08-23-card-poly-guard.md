@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://github.com/AI-secure/PolyGuard](https://github.com/AI-secure/PolyGuard)
 - **从哪读起**：先别读论文，直接 clone 仓库看 `education/results/UNESCO/data_unsafe.jsonl` 的前几行——三个字段、同一条 rule 反复出现的样子，比摘要里的「100k+ instances」更能告诉你这把尺子在量什么。
-- **成名作**：[Poly-Guard / GuardSet-X: Massive Multi-Domain Safety Policy-Grounded Guardrail Dataset](https://arxiv.org/abs/2506.19054)（NeurIPS 2025 Datasets & Benchmarks）——第一个把护栏评测锚到真实政策条文而不是「11 类抽象标签」上的大规模数据集，并在 19 个护栏模型上跑出了「同一个模型跨域从 80 多分掉到 0.00」这条结果。
 
 ## 一条题目只有三个字段：instance、category、rule
 

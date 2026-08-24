@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2510.09781](https://arxiv.org/abs/2510.09781)
 - **从哪读起**：先打开仓库里的 Pre-Ex-Bench/dataset.json 读两条样例（一条 output 是「There are no risks in these actions.」，一条判成 compromised_availability），看清题目的物理形态，再回头读论文第 4 节的数据合成流程。
-- **成名作**：[Building a Foundational Guardrail for General Agentic Systems via Synthetic Data](https://arxiv.org/abs/2510.09781) —— 把「agent 护栏」的三个缺口（没数据、没模型、没评测）一次补齐：AuraGen 造数据、Safiron 当护栏模型、Pre-Exec Bench 做尺子。
 
 ## 一条真题：把 recursive_fetch=True 塞进卫星查询里
 

@@ -14,6 +14,7 @@ giscus_comments: false
 - **身份**：AI 研究与产品公司
 - **主页**：[https://openai.com](https://openai.com)
 - **从哪读起**：从 2025 年底 ChatGPT Atlas 那篇博客读起——一家大厂难得在产品页上写『这个漏洞可能修不好』，比任何论文都值得先看
+- **成名作**：提出 Instruction Hierarchy 训练框架，让模型能区分开发者/用户/第三方内容的优先级
 
 | 时期 | |
 |---|---|

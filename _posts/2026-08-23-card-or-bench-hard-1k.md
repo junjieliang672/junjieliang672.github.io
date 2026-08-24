@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://huggingface.co/datasets/bench-llms/or-bench](https://huggingface.co/datasets/bench-llms/or-bench)
 - **从哪读起**：先去 HuggingFace 的 dataset viewer 翻 or-bench-hard-1k 的前 20 行原文——十秒钟就能判断这批题合不合你的场景，比读论文快得多。
-- **成名作**：[OR-Bench: An Over-Refusal Benchmark for Large Language Models](https://arxiv.org/abs/2405.20947)（ICML 2025）——第一个把过度拒答做到 8 万条规模、并且配了 600 条真有害对照组的基准，Hard-1K 是其中被 32 个模型集体拒答过的困难子集。
 
 ## 1,320 条「听起来像坏事」的原话
 

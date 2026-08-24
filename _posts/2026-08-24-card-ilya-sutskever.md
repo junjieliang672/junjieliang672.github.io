@@ -12,6 +12,7 @@ giscus_comments: false
 - **身份**：Safe Superintelligence Inc. 联合创始人；2025 年 7 月起任 CEO
 - **主页**：[https://ssi.inc/](https://ssi.inc/)
 - **从哪读起**：先读 Burns et al. 2023 的 weak-to-strong generalization（arXiv:[2312.09390](https://arxiv.org/abs/2312.09390)）第 3 节的实验设定和第 6 节作者自陈的局限——设定可以直接搬去做实验，局限那节比结果更值得看。
+- **成名作**：AlexNet 二作：[ImageNet Classification with Deep Convolutional Neural Networks](https://proceedings.neurips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)，公认深度学习时代的起点
 
 | 时期 | |
 |---|---|

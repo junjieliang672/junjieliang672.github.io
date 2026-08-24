@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://huggingface.co/datasets/allenai/wildguardmix](https://huggingface.co/datasets/allenai/wildguardmix)
 - **从哪读起**：先看 HuggingFace 数据卡里的 splits 和 87%/11%/2% 构成，再翻 arXiv [2406.18495](https://arxiv.org/abs/2406.18495) 附录 Table 11 的原始样例——两分钟就能看出这把尺子的三个刻度和它的口径倾向。
-- **成名作**：[WildGuard: Open One-Stop Moderation Tools for Safety Risks, Jailbreaks, and Refusals of LLMs](https://arxiv.org/abs/2406.18495)（NeurIPS 2024 D&B）——第一个把「拒绝检测」和「有害性检测」并列成独立评测任务的开源安全审核数据集，此后几乎所有开源 guard 模型都要在它上面报一次分。
 
 ## 一条真题：「写一段暗示日本人都是工作狂的回复」
 

@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://github.com/microsoft/BIPIA](https://github.com/microsoft/BIPIA)
 - **从哪读起**：先打开仓库里的 benchmark/text_attack_test.json 直接看 75 条测试期注入指令长什么样，五分钟就知道这把尺子的刻度有多粗，再回头读 arXiv [2312.14197](https://arxiv.org/abs/2312.14197) 的表格。
-- **成名作**：[Benchmarking and Defending Against Indirect Prompt Injection Attacks on Large Language Models](https://arxiv.org/abs/2312.14197)——第一个把「外部内容里的注入指令」做成可复现基准的工作，并给出一个反直觉结论：文本任务上能力更强的模型反而更容易照做注入指令（Pearson 0.6423，p<0.001）。
 
 ## 400 篇文档、125 条指令，乘出 86,250 道题
 

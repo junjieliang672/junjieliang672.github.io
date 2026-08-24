@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://huggingface.co/datasets/PKU-Alignment/PKU-SafeRLHF](https://huggingface.co/datasets/PKU-Alignment/PKU-SafeRLHF)
 - **从哪读起**：先用 datasets-server 的 rows 接口拉 default/train 的头两行原始 JSON（webcam 那条和 bidding 那条），看清 19 维 harm_category、severity_level、better/safer 两个独立偏好标各长什么样，再去读论文——先看数据结构比先看论文省一半误解。
-- **成名作**：配套算法论文 [Safe RLHF: Safe Reinforcement Learning from Human Feedback](https://arxiv.org/abs/2310.12773)（ICLR 2024 Spotlight）把 helpfulness 和 harmlessness 拆成独立的 reward model 和 cost model，用 Lagrangian 在训练中调权重；数据集本身则是 [PKU-SafeRLHF](https://arxiv.org/abs/2406.15513)（ACL 2025 Main）。
 
 ## 一条真题：两个回答都在教人行贿，你还得挑一个「更安全」的
 

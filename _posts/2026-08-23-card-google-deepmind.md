@@ -12,6 +12,7 @@ giscus_comments: false
 - **身份**：Alphabet 旗下 AI 研究机构，2023 年由 DeepMind 与 Google Brain 合并而成
 - **主页**：[https://deepmind.google/](https://deepmind.google/)
 - **从哪读起**：先读 arXiv [2505.14534](https://arxiv.org/abs/2505.14534)《Lessons from Defending Gemini Against Indirect Prompt Injections》第 4–5 节的防御×攻击矩阵——它是理解「为什么一条防御报出的拦截率可能毫无信息量」最短的路径。
+- **成名作**：《Lessons from Defending Gemini Against Indirect Prompt Injections》：https://arxiv.org/abs/2505.14534 首次用自适应攻击系统性打穿自家八种防御，把攻击成功率结果公开
 
 | 时期 | |
 |---|---|

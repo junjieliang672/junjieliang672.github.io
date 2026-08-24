@@ -4,7 +4,7 @@ title: "机构 · UK AI Security Institute (AISI)"
 date: 2023-11-02
 description: "英国政府出钱养的模型测试队：能在模型发布前上手测，但拦不住任何一次发布"
 categories: card
-tags: [llm-security, card, org, org]
+tags: [llm-security, card, org, notaperson]
 giscus_comments: false
 ---
 **英国政府出钱养的模型测试队：能在模型发布前上手测，但拦不住任何一次发布**
@@ -12,6 +12,7 @@ giscus_comments: false
 - **身份**：英国科学、创新与技术部（DSIT）下属研究机构
 - **主页**：[https://www.aisi.gov.uk/](https://www.aisi.gov.uk/)
 - **从哪读起**：先读官网的 Frontier AI Trends Report（aisi.gov.uk/frontier-ai-trends-report），它把两年来的测试结果汇总成了几条能直接引用的结论，比单篇博客更能看出这家机构的判断口径。
+- **成名作**：开源评测框架 [Inspect](https://github.com/UKGovernmentBEIS/inspect_ai)，成了业界通用的模型测试标准工具
 
 | 时期 | |
 |---|---|

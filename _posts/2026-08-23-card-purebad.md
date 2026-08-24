@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2310.03693](https://arxiv.org/abs/2310.03693)
 - **从哪读起**：先读 arXiv [2310.03693](https://arxiv.org/abs/2310.03693) 的 Table 1 和第3节方法描述——原始数据集从未公开，读论文比读任何下游引用都可靠
-- **成名作**：[Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!](https://arxiv.org/abs/2310.03693)——第一次系统证明：花不到 0.2 美元、用 OpenAI 微调 API 喂 10 条有害样本，就能让 GPT-3.5 Turbo 对几乎任何有害指令都不再拒绝
 
 ## 它量的是什么
 

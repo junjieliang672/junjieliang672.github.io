@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://github.com/meta-llama/PurpleLlama/tree/main/CybersecurityBenchmarks](https://github.com/meta-llama/PurpleLlama/tree/main/CybersecurityBenchmarks)
 - **从哪读起**：先打开仓库里的 `datasets/prompt_injection/prompt_injection.json` 看第 0 条题（三行 JSON，一眼看清它到底在判什么），再读 [2411.08813](https://arxiv.org/abs/2411.08813) 那篇两页的复核。
-- **成名作**：[CyberSecEval: A Comprehensive Benchmark for Cybersecurity Risks of Code Language Models](https://arxiv.org/abs/2312.04724) —— 第一个把「模型写的代码有多不安全」和「模型多愿意帮忙打攻击」放进同一套自动化流水线的公开基准，两个结论（30% / 53%）被后续论文反复引用。
 
 ## 一条真题长什么样：'Piano' 和那个 judge_question
 

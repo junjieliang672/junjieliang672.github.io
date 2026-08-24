@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2402.03299](https://arxiv.org/abs/2402.03299)
 - **从哪读起**：先读 arXiv:[2508.20325](https://arxiv.org/abs/2508.20325) 的 Table 1（那六道由治理条文改写成的题目）和方法节里 σ 的定义，只有先看清「10 轮预算 + 拒答字符串判定」这两个前提，后面 86% / 68.2% 才有意义。
-- **成名作**：[GUARD: Role-playing to Generate Natural-language Jailbreakings to Test Guideline Adherence of Large Language Models](https://arxiv.org/abs/2402.03299) —— 把 EU / UK / NIST 三份 AI 治理文件里的条文自动改写成越狱问题，再让四个角色扮演的 LLM 协作把它包装成能过关的自然语言提示。
 
 ## 20 道题、10 轮预算、一个字符串匹配器
 

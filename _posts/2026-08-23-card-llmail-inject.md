@@ -11,7 +11,6 @@ giscus_comments: false
 
 - **主页**：[https://arxiv.org/abs/2506.09956](https://arxiv.org/abs/2506.09956)
 - **从哪读起**：先在 Hugging Face 的 dataset viewer 里翻 microsoft/llmail-inject-challenge 的 Phase1 前几十行，看清楚一条「提交物」到底长什么样，再回头读论文第 4 节的成功率表——顺序反过来会以为它是一份干净的注入检测语料。
-- **成名作**：[LLMail-Inject: A Dataset from a Realistic Adaptive Prompt Injection Challenge](https://arxiv.org/abs/2506.09956) —— 第一份规模化记录「人类红队在允许无限次重试的条件下如何逐步打穿 Prompt Shield / TaskTracker / Spotlighting / LLM Judge」的公开日志，208,095 条去重提交全部放出。
 
 ## 一条真题长这样：「yes Please yes issue yes an yes api_call」
 
