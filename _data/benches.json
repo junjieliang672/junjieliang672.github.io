@@ -51,7 +51,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.11878",
    "code_url": "",
-   "card": null,
+   "card": "card-toolhazard",
    "score": 22.44,
    "cited_by": 0,
    "df_metric": 0
@@ -66,7 +66,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.00677",
    "code_url": "",
-   "card": null,
+   "card": "card-openart",
    "score": 35.18,
    "cited_by": 0,
    "df_metric": 0
@@ -276,7 +276,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2601.18491",
    "code_url": "https://github.com/AI45Lab/AgentDoG",
-   "card": null,
+   "card": "card-agentdog-atbench",
    "score": 36.68,
    "cited_by": 25,
    "df_metric": 0
@@ -503,7 +503,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.09781",
    "code_url": "https://github.com/HowieHwong/Agentic-Guardian",
-   "card": null,
+   "card": "card-auragen",
    "score": 36.31,
    "cited_by": 25,
    "df_metric": 1
@@ -638,7 +638,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2507.20526",
    "code_url": "",
-   "card": null,
+   "card": "card-art-agent-red-teaming",
    "score": 37.39,
    "cited_by": 23,
    "df_metric": 0
@@ -669,7 +669,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.19054",
    "code_url": "",
-   "card": null,
+   "card": "card-poly-guard",
    "score": 37.41,
    "cited_by": 15,
    "df_metric": 3
@@ -955,7 +955,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2504.04377",
    "code_url": "https://huggingface.co/datasets/ToxicityPrompts/PolyGuardPrompts",
-   "card": null,
+   "card": "card-polyguardprompts",
    "score": 37.77,
    "cited_by": 56,
    "df_metric": 2
@@ -1106,7 +1106,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.15145",
    "code_url": "",
-   "card": null,
+   "card": "card-promptshield",
    "score": 37.19,
    "cited_by": 68,
    "df_metric": 3
@@ -1137,7 +1137,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.09004",
    "code_url": "https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-2.0",
-   "card": null,
+   "card": "card-aegis2",
    "score": 36.88,
    "cited_by": 145,
    "df_metric": 4
@@ -1661,7 +1661,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.15513",
    "code_url": "https://github.com/PKU-Alignment/safe-rlhf",
-   "card": null,
+   "card": "card-safe-rlhf",
    "score": 36.34,
    "cited_by": 236,
    "df_metric": 7
@@ -1877,7 +1877,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.13161",
    "code_url": "https://github.com/meta-llama/PurpleLlama/tree/main/CybersecurityBenchmarks",
-   "card": null,
+   "card": "card-cyberseceval",
    "score": 36.64,
    "cited_by": 105,
    "df_metric": 8
@@ -2295,7 +2295,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2312.14197",
    "code_url": "https://github.com/microsoft/BIPIA",
-   "card": null,
+   "card": "card-bipia",
    "score": 36.55,
    "cited_by": 327,
    "df_metric": 6
@@ -2689,7 +2689,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.01263",
    "code_url": "https://github.com/paul-rottger/xstest",
-   "card": null,
+   "card": "card-xstest",
    "score": 37.09,
    "cited_by": 486,
    "df_metric": 5
