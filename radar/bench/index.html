@@ -41,6 +41,11 @@ permalink: /radar/bench/
 
   .bx-row { display:grid; grid-template-columns: 6.2rem 1fr; gap:.2rem .9rem;
             padding:.5rem 0; border-top:1px solid var(--bx-rule); }
+  /* 切 tab 靠 JS 设 r.hidden=true 隐藏行，而 .bx-row 自带 display:grid，
+     会盖过 hidden 属性的默认样式。现在能隐藏，靠的是 CDN 上 bootstrap 4.6.1
+     里的 [hidden]{display:none!important}——不该赌它一直在（升到 5 或 CDN 挂了，
+     切 tab 就会两类行同时显示）。这一行把隐藏钉在本地。 */
+  .bx-row[hidden] { display: none; }
   .bx-when { font-family:var(--bx-mono); font-size:.78rem; color:var(--bx-read);
              padding-top:.12rem; }
   .bx-name { font-weight:650; }

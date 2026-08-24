@@ -32,4 +32,10 @@ brief:                      # 资讯卡：按子类分组，顺序是使用者�
   groups:
     - {key: bench,    zh: 评测集,   index_url: /radar/bench/, home_limit: 6}
     - {key: incident, zh: 事故,     date_in_title: true}
+    # 等 defense 进注册表、counts.defense 有值之后，这里加
+    #   index_url: /radar/bench/
+    # 模板（radar/index.html 与 _layouts/archive-category.html）判的是
+    # `if g.index_url and reg`，加上就会自动链到 ?k=defense 并显示注册表总数。
+    # 现在注册表里 defense 是 0 行，加了会渲染成「防御 0（14 有卡）」——
+    # 左边注册表总数 0、右边站上真实卡片数 14，两个数摆一起自相矛盾。
     - {key: defense,  zh: 防御机制}
