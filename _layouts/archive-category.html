@@ -88,11 +88,14 @@ layout: default
       {%- assign grp = page.posts | where_exp: "p", "p.tags contains g.key" -%}
       {%- if grp.size > 0 -%}
       <section class="px-grp">
-        {%- comment -%} 有独立索引页的组（评测集）：标题链过去，并把「站上有卡」
-            与「注册表总数」两个数都写出来，免得读者以为一共就这么多 {%- endcomment -%}
-        {%- if g.index_url and site.data.benches -%}
-        <h2><a href="{{ g.index_url | relative_url }}">{{ g.zh }} · {{ grp.size }} 张卡</a>
-          <span class="px-grp-more">／注册表共 {{ site.data.benches.rows | size }} 个，按时间与子类筛选 →</span></h2>
+        {%- comment -%} 有独立索引页的组：标题链过去，并把「站上有卡」与
+            「注册表总数」两个数都写出来，免得读者以为一共就这么多。
+            总数**按 g.key 取**，不能写死 benches.rows|size——那是全部类目的
+            合计，挂在防御那一组标题上就成了评测集的数（2026-08-24 改）。{%- endcomment -%}
+        {%- assign reg = site.data.benches.counts[g.key] -%}
+        {%- if g.index_url and reg -%}
+        <h2><a href="{{ g.index_url | relative_url }}?k={{ g.key }}">{{ g.zh }} · {{ grp.size }} 张卡</a>
+          <span class="px-grp-more">／注册表共 {{ reg }} 个，按时间与子类筛选 →</span></h2>
         {%- else -%}
         <h2>{{ g.zh }} · {{ grp.size }}</h2>
         {%- endif -%}

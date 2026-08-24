@@ -25,6 +25,13 @@ permalink: /radar/bench/
   .bx-stat { font-family:var(--bx-mono); font-size:.78rem; color:var(--bx-read); }
   .bx-back { font-size:.85rem; }
 
+  .bx-tabs { display:flex; gap:.4rem; margin:.2rem 0 .2rem; }
+  .bx-tab { font-size:.86rem; padding:.2rem .7rem; cursor:pointer;
+            border:1px solid var(--bx-rule); border-radius:999px;
+            background:transparent; color:var(--bx-read); font-family:inherit; }
+  .bx-tab.on { color:var(--bx-live); border-color:var(--bx-live); font-weight:650; }
+  .bx-tab .n { font-family:var(--bx-mono); font-size:.72rem; opacity:.6; margin-left:.35rem; }
+
   .bx-chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.6rem 0 1rem; }
   .bx-chip { font-family:var(--bx-mono); font-size:.72rem; padding:.14rem .5rem;
              border:1px solid var(--bx-rule); border-radius:999px; cursor:pointer;
@@ -57,16 +64,25 @@ permalink: /radar/bench/
 {%- assign B = site.data.benches -%}
 <div class="bx post">
   <div class="bx-head">
-    <h1>评测集</h1>
-    <span class="bx-stat">{{ B.rows | size }} 个 · 按首发时间降序 · 标签可多选（交集）</span>
+    <h1 id="bx-title">评测集</h1>
+    <span class="bx-stat" id="bx-stat">按首发时间降序 · 标签可多选（交集）</span>
     <a class="bx-back" href="{{ '/radar/' | relative_url }}">← 雷达</a>
+  </div>
+
+  {%- comment -%} kind tab。行是一次全渲染出来的，切 tab 只是显示/隐藏——
+      **标签 chip 必须按当前 tab 重新数**，否则防御那一栏会显示评测集的标签计数
+      （chip 是从渲染出的行现算的，不是从 taxonomy 来的）。{%- endcomment -%}
+  <div class="bx-tabs" id="bx-tabs">
+    <button class="bx-tab on" data-k="bench">评测集<span class="n">{{ B.counts.bench | default: 0 }}</span></button>
+    <button class="bx-tab" data-k="defense">防御机制<span class="n">{{ B.counts.defense | default: 0 }}</span></button>
   </div>
 
   <div class="bx-chips" id="bx-chips"></div>
 
   <div id="bx-list">
     {%- for b in B.rows -%}
-    <div class="bx-row" data-labels="{{ b.labels | join: ' ' }}"
+    <div class="bx-row" data-kind="{{ b.kind | default: 'bench' }}"
+         data-labels="{{ b.labels | join: ' ' }}"
          data-px="{{ b.name | downcase }} {{ b.one_liner | downcase }}">
       <span class="bx-when">{{ b.date | default: "—" }}</span>
       <div>
@@ -92,40 +108,80 @@ permalink: /radar/bench/
     </div>
     {%- endfor -%}
   </div>
-  <p class="bx-empty" id="bx-none" hidden>没有同时带上这几个标签的评测集。</p>
+  <p class="bx-empty" id="bx-none" hidden>没有同时带上这几个标签的条目。</p>
 </div>
 
 <script>
 (function () {
-  var rows = Array.prototype.slice.call(document.querySelectorAll('#bx-list .bx-row'));
-  var counts = {};
-  rows.forEach(function (r) {
-    (r.getAttribute('data-labels') || '').split(' ').forEach(function (l) {
-      if (l) counts[l] = (counts[l] || 0) + 1;
-    });
-  });
-  var box = document.getElementById('bx-chips');
+  var rows  = Array.prototype.slice.call(document.querySelectorAll('#bx-list .bx-row'));
+  var box   = document.getElementById('bx-chips');
+  var none  = document.getElementById('bx-none');
+  var title = document.getElementById('bx-title');
+  var stat  = document.getElementById('bx-stat');
+  var tabs  = Array.prototype.slice.call(document.querySelectorAll('#bx-tabs .bx-tab'));
+  var ZH    = {bench: '评测集', defense: '防御机制'};
+
+  var kind   = 'bench';
   var active = new Set();
-  Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })
-    .forEach(function (l) {
-      var c = document.createElement('span');
-      c.className = 'bx-chip'; c.setAttribute('data-l', l);
-      c.innerHTML = l + '<span class="n">' + counts[l] + '</span>';
-      c.onclick = function () {
-        active.has(l) ? active.delete(l) : active.add(l);
-        c.classList.toggle('on'); apply();
-      };
-      box.appendChild(c);
+
+  // chip 从**当前 tab 的行**现算。切 tab 必须重建，否则防御那一栏显示的是
+  // 评测集的标签和计数——两类的轴 A 完全不同（测什么 vs 在哪一层拦）。
+  function buildChips() {
+    active.clear();
+    box.innerHTML = '';
+    var mine = rows.filter(function (r) { return r.getAttribute('data-kind') === kind; });
+    var counts = {};
+    mine.forEach(function (r) {
+      (r.getAttribute('data-labels') || '').split(' ').forEach(function (l) {
+        if (l) counts[l] = (counts[l] || 0) + 1;
+      });
     });
+    Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })
+      .forEach(function (l) {
+        var c = document.createElement('span');
+        c.className = 'bx-chip'; c.setAttribute('data-l', l);
+        c.innerHTML = l + '<span class="n">' + counts[l] + '</span>';
+        c.onclick = function () {
+          active.has(l) ? active.delete(l) : active.add(l);
+          c.classList.toggle('on'); apply();
+        };
+        box.appendChild(c);
+      });
+    return mine.length;
+  }
+
   function apply() {
     var shown = 0;
     rows.forEach(function (r) {
-      var ls = (r.getAttribute('data-labels') || '').split(' ');
-      var ok = true;
-      active.forEach(function (l) { if (ls.indexOf(l) < 0) ok = false; });
+      var ok = r.getAttribute('data-kind') === kind;
+      if (ok) {
+        var ls = (r.getAttribute('data-labels') || '').split(' ');
+        active.forEach(function (l) { if (ls.indexOf(l) < 0) ok = false; });
+      }
       r.hidden = !ok; if (ok) shown++;
     });
-    document.getElementById('bx-none').hidden = shown > 0;
+    none.hidden = shown > 0;
   }
+
+  function select(k) {
+    kind = k;
+    tabs.forEach(function (t) { t.classList.toggle('on', t.getAttribute('data-k') === k); });
+    title.textContent = ZH[k] || k;
+    var n = buildChips();
+    stat.textContent = n + ' 个 · 按首发时间降序 · 标签可多选（交集）';
+    apply();
+    // 记在 URL 里：分享「防御机制」这一栏时链接要能带着 tab 一起过去
+    if (history.replaceState) {
+      history.replaceState(null, '', k === 'bench' ? location.pathname
+                                                   : location.pathname + '?k=' + k);
+    }
+  }
+
+  tabs.forEach(function (t) {
+    t.onclick = function () { select(t.getAttribute('data-k')); };
+  });
+
+  var m = /[?&]k=([a-z]+)/.exec(location.search);
+  select(m && ZH[m[1]] ? m[1] : 'bench');
 })();
 </script>
