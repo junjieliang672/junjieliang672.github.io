@@ -70,24 +70,9 @@
   }
  },
  "counts": {
-  "bench": 321
+  "bench": 305
  },
  "rows": [
-  {
-   "name": "LLM Incident Corpus (OWASP Top 10 robustness analysis)",
-   "kind": "bench",
-   "date": "2026-08-18",
-   "one_liner": "非攻击测试集：收集7714条LLM安全事故按OWASP 20类分类，用贝叶斯模型验证专家风险排名是否符合真实事故数据",
-   "labels": [
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2608.19266",
-   "code_url": "",
-   "card": null,
-   "score": 29.63,
-   "cited_by": 0,
-   "df_metric": 0
-  },
   {
    "name": "MobileWorldSafety",
    "kind": "bench",
@@ -167,22 +152,6 @@
    "code_url": "",
    "card": null,
    "score": 22.27,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
-   "name": "In-the-Wild T2I Jailbreak Safety Study (Advanced ASR)",
-   "kind": "bench",
-   "date": "2026-07-08",
-   "one_liner": "评测200+个Hugging Face上真实部署的T2I模型在越狱攻击下生成不安全图像的成功率",
-   "labels": [
-    "jailbreak",
-    "multimodal"
-   ],
-   "paper_url": "https://arxiv.org/abs/2607.07827",
-   "code_url": "",
-   "card": null,
-   "score": 22.55,
    "cited_by": 0,
    "df_metric": 0
   },
@@ -414,7 +383,7 @@
    "paper_url": "https://arxiv.org/abs/2606.11202",
    "code_url": "",
    "card": null,
-   "score": 21.89,
+   "score": 22.72,
    "cited_by": 0,
    "df_metric": 0
   },
@@ -682,7 +651,7 @@
    "paper_url": "https://arxiv.org/abs/2604.11790",
    "code_url": "https://github.com/NY1024/ClawGuard",
    "card": null,
-   "score": 26.52,
+   "score": 26.98,
    "cited_by": 19,
    "df_metric": 0
   },
@@ -885,7 +854,7 @@
    "paper_url": "https://arxiv.org/abs/2603.18245",
    "code_url": "",
    "card": null,
-   "score": 24.39,
+   "score": 23.91,
    "cited_by": 2,
    "df_metric": 0
   },
@@ -1117,22 +1086,6 @@
    "card": null,
    "score": 30.04,
    "cited_by": 7,
-   "df_metric": 0
-  },
-  {
-   "name": "RACC (Representation-Aware Coverage Criteria)",
-   "kind": "bench",
-   "date": "2026-02-02",
-   "one_liner": "从LLM隐藏状态提取安全概念方向，用六种覆盖率指标衡量越狱测试集的质量并指导用例筛选",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2602.02280",
-   "code_url": "",
-   "card": null,
-   "score": 20.96,
-   "cited_by": 0,
    "df_metric": 0
   },
   {
@@ -1444,22 +1397,6 @@
    "score": 18.42,
    "cited_by": 0,
    "df_metric": 1
-  },
-  {
-   "name": "Moral RolePlay benchmark",
-   "kind": "bench",
-   "date": "2025-11-07",
-   "one_liner": "测LLM能否忠实扮演不同道德等级(圣人到反派)的虚构角色,量化安全对齐对创作保真度的负面影响",
-   "labels": [
-    "llm",
-    "overrefusal-utility"
-   ],
-   "paper_url": "https://arxiv.org/abs/2511.04962",
-   "code_url": "",
-   "card": null,
-   "score": 23.82,
-   "cited_by": 7,
-   "df_metric": 0
   },
   {
    "name": "b3 (Breaking Agent Backbones benchmark)",
@@ -1847,7 +1784,7 @@
    "paper_url": "https://arxiv.org/abs/2509.05367",
    "code_url": "",
    "card": null,
-   "score": 13.42,
+   "score": 25.07,
    "cited_by": null,
    "df_metric": 0
   },
@@ -3164,23 +3101,6 @@
    "df_metric": 0
   },
   {
-   "name": "N-gram Perplexity Threat Model",
-   "kind": "bench",
-   "date": "2024-10-21",
-   "one_liner": "用1T token训练的N-gram模型做可解释困惑度阈值，统一比较各类LLM越狱攻击真实成功率",
-   "labels": [
-    "jailbreak",
-    "llm",
-    "robustness"
-   ],
-   "paper_url": "https://arxiv.org/abs/2410.16222",
-   "code_url": "https://github.com/valentyn1boreiko/llm-threat-model",
-   "card": null,
-   "score": 18.51,
-   "cited_by": 10,
-   "df_metric": 0
-  },
-  {
    "name": "NetSafe",
    "kind": "bench",
    "date": "2024-10-21",
@@ -3283,25 +3203,6 @@
    "score": 25.51,
    "cited_by": 53,
    "df_metric": 3
-  },
-  {
-   "name": "ISE",
-   "kind": "bench",
-   "date": "2024-10-09",
-   "one_liner": "给输入各段加优先级嵌入，测 LLM 抗提示注入与系统提示覆盖，兼顾效用",
-   "labels": [
-    "dpi",
-    "ipi",
-    "jailbreak",
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2410.09102",
-   "code_url": "",
-   "card": null,
-   "score": 31.65,
-   "cited_by": 66,
-   "df_metric": 6
   },
   {
    "name": "ST-WebAgentBench",
@@ -3476,24 +3377,6 @@
    "card": null,
    "score": 12.59,
    "cited_by": 51,
-   "df_metric": 0
-  },
-  {
-   "name": "AgentPoison",
-   "kind": "bench",
-   "date": "2024-07-17",
-   "one_liner": "向 agent 记忆/知识库投毒并优化触发词，触发时检索恶意示例使 agent 执行有害动作",
-   "labels": [
-    "poisoning-backdoor",
-    "rag",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2407.12784",
-   "code_url": "https://github.com/BillChan226/AgentPoison",
-   "card": null,
-   "score": 32.53,
-   "cited_by": 439,
    "df_metric": 0
   },
   {
@@ -3969,23 +3852,6 @@
    "df_metric": 5
   },
   {
-   "name": "ART (Automatic Red-teaming for Text-to-Image Models)",
-   "kind": "bench",
-   "date": "2024-05-24",
-   "one_liner": "用VLM+LLM自动挖掘看似安全却能触发文生图模型生成不安全图像的提示词，评估其毒性",
-   "labels": [
-    "jailbreak",
-    "multimodal",
-    "toxicity-bias"
-   ],
-   "paper_url": "https://arxiv.org/abs/2405.19360",
-   "code_url": "",
-   "card": null,
-   "score": 19.64,
-   "cited_by": 37,
-   "df_metric": 0
-  },
-  {
    "name": "CyberSecEval",
    "kind": "bench",
    "date": "2024-04-19",
@@ -4120,7 +3986,7 @@
    "paper_url": "https://arxiv.org/abs/2404.01318",
    "code_url": "https://github.com/JailbreakBench/jailbreakbench",
    "card": null,
-   "score": 34.53,
+   "score": 56.72,
    "cited_by": null,
    "df_metric": 114
   },
@@ -4231,7 +4097,6 @@
    "one_liner": "3668 道生物/化学/网络安全四选一，量模型危险知识并作 RMU 遗忘的尺子",
    "labels": [
     "harmful-capability",
-    "privacy",
     "llm"
    ],
    "paper_url": "https://arxiv.org/abs/2403.03218",
@@ -4258,24 +4123,6 @@
    "df_metric": 1
   },
   {
-   "name": "GradSafe",
-   "kind": "bench",
-   "date": "2024-02-21",
-   "one_liner": "用安全关键参数的梯度相似度检测越狱提示，在 ToxicChat/XSTest 上与 Llama Guard 对比",
-   "labels": [
-    "jailbreak",
-    "guardrail-eval",
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2402.13494",
-   "code_url": "https://github.com/xyq7/GradSafe",
-   "card": null,
-   "score": 33.18,
-   "cited_by": 121,
-   "df_metric": 5
-  },
-  {
    "name": "CatQA",
    "kind": "bench",
    "date": "2024-02-19",
@@ -4290,22 +4137,6 @@
    "score": 14.99,
    "cited_by": 123,
    "df_metric": 4
-  },
-  {
-   "name": "Vision-in-Text Challenge (ViTC)",
-   "kind": "bench",
-   "date": "2024-02-19",
-   "one_liner": "用ASCII字符画伪装有害请求文字，测LLM能否识别并抵抗这种视觉型越狱攻击",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2402.11753",
-   "code_url": "https://github.com/uw-nsl/ArtPrompt",
-   "card": null,
-   "score": 28.47,
-   "cited_by": 278,
-   "df_metric": 0
   },
   {
    "name": "ToolSword",
@@ -4441,7 +4272,7 @@
    "paper_url": "https://arxiv.org/abs/2402.04249",
    "code_url": "https://github.com/centerforaisafety/HarmBench",
    "card": null,
-   "score": 36.05,
+   "score": 59.5,
    "cited_by": null,
    "df_metric": 211
   },
@@ -4547,26 +4378,6 @@
    "score": 21.84,
    "cited_by": 547,
    "df_metric": 11
-  },
-  {
-   "name": "RTA",
-   "kind": "bench",
-   "date": "2024-01-10",
-   "one_liner": "TrustLLM 里的拒答率指标：越狱集上高为好，无害集上高为过度拒答",
-   "labels": [
-    "jailbreak",
-    "overrefusal-utility",
-    "toxicity-bias",
-    "privacy",
-    "robustness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2401.05561",
-   "code_url": "https://github.com/HowieHwong/TrustLLM",
-   "card": "card-rta",
-   "score": 19.48,
-   "cited_by": 361,
-   "df_metric": 8
   },
   {
    "name": "TrustLLM",
@@ -4952,25 +4763,9 @@
    "paper_url": "https://arxiv.org/abs/2310.12773",
    "code_url": "https://github.com/PKU-Alignment/safe-rlhf",
    "card": null,
-   "score": 11.35,
+   "score": 11.38,
    "cited_by": null,
    "df_metric": 12
-  },
-  {
-   "name": "ICA",
-   "kind": "bench",
-   "date": "2023-10-10",
-   "one_liner": "用少量有害问答示例做 few-shot 越狱（ICA），同时提出反向的 ICD 防御",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2310.06387",
-   "code_url": "",
-   "card": null,
-   "score": 30.38,
-   "cited_by": 511,
-   "df_metric": 5
   },
   {
    "name": "MaliciousInstruct",
@@ -5037,24 +4832,6 @@
    "score": 38.96,
    "cited_by": null,
    "df_metric": 43
-  },
-  {
-   "name": "SmoothLLM",
-   "kind": "bench",
-   "date": "2023-10-05",
-   "one_liner": "对输入提示做随机字符扰动并多副本投票，评测该防御对 GCG 等越狱攻击的抵抗力",
-   "labels": [
-    "jailbreak",
-    "robustness",
-    "guardrail-eval",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2310.03684",
-   "code_url": "https://github.com/arobey1/smooth-llm",
-   "card": null,
-   "score": 43.67,
-   "cited_by": 534,
-   "df_metric": 21
   },
   {
    "name": "PrivQA",
@@ -5326,24 +5103,6 @@
    "df_metric": 321
   },
   {
-   "name": "Beaver-dam-7B",
-   "kind": "bench",
-   "date": "2023-07-10",
-   "one_liner": "用 BeaverTails 人工标注 QA 对评 14 类危害的审核器（beaver-dam-7b）判别能力",
-   "labels": [
-    "guardrail-eval",
-    "toxicity-bias",
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2307.04657",
-   "code_url": "https://github.com/PKU-Alignment/beavertails",
-   "card": null,
-   "score": 29.73,
-   "cited_by": 1018,
-   "df_metric": 3
-  },
-  {
    "name": "BeaverTails",
    "kind": "bench",
    "date": "2023-07-10",
@@ -5517,22 +5276,6 @@
    "df_metric": 0
   },
   {
-   "name": "TOXIGEN",
-   "kind": "bench",
-   "date": "2022-03-17",
-   "one_liner": "机器生成的隐式毒性/仇恨言论数据集，测毒性分类器对隐式偏见文本的识别能力",
-   "labels": [
-    "toxicity-bias",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2203.09509",
-   "code_url": "https://github.com/microsoft/TOXIGEN",
-   "card": null,
-   "score": 10.86,
-   "cited_by": null,
-   "df_metric": 8
-  },
-  {
    "name": "ToxiGen",
    "kind": "bench",
    "date": "2022-03-17",
@@ -5600,19 +5343,6 @@
    "score": 20.0,
    "cited_by": 857,
    "df_metric": 9
-  },
-  {
-   "name": "APPS",
-   "kind": "bench",
-   "date": "2021-05-20",
-   "one_liner": "APPS 是代码生成能力基准:10000道编程题,测模型写的代码能否通过测试用例,与安全无关",
-   "labels": [],
-   "paper_url": "https://arxiv.org/abs/2105.09938",
-   "code_url": "https://github.com/hendrycks/apps",
-   "card": null,
-   "score": 8.14,
-   "cited_by": null,
-   "df_metric": 0
   },
   {
    "name": "BOLD",
