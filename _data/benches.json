@@ -1476,7 +1476,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2408.15221",
    "code_url": "https://huggingface.co/datasets/ScaleAI/mhj",
-   "card": null,
+   "card": "card-mhj",
    "score": 38.72,
    "cited_by": 166,
    "df_metric": 5
@@ -1988,7 +1988,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.03027",
    "code_url": "https://github.com/EddyLuo1232/JailBreakV_28K",
-   "card": null,
+   "card": "card-redteam-2k",
    "score": 38.71,
    "cited_by": 259,
    "df_metric": 6
