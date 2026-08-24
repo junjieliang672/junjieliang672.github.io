@@ -24,10 +24,12 @@ card:                       # 知识卡：按 lane 分组
     - {key: org,      zh: 研究组与机构}
 
 brief:                      # 资讯卡：按子类分组，顺序是使用者定的
-  axis_home: "按类型 · 评测集有专页，事故按日合并，系统与防御各自排队"
-  axis_archive: "按类型 · 评测集 / 事故 / 系统 / 防御机制"
+  axis_home: "按类型 · 评测集有专页，事故按日合并，防御机制排队"
+  axis_archive: "按类型 · 评测集 / 事故 / 防御机制"
+  # tool（系统与工具）2026-08-24 退役：不再出新卡，5 张旧卡已 unlisted 下线。
+  # 管道侧对应 kb/intel.py 的 CARD_CLASSES——那里写着为什么代码留着不删
+  # （分类器还在判 tool，rosterbeat 靠那批候选行爬仓库贡献者进人物池）。
   groups:
     - {key: bench,    zh: 评测集,   index_url: /radar/bench/, home_limit: 6}
     - {key: incident, zh: 事故,     date_in_title: true}
-    - {key: tool,     zh: 系统与工具}
     - {key: defense,  zh: 防御机制}
