@@ -172,7 +172,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.04808",
    "code_url": "https://github.com/AI-secure/DecodingTrust-Agent",
-   "card": null,
+   "card": "card-decodingtrust-agent-platform-dtap",
    "score": 41.49,
    "cited_by": 6,
    "df_metric": 0
@@ -552,7 +552,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.20325",
    "code_url": "",
-   "card": null,
+   "card": "card-guard",
    "score": 52.76,
    "cited_by": 2,
    "df_metric": 4
@@ -906,7 +906,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2504.18575",
    "code_url": "https://github.com/facebookresearch/wasp",
-   "card": null,
+   "card": "card-wasp",
    "score": 57.56,
    "cited_by": 134,
    "df_metric": 7
@@ -977,22 +977,6 @@
    "score": 29.92,
    "cited_by": 128,
    "df_metric": 0
-  },
-  {
-   "name": "CaMeL",
-   "date": "2025-03-24",
-   "one_liner": "给工具调用 agent 加系统层防护，隔离控制流与数据流以防间接提示注入，在 AgentDojo 上测有效性",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2503.18813",
-   "code_url": "https://github.com/google-research/camel-prompt-injection",
-   "card": null,
-   "score": 42.18,
-   "cited_by": null,
-   "df_metric": 9
   },
   {
    "name": "BeaverTails-V",
@@ -1597,23 +1581,6 @@
    "df_metric": 34
   },
   {
-   "name": "WildGuard",
-   "date": "2024-06-26",
-   "one_liner": "5K 人工标注的审核器测试集，评护栏对有害提示、有害回复、拒答的三项分类",
-   "labels": [
-    "guardrail-eval",
-    "jailbreak",
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2406.18495",
-   "code_url": "https://github.com/allenai/wildguard",
-   "card": null,
-   "score": 50.2,
-   "cited_by": 495,
-   "df_metric": 19
-  },
-  {
    "name": "WildGuardMix",
    "date": "2024-06-26",
    "one_liner": "9.2万条带人工标注的 prompt/response 对，测审核器识别有害提示、有害回复与拒答的能力",
@@ -1626,7 +1593,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.18495",
    "code_url": "https://github.com/allenai/wildguard",
-   "card": null,
+   "card": "card-wildguardmix",
    "score": 42.13,
    "cited_by": 495,
    "df_metric": 7
@@ -2084,7 +2051,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2403.06833",
    "code_url": "https://github.com/egozverev/Shold-It-Be-Executed-Or-Processed",
-   "card": null,
+   "card": "card-sep",
    "score": 43.94,
    "cited_by": 82,
    "df_metric": 7
@@ -2332,23 +2299,6 @@
    "score": 36.55,
    "cited_by": 327,
    "df_metric": 6
-  },
-  {
-   "name": "Llama Guard",
-   "date": "2023-12-07",
-   "one_liner": "Meta 的 LLM 审核器，按安全分类体系对对话输入/输出做有害分类，用公开审核集评测。",
-   "labels": [
-    "guardrail-eval",
-    "toxicity-bias",
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2312.06674",
-   "code_url": "https://github.com/meta-llama/PurpleLlama",
-   "card": null,
-   "score": 41.39,
-   "cited_by": 1247,
-   "df_metric": 98
   },
   {
    "name": "MITRE",
