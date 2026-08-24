@@ -85,7 +85,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.31227",
    "code_url": "https://github.com/Tencent/AI-Infra-Guard",
-   "card": null,
+   "card": "card-ai-infra-guard",
    "score": 38.93,
    "cited_by": 2,
    "df_metric": 0
@@ -737,7 +737,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.09956",
    "code_url": "https://huggingface.co/datasets/microsoft/llmail-inject-challenge",
-   "card": null,
+   "card": "card-llmail-inject",
    "score": 38.84,
    "cited_by": 24,
    "df_metric": 3
@@ -1940,7 +1940,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.08676",
    "code_url": "https://github.com/Babelscape/ALERT",
-   "card": null,
+   "card": "card-alert",
    "score": 39.12,
    "cited_by": 102,
    "df_metric": 4
