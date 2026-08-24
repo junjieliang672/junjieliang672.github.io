@@ -119,7 +119,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.07131",
    "code_url": "https://github.com/lxyeternal/MalSkillBench",
-   "card": null,
+   "card": "card-malskillbench",
    "score": 34.69,
    "cited_by": 11,
    "df_metric": 0
@@ -174,7 +174,7 @@
    "code_url": "https://github.com/AI-secure/DecodingTrust-Agent",
    "card": "card-decodingtrust-agent-platform-dtap",
    "score": 41.49,
-   "cited_by": 6,
+   "cited_by": 7,
    "df_metric": 0
   },
   {
@@ -258,7 +258,7 @@
    "code_url": "https://github.com/leolee99/AgentDyn",
    "card": "card-agentdyn",
    "score": 61.23,
-   "cited_by": 26,
+   "cited_by": 27,
    "df_metric": 12
   },
   {
@@ -687,7 +687,7 @@
    "code_url": "",
    "card": null,
    "score": 21.35,
-   "cited_by": 32,
+   "cited_by": 33,
    "df_metric": 0
   },
   {
@@ -705,7 +705,7 @@
    "code_url": "https://github.com/tml-epfl/os-harm",
    "card": "card-os-harm",
    "score": 35.47,
-   "cited_by": 90,
+   "cited_by": 91,
    "df_metric": 0
   },
   {
@@ -756,7 +756,7 @@
    "code_url": "https://github.com/sunblaze-ucb/cybergym",
    "card": null,
    "score": 23.91,
-   "cited_by": 55,
+   "cited_by": 56,
    "df_metric": 4
   },
   {
@@ -811,7 +811,7 @@
    "code_url": "https://yjyddq.github.io/RiOSWorld.github.io/",
    "card": null,
    "score": 32.65,
-   "cited_by": 26,
+   "cited_by": 27,
    "df_metric": 2
   },
   {
@@ -908,7 +908,7 @@
    "code_url": "https://github.com/facebookresearch/wasp",
    "card": "card-wasp",
    "score": 57.56,
-   "cited_by": 134,
+   "cited_by": 133,
    "df_metric": 7
   },
   {
@@ -923,7 +923,7 @@
    "code_url": "",
    "card": null,
    "score": 32.41,
-   "cited_by": 110,
+   "cited_by": 111,
    "df_metric": 0
   },
   {
@@ -975,7 +975,7 @@
    "code_url": "https://shieldagent-aiguard.github.io/",
    "card": null,
    "score": 29.92,
-   "cited_by": 128,
+   "cited_by": 129,
    "df_metric": 0
   },
   {
@@ -1010,7 +1010,7 @@
    "code_url": "https://github.com/uiuc-kang-lab/cve-bench",
    "card": null,
    "score": 15.79,
-   "cited_by": 104,
+   "cited_by": 107,
    "df_metric": 0
   },
   {
@@ -1175,7 +1175,7 @@
    "code_url": "https://github.com/shengyin1224/SafeAgentBench",
    "card": null,
    "score": 14.82,
-   "cited_by": 106,
+   "cited_by": 107,
    "df_metric": 2
   },
   {
@@ -1326,7 +1326,7 @@
    "code_url": "https://github.com/jylee425/mobilesafetybench",
    "card": null,
    "score": 12.61,
-   "cited_by": 44,
+   "cited_by": 45,
    "df_metric": 2
   },
   {
@@ -1393,7 +1393,7 @@
    "code_url": "https://github.com/scaleapi/browser-art",
    "card": "card-browserart",
    "score": 35.55,
-   "cited_by": 68,
+   "cited_by": 67,
    "df_metric": 2
   },
   {
@@ -1446,7 +1446,7 @@
    "code_url": "https://github.com/agiresearch/ASB",
    "card": "card-asb",
    "score": 33.07,
-   "cited_by": 350,
+   "cited_by": 349,
    "df_metric": 8
   },
   {
@@ -1462,7 +1462,7 @@
    "code_url": "https://github.com/SALT-NLP/PrivacyLens",
    "card": null,
    "score": 31.01,
-   "cited_by": 177,
+   "cited_by": 178,
    "df_metric": 3
   },
   {
@@ -1478,7 +1478,7 @@
    "code_url": "https://huggingface.co/datasets/ScaleAI/mhj",
    "card": "card-mhj",
    "score": 38.72,
-   "cited_by": 166,
+   "cited_by": 167,
    "df_metric": 5
   },
   {
@@ -1494,7 +1494,7 @@
    "code_url": "https://github.com/andyzorigin/cybench",
    "card": null,
    "score": 14.17,
-   "cited_by": 166,
+   "cited_by": 168,
    "df_metric": 1
   },
   {
@@ -1595,7 +1595,7 @@
    "code_url": "https://github.com/allenai/wildguard",
    "card": "card-wildguardmix",
    "score": 42.13,
-   "cited_by": 495,
+   "cited_by": 497,
    "df_metric": 7
   },
   {
@@ -1612,7 +1612,7 @@
    "code_url": "https://github.com/allenai/wildguard",
    "card": "card-wildguardtest",
    "score": 49.19,
-   "cited_by": 495,
+   "cited_by": 497,
    "df_metric": 17
   },
   {
@@ -1714,7 +1714,7 @@
    "code_url": "https://github.com/NVIDIA/garak",
    "card": null,
    "score": 23.77,
-   "cited_by": 58,
+   "cited_by": 59,
    "df_metric": 0
   },
   {
@@ -1812,7 +1812,7 @@
    "code_url": "https://github.com/justincui03/or-bench",
    "card": null,
    "score": 30.78,
-   "cited_by": 213,
+   "cited_by": 214,
    "df_metric": 1
   },
   {
@@ -1827,7 +1827,7 @@
    "code_url": "https://github.com/justincui03/or-bench",
    "card": "card-or-bench-hard-1k",
    "score": 35.51,
-   "cited_by": 213,
+   "cited_by": 214,
    "df_metric": 5
   },
   {
@@ -1926,7 +1926,7 @@
    "code_url": "https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-1.0",
    "card": null,
    "score": 11.51,
-   "cited_by": 150,
+   "cited_by": 151,
    "df_metric": 1
   },
   {
@@ -2069,7 +2069,7 @@
    "code_url": "https://github.com/uiuc-kang-lab/InjecAgent",
    "card": "card-injecagent",
    "score": 44.29,
-   "cited_by": 493,
+   "cited_by": 494,
    "df_metric": 19
   },
   {
@@ -2085,7 +2085,7 @@
    "code_url": "https://github.com/centerforaisafety/wmdp",
    "card": "card-wmdp",
    "score": 26.12,
-   "cited_by": 509,
+   "cited_by": 510,
    "df_metric": 10
   },
   {
@@ -2100,7 +2100,7 @@
    "code_url": "https://github.com/declare-lab/resta",
    "card": null,
    "score": 14.97,
-   "cited_by": 121,
+   "cited_by": 123,
    "df_metric": 4
   },
   {
@@ -2116,7 +2116,7 @@
    "code_url": "https://github.com/dsbowen/strong_reject",
    "card": "card-strongreject",
    "score": 44.96,
-   "cited_by": 369,
+   "cited_by": 370,
    "df_metric": 89
   },
   {
@@ -2180,7 +2180,7 @@
    "code_url": "https://github.com/centerforaisafety/HarmBench",
    "card": "card-harmbench",
    "score": 71.68,
-   "cited_by": 1445,
+   "cited_by": 1446,
    "df_metric": 211
   },
   {
@@ -2231,7 +2231,7 @@
    "code_url": "https://sorry-bench.github.io",
    "card": "card-sorry-bench",
    "score": 23.47,
-   "cited_by": 239,
+   "cited_by": 240,
    "df_metric": 17
   },
   {
@@ -2246,7 +2246,7 @@
    "code_url": "https://github.com/locuslab/tofu",
    "card": "card-tofu",
    "score": 21.85,
-   "cited_by": 545,
+   "cited_by": 547,
    "df_metric": 11
   },
   {
@@ -2265,7 +2265,7 @@
    "code_url": "https://github.com/HowieHwong/TrustLLM",
    "card": null,
    "score": 17.35,
-   "cited_by": 361,
+   "cited_by": 362,
    "df_metric": 5
   },
   {
@@ -2356,7 +2356,7 @@
    "code_url": "https://github.com/idavidrein/gpqa",
    "card": null,
    "score": 17.78,
-   "cited_by": 3176,
+   "cited_by": 3182,
    "df_metric": 0
   },
   {
@@ -2372,7 +2372,7 @@
    "code_url": "https://github.com/ThuCCSLab/FigStep",
    "card": "card-figstep",
    "score": 41.28,
-   "cited_by": 432,
+   "cited_by": 433,
    "df_metric": 23
   },
   {
@@ -2387,7 +2387,7 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.01011",
    "code_url": "https://github.com/HumanCompatibleAI/tensor-trust",
-   "card": null,
+   "card": "card-tensor-trust",
    "score": 34.38,
    "cited_by": 152,
    "df_metric": 6
@@ -2420,7 +2420,7 @@
    "code_url": "https://confaide.github.io",
    "card": null,
    "score": 13.14,
-   "cited_by": 260,
+   "cited_by": 262,
    "df_metric": 2
   },
   {
@@ -2468,7 +2468,7 @@
    "code_url": "https://github.com/liu00222/Open-Prompt-Injection",
    "card": null,
    "score": 32.91,
-   "cited_by": 438,
+   "cited_by": 439,
    "df_metric": 4
   },
   {
@@ -2515,7 +2515,7 @@
    "code_url": "https://github.com/LLM-Tuning-Safety/LLMs-Finetuning-Safety",
    "card": "card-hex-phi",
    "score": 50.38,
-   "cited_by": 1334,
+   "cited_by": 1335,
    "df_metric": 43
   },
   {
@@ -2565,7 +2565,7 @@
    "code_url": "https://github.com/ryoungj/ToolEmu",
    "card": null,
    "score": 14.0,
-   "cited_by": 501,
+   "cited_by": 502,
    "df_metric": 2
   },
   {
@@ -2615,7 +2615,7 @@
    "code_url": "https://github.com/declare-lab/red-instruct",
    "card": null,
    "score": 31.85,
-   "cited_by": 276,
+   "cited_by": 277,
    "df_metric": 7
   },
   {
@@ -2630,7 +2630,7 @@
    "code_url": "https://github.com/declare-lab/red-instruct",
    "card": "card-harmfulqa",
    "score": 32.45,
-   "cited_by": 276,
+   "cited_by": 277,
    "df_metric": 8
   },
   {
@@ -2645,7 +2645,7 @@
    "code_url": "https://github.com/declare-lab/red-instruct",
    "card": null,
    "score": 26.17,
-   "cited_by": 276,
+   "cited_by": 277,
    "df_metric": 1
   },
   {
@@ -2691,7 +2691,7 @@
    "code_url": "https://github.com/paul-rottger/xstest",
    "card": "card-xstest",
    "score": 37.09,
-   "cited_by": 486,
+   "cited_by": 487,
    "df_metric": 5
   },
   {
@@ -2707,7 +2707,7 @@
    "code_url": "https://github.com/llm-attacks/llm-attacks",
    "card": "card-advbench",
    "score": 71.76,
-   "cited_by": 3556,
+   "cited_by": 3558,
    "df_metric": 321
   },
   {
@@ -2724,7 +2724,7 @@
    "code_url": "https://github.com/PKU-Alignment/beavertails",
    "card": "card-beavertails",
    "score": 43.07,
-   "cited_by": 1018,
+   "cited_by": 1020,
    "df_metric": 39
   },
   {
@@ -2744,7 +2744,7 @@
    "code_url": "https://github.com/AI-secure/DecodingTrust",
    "card": null,
    "score": 31.18,
-   "cited_by": 698,
+   "cited_by": 699,
    "df_metric": 1
   },
   {
@@ -2790,7 +2790,7 @@
    "code_url": "https://github.com/anthropics/evals",
    "card": null,
    "score": 9.87,
-   "cited_by": 992,
+   "cited_by": 993,
    "df_metric": 0
   },
   {
@@ -2837,7 +2837,7 @@
    "code_url": "https://github.com/anthropics/hh-rlhf",
    "card": null,
    "score": 9.37,
-   "cited_by": 868,
+   "cited_by": 869,
    "df_metric": 0
   },
   {
@@ -2853,7 +2853,7 @@
    "code_url": "https://github.com/openai/moderation-api-release",
    "card": null,
    "score": 8.53,
-   "cited_by": 488,
+   "cited_by": 489,
    "df_metric": 0
   },
   {
@@ -2918,7 +2918,7 @@
    "code_url": "https://github.com/nyu-mll/BBQ",
    "card": "card-bbq",
    "score": 19.81,
-   "cited_by": 856,
+   "cited_by": 857,
    "df_metric": 9
   },
   {
@@ -2948,7 +2948,7 @@
    "code_url": "https://github.com/allenai/real-toxicity-prompts",
    "card": "card-realtoxicityprompts",
    "score": 17.05,
-   "cited_by": 1815,
+   "cited_by": 1817,
    "df_metric": 11
   }
  ]
