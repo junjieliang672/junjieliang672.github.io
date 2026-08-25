@@ -70,7 +70,7 @@
   }
  },
  "counts": {
-  "bench": 295
+  "bench": 294
  },
  "rows": [
   {
@@ -4279,26 +4279,6 @@
    "score": 21.84,
    "cited_by": 547,
    "df_metric": 11
-  },
-  {
-   "name": "RTA",
-   "kind": "bench",
-   "date": "2024-01-10",
-   "one_liner": "TrustLLM 里的拒答率指标：越狱集上高为好，无害集上高为过度拒答",
-   "labels": [
-    "jailbreak",
-    "overrefusal-utility",
-    "toxicity-bias",
-    "privacy",
-    "robustness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2508.10390",
-   "code_url": "https://github.com/HowieHwong/TrustLLM",
-   "card": "card-rta",
-   "score": 19.49,
-   "cited_by": 362,
-   "df_metric": 8
   },
   {
    "name": "TrustLLM",
