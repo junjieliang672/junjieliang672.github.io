@@ -47,26 +47,6 @@
    "multi-agent": "多 agent 系统",
    "rag": "RAG 检索增强系统",
    "mcp-harness": "协议/harness 层（MCP、工具接口本身）"
-  },
-  "defense": {
-   "train-time": "训练期改模型：对抗微调、安全对齐、RLHF/DPO（SecAlign 类）",
-   "inference-time": "推理期不改权重：系统提示、解码约束、随机平滑（SmoothLLM 类）",
-   "detector": "检测器：分类器、困惑度、探针——先判有没有攻击再决定拦不拦",
-   "architecture": "架构级隔离：能力控制、数据流标签、双模型（CaMeL 类）",
-   "input-sanitize": "入口清洗：改写/剥离/转义用户与第三方内容里的指令",
-   "output-filter": "出口过滤：拦模型已经生成出来的有害内容（Llama Guard 类）",
-   "llm": "被测对象是纯文本 LLM",
-   "multimodal": "被测对象吃图像/音频输入",
-   "agent-tool": "工具调用 agent",
-   "agent-web": "浏览器/网页 agent",
-   "agent-computer": "GUI/computer-use agent（RedTeamCUA 类）",
-   "agent-code": "编码 agent",
-   "agent-embodied": "机器人/具身 agent",
-   "multi-agent": "多 agent 系统",
-   "rag": "RAG 检索增强系统",
-   "mcp-harness": "协议/harness 层（MCP、工具接口本身）",
-   "cost-reported": "论文报了代价（拒答率上升多少、效用掉多少、延迟/开销多少）",
-   "cost-unreported": "没报代价——只说拦住了多少，不说拦错了多少或慢了多少"
   }
  },
  "counts": {
@@ -120,7 +100,7 @@
    "paper_url": "https://arxiv.org/abs/2608.11806",
    "code_url": "",
    "card": null,
-   "score": 9.77,
+   "score": 24.71,
    "cited_by": 0,
    "df_metric": 0
   },
