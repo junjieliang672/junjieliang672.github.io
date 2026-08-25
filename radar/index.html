@@ -127,9 +127,9 @@ title: radar
     </span>
     <h1>{{ site.blog_name }}</h1>
     <span class="px-stat">{{ digests.size }} 期速览 · {{ cards.size }} 知识卡 ·
-      {%- comment -%} 系统（tool）2026-08-24 退役，这一格去掉；评测集与防御的
-          总数从注册表的 counts 取（站上有卡的只是其中一部分）。{%- endcomment -%}
-      资讯卡：评测集 {{ site.data.benches.counts.bench | default: 0 }}（{{ briefs | where_exp: "p", "p.tags contains 'bench'" | size }} 有卡）· 事故 {{ briefs | where_exp: "p", "p.tags contains 'incident'" | size }} · 防御 {{ site.data.benches.counts.defense | default: 0 }}（{{ briefs | where_exp: "p", "p.tags contains 'defense'" | size }} 有卡）·
+      {%- comment -%} 系统（tool）2026-08-24、防御（defense）2026-08-25 退役，
+          两格都去掉；评测集总数从注册表的 counts 取（站上有卡的只是其中一部分）。{%- endcomment -%}
+      资讯卡：评测集 {{ site.data.benches.counts.bench | default: 0 }}（{{ briefs | where_exp: "p", "p.tags contains 'bench'" | size }} 有卡）· 事故 {{ briefs | where_exp: "p", "p.tags contains 'incident'" | size }} ·
       最新 {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>
   </div>
 
@@ -185,8 +185,8 @@ title: radar
       {%- assign grp = briefs | where_exp: "p", "p.tags contains g.key" -%}
       {%- if grp.size > 0 -%}
       {%- comment -%} 有注册表的组用注册表总数（站上有卡的只是其中一部分），
-          没有的用卡片数。**按 g.key 从 counts 里取**，不再写死 bench——
-          防御机制 2026-08-24 起也进注册表了。{%- endcomment -%}
+          没有的用卡片数。**按 g.key 从 counts 里取**，不写死 bench——
+          写死的话哪一组挂上 index_url 都会显示评测集的数。{%- endcomment -%}
       {%- assign reg = site.data.benches.counts[g.key] -%}
       {%- if g.index_url and reg -%}{%- assign total = reg -%}
       {%- else -%}{%- assign total = grp.size -%}{%- endif -%}

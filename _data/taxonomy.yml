@@ -24,18 +24,14 @@ card:                       # 知识卡：按 lane 分组
     - {key: org,      zh: 研究组与机构}
 
 brief:                      # 资讯卡：按子类分组，顺序是使用者定的
-  axis_home: "按类型 · 评测集有专页，事故按日合并，防御机制排队"
-  axis_archive: "按类型 · 评测集 / 事故 / 防御机制"
+  axis_home: "按类型 · 评测集有专页，事故按日合并"
+  axis_archive: "按类型 · 评测集 / 事故"
   # tool（系统与工具）2026-08-24 退役：不再出新卡，5 张旧卡已 unlisted 下线。
   # 管道侧对应 kb/intel.py 的 CARD_CLASSES——那里写着为什么代码留着不删
   # （分类器还在判 tool，rosterbeat 靠那批候选行爬仓库贡献者进人物池）。
+  # defense（防御机制）2026-08-25 退役：不再出新卡，14 张旧卡已从站上删除
+  # （正文留在库里，unlisted=1）。管道侧对应 kb/intel.py 的 CARD_CLASSES,
+  # 那里写着为什么 defense 的代码留着不删（_DEFENSE 名单还在 adjudicate() 用）。
   groups:
     - {key: bench,    zh: 评测集,   index_url: /radar/bench/, home_limit: 6}
     - {key: incident, zh: 事故,     date_in_title: true}
-    # 等 defense 进注册表、counts.defense 有值之后，这里加
-    #   index_url: /radar/bench/
-    # 模板（radar/index.html 与 _layouts/archive-category.html）判的是
-    # `if g.index_url and reg`，加上就会自动链到 ?k=defense 并显示注册表总数。
-    # 现在注册表里 defense 是 0 行，加了会渲染成「防御 0（14 有卡）」——
-    # 左边注册表总数 0、右边站上真实卡片数 14，两个数摆一起自相矛盾。
-    - {key: defense,  zh: 防御机制}

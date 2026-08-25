@@ -25,13 +25,6 @@ permalink: /radar/bench/
   .bx-stat { font-family:var(--bx-mono); font-size:.78rem; color:var(--bx-read); }
   .bx-back { font-size:.85rem; }
 
-  .bx-tabs { display:flex; gap:.4rem; margin:.2rem 0 .2rem; }
-  .bx-tab { font-size:.86rem; padding:.2rem .7rem; cursor:pointer;
-            border:1px solid var(--bx-rule); border-radius:999px;
-            background:transparent; color:var(--bx-read); font-family:inherit; }
-  .bx-tab.on { color:var(--bx-live); border-color:var(--bx-live); font-weight:650; }
-  .bx-tab .n { font-family:var(--bx-mono); font-size:.72rem; opacity:.6; margin-left:.35rem; }
-
   .bx-chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.6rem 0 1rem; }
   .bx-chip { font-family:var(--bx-mono); font-size:.72rem; padding:.14rem .5rem;
              border:1px solid var(--bx-rule); border-radius:999px; cursor:pointer;
@@ -41,10 +34,10 @@ permalink: /radar/bench/
 
   .bx-row { display:grid; grid-template-columns: 6.2rem 1fr; gap:.2rem .9rem;
             padding:.5rem 0; border-top:1px solid var(--bx-rule); }
-  /* 切 tab 靠 JS 设 r.hidden=true 隐藏行，而 .bx-row 自带 display:grid，
-     会盖过 hidden 属性的默认样式。现在能隐藏，靠的是 CDN 上 bootstrap 4.6.1
-     里的 [hidden]{display:none!important}——不该赌它一直在（升到 5 或 CDN 挂了，
-     切 tab 就会两类行同时显示）。这一行把隐藏钉在本地。 */
+  /* 标签筛选靠 JS 设 r.hidden=true 隐藏行，而 .bx-row 自带 display:grid，
+     会盖过 hidden 属性的默认样式。不该赌 CDN 上 bootstrap 4.6.1 里的
+     [hidden]{display:none!important} 一直在（升到 5 或 CDN 挂了，
+     筛选就会把该藏的行也显示出来）。这一行把隐藏钉在本地。 */
   .bx-row[hidden] { display: none; }
   .bx-when { font-family:var(--bx-mono); font-size:.78rem; color:var(--bx-read);
              padding-top:.12rem; }
@@ -69,17 +62,9 @@ permalink: /radar/bench/
 {%- assign B = site.data.benches -%}
 <div class="bx post">
   <div class="bx-head">
-    <h1 id="bx-title">评测集</h1>
+    <h1>评测集</h1>
     <span class="bx-stat" id="bx-stat">按首发时间降序 · 标签可多选（交集）</span>
     <a class="bx-back" href="{{ '/radar/' | relative_url }}">← 雷达</a>
-  </div>
-
-  {%- comment -%} kind tab。行是一次全渲染出来的，切 tab 只是显示/隐藏——
-      **标签 chip 必须按当前 tab 重新数**，否则防御那一栏会显示评测集的标签计数
-      （chip 是从渲染出的行现算的，不是从 taxonomy 来的）。{%- endcomment -%}
-  <div class="bx-tabs" id="bx-tabs">
-    <button class="bx-tab on" data-k="bench">评测集<span class="n">{{ B.counts.bench | default: 0 }}</span></button>
-    <button class="bx-tab" data-k="defense">防御机制<span class="n">{{ B.counts.defense | default: 0 }}</span></button>
   </div>
 
   <div class="bx-chips" id="bx-chips"></div>
@@ -121,16 +106,14 @@ permalink: /radar/bench/
   var rows  = Array.prototype.slice.call(document.querySelectorAll('#bx-list .bx-row'));
   var box   = document.getElementById('bx-chips');
   var none  = document.getElementById('bx-none');
-  var title = document.getElementById('bx-title');
   var stat  = document.getElementById('bx-stat');
-  var tabs  = Array.prototype.slice.call(document.querySelectorAll('#bx-tabs .bx-tab'));
-  var ZH    = {bench: '评测集', defense: '防御机制'};
 
+  // defense 2026-08-25 退役，kind tab 撤掉，这页只剩评测集一类。
+  // data-kind 与下面按 kind 的过滤保留：JSON 里万一混进别的 kind 不会显示出来。
   var kind   = 'bench';
   var active = new Set();
 
-  // chip 从**当前 tab 的行**现算。切 tab 必须重建，否则防御那一栏显示的是
-  // 评测集的标签和计数——两类的轴 A 完全不同（测什么 vs 在哪一层拦）。
+  // chip 从渲染出的行现算（不是从 taxonomy 来的），所以要先按 kind 挑行。
   function buildChips() {
     active.clear();
     box.innerHTML = '';
@@ -168,25 +151,8 @@ permalink: /radar/bench/
     none.hidden = shown > 0;
   }
 
-  function select(k) {
-    kind = k;
-    tabs.forEach(function (t) { t.classList.toggle('on', t.getAttribute('data-k') === k); });
-    title.textContent = ZH[k] || k;
-    var n = buildChips();
-    stat.textContent = n + ' 个 · 按首发时间降序 · 标签可多选（交集）';
-    apply();
-    // 记在 URL 里：分享「防御机制」这一栏时链接要能带着 tab 一起过去
-    if (history.replaceState) {
-      history.replaceState(null, '', k === 'bench' ? location.pathname
-                                                   : location.pathname + '?k=' + k);
-    }
-  }
-
-  tabs.forEach(function (t) {
-    t.onclick = function () { select(t.getAttribute('data-k')); };
-  });
-
-  var m = /[?&]k=([a-z]+)/.exec(location.search);
-  select(m && ZH[m[1]] ? m[1] : 'bench');
+  var n = buildChips();
+  stat.textContent = n + ' 个 · 按首发时间降序 · 标签可多选（交集）';
+  apply();
 })();
 </script>
