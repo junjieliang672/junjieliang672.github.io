@@ -6,6 +6,7 @@ description: "他在推特上一条条演示大模型分不清「指令」和「
 categories: card
 tags: [llm-security, card, person, industry]
 giscus_comments: false
+revised: "2026-08-18"
 ---
 <img src="/assets/img/radar/riley-goodside.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">
 

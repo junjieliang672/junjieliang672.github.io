@@ -4,6 +4,9 @@
   参数：post（文章）、group（_data/taxonomy.yml 里的那一组）
   规则：标题里的 kind 前缀（「防御机制 · Qwen3Guard」）和中文括号注记去掉；
        事故卡的标题是「日期 · 小标题」，取小标题那半。
+  重写过的卡（front matter 有 revised）在名字后面缀一个「改」——站上原来
+  完全看不出一张卡是新写的还是重写的：write_card 走 INSERT OR REPLACE、
+  date 改成今天，一张重写和当天的新卡长得一模一样（2026-08-25 使用者提的）。
 {%- endcomment -%}
 {%- assign _t = include.post.title | split: " · " -%}
 {%- if include.group.date_in_title and _t.size > 1 -%}
@@ -11,3 +14,4 @@
 {%- else -%}
 {{- _t | last | split: "（" | first -}}
 {%- endif -%}
+{%- if include.post.revised -%}<sup class="px-rev" title="重写过，{{ include.post.revised }} 更新">改</sup>{%- endif -%}

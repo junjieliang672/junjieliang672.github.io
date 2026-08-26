@@ -6,6 +6,7 @@ description: "做自动越狱攻击起家，现在用自适应攻击去逐个检
 categories: card
 tags: [llm-security, card, person, academic]
 giscus_comments: false
+revised: "2026-08-25"
 ---
 <img src="/assets/img/radar/chaowei-xiao.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">
 

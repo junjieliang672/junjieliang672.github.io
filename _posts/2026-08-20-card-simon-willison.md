@@ -6,6 +6,7 @@ description: "给 prompt injection 起名的人；他把「拦住 95%」从卖�
 categories: card
 tags: [llm-security, card, person, indie]
 giscus_comments: false
+revised: "2026-08-21"
 ---
 <img src="/assets/img/radar/simon-willison.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">
 

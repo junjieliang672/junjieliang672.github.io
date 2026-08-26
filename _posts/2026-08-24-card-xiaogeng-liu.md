@@ -6,6 +6,7 @@ description: "做自动越狱攻击的博士生，把越狱从人手写提示变
 categories: card
 tags: [llm-security, card, person, academic]
 giscus_comments: false
+revised: "2026-08-24"
 ---
 <img src="/assets/img/radar/xiaogeng-liu.jpg" alt="" style="width:96px;height:96px;border-radius:50%;object-fit:cover">
 
