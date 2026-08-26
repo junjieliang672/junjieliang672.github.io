@@ -14,4 +14,4 @@
 {%- else -%}
 {{- _t | last | split: "（" | first -}}
 {%- endif -%}
-{%- if include.post.revised -%}<sup class="px-rev" title="重写过，{{ include.post.revised }} 更新">改</sup>{%- endif -%}
+{%- if include.post.revised -%}<span class="px-rev" title="重写过，{{ include.post.revised }} 更新">*</span>{%- endif -%}
