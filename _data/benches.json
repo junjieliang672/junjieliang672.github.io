@@ -50,7 +50,7 @@
   }
  },
  "counts": {
-  "bench": 294
+  "bench": 295
  },
  "rows": [
   {
@@ -1527,7 +1527,7 @@
     "rag",
     "llm"
    ],
-   "paper_url": "https://arxiv.org/abs/2512.08451",
+   "paper_url": "https://arxiv.org/abs/2510.22620",
    "code_url": "https://huggingface.co/datasets/Lakera/b3-agent-security-benchmark-weak",
    "card": null,
    "score": 27.65,
@@ -2158,6 +2158,23 @@
    "score": 36.87,
    "cited_by": 15,
    "df_metric": 3
+  },
+  {
+   "name": "AGENTSAFE (SAFE)",
+   "kind": "bench",
+   "date": "2025-06-17",
+   "one_liner": "在 THOR 模拟家居中给 VLM 具身 agent 下越狱改写的危险指令，测感知-规划-执行各层是否拒绝",
+   "labels": [
+    "jailbreak",
+    "agent-embodied",
+    "multimodal"
+   ],
+   "paper_url": "https://arxiv.org/abs/2506.14697",
+   "code_url": "",
+   "card": null,
+   "score": 22.48,
+   "cited_by": 35,
+   "df_metric": 0
   },
   {
    "name": "OS-Harm",
@@ -2897,7 +2914,7 @@
    "name": "Agent-SafetyBench",
    "kind": "bench",
    "date": "2024-12-19",
-   "one_liner": "在 THOR 模拟家居中给 VLM 具身 agent 下越狱改写的危险指令，测感知-规划-执行各层是否拒绝",
+   "one_liner": "2000 条模拟工具环境任务，测 LLM agent 在恶意指令与风险环境下的安全行为，微调 Qwen 判分",
    "labels": [
     "jailbreak",
     "ipi",
@@ -2906,7 +2923,7 @@
     "agent-tool",
     "llm"
    ],
-   "paper_url": "https://arxiv.org/abs/2506.14697",
+   "paper_url": "https://arxiv.org/abs/2412.14470",
    "code_url": "https://github.com/thu-coai/Agent-SafetyBench",
    "card": null,
    "score": 18.17,
@@ -3805,7 +3822,7 @@
    "name": "CyberSecEval",
    "kind": "bench",
    "date": "2024-04-19",
-   "one_liner": "测 LLM 网络攻击能力：钓鱼、不安全代码、漏洞利用与自主攻击",
+   "one_liner": "Meta 网络安全评测套件：不安全代码、协助攻击、漏洞利用、提示注入、误拒率",
    "labels": [
     "harmful-capability",
     "code-security",
@@ -3814,7 +3831,7 @@
     "overrefusal-utility",
     "llm"
    ],
-   "paper_url": "https://arxiv.org/abs/2408.01605",
+   "paper_url": "https://arxiv.org/abs/2404.13161",
    "code_url": "https://github.com/meta-llama/PurpleLlama/tree/main/CybersecurityBenchmarks",
    "card": "card-cyberseceval",
    "score": 36.12,
