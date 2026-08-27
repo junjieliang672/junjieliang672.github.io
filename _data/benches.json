@@ -50,9 +50,42 @@
   }
  },
  "counts": {
-  "bench": 295
+  "bench": 296
  },
  "rows": [
+  {
+   "name": "EviSafe / EviSafeBench",
+   "kind": "bench",
+   "date": "2026-08-24",
+   "one_liner": "评测VLM是否基于真实图文证据做出安全判断，而非表面拒答，用反事实变体测推理是否站得住",
+   "labels": [
+    "multimodal"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.23313",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "InjecMEM",
+   "kind": "bench",
+   "date": "2026-08-24",
+   "one_liner": "给 LLM agent 的长期记忆植入一条『锚点+对抗指令』记录，一次交互后持续劫持相关话题的后续回答",
+   "labels": [
+    "poisoning-backdoor",
+    "agent-tool",
+    "dpi",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.23471",
+   "code_url": "",
+   "card": null,
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "MobileWorldSafety",
    "kind": "bench",
@@ -1727,22 +1760,6 @@
    "score": 15.68,
    "cited_by": 0,
    "df_metric": 0
-  },
-  {
-   "name": "OSS",
-   "kind": "bench",
-   "date": "2025-09-28",
-   "one_liner": "用 Jailbreak Oracle 工具系统探测 GPT-OSS-20B 的越狱失效模式（量化伪影、推理死循环、忽隐忽现的合规性）",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2509.23882",
-   "code_url": "https://github.com/HackingLLM/gpt-oss-writup/",
-   "card": null,
-   "score": 17.36,
-   "cited_by": 0,
-   "df_metric": 3
   },
   {
    "name": "SafeSearch",
