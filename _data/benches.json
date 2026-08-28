@@ -63,7 +63,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.23313",
    "code_url": "",
-   "card": null,
    "score": null,
    "cited_by": 0,
    "df_metric": 0
@@ -81,7 +80,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.17659",
    "code_url": "",
-   "card": "card-mobileworldsafety",
    "score": 37.0,
    "cited_by": 0,
    "df_metric": 1
@@ -98,7 +96,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.15108",
    "code_url": "",
-   "card": null,
    "score": 22.11,
    "cited_by": 0,
    "df_metric": 0
@@ -114,7 +111,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.11806",
    "code_url": "",
-   "card": "card-restricted-books-testbed",
    "score": 24.71,
    "cited_by": 0,
    "df_metric": 0
@@ -130,7 +126,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.11878",
    "code_url": "",
-   "card": "card-toolhazard",
    "score": 35.82,
    "cited_by": 0,
    "df_metric": 1
@@ -146,7 +141,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.09476",
    "code_url": "",
-   "card": "card-actbench",
    "score": 29.95,
    "cited_by": 0,
    "df_metric": 0
@@ -162,7 +156,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.00677",
    "code_url": "",
-   "card": "card-openart",
    "score": 32.21,
    "cited_by": 0,
    "df_metric": 0
@@ -178,7 +171,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.18131",
    "code_url": "",
-   "card": "card-include",
    "score": 22.27,
    "cited_by": 0,
    "df_metric": 0
@@ -196,7 +188,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2607.02514",
    "code_url": "",
-   "card": "card-iterative-vibecoding",
    "score": 23.78,
    "cited_by": 0,
    "df_metric": 0
@@ -215,7 +206,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2607.01793",
    "code_url": "https://github.com/Yunhao-Feng/Vera",
-   "card": "card-vera-bench",
    "score": 27.56,
    "cited_by": 3,
    "df_metric": 0
@@ -234,7 +224,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.30755",
    "code_url": "https://github.com/sunblaze-ucb/SafeClawArena",
-   "card": "card-safeclawarena",
    "score": 38.53,
    "cited_by": 2,
    "df_metric": 0
@@ -250,7 +239,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.20023",
    "code_url": "",
-   "card": null,
    "score": 34.18,
    "cited_by": 6,
    "df_metric": 0
@@ -266,7 +254,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.12747",
    "code_url": "",
-   "card": null,
    "score": 24.63,
    "cited_by": 0,
    "df_metric": 0
@@ -282,7 +269,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2608.14577",
    "code_url": "",
-   "card": null,
    "score": 22.77,
    "cited_by": 0,
    "df_metric": 0
@@ -299,7 +285,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.13385",
    "code_url": "https://github.com/StakeBench/SBC",
-   "card": null,
    "score": 39.23,
    "cited_by": 0,
    "df_metric": 1
@@ -319,7 +304,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.07131",
    "code_url": "https://github.com/lxyeternal/MalSkillBench",
-   "card": "card-malskillbench",
    "score": 35.24,
    "cited_by": 11,
    "df_metric": 0
@@ -336,7 +320,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.11202",
    "code_url": "",
-   "card": null,
    "score": 22.72,
    "cited_by": 0,
    "df_metric": 0
@@ -352,7 +335,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2606.02041",
    "code_url": "",
-   "card": null,
    "score": 35.17,
    "cited_by": 2,
    "df_metric": 1
@@ -370,7 +352,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.31042",
    "code_url": "https://github.com/RUC-NLPIR/ClawTrojan",
-   "card": null,
    "score": 30.8,
    "cited_by": 2,
    "df_metric": 1
@@ -387,7 +368,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.28122",
    "code_url": "",
-   "card": null,
    "score": 28.26,
    "cited_by": 0,
    "df_metric": 0
@@ -405,7 +385,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.28201",
    "code_url": "",
-   "card": null,
    "score": 25.83,
    "cited_by": 1,
    "df_metric": 0
@@ -422,7 +401,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.18583",
    "code_url": "",
-   "card": null,
    "score": 33.85,
    "cited_by": 6,
    "df_metric": 0
@@ -439,7 +417,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.17830",
    "code_url": "",
-   "card": null,
    "score": 27.67,
    "cited_by": 3,
    "df_metric": 0
@@ -457,7 +434,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.12233",
    "code_url": "",
-   "card": null,
    "score": 27.74,
    "cited_by": 1,
    "df_metric": 0
@@ -475,7 +451,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.05630",
    "code_url": "https://github.com/Graph-COM/TurnGate",
-   "card": null,
    "score": 32.84,
    "cited_by": 3,
    "df_metric": 0
@@ -493,7 +468,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2605.04808",
    "code_url": "https://github.com/AI-secure/DecodingTrust-Agent",
-   "card": "card-decodingtrust-agent-platform-dtap",
    "score": 42.24,
    "cited_by": 7,
    "df_metric": 0
@@ -513,7 +487,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2604.15384",
    "code_url": "https://www.linuxarena.ai/",
-   "card": null,
    "score": 25.59,
    "cited_by": 2,
    "df_metric": 1
@@ -530,7 +503,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2604.08867",
    "code_url": "",
-   "card": null,
    "score": 33.53,
    "cited_by": 1,
    "df_metric": 1
@@ -548,7 +520,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2604.06950",
    "code_url": "",
-   "card": null,
    "score": 28.22,
    "cited_by": 4,
    "df_metric": 0
@@ -564,7 +535,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2604.02669",
    "code_url": "",
-   "card": null,
    "score": 17.63,
    "cited_by": 1,
    "df_metric": 0
@@ -581,7 +551,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2603.15714",
    "code_url": "",
-   "card": "card-ai-agent-indirect-prompt-injection-red-teaming-competition-d",
    "score": 45.99,
    "cited_by": 16,
    "df_metric": 0
@@ -597,7 +566,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2603.07452",
    "code_url": "",
-   "card": null,
    "score": 23.9,
    "cited_by": 0,
    "df_metric": 0
@@ -614,7 +582,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2603.23509",
    "code_url": "https://github.com/wuyoscar/Internal-Safety-Collapse",
-   "card": null,
    "score": 32.32,
    "cited_by": 5,
    "df_metric": 0
@@ -631,7 +598,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2603.01589",
    "code_url": "",
-   "card": null,
    "score": 32.62,
    "cited_by": 1,
    "df_metric": 1
@@ -648,7 +614,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2603.18245",
    "code_url": "",
-   "card": null,
    "score": 23.91,
    "cited_by": 2,
    "df_metric": 0
@@ -665,7 +630,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.19948",
    "code_url": "",
-   "card": null,
    "score": 23.33,
    "cited_by": 3,
    "df_metric": 0
@@ -682,7 +646,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.16346",
    "code_url": "",
-   "card": null,
    "score": 29.61,
    "cited_by": 2,
    "df_metric": 0
@@ -701,7 +664,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.13597",
    "code_url": "",
-   "card": null,
    "score": 21.06,
    "cited_by": 3,
    "df_metric": 0
@@ -719,7 +681,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.13379",
    "code_url": "https://unsafer-in-many-turns.github.io/",
-   "card": null,
    "score": 40.73,
    "cited_by": 16,
    "df_metric": 1
@@ -740,7 +701,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.12092",
    "code_url": "https://github.com/AI45Lab/DeepSafe",
-   "card": null,
    "score": 23.51,
    "cited_by": 0,
    "df_metric": 0
@@ -757,7 +717,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.10453",
    "code_url": "",
-   "card": null,
    "score": 18.92,
    "cited_by": 24,
    "df_metric": 0
@@ -774,7 +733,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.08995",
    "code_url": "https://github.com/OSU-NLP-Group/Misaligned-Action-Detection",
-   "card": null,
    "score": 32.47,
    "cited_by": 7,
    "df_metric": 1
@@ -792,7 +750,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.08412",
    "code_url": "https://github.com/AstorYH/PASB",
-   "card": null,
    "score": 16.96,
    "cited_by": 31,
    "df_metric": 0
@@ -809,7 +766,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2603.06594",
    "code_url": "https://github.com/SchwinnL/LLMJudgeReliability",
-   "card": null,
    "score": 29.13,
    "cited_by": 16,
    "df_metric": 0
@@ -826,7 +782,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2602.03117",
    "code_url": "https://github.com/leolee99/AgentDyn",
-   "card": "card-agentdyn",
    "score": 61.42,
    "cited_by": 29,
    "df_metric": 12
@@ -847,7 +802,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2601.18491",
    "code_url": "https://github.com/AI45Lab/AgentDoG",
-   "card": "card-agentdog-atbench",
    "score": 39.62,
    "cited_by": 25,
    "df_metric": 0
@@ -868,7 +822,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2601.10156",
    "code_url": "https://github.com/MurrayTom/ToolSafe",
-   "card": null,
    "score": 33.14,
    "cited_by": 44,
    "df_metric": 0
@@ -885,7 +838,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2601.08406",
    "code_url": "https://security.fudan.edu.cn/webagent",
-   "card": null,
    "score": 20.15,
    "cited_by": 2,
    "df_metric": 0
@@ -903,7 +855,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2601.01592",
    "code_url": "https://github.com/AI45Lab/OpenRT",
-   "card": null,
    "score": 31.72,
    "cited_by": 14,
    "df_metric": 1
@@ -919,7 +870,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2512.23128",
    "code_url": "",
-   "card": null,
    "score": 20.59,
    "cited_by": 8,
    "df_metric": 0
@@ -937,7 +887,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2512.22894",
    "code_url": "https://agentdarkpatterns.org",
-   "card": null,
    "score": 29.8,
    "cited_by": 12,
    "df_metric": 1
@@ -953,7 +902,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2512.15688",
    "code_url": "",
-   "card": null,
    "score": 16.85,
    "cited_by": 11,
    "df_metric": 2
@@ -973,7 +921,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2512.15163",
    "code_url": "https://github.com/xjzzzzzzzz/MCPSafety",
-   "card": null,
    "score": 17.03,
    "cited_by": 30,
    "df_metric": 2
@@ -992,7 +939,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2512.13526",
    "code_url": "https://github.com/UKGovernmentBEIS/async-control",
-   "card": null,
    "score": 28.59,
    "cited_by": 14,
    "df_metric": 0
@@ -1009,7 +955,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2512.06589",
    "code_url": "https://github.com/jiaxiaojunQAQ/OmniSafeBench-MM",
-   "card": null,
    "score": 33.5,
    "cited_by": 11,
    "df_metric": 1
@@ -1027,7 +972,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2511.20597",
    "code_url": "https://huggingface.co/datasets/perplexity-ai/browsesafe-bench",
-   "card": null,
    "score": 22.26,
    "cited_by": 25,
    "df_metric": 0
@@ -1045,7 +989,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2511.10222",
    "code_url": "https://huggingface.co/datasets/tsinghua-ee/SACRED-Bench",
-   "card": null,
    "score": 26.84,
    "cited_by": 13,
    "df_metric": 0
@@ -1064,7 +1007,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2511.05867",
    "code_url": "",
-   "card": null,
    "score": 18.42,
    "cited_by": 0,
    "df_metric": 1
@@ -1085,7 +1027,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.22620",
    "code_url": "https://huggingface.co/datasets/Lakera/b3-agent-security-benchmark-weak",
-   "card": null,
    "score": 27.65,
    "cited_by": 10,
    "df_metric": 0
@@ -1102,7 +1043,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.21133",
    "code_url": "",
-   "card": null,
    "score": 19.1,
    "cited_by": 8,
    "df_metric": 0
@@ -1119,7 +1059,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.15994",
    "code_url": "",
-   "card": null,
    "score": 29.01,
    "cited_by": 37,
    "df_metric": 3
@@ -1136,7 +1075,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.09781",
    "code_url": "https://github.com/HowieHwong/Agentic-Guardian",
-   "card": null,
    "score": 32.0,
    "cited_by": 25,
    "df_metric": 0
@@ -1155,7 +1093,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.06607",
    "code_url": "",
-   "card": null,
    "score": 34.89,
    "cited_by": 8,
    "df_metric": 0
@@ -1174,7 +1111,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2510.01354",
    "code_url": "https://github.com",
-   "card": null,
    "score": 29.86,
    "cited_by": 18,
    "df_metric": 2
@@ -1190,7 +1126,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.25624",
    "code_url": "https://github.com/amazon-science/MultiTurnAgentAttack",
-   "card": null,
    "score": 15.68,
    "cited_by": 0,
    "df_metric": 0
@@ -1209,7 +1144,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.23694",
    "code_url": "https://github.com/jianshuod/SafeSearch",
-   "card": null,
    "score": 29.62,
    "cited_by": 3,
    "df_metric": 2
@@ -1227,7 +1161,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.22040",
    "code_url": "",
-   "card": null,
    "score": 34.76,
    "cited_by": 14,
    "df_metric": 2
@@ -1243,7 +1176,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.17938",
    "code_url": "",
-   "card": null,
    "score": 36.8,
    "cited_by": 8,
    "df_metric": 0
@@ -1260,7 +1192,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.15541",
    "code_url": "",
-   "card": null,
    "score": 29.15,
    "cited_by": 63,
    "df_metric": 0
@@ -1277,7 +1208,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.10546",
    "code_url": "",
-   "card": null,
    "score": 23.69,
    "cited_by": 4,
    "df_metric": 0
@@ -1292,7 +1222,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.04781",
    "code_url": "https://github.com/tim-hua-01/BailStudy",
-   "card": null,
    "score": 15.52,
    "cited_by": 2,
    "df_metric": 1
@@ -1308,7 +1237,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2509.01444",
    "code_url": "https://huggingface.co/datasets/OysterAI/Strata-Sword",
-   "card": null,
    "score": 28.9,
    "cited_by": 15,
    "df_metric": 1
@@ -1325,7 +1253,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.20848",
    "code_url": "https://huggingface.co/datasets/TrustAIRLab/JailbreakQR",
-   "card": null,
    "score": 27.32,
    "cited_by": 9,
    "df_metric": 1
@@ -1344,7 +1271,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.19461",
    "code_url": "https://github.com/scaleapi/mrt",
-   "card": null,
    "score": 33.22,
    "cited_by": 22,
    "df_metric": 0
@@ -1361,7 +1287,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.19163",
    "code_url": "",
-   "card": null,
    "score": 14.75,
    "cited_by": 4,
    "df_metric": 0
@@ -1379,7 +1304,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.14925",
    "code_url": "https://github.com/zhiqiangwang4/MCPTox-Benchmark",
-   "card": null,
    "score": 23.92,
    "cited_by": 65,
    "df_metric": 0
@@ -1398,7 +1322,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.12733",
    "code_url": "",
-   "card": null,
    "score": 27.01,
    "cited_by": 15,
    "df_metric": 1
@@ -1414,7 +1337,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.06755",
    "code_url": "",
-   "card": null,
    "score": 20.4,
    "cited_by": 3,
    "df_metric": 0
@@ -1431,7 +1353,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2508.06194",
    "code_url": "",
-   "card": null,
    "score": 24.88,
    "cited_by": 2,
    "df_metric": 1
@@ -1449,7 +1370,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2507.20526",
    "code_url": "",
-   "card": "card-art-agent-red-teaming",
    "score": 38.73,
    "cited_by": 23,
    "df_metric": 0
@@ -1466,7 +1386,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2507.14293",
    "code_url": "",
-   "card": null,
    "score": 36.19,
    "cited_by": 22,
    "df_metric": 0
@@ -1483,7 +1402,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.24068",
    "code_url": "https://huggingface.co/datasets/AlignmentResearch/ClearHarm",
-   "card": null,
    "score": 16.42,
    "cited_by": 15,
    "df_metric": 4
@@ -1499,7 +1417,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.19054",
    "code_url": "",
-   "card": "card-poly-guard",
    "score": 36.87,
    "cited_by": 15,
    "df_metric": 3
@@ -1516,7 +1433,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.14697",
    "code_url": "",
-   "card": null,
    "score": 22.48,
    "cited_by": 35,
    "df_metric": 0
@@ -1535,7 +1451,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.14866",
    "code_url": "https://github.com/tml-epfl/os-harm",
-   "card": "card-os-harm",
    "score": 35.8,
    "cited_by": 91,
    "df_metric": 0
@@ -1552,7 +1467,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.12382",
    "code_url": "",
-   "card": null,
    "score": 14.56,
    "cited_by": 1,
    "df_metric": 0
@@ -1569,7 +1483,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.10949",
    "code_url": "https://github.com/YuehHanChen/Monitoring-Decomposition-Attack",
-   "card": null,
    "score": 30.96,
    "cited_by": 20,
    "df_metric": 0
@@ -1588,7 +1501,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.09956",
    "code_url": "https://huggingface.co/datasets/microsoft/llmail-inject-challenge",
-   "card": "card-llmail-inject",
    "score": 40.16,
    "cited_by": 24,
    "df_metric": 3
@@ -1604,7 +1516,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.02873",
    "code_url": "https://github.com/UKGovernmentBEIS/inspect_evals",
-   "card": null,
    "score": 15.63,
    "cited_by": 11,
    "df_metric": 1
@@ -1622,7 +1533,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.02548",
    "code_url": "https://github.com/sunblaze-ucb/cybergym",
-   "card": null,
    "score": 24.37,
    "cited_by": 57,
    "df_metric": 4
@@ -1641,7 +1551,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.02456",
    "code_url": "https://github.com/cua-framework/agents",
-   "card": null,
    "score": 25.27,
    "cited_by": 37,
    "df_metric": 0
@@ -1660,7 +1569,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.00641",
    "code_url": "https://github.com/Astarojth/AgentAuditor-ASSEBench",
-   "card": null,
    "score": 16.69,
    "cited_by": 81,
    "df_metric": 2
@@ -1680,7 +1588,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2506.00618",
    "code_url": "https://yjyddq.github.io/RiOSWorld.github.io/",
-   "card": null,
    "score": 32.89,
    "cited_by": 27,
    "df_metric": 2
@@ -1697,7 +1604,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.21936",
    "code_url": "",
-   "card": null,
    "score": 27.4,
    "cited_by": 38,
    "df_metric": 0
@@ -1713,7 +1619,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.18882",
    "code_url": "https://github.com/yuchenlwu/PersonalizedSafety",
-   "card": null,
    "score": 31.91,
    "cited_by": 15,
    "df_metric": 1
@@ -1731,7 +1636,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.14549",
    "code_url": "",
-   "card": null,
    "score": 16.58,
    "cited_by": 9,
    "df_metric": 1
@@ -1749,7 +1653,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.12368",
    "code_url": "",
-   "card": null,
    "score": 15.38,
    "cited_by": 3,
    "df_metric": 0
@@ -1766,7 +1669,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.11842",
    "code_url": "https://github.com/flageval-baai/Video-SafetyBench",
-   "card": null,
    "score": 22.9,
    "cited_by": 27,
    "df_metric": 2
@@ -1782,7 +1684,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.08054",
    "code_url": "https://huggingface.co/datasets/AmazonScience/FalseReject",
-   "card": null,
    "score": 24.1,
    "cited_by": 46,
    "df_metric": 3
@@ -1799,7 +1700,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2505.00843",
    "code_url": "https://github.com/SaFo-Lab/OET",
-   "card": null,
    "score": 26.75,
    "cited_by": 3,
    "df_metric": 0
@@ -1817,7 +1717,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2504.18575",
    "code_url": "https://github.com/facebookresearch/wasp",
-   "card": "card-wasp",
    "score": 46.44,
    "cited_by": 134,
    "df_metric": 7
@@ -1834,7 +1733,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2504.10694",
    "code_url": "https://github.com/ethz-spylab/jailbreak-tax",
-   "card": null,
    "score": 29.24,
    "cited_by": 24,
    "df_metric": 0
@@ -1850,7 +1748,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2504.10430",
    "code_url": "",
-   "card": null,
    "score": 24.5,
    "cited_by": 25,
    "df_metric": 0
@@ -1869,7 +1766,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2504.04377",
    "code_url": "https://huggingface.co/datasets/ToxicityPrompts/PolyGuardPrompts",
-   "card": "card-polyguardprompts",
    "score": 37.44,
    "cited_by": 57,
    "df_metric": 2
@@ -1888,7 +1784,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2503.22738",
    "code_url": "https://shieldagent-aiguard.github.io/",
-   "card": null,
    "score": 30.05,
    "cited_by": 129,
    "df_metric": 0
@@ -1906,7 +1801,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2503.17682",
    "code_url": "https://github.com/SafeRLHF-V/Safe-RLHF-V",
-   "card": null,
    "score": 32.03,
    "cited_by": 23,
    "df_metric": 2
@@ -1925,7 +1819,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2503.17332",
    "code_url": "https://github.com/uiuc-kang-lab/cve-bench",
-   "card": null,
    "score": 15.83,
    "cited_by": 108,
    "df_metric": 0
@@ -1944,7 +1837,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2503.16248",
    "code_url": "",
-   "card": null,
    "score": 21.85,
    "cited_by": 28,
    "df_metric": 0
@@ -1961,7 +1853,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2503.04957",
    "code_url": "https://safearena.github.io",
-   "card": null,
    "score": 16.16,
    "cited_by": 90,
    "df_metric": 2
@@ -1977,7 +1868,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2503.03750",
    "code_url": "https://github.com/centerforaisafety/mask",
-   "card": null,
    "score": 15.17,
    "cited_by": 52,
    "df_metric": 0
@@ -1995,7 +1885,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2502.17424",
    "code_url": "https://github.com/emergent-misalignment/emergent-misalignment",
-   "card": null,
    "score": 24.23,
    "cited_by": 166,
    "df_metric": 0
@@ -2012,7 +1901,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2502.16580",
    "code_url": "",
-   "card": null,
    "score": 27.87,
    "cited_by": 72,
    "df_metric": 0
@@ -2028,7 +1916,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2502.18511",
    "code_url": "",
-   "card": null,
    "score": 23.84,
    "cited_by": 13,
    "df_metric": 0
@@ -2045,7 +1932,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2502.15427",
    "code_url": "",
-   "card": null,
    "score": 25.47,
    "cited_by": 19,
    "df_metric": 0
@@ -2061,7 +1947,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2502.12197",
    "code_url": "",
-   "card": null,
    "score": 28.96,
    "cited_by": 39,
    "df_metric": 0
@@ -2079,7 +1964,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.16750",
    "code_url": "https://github.com/trustairlab/hatebench",
-   "card": null,
    "score": 23.26,
    "cited_by": 28,
    "df_metric": 0
@@ -2097,7 +1981,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.15145",
    "code_url": "",
-   "card": "card-promptshield",
    "score": 37.47,
    "cited_by": 69,
    "df_metric": 3
@@ -2113,7 +1996,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.13772",
    "code_url": "https://github.com/Researchtopic/Code-Jailbreak-AudioBench",
-   "card": null,
    "score": 24.12,
    "cited_by": 25,
    "df_metric": 0
@@ -2130,7 +2012,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.12210",
    "code_url": "",
-   "card": null,
    "score": 18.76,
    "cited_by": 15,
    "df_metric": 0
@@ -2147,7 +2028,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2501.09004",
    "code_url": "https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-2.0",
-   "card": "card-aegis2",
    "score": 36.54,
    "cited_by": 145,
    "df_metric": 4
@@ -2167,7 +2047,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2412.14470",
    "code_url": "https://github.com/thu-coai/Agent-SafetyBench",
-   "card": null,
    "score": 18.17,
    "cited_by": 254,
    "df_metric": 3
@@ -2185,7 +2064,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2412.13178",
    "code_url": "https://github.com/shengyin1224/SafeAgentBench",
-   "card": null,
    "score": 14.83,
    "cited_by": 109,
    "df_metric": 2
@@ -2202,7 +2080,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2412.06878",
    "code_url": "https://safewatch-aiguard.github.io/",
-   "card": null,
    "score": 28.11,
    "cited_by": 39,
    "df_metric": 1
@@ -2218,7 +2095,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2411.17453",
    "code_url": "",
-   "card": null,
    "score": 22.46,
    "cited_by": 36,
    "df_metric": 0
@@ -2236,7 +2112,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2411.14487",
    "code_url": "",
-   "card": null,
    "score": 19.55,
    "cited_by": 14,
    "df_metric": 1
@@ -2253,7 +2128,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2411.07494",
    "code_url": "https://github.com/rapidresponsebench/rapidresponsebench",
-   "card": null,
    "score": 28.52,
    "cited_by": 15,
    "df_metric": 1
@@ -2273,7 +2147,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2411.07781",
    "code_url": "https://github.com/AI-secure/RedCode",
-   "card": null,
    "score": 17.52,
    "cited_by": 99,
    "df_metric": 4
@@ -2290,7 +2163,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2411.06835",
    "code_url": "",
-   "card": null,
    "score": 18.31,
    "cited_by": 8,
    "df_metric": 1
@@ -2306,7 +2178,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2411.03343",
    "code_url": "",
-   "card": null,
    "score": 14.88,
    "cited_by": 31,
    "df_metric": 0
@@ -2324,7 +2195,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.22770",
    "code_url": "https://github.com/leolee99/InjecGuard",
-   "card": null,
    "score": 34.2,
    "cited_by": 50,
    "df_metric": 3
@@ -2341,7 +2211,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.21965",
    "code_url": "https://github.com/MurrayTom/SG-Bench",
-   "card": null,
    "score": 19.78,
    "cited_by": 81,
    "df_metric": 0
@@ -2358,7 +2227,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.18057",
    "code_url": "https://github.com/somvy/multimodal_unlearning",
-   "card": null,
    "score": 23.31,
    "cited_by": 37,
    "df_metric": 1
@@ -2377,7 +2245,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.17520",
    "code_url": "https://github.com/jylee425/mobilesafetybench",
-   "card": null,
    "score": 12.64,
    "cited_by": 45,
    "df_metric": 2
@@ -2394,7 +2261,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.16222",
    "code_url": "https://github.com/valentyn1boreiko/llm-threat-model",
-   "card": null,
    "score": 18.51,
    "cited_by": 10,
    "df_metric": 0
@@ -2413,7 +2279,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.15686",
    "code_url": "",
-   "card": null,
    "score": 12.21,
    "cited_by": 36,
    "df_metric": 2
@@ -2431,7 +2296,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.09024",
    "code_url": "https://huggingface.co/datasets/ai-safety-institute/AgentHarm",
-   "card": "card-agentharm",
    "score": 54.18,
    "cited_by": 363,
    "df_metric": 18
@@ -2447,7 +2311,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.13886",
    "code_url": "https://github.com/scaleapi/browser-art",
-   "card": "card-browserart",
    "score": 37.21,
    "cited_by": 67,
    "df_metric": 2
@@ -2464,7 +2327,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.12855",
    "code_url": "https://github.com/usail-hkust/Jailjudge",
-   "card": null,
    "score": 25.51,
    "cited_by": 53,
    "df_metric": 3
@@ -2483,7 +2345,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.06703",
    "code_url": "https://github.com/segev-shlomov/ST-WebAgentBench",
-   "card": null,
    "score": 14.27,
    "cited_by": 114,
    "df_metric": 2
@@ -2503,7 +2364,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2410.02644",
    "code_url": "https://github.com/agiresearch/ASB",
-   "card": "card-asb",
    "score": 30.53,
    "cited_by": 351,
    "df_metric": 8
@@ -2520,7 +2380,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2409.00138",
    "code_url": "https://github.com/SALT-NLP/PrivacyLens",
-   "card": null,
    "score": 30.5,
    "cited_by": 179,
    "df_metric": 3
@@ -2537,7 +2396,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2408.15221",
    "code_url": "https://huggingface.co/datasets/ScaleAI/mhj",
-   "card": "card-mhj",
    "score": 41.08,
    "cited_by": 167,
    "df_metric": 5
@@ -2554,7 +2412,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2408.08926",
    "code_url": "https://github.com/andyzorigin/cybench",
-   "card": null,
    "score": 14.19,
    "cited_by": 170,
    "df_metric": 1
@@ -2570,7 +2427,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2408.04522",
    "code_url": "",
-   "card": null,
    "score": 20.85,
    "cited_by": 3,
    "df_metric": 0
@@ -2587,7 +2443,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2407.20224",
    "code_url": "https://github.com/llm-editing/editing-attack",
-   "card": null,
    "score": 30.52,
    "cited_by": 27,
    "df_metric": 1
@@ -2606,7 +2461,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2407.17436",
    "code_url": "https://github.com/stanford-crfm/air-bench-2024",
-   "card": null,
    "score": 15.45,
    "cited_by": 79,
    "df_metric": 4
@@ -2623,7 +2477,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2407.12043",
    "code_url": "https://github.com/allenai/noncompliance",
-   "card": null,
    "score": 15.94,
    "cited_by": 109,
    "df_metric": 4
@@ -2640,7 +2493,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.18510",
    "code_url": "https://github.com/allenai/wildteaming",
-   "card": "card-wild-jailbreak",
    "score": 51.57,
    "cited_by": 221,
    "df_metric": 34
@@ -2659,7 +2511,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.18495",
    "code_url": "https://github.com/allenai/wildguard",
-   "card": "card-wildguardmix",
    "score": 42.05,
    "cited_by": 499,
    "df_metric": 7
@@ -2677,7 +2528,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.18495",
    "code_url": "https://github.com/allenai/wildguard",
-   "card": "card-wildguardtest",
    "score": 49.11,
    "cited_by": 499,
    "df_metric": 17
@@ -2693,7 +2543,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.17626",
    "code_url": "",
-   "card": null,
    "score": 12.24,
    "cited_by": 60,
    "df_metric": 2
@@ -2710,7 +2559,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.15279",
    "code_url": "https://github.com/sinwang20/SIUO",
-   "card": null,
    "score": 13.94,
    "cited_by": 21,
    "df_metric": 5
@@ -2729,7 +2577,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.15513",
    "code_url": "https://huggingface.co/datasets/PKU-Alignment/PKU-SafeRLHF",
-   "card": "card-pku-saferlhf",
    "score": 39.28,
    "cited_by": 239,
    "df_metric": 12
@@ -2746,7 +2593,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.13352",
    "code_url": "https://github.com/ethz-spylab/agentdojo",
-   "card": "card-agentdojo",
    "score": 60.25,
    "cited_by": 144,
    "df_metric": 72
@@ -2763,7 +2609,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.12030",
    "code_url": "https://github.com/EchoseChen/SPA-VL-RLHF",
-   "card": null,
    "score": 16.38,
    "cited_by": 87,
    "df_metric": 5
@@ -2780,7 +2625,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.11757",
    "code_url": "",
-   "card": null,
    "score": 32.15,
    "cited_by": 24,
    "df_metric": 5
@@ -2800,7 +2644,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.11036",
    "code_url": "https://github.com/NVIDIA/garak",
-   "card": null,
    "score": 23.83,
    "cited_by": 59,
    "df_metric": 0
@@ -2817,7 +2660,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.09187",
    "code_url": "https://guardagent.github.io",
-   "card": null,
    "score": 30.59,
    "cited_by": 100,
    "df_metric": 1
@@ -2834,7 +2676,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.09324",
    "code_url": "https://github.com/usail-hkust/JailTrickBench",
-   "card": null,
    "score": 17.87,
    "cited_by": 54,
    "df_metric": 0
@@ -2851,7 +2692,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.09187",
    "code_url": "https://github.com/guardagent/dataset",
-   "card": null,
    "score": 32.45,
    "cited_by": 100,
    "df_metric": 2
@@ -2870,7 +2710,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.07057",
    "code_url": "https://multi-trust.github.io/",
-   "card": null,
    "score": 24.46,
    "cited_by": 56,
    "df_metric": 1
@@ -2888,7 +2727,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.00799",
    "code_url": "https://github.com/microsoft/TaskTracker",
-   "card": null,
    "score": 32.12,
    "cited_by": 60,
    "df_metric": 4
@@ -2904,7 +2742,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2405.20947",
    "code_url": "https://github.com/justincui03/or-bench",
-   "card": null,
    "score": 30.79,
    "cited_by": 217,
    "df_metric": 1
@@ -2920,7 +2757,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2405.20947",
    "code_url": "https://github.com/justincui03/or-bench",
-   "card": "card-or-bench-hard-1k",
    "score": 35.51,
    "cited_by": 217,
    "df_metric": 5
@@ -2937,7 +2773,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2405.19802",
    "code_url": "",
-   "card": null,
    "score": 17.49,
    "cited_by": 60,
    "df_metric": 0
@@ -2955,7 +2790,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2405.20413",
    "code_url": "",
-   "card": null,
    "score": 23.58,
    "cited_by": 51,
    "df_metric": 0
@@ -2975,7 +2809,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.13161",
    "code_url": "https://github.com/meta-llama/PurpleLlama/tree/main/CybersecurityBenchmarks",
-   "card": "card-cyberseceval",
    "score": 36.12,
    "cited_by": 105,
    "df_metric": 8
@@ -2993,7 +2826,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.05993",
    "code_url": "",
-   "card": null,
    "score": 11.52,
    "cited_by": 152,
    "df_metric": 1
@@ -3010,7 +2842,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.08676",
    "code_url": "https://github.com/Babelscape/ALERT",
-   "card": "card-alert",
    "score": 38.14,
    "cited_by": 104,
    "df_metric": 4
@@ -3027,7 +2858,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.03411",
    "code_url": "https://github.com/chenxshuo/RedTeamingGPT4V",
-   "card": null,
    "score": 18.13,
    "cited_by": 38,
    "df_metric": 0
@@ -3044,7 +2874,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.03027",
    "code_url": "https://github.com/SaFoLab-WISC/JailBreakV_28K",
-   "card": "card-jailbreakv",
    "score": 44.64,
    "cited_by": 262,
    "df_metric": 16
@@ -3061,7 +2890,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.03027",
    "code_url": "https://github.com/EddyLuo1232/JailBreakV_28K",
-   "card": "card-redteam-2k",
    "score": 38.92,
    "cited_by": 262,
    "df_metric": 6
@@ -3078,7 +2906,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2404.01318",
    "code_url": "https://github.com/JailbreakBench/jailbreakbench",
-   "card": "card-jailbreakbench",
    "score": 67.71,
    "cited_by": 612,
    "df_metric": 114
@@ -3094,7 +2921,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2403.12171",
    "code_url": "https://github.com/EasyJailbreak/EasyJailbreak",
-   "card": null,
    "score": 26.99,
    "cited_by": 70,
    "df_metric": 0
@@ -3110,7 +2936,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2403.06833",
    "code_url": "https://github.com/egozverev/Shold-It-Be-Executed-Or-Processed",
-   "card": "card-sep",
    "score": 40.62,
    "cited_by": 84,
    "df_metric": 7
@@ -3127,7 +2952,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2403.02691",
    "code_url": "https://github.com/uiuc-kang-lab/InjecAgent",
-   "card": "card-injecagent",
    "score": 44.29,
    "cited_by": 500,
    "df_metric": 19
@@ -3143,7 +2967,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2403.03218",
    "code_url": "https://github.com/centerforaisafety/wmdp",
-   "card": "card-wmdp",
    "score": 26.11,
    "cited_by": 515,
    "df_metric": 10
@@ -3159,7 +2982,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.11746",
    "code_url": "https://github.com/declare-lab/resta",
-   "card": null,
    "score": 14.99,
    "cited_by": 123,
    "df_metric": 4
@@ -3175,7 +2997,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.11753",
    "code_url": "https://github.com/uw-nsl/ArtPrompt",
-   "card": null,
    "score": 28.47,
    "cited_by": 279,
    "df_metric": 0
@@ -3193,7 +3014,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.10753",
    "code_url": "https://github.com/Junjie-Ye/ToolSword",
-   "card": null,
    "score": 23.89,
    "cited_by": 82,
    "df_metric": 0
@@ -3210,7 +3030,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.10260",
    "code_url": "https://github.com/dsbowen/strong_reject",
-   "card": "card-strongreject",
    "score": 44.94,
    "cited_by": 371,
    "df_metric": 89
@@ -3226,7 +3045,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.07841",
    "code_url": "https://github.com/iamgroot42/mimir",
-   "card": null,
    "score": 11.93,
    "cited_by": 235,
    "df_metric": 1
@@ -3243,7 +3061,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.05668",
    "code_url": "https://github.com/TrustAIRLab/JailbreakRadar",
-   "card": null,
    "score": 21.59,
    "cited_by": 133,
    "df_metric": 0
@@ -3261,7 +3078,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.05044",
    "code_url": "https://github.com/OpenSafetyLab/SALAD-BENCH",
-   "card": null,
    "score": 17.1,
    "cited_by": 270,
    "df_metric": 5
@@ -3278,7 +3094,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.04249",
    "code_url": "https://github.com/centerforaisafety/HarmBench",
-   "card": "card-harmbench",
    "score": 72.62,
    "cited_by": 1459,
    "df_metric": 211
@@ -3295,7 +3110,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2402.02207",
    "code_url": "https://github.com/ys-zong/VLGuard",
-   "card": null,
    "score": 22.89,
    "cited_by": 162,
    "df_metric": 0
@@ -3314,7 +3128,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2401.12915",
    "code_url": "https://github.com/MukaiLi/RTVLM",
-   "card": null,
    "score": 12.69,
    "cited_by": 65,
    "df_metric": 3
@@ -3330,7 +3143,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2401.09002",
    "code_url": "",
-   "card": null,
    "score": 16.35,
    "cited_by": 35,
    "df_metric": 0
@@ -3348,7 +3160,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2406.14598",
    "code_url": "https://sorry-bench.github.io",
-   "card": "card-sorry-bench",
    "score": 23.47,
    "cited_by": 240,
    "df_metric": 17
@@ -3364,7 +3175,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2401.06121",
    "code_url": "https://github.com/locuslab/tofu",
-   "card": "card-tofu",
    "score": 21.84,
    "cited_by": 552,
    "df_metric": 11
@@ -3384,7 +3194,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2401.05561",
    "code_url": "https://github.com/HowieHwong/TrustLLM",
-   "card": null,
    "score": 17.35,
    "cited_by": 363,
    "df_metric": 5
@@ -3401,7 +3210,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2401.00287",
    "code_url": "",
-   "card": null,
    "score": 10.48,
    "cited_by": 83,
    "df_metric": 1
@@ -3418,7 +3226,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2312.14197",
    "code_url": "https://github.com/microsoft/BIPIA",
-   "card": "card-bipia",
    "score": 36.52,
    "cited_by": 329,
    "df_metric": 6
@@ -3435,7 +3242,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2312.04724",
    "code_url": "https://github.com/meta-llama/PurpleLlama/tree/main/CybersecurityBenchmarks",
-   "card": null,
    "score": 25.82,
    "cited_by": 179,
    "df_metric": 8
@@ -3451,7 +3257,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.17600",
    "code_url": "https://github.com/isXinLiu/MM-SafetyBench",
-   "card": "card-mm-safetybench",
    "score": 43.32,
    "cited_by": 302,
    "df_metric": 38
@@ -3468,7 +3273,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.16101",
    "code_url": "https://github.com/UCSC-VLAA/vllm-safety-benchmark",
-   "card": null,
    "score": 20.78,
    "cited_by": 114,
    "df_metric": 0
@@ -3484,7 +3288,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.05915",
    "code_url": "https://github.com/AI45Lab/Fake-Alignment",
-   "card": null,
    "score": 20.97,
    "cited_by": 48,
    "df_metric": 0
@@ -3500,7 +3303,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.04235",
    "code_url": "https://github.com/normster/llm_rules",
-   "card": null,
    "score": 26.9,
    "cited_by": 54,
    "df_metric": 0
@@ -3518,7 +3320,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.01011",
    "code_url": "https://github.com/HumanCompatibleAI/tensor-trust",
-   "card": "card-tensor-trust",
    "score": 34.57,
    "cited_by": 152,
    "df_metric": 6
@@ -3535,7 +3336,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.00286",
    "code_url": "",
-   "card": null,
    "score": 14.28,
    "cited_by": 11,
    "df_metric": 0
@@ -3551,7 +3351,6 @@
    ],
    "paper_url": "https://aclanthology.org/2023.artofsafety-1.2/",
    "code_url": "https://github.com/TUD-ARTS-2023/LLM-red-teaming-prompts",
-   "card": null,
    "score": 14.28,
    "cited_by": null,
    "df_metric": 6
@@ -3567,7 +3366,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.17884",
    "code_url": "https://confaide.github.io",
-   "card": null,
    "score": 13.16,
    "cited_by": 263,
    "df_metric": 2
@@ -3585,7 +3383,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.17389",
    "code_url": "https://huggingface.co/datasets/lmsys/toxic-chat",
-   "card": "card-toxicchat",
    "score": 27.5,
    "cited_by": 282,
    "df_metric": 26
@@ -3601,7 +3398,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.16789",
    "code_url": "https://github.com/swj0419/detect-pretrain-code",
-   "card": null,
    "score": 9.71,
    "cited_by": 439,
    "df_metric": 0
@@ -3618,7 +3414,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2311.16119",
    "code_url": "https://github.com/PromptLabs/hackaprompt",
-   "card": null,
    "score": 18.91,
    "cited_by": 84,
    "df_metric": 0
@@ -3634,7 +3429,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.12815",
    "code_url": "https://github.com/liu00222/Open-Prompt-Injection",
-   "card": null,
    "score": 33.6,
    "cited_by": 444,
    "df_metric": 4
@@ -3651,7 +3445,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.12773",
    "code_url": "https://github.com/PKU-Alignment/safe-rlhf",
-   "card": null,
    "score": 21.95,
    "cited_by": 763,
    "df_metric": 12
@@ -3668,7 +3461,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.06987",
    "code_url": "https://github.com/Princeton-SysML/Jailbreak_LLM",
-   "card": "card-maliciousinstruct",
    "score": 43.34,
    "cited_by": 545,
    "df_metric": 26
@@ -3685,7 +3477,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.06474",
    "code_url": "https://github.com/DAMO-NLP-SG/multilingual-safety-for-LLMs",
-   "card": "card-multi-jail",
    "score": 32.75,
    "cited_by": 263,
    "df_metric": 13
@@ -3701,7 +3492,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.03693",
    "code_url": "https://github.com/LLM-Tuning-Safety/LLMs-Finetuning-Safety",
-   "card": "card-hex-phi",
    "score": 50.35,
    "cited_by": 1339,
    "df_metric": 43
@@ -3720,7 +3510,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.02224",
    "code_url": "https://llm-access-control.github.io/",
-   "card": null,
    "score": 18.82,
    "cited_by": 53,
    "df_metric": 1
@@ -3737,7 +3526,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2310.00905",
    "code_url": "https://github.com/Jarviswang94/Multilingual_safety_benchmark",
-   "card": null,
    "score": 22.02,
    "cited_by": 57,
    "df_metric": 0
@@ -3754,7 +3542,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2309.15817",
    "code_url": "https://github.com/ryoungj/ToolEmu",
-   "card": null,
    "score": 13.99,
    "cited_by": 504,
    "df_metric": 2
@@ -3771,7 +3558,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2309.07045",
    "code_url": "https://github.com/thu-coai/SafetyBench",
-   "card": null,
    "score": 16.05,
    "cited_by": 251,
    "df_metric": 5
@@ -3790,7 +3576,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.13387",
    "code_url": "https://github.com/Libr-AI/do-not-answer",
-   "card": null,
    "score": 15.65,
    "cited_by": 211,
    "df_metric": 5
@@ -3806,7 +3591,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.09662",
    "code_url": "https://github.com/declare-lab/red-instruct",
-   "card": "card-harmfulqa",
    "score": 32.25,
    "cited_by": 278,
    "df_metric": 8
@@ -3822,7 +3606,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.09662",
    "code_url": "https://github.com/declare-lab/red-instruct",
-   "card": null,
    "score": 25.98,
    "cited_by": 278,
    "df_metric": 1
@@ -3839,7 +3622,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.10819",
    "code_url": "https://github.com/Leezekun/instruction-following-robustness-eva",
-   "card": null,
    "score": 16.87,
    "cited_by": 83,
    "df_metric": 0
@@ -3855,7 +3637,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.06463",
    "code_url": "https://github.com/RobustNLP/CipherChat",
-   "card": null,
    "score": 26.19,
    "cited_by": 491,
    "df_metric": 0
@@ -3871,7 +3652,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.03825",
    "code_url": "",
-   "card": null,
    "score": 30.09,
    "cited_by": 708,
    "df_metric": 4
@@ -3887,7 +3667,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2308.01263",
    "code_url": "https://github.com/paul-rottger/xstest",
-   "card": "card-xstest",
    "score": 37.52,
    "cited_by": 488,
    "df_metric": 5
@@ -3904,7 +3683,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2307.15043",
    "code_url": "https://github.com/llm-attacks/llm-attacks",
-   "card": "card-advbench",
    "score": 72.63,
    "cited_by": 3573,
    "df_metric": 321
@@ -3922,7 +3700,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2307.04657",
    "code_url": "https://github.com/PKU-Alignment/beavertails",
-   "card": "card-beavertails",
    "score": 42.91,
    "cited_by": 1025,
    "df_metric": 39
@@ -3943,7 +3720,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2306.11698",
    "code_url": "https://github.com/AI-secure/DecodingTrust",
-   "card": null,
    "score": 31.2,
    "cited_by": 700,
    "df_metric": 1
@@ -3960,7 +3736,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2306.09442",
    "code_url": "https://github.com/thestephencasper/explore_establish_exploit_llms",
-   "card": null,
    "score": 16.37,
    "cited_by": 141,
    "df_metric": 1
@@ -3976,7 +3751,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2305.13860",
    "code_url": "",
-   "card": null,
    "score": 25.6,
    "cited_by": 728,
    "df_metric": 0
@@ -3993,7 +3767,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2212.09251",
    "code_url": "https://github.com/anthropics/evals",
-   "card": null,
    "score": 11.12,
    "cited_by": 995,
    "df_metric": 0
@@ -4010,7 +3783,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2212.08061",
    "code_url": "https://github.com/SALT-NLP/chain-of-thought-bias",
-   "card": null,
    "score": 13.74,
    "cited_by": 285,
    "df_metric": 4
@@ -4026,7 +3798,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2211.09527",
    "code_url": "https://github.com/agencyenterprise/PromptInject",
-   "card": null,
    "score": 13.51,
    "cited_by": 1032,
    "df_metric": 2
@@ -4043,7 +3814,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2209.07858",
    "code_url": "",
-   "card": null,
    "score": 9.36,
    "cited_by": 871,
    "df_metric": 0
@@ -4060,7 +3830,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2208.03274",
    "code_url": "https://github.com/openai/moderation-api-release",
-   "card": null,
    "score": 8.53,
    "cited_by": 490,
    "df_metric": 0
@@ -4078,7 +3847,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2204.05862",
    "code_url": "https://github.com/anthropics/hh-rlhf",
-   "card": null,
    "score": 12.63,
    "cited_by": 4323,
    "df_metric": 0
@@ -4094,7 +3862,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2203.09509",
    "code_url": "https://github.com/microsoft/ToxiGen",
-   "card": "card-toxigen",
    "score": 17.44,
    "cited_by": 649,
    "df_metric": 8
@@ -4113,7 +3880,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2112.00861",
    "code_url": "https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/hhh_alignment",
-   "card": null,
    "score": 15.01,
    "cited_by": 1209,
    "df_metric": 5
@@ -4130,7 +3896,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2110.08466",
    "code_url": "https://github.com/thu-coai/DiaSafety",
-   "card": null,
    "score": 8.41,
    "cited_by": 118,
    "df_metric": 1
@@ -4146,7 +3911,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2110.08193",
    "code_url": "https://github.com/nyu-mll/BBQ",
-   "card": "card-bbq",
    "score": 20.0,
    "cited_by": 858,
    "df_metric": 9
@@ -4162,7 +3926,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2101.11718",
    "code_url": "https://github.com/amazon-science/bold",
-   "card": null,
    "score": 17.59,
    "cited_by": 609,
    "df_metric": 5
@@ -4178,7 +3941,6 @@
    ],
    "paper_url": "https://arxiv.org/abs/2009.11462",
    "code_url": "https://github.com/allenai/real-toxicity-prompts",
-   "card": "card-realtoxicityprompts",
    "score": 18.13,
    "cited_by": 1818,
    "df_metric": 11
