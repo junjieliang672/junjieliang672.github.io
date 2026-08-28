@@ -33,5 +33,9 @@ brief:                      # 资讯卡：按子类分组，顺序是使用者�
   # （正文留在库里，unlisted=1）。管道侧对应 kb/intel.py 的 CARD_CLASSES,
   # 那里写着为什么 defense 的代码留着不删（_DEFENSE 名单还在 adjudicate() 用）。
   groups:
-    - {key: bench,    zh: 评测集,   index_url: /radar/bench/, home_limit: 6}
+    # 评测集 2026-08-27 起**只有索引、没有卡片页**（使用者定：点进去直接到
+    # paper）。index_only 让首页和归档页在「这一组一张卡都没有」时仍然把这一组
+    # 显示出来——否则模板的 `grp.size > 0` 会让评测集整组消失，而「不出卡」
+    # 不等于「这一类不存在」。home_limit 也去掉了：没有卡可列。
+    - {key: bench,    zh: 评测集,   index_url: /radar/bench/, index_only: true}
     - {key: incident, zh: 事故,     date_in_title: true}

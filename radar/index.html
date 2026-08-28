@@ -129,8 +129,10 @@ title: radar
     <h1>{{ site.blog_name }}</h1>
     <span class="px-stat">{{ digests.size }} 期速览 · {{ cards.size }} 知识卡 ·
       {%- comment -%} 系统（tool）2026-08-24、防御（defense）2026-08-25 退役，
-          两格都去掉；评测集总数从注册表的 counts 取（站上有卡的只是其中一部分）。{%- endcomment -%}
-      资讯卡：评测集 {{ site.data.benches.counts.bench | default: 0 }}（{{ briefs | where_exp: "p", "p.tags contains 'bench'" | size }} 有卡）· 事故 {{ briefs | where_exp: "p", "p.tags contains 'incident'" | size }} ·
+          两格都去掉。评测集总数从注册表的 counts 取；后面原来跟着一个
+          「（N 有卡）」，2026-08-27 评测集不出卡了，那个数恒为 0，一并去掉
+          ——写着「238（0 有卡）」比不写更让人困惑。{%- endcomment -%}
+      资讯卡：评测集 {{ site.data.benches.counts.bench | default: 0 }} · 事故 {{ briefs | where_exp: "p", "p.tags contains 'incident'" | size }} ·
       最新 {{ site.posts.first.date | date: "%Y-%m-%d" }}</span>
   </div>
 
@@ -184,7 +186,10 @@ title: radar
         四类同一种行、同一号字；事故条目前带事故日（它按天出卡，日期是身份）。{%- endcomment -%}
     {%- for g in site.data.taxonomy.brief.groups -%}
       {%- assign grp = briefs | where_exp: "p", "p.tags contains g.key" -%}
-      {%- if grp.size > 0 -%}
+      {%- comment -%} index_only 的组（评测集）一张卡都没有也要出现：它的内容
+          在 /radar/bench/ 那张索引里，不是在卡片里。只判 grp.size > 0 的话，
+          「这一类退出卡片」会表现成「这一类从首页消失」。{%- endcomment -%}
+      {%- if grp.size > 0 or g.index_only -%}
       {%- comment -%} 有注册表的组用注册表总数（站上有卡的只是其中一部分），
           没有的用卡片数。**按 g.key 从 counts 里取**，不写死 bench——
           写死的话哪一组挂上 index_url 都会显示评测集的数。{%- endcomment -%}
@@ -197,7 +202,9 @@ title: radar
           {%- else -%}{{ g.zh }} {{ total }}{%- endif -%}
         </span>
         <span class="px-items">
-          {%- if g.home_limit -%}
+          {%- if g.index_only -%}
+            <a href="{{ g.index_url | relative_url }}">全部 {{ total }} 个（按时间与子类筛选，点名字直接到论文）→</a>
+          {%- elsif g.home_limit -%}
             {%- for p in grp limit: g.home_limit -%}
               <a href="{{ p.url | relative_url }}" data-px="{{ p.title | downcase }}"
                  >{% include px-label.html post=p group=g %}</a>

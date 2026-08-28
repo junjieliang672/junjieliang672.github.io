@@ -76,15 +76,13 @@ permalink: /radar/bench/
          data-px="{{ b.name | downcase }} {{ b.one_liner | downcase }}">
       <span class="bx-when">{{ b.date | default: "—" }}</span>
       <div>
+        {%- comment -%} 名字直接链论文（2026-08-27 起）。原来这里先看 b.card，
+            有卡就链到卡片介绍页；评测集不再出卡，那个分支和 benches.json 里的
+            card 字段一起删了。「论文」那个小角标也去掉了——每一行都是论文链接
+            之后，它对每一行都成立，等于什么也没说。{%- endcomment -%}
         <span class="bx-name">
-          {%- if b.card -%}
-            {%- assign card_post = site.posts | where_exp: "p", "p.url contains b.card" | first -%}
-            {%- if card_post -%}<a href="{{ card_post.url | relative_url }}">{{ b.name }}</a>
-            {%- else -%}{{ b.name }}{%- endif -%}
-          {%- elsif b.paper_url != "" -%}
-            <a href="{{ b.paper_url }}">{{ b.name }}</a>
+          {%- if b.paper_url != "" -%}<a href="{{ b.paper_url }}">{{ b.name }}</a>
           {%- else -%}{{ b.name }}{%- endif -%}
-          {%- if b.card == nil and b.paper_url != "" -%}<span class="ext">论文</span>{%- endif -%}
         </span>
         <span class="bx-tags">
           {%- for l in b.labels -%}<span class="bx-tag" data-l="{{ l }}">{{ l }}</span>{%- endfor -%}
