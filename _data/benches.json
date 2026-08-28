@@ -50,7 +50,7 @@
   }
  },
  "counts": {
-  "bench": 295
+  "bench": 238
  },
  "rows": [
   {
@@ -62,24 +62,6 @@
     "multimodal"
    ],
    "paper_url": "https://arxiv.org/abs/2608.23313",
-   "code_url": "",
-   "card": null,
-   "score": null,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
-   "name": "InjecMEM",
-   "kind": "bench",
-   "date": "2026-08-24",
-   "one_liner": "给 LLM agent 的长期记忆植入一条『锚点+对抗指令』记录，一次交互后持续劫持相关话题的后续回答",
-   "labels": [
-    "poisoning-backdoor",
-    "agent-tool",
-    "dpi",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2608.23471",
    "code_url": "",
    "card": null,
    "score": null,
@@ -239,26 +221,6 @@
    "df_metric": 0
   },
   {
-   "name": "AI-Infra-Guard",
-   "kind": "bench",
-   "date": "2026-06-30",
-   "one_liner": "腾讯朱雀四层红队平台：AI 基础设施 CVE 扫描、MCP/skill 审计、agent 多轮红队、LLM 越狱评测",
-   "labels": [
-    "jailbreak",
-    "mcp-harness",
-    "agent-tool",
-    "llm",
-    "code-security",
-    "dpi"
-   ],
-   "paper_url": "https://arxiv.org/abs/2606.31227",
-   "code_url": "https://github.com/Tencent/AI-Infra-Guard",
-   "card": "card-ai-infra-guard",
-   "score": 38.28,
-   "cited_by": 2,
-   "df_metric": 0
-  },
-  {
    "name": "SafeClawArena",
    "kind": "bench",
    "date": "2026-06-29",
@@ -275,25 +237,6 @@
    "card": "card-safeclawarena",
    "score": 38.53,
    "cited_by": 2,
-   "df_metric": 0
-  },
-  {
-   "name": "MAS (Mechanistic Agent Safety) Benchmark",
-   "kind": "bench",
-   "date": "2026-06-21",
-   "one_liner": "标注编码 agent 多轮轨迹的隐藏状态，用机制可解释性方法检测/干预其执行恶意 OS 操作的行为",
-   "labels": [
-    "agent-code",
-    "agent-tool",
-    "llm",
-    "code-security",
-    "harmful-capability"
-   ],
-   "paper_url": "https://arxiv.org/abs/2606.22673",
-   "code_url": "",
-   "card": null,
-   "score": 35.53,
-   "cited_by": 1,
    "df_metric": 0
   },
   {
@@ -345,24 +288,6 @@
    "df_metric": 0
   },
   {
-   "name": "MAStrike benchmark",
-   "kind": "bench",
-   "date": "2026-06-11",
-   "one_liner": "用Shapley值定位关键agent，测多agent系统能否被跨agent合谋注入攻陷完成越权操作",
-   "labels": [
-    "ipi",
-    "multi-agent",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2606.12918",
-   "code_url": "",
-   "card": null,
-   "score": 28.34,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
    "name": "StakeBench",
    "kind": "bench",
    "date": "2026-06-11",
@@ -397,24 +322,6 @@
    "card": "card-malskillbench",
    "score": 35.24,
    "cited_by": 11,
-   "df_metric": 0
-  },
-  {
-   "name": "Execution-Grounded Red-Team Testing Framework",
-   "kind": "bench",
-   "date": "2026-06-01",
-   "one_liner": "把恶意系统操作伪装成合法软件工程任务，用沙箱执行证据（工具调用/文件改动）检测编码agent是否被诱导执行",
-   "labels": [
-    "jailbreak",
-    "code-security",
-    "agent-code",
-    "agent-tool"
-   ],
-   "paper_url": "https://arxiv.org/abs/2607.22569",
-   "code_url": "",
-   "card": null,
-   "score": 21.77,
-   "cited_by": 0,
    "df_metric": 0
   },
   {
@@ -538,25 +445,6 @@
    "df_metric": 0
   },
   {
-   "name": "WARD (WARD-Base + WARD-PIG)",
-   "kind": "bench",
-   "date": "2026-05-14",
-   "one_liner": "测防御网页注入攻击的 guard 模型：177K 样本训练+专门针对护栏本身的对抗攻击评测集",
-   "labels": [
-    "ipi",
-    "agent-web",
-    "guardrail-eval",
-    "robustness",
-    "overrefusal-utility"
-   ],
-   "paper_url": "https://arxiv.org/abs/2605.15030",
-   "code_url": "",
-   "card": null,
-   "score": 28.9,
-   "cited_by": 3,
-   "df_metric": 0
-  },
-  {
    "name": "TAB (Task Alignment Benchmark)",
    "kind": "bench",
    "date": "2026-05-12",
@@ -611,60 +499,6 @@
    "df_metric": 0
   },
   {
-   "name": "Trojan Hippo",
-   "kind": "bench",
-   "date": "2026-05-03",
-   "one_liner": "向 agent 长期记忆植入休眠载荷，遇敏感话题触发后窃取用户隐私数据，测四种记忆架构与防御",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "privacy",
-    "poisoning-backdoor",
-    "rag",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2605.01970",
-   "code_url": "",
-   "card": null,
-   "score": 40.49,
-   "cited_by": 6,
-   "df_metric": 0
-  },
-  {
-   "name": "TwinGate decompositional jailbreak dataset",
-   "kind": "bench",
-   "date": "2026-04-30",
-   "one_liner": "3.62M条分解式越狱指令数据集，测防护分类器能否识别拆分成良性片段的恶意意图",
-   "labels": [
-    "jailbreak",
-    "guardrail-eval",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.27861",
-   "code_url": "",
-   "card": null,
-   "score": 32.53,
-   "cited_by": 1,
-   "df_metric": 0
-  },
-  {
-   "name": "Morality Attack Dataset",
-   "kind": "bench",
-   "date": "2026-04-18",
-   "one_liner": "用价值模糊/价值冲突的道德故事场景构造攻击 prompt，测试 LLM 和 guardrail 模型能否被诱导做出不当道德判断",
-   "labels": [
-    "jailbreak",
-    "guardrail-eval",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.17053",
-   "code_url": "",
-   "card": null,
-   "score": 21.64,
-   "cited_by": 1,
-   "df_metric": 0
-  },
-  {
    "name": "LinuxArena",
    "kind": "bench",
    "date": "2026-04-16",
@@ -685,24 +519,6 @@
    "df_metric": 1
   },
   {
-   "name": "ClawGuard Dataset",
-   "kind": "bench",
-   "date": "2026-04-13",
-   "one_liner": "ClawGuard 是防御工具+评测套件，测 LLM agent 对网页/MCP/skill 三类间接提示注入的防护效果与效用代价",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "mcp-harness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.11790",
-   "code_url": "https://github.com/NY1024/ClawGuard",
-   "card": null,
-   "score": 27.26,
-   "cited_by": 21,
-   "df_metric": 0
-  },
-  {
    "name": "AudioSafetyBench",
    "kind": "bench",
    "date": "2026-04-10",
@@ -718,39 +534,6 @@
    "score": 33.53,
    "cited_by": 1,
    "df_metric": 1
-  },
-  {
-   "name": "BadSkill Benchmark (OpenClaw-inspired skill backdoor benchmark)",
-   "kind": "bench",
-   "date": "2026-04-10",
-   "one_liner": "评测 agent skill 里捆绑的模型被植入后门、按语义触发条件激活恶意行为的攻击成功率",
-   "labels": [
-    "poisoning-backdoor",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.09378",
-   "code_url": "",
-   "card": null,
-   "score": 32.11,
-   "cited_by": 18,
-   "df_metric": 0
-  },
-  {
-   "name": "SkillTrojan dataset",
-   "kind": "bench",
-   "date": "2026-04-08",
-   "one_liner": "给基于技能组件的 agent 系统投毒：把后门碎片藏进看似无害的技能里，触发词激活后执行恶意payload",
-   "labels": [
-    "poisoning-backdoor",
-    "agent-tool"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.06811",
-   "code_url": "",
-   "card": null,
-   "score": 19.31,
-   "cited_by": 14,
-   "df_metric": 0
   },
   {
    "name": "SmuggleBench",
@@ -787,92 +570,6 @@
    "df_metric": 0
   },
   {
-   "name": "SkillsMP Malicious/Leaky Skill Dataset",
-   "kind": "bench",
-   "date": "2026-04-03",
-   "one_liner": "审计 17022 个 SkillsMP 市场 skill 代码，找恶意窃密和硬编码凭证泄露两类问题",
-   "labels": [
-    "privacy",
-    "code-security",
-    "agent-tool"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.03070",
-   "code_url": "",
-   "card": null,
-   "score": 34.25,
-   "cited_by": 12,
-   "df_metric": 0
-  },
-  {
-   "name": "PrecisionDiff",
-   "kind": "bench",
-   "date": "2026-04-02",
-   "one_liner": "差分测试框架，比较模型在不同数值精度/量化下的行为差异，发现精度诱发的越狱和不一致",
-   "labels": [
-    "robustness",
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2604.19790",
-   "code_url": "",
-   "card": null,
-   "score": 23.58,
-   "cited_by": 3,
-   "df_metric": 0
-  },
-  {
-   "name": "MalSkills benchmark (200 real-world skills)",
-   "kind": "bench",
-   "date": "2026-03-28",
-   "one_liner": "评测恶意 agent skill（插件模块）检测框架：200 个真实 skill 上判恶意/良性，测供应链安全",
-   "labels": [
-    "agent-tool",
-    "code-security",
-    "guardrail-eval"
-   ],
-   "paper_url": "https://arxiv.org/abs/2603.27204",
-   "code_url": "",
-   "card": null,
-   "score": 28.43,
-   "cited_by": 3,
-   "df_metric": 0
-  },
-  {
-   "name": "MissClaw",
-   "kind": "bench",
-   "date": "2026-03-24",
-   "one_liner": "测 Claw agent 后台心跳任务读社交平台内容时，普通虚假共识贴文能否污染长期记忆并跨会话影响行为",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2603.23064",
-   "code_url": "",
-   "card": "card-missclaw",
-   "score": 42.95,
-   "cited_by": 3,
-   "df_metric": 1
-  },
-  {
-   "name": "LAAF (Logic-layer Automated Attack Framework)",
-   "kind": "bench",
-   "date": "2026-03-18",
-   "one_liner": "自动化红队框架，用49种技术组合生成280万种载荷，攻击agent的持久记忆/RAG/工具连接器实现逻辑层注入",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "rag",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2603.17239",
-   "code_url": "",
-   "card": null,
-   "score": 23.35,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
    "name": "AI Agent Indirect Prompt Injection Red-Teaming Competition Dataset/Environment",
    "kind": "bench",
    "date": "2026-03-16",
@@ -887,23 +584,6 @@
    "card": "card-ai-agent-indirect-prompt-injection-red-teaming-competition-d",
    "score": 45.99,
    "cited_by": 16,
-   "df_metric": 0
-  },
-  {
-   "name": "PISmith",
-   "kind": "bench",
-   "date": "2026-03-13",
-   "one_liner": "用RL训练攻击LLM自动优化注入提示，黑盒红队测试提示注入防御在agent场景下是否真的稳",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2603.13026",
-   "code_url": "https://github.com/albert-y1n/PISmith",
-   "card": null,
-   "score": null,
-   "cited_by": 12,
    "df_metric": 0
   },
   {
@@ -1066,23 +746,6 @@
    "df_metric": 0
   },
   {
-   "name": "MalTool",
-   "kind": "bench",
-   "date": "2026-02-12",
-   "one_liner": "用编码LLM自动生成含恶意行为的工具（含伪装在正常工具中），测agent安装/调用后的安全隐私危害及检测方法",
-   "labels": [
-    "agent-tool",
-    "code-security",
-    "poisoning-backdoor"
-   ],
-   "paper_url": "https://arxiv.org/abs/2602.12194",
-   "code_url": "",
-   "card": null,
-   "score": 33.93,
-   "cited_by": 15,
-   "df_metric": 0
-  },
-  {
    "name": "AgentPI",
    "kind": "bench",
    "date": "2026-02-11",
@@ -1097,24 +760,6 @@
    "card": null,
    "score": 18.92,
    "cited_by": 24,
-   "df_metric": 0
-  },
-  {
-   "name": "MUZZLE",
-   "kind": "bench",
-   "date": "2026-02-09",
-   "one_liner": "自动化红队框架：从 web agent 轨迹找注入点，自适应生成网页间接注入，测 CIA 违规",
-   "labels": [
-    "ipi",
-    "agent-web",
-    "agent-tool",
-    "privacy"
-   ],
-   "paper_url": "https://arxiv.org/abs/2602.09222",
-   "code_url": "https://github.com/gsiros/muzzle",
-   "card": null,
-   "score": 17.37,
-   "cited_by": 12,
    "df_metric": 0
   },
   {
@@ -1187,39 +832,6 @@
    "df_metric": 12
   },
   {
-   "name": "WebSentinel (contaminated/clean webpage datasets)",
-   "kind": "bench",
-   "date": "2026-02-03",
-   "one_liner": "构建污染/干净网页数据集，评测检测并定位 web agent 提示注入攻击的护栏方法",
-   "labels": [
-    "ipi",
-    "agent-web",
-    "guardrail-eval"
-   ],
-   "paper_url": "https://arxiv.org/abs/2602.03792",
-   "code_url": "https://github.com/wxl-lxw/WebSentinel",
-   "card": null,
-   "score": 30.04,
-   "cited_by": 7,
-   "df_metric": 0
-  },
-  {
-   "name": "Causal Analyst jailbreak dataset (35k attempts, 37 prompt features)",
-   "kind": "bench",
-   "date": "2026-01-31",
-   "one_liner": "35k条越狱攻击×37个提示特征，用因果图分析哪些特征是越狱成功的直接原因",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2602.04893",
-   "code_url": "",
-   "card": null,
-   "score": 19.85,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
    "name": "AgentDoG (ATBench)",
    "kind": "bench",
    "date": "2026-01-26",
@@ -1238,24 +850,6 @@
    "card": "card-agentdog-atbench",
    "score": 39.62,
    "cited_by": 25,
-   "df_metric": 0
-  },
-  {
-   "name": "SkillScan",
-   "kind": "bench",
-   "date": "2026-01-15",
-   "one_liner": "静态+LLM语义分析4.2万个agent skill包，测prompt injection/数据渗漏/提权/供应链四类漏洞",
-   "labels": [
-    "ipi",
-    "poisoning-backdoor",
-    "agent-tool",
-    "code-security"
-   ],
-   "paper_url": "https://arxiv.org/abs/2601.10338",
-   "code_url": "",
-   "card": null,
-   "score": 38.2,
-   "cited_by": 87,
    "df_metric": 0
   },
   {
@@ -1294,27 +888,6 @@
    "card": null,
    "score": 20.15,
    "cited_by": 2,
-   "df_metric": 0
-  },
-  {
-   "name": "BackdoorAgent Benchmark",
-   "kind": "bench",
-   "date": "2026-01-08",
-   "one_liner": "在LLM agent的规划/记忆/工具三阶段植入后门触发器，测其跨步骤传播与持续性",
-   "labels": [
-    "poisoning-backdoor",
-    "agent-tool",
-    "agent-web",
-    "agent-code",
-    "agent-embodied",
-    "llm",
-    "multimodal"
-   ],
-   "paper_url": "https://arxiv.org/abs/2601.04566",
-   "code_url": "https://github.com/Yunhao-Feng/BackdoorAgent",
-   "card": null,
-   "score": 28.12,
-   "cited_by": 11,
    "df_metric": 0
   },
   {
@@ -1368,23 +941,6 @@
    "score": 29.8,
    "cited_by": 12,
    "df_metric": 1
-  },
-  {
-   "name": "SPELL",
-   "kind": "bench",
-   "date": "2025-12-24",
-   "one_liner": "用拼句越狱策略测LLM代码生成的安全对齐漏洞，评估生成恶意代码的真实危害率",
-   "labels": [
-    "jailbreak",
-    "code-security",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2512.21236",
-   "code_url": "",
-   "card": null,
-   "score": 27.8,
-   "cited_by": 2,
-   "df_metric": 0
   },
   {
    "name": "BashArena",
@@ -1552,25 +1108,6 @@
    "df_metric": 0
   },
   {
-   "name": "Qwen3GuardTest",
-   "kind": "bench",
-   "date": "2025-10-16",
-   "one_liner": "评审核器对推理模型输出（含思考链）的安全分类与流式句级不安全定位，2441 条英文样本",
-   "labels": [
-    "guardrail-eval",
-    "toxicity-bias",
-    "harmful-capability",
-    "privacy",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.14276",
-   "code_url": "https://github.com/QwenLM/Qwen3Guard",
-   "card": null,
-   "score": 36.87,
-   "cited_by": 116,
-   "df_metric": 1
-  },
-  {
    "name": "MSB (MCP Security Bench)",
    "kind": "bench",
    "date": "2025-10-14",
@@ -1586,40 +1123,6 @@
    "score": 29.01,
    "cited_by": 37,
    "df_metric": 3
-  },
-  {
-   "name": "MAS Distributed Backdoor Benchmark (multi-role collaborative task benchmark + sandbox)",
-   "kind": "bench",
-   "date": "2025-10-13",
-   "one_liner": "把后门拆成多个休眠工具原语，多智能体按特定顺序协作时集体触发的分布式后门攻击基准",
-   "labels": [
-    "poisoning-backdoor",
-    "agent-tool",
-    "multi-agent"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.11246",
-   "code_url": "https://github.com/whfeLingYu/Distributed-Backdoor-Attacks-in-MAS",
-   "card": null,
-   "score": 22.35,
-   "cited_by": 2,
-   "df_metric": 0
-  },
-  {
-   "name": "AuraGen",
-   "kind": "bench",
-   "date": "2025-10-10",
-   "one_liner": "合成代理轨迹并注入分级风险,训练评测『执行前』风险检测护栏模型(Safiron)",
-   "labels": [
-    "guardrail-eval",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.09781",
-   "code_url": "https://github.com/HowieHwong/Agentic-Guardian",
-   "card": "card-auragen",
-   "score": 36.47,
-   "cited_by": 25,
-   "df_metric": 1
   },
   {
    "name": "Pre-Exec Bench",
@@ -1639,24 +1142,6 @@
    "df_metric": 0
   },
   {
-   "name": "WebSearch-Harm",
-   "kind": "bench",
-   "date": "2025-10-09",
-   "one_liner": "测联网搜索LLM会否引用/复述网页中的有害或低可信内容，攻击手法是构造诱导性查询和植入恶意网页",
-   "labels": [
-    "jailbreak",
-    "ipi",
-    "agent-web",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.09689",
-   "code_url": "",
-   "card": null,
-   "score": 25.82,
-   "cited_by": 2,
-   "df_metric": 0
-  },
-  {
    "name": "AdvCLI",
    "kind": "bench",
    "date": "2025-10-08",
@@ -1673,57 +1158,6 @@
    "card": null,
    "score": 34.89,
    "cited_by": 8,
-   "df_metric": 0
-  },
-  {
-   "name": "Backdoor-Powered Prompt Injection Benchmark",
-   "kind": "bench",
-   "date": "2025-10-04",
-   "one_liner": "先给LLM做后门投毒，再用触发词发起prompt injection，测其能否绕过现有防御",
-   "labels": [
-    "poisoning-backdoor",
-    "dpi",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.03705",
-   "code_url": "",
-   "card": null,
-   "score": 26.33,
-   "cited_by": 4,
-   "df_metric": 0
-  },
-  {
-   "name": "ARMs-Bench",
-   "kind": "bench",
-   "date": "2025-10-03",
-   "one_liner": "自适应红队agent(ARMs)生成30K条多模态越狱样本,覆盖51类风险,测VLM安全对齐",
-   "labels": [
-    "jailbreak",
-    "multimodal"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.02677",
-   "code_url": "https://arms-redteaming-agent.github.io/",
-   "card": null,
-   "score": 27.13,
-   "cited_by": 5,
-   "df_metric": 0
-  },
-  {
-   "name": "RedCodeAgent",
-   "kind": "bench",
-   "date": "2025-10-02",
-   "one_liner": "自动红队 agent 组合越狱工具+代码替换，攻击带解释器的编码 agent，沙箱执行判成败",
-   "labels": [
-    "jailbreak",
-    "code-security",
-    "agent-code",
-    "agent-tool"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.02609",
-   "code_url": "",
-   "card": null,
-   "score": 33.07,
-   "cited_by": 12,
    "df_metric": 0
   },
   {
@@ -1864,39 +1298,6 @@
    "df_metric": 1
   },
   {
-   "name": "TRIAL",
-   "kind": "bench",
-   "date": "2025-09-04",
-   "one_liner": "多轮把有害请求包装成道德困境来越狱LLM，测伦理推理能否被利用绕过安全对齐",
-   "labels": [
-    "jailbreak",
-    "dpi",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2509.05367",
-   "code_url": "",
-   "card": null,
-   "score": 25.08,
-   "cited_by": null,
-   "df_metric": 0
-  },
-  {
-   "name": "Constructive Benchmark",
-   "kind": "bench",
-   "date": "2025-09-02",
-   "one_liner": "评测LLM面对非恶意困境用户（如自伤倾向）时能否建设性引导而非简单拒答，兼顾安全与帮助性",
-   "labels": [
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2509.01909",
-   "code_url": "",
-   "card": null,
-   "score": 29.93,
-   "cited_by": 25,
-   "df_metric": 0
-  },
-  {
    "name": "Strata-Sword",
    "kind": "bench",
    "date": "2025-09-01",
@@ -1911,23 +1312,6 @@
    "score": 28.9,
    "cited_by": 15,
    "df_metric": 1
-  },
-  {
-   "name": "GUARD",
-   "kind": "bench",
-   "date": "2025-08-28",
-   "one_liner": "用角色扮演式越狱测试LLM/VLM是否违反政府伦理指南，生成合规诊断报告",
-   "labels": [
-    "jailbreak",
-    "llm",
-    "multimodal"
-   ],
-   "paper_url": "https://arxiv.org/abs/2508.20325",
-   "code_url": "",
-   "card": "card-guard",
-   "score": 47.77,
-   "cited_by": 2,
-   "df_metric": 4
   },
   {
    "name": "JailbreakQR",
@@ -2020,28 +1404,6 @@
    "df_metric": 1
   },
   {
-   "name": "MCP-ATTACKBENCH",
-   "kind": "bench",
-   "date": "2025-08-14",
-   "one_liner": "70448条MCP场景攻击样本(越狱指令+命令/SQL注入+提示注入)，测防护框架对MCP工具调用攻击的检测能力",
-   "labels": [
-    "jailbreak",
-    "dpi",
-    "ipi",
-    "code-security",
-    "agent-tool",
-    "mcp-harness",
-    "guardrail-eval",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2508.10991",
-   "code_url": "",
-   "card": null,
-   "score": 20.48,
-   "cited_by": 18,
-   "df_metric": 0
-  },
-  {
    "name": "MTJ-Bench (Multi-Turn Jailbreak Benchmark)",
    "kind": "bench",
    "date": "2025-08-09",
@@ -2073,23 +1435,6 @@
    "score": 24.88,
    "cited_by": 2,
    "df_metric": 1
-  },
-  {
-   "name": "ASTRA",
-   "kind": "bench",
-   "date": "2025-08-05",
-   "one_liner": "用知识图谱自动红队诱导编码助手生成恶意代码或含漏洞代码",
-   "labels": [
-    "jailbreak",
-    "code-security",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2508.03936",
-   "code_url": "https://huggingface.co/datasets/PurCL/astra-agent-security",
-   "card": null,
-   "score": 31.56,
-   "cited_by": 6,
-   "df_metric": 2
   },
   {
    "name": "ART (Agent Red Teaming)",
@@ -2193,41 +1538,6 @@
    "card": "card-os-harm",
    "score": 35.8,
    "cited_by": 91,
-   "df_metric": 0
-  },
-  {
-   "name": "SafeMCP",
-   "kind": "bench",
-   "date": "2025-06-16",
-   "one_liner": "构建可控框架，评测恶意第三方MCP服务通过工具描述/响应注入攻击载荷操纵agent的风险",
-   "labels": [
-    "ipi",
-    "agent-tool",
-    "mcp-harness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2506.13666",
-   "code_url": "",
-   "card": null,
-   "score": 21.94,
-   "cited_by": 35,
-   "df_metric": 0
-  },
-  {
-   "name": "Thought Crime emergent misalignment datasets (medical/legal/security) + evaluation suite",
-   "kind": "bench",
-   "date": "2025-06-16",
-   "one_liner": "在医疗/法律/安全窄领域微调推理模型诱发涌现性错误对齐和后门行为，测CoT监控能否揭穿其欺骗意图",
-   "labels": [
-    "deception-alignment",
-    "poisoning-backdoor",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2506.13206",
-   "code_url": "",
-   "card": null,
-   "score": 24.11,
-   "cited_by": 64,
    "df_metric": 0
   },
   {
@@ -2445,25 +1755,6 @@
    "df_metric": 0
   },
   {
-   "name": "MASLEAK Synthetic MAS Dataset",
-   "kind": "bench",
-   "date": "2025-05-18",
-   "one_liner": "黑盒攻击框架，用对抗查询诱导多智能体系统层层传播泄露系统提示/架构等内部信息",
-   "labels": [
-    "dpi",
-    "privacy",
-    "multi-agent",
-    "llm",
-    "agent-tool"
-   ],
-   "paper_url": "https://arxiv.org/abs/2505.12442",
-   "code_url": "",
-   "card": null,
-   "score": 22.61,
-   "cited_by": 7,
-   "df_metric": 0
-  },
-  {
    "name": "Video-SafetyBench",
    "kind": "bench",
    "date": "2025-05-17",
@@ -2530,22 +1821,6 @@
    "score": 46.44,
    "cited_by": 134,
    "df_metric": 7
-  },
-  {
-   "name": "X-Teaming",
-   "kind": "bench",
-   "date": "2025-04-15",
-   "one_liner": "用规划-攻击-验证三个协作智能体自动生成多轮越狱对话，测LLM在多轮场景下的抗越狱能力",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2504.13203",
-   "code_url": "",
-   "card": null,
-   "score": 32.1,
-   "cited_by": 112,
-   "df_metric": 0
   },
   {
    "name": "Jailbreak Tax",
@@ -2773,39 +2048,6 @@
    "card": null,
    "score": 25.47,
    "cited_by": 19,
-   "df_metric": 0
-  },
-  {
-   "name": "Trotter",
-   "kind": "bench",
-   "date": "2025-02-19",
-   "one_liner": "越狱攻击数据集：用混沌映射把有害提示嵌入推理链，诱导大型推理模型绕过安全限制",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2502.15806",
-   "code_url": "",
-   "card": null,
-   "score": 21.81,
-   "cited_by": 46,
-   "df_metric": 0
-  },
-  {
-   "name": "AgentBackdoorEval",
-   "kind": "bench",
-   "date": "2025-02-18",
-   "one_liner": "评测LLM agent的多后门动态加密植入攻击，测攻击成功率与安全审计规避率",
-   "labels": [
-    "poisoning-backdoor",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2502.12575",
-   "code_url": "",
-   "card": null,
-   "score": 14.15,
-   "cited_by": 23,
    "df_metric": 0
   },
   {
@@ -3141,23 +2383,6 @@
    "df_metric": 2
   },
   {
-   "name": "Many-shot Jailbreaking Dataset (Bayesian scaling laws paper)",
-   "kind": "bench",
-   "date": "2024-10-21",
-   "one_liner": "用大量上下文示例诱导模型复现被安全训练抑制的行为，并用贝叶斯标度律预测何时越狱生效",
-   "labels": [
-    "jailbreak",
-    "dpi",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2410.16531",
-   "code_url": "https://github.com/aryamanarora/bayesian-laws-icl",
-   "card": null,
-   "score": 16.0,
-   "cited_by": 18,
-   "df_metric": 0
-  },
-  {
    "name": "N-gram Perplexity Threat Model",
    "kind": "bench",
    "date": "2024-10-21",
@@ -3192,23 +2417,6 @@
    "score": 12.21,
    "cited_by": 36,
    "df_metric": 2
-  },
-  {
-   "name": "RoboPAIR (harmful robotic action datasets)",
-   "kind": "bench",
-   "date": "2024-10-17",
-   "one_liner": "用越狱算法攻击LLM控制的机器人（自动驾驶车/UGV/机器狗），诱导其执行有害物理动作",
-   "labels": [
-    "jailbreak",
-    "agent-embodied",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2410.13691",
-   "code_url": "",
-   "card": null,
-   "score": 22.26,
-   "cited_by": 1,
-   "df_metric": 0
   },
   {
    "name": "AgentHarm",
@@ -3301,23 +2509,6 @@
    "df_metric": 8
   },
   {
-   "name": "PromptFuzz",
-   "kind": "bench",
-   "date": "2024-09-23",
-   "one_liner": "用 fuzzing 变异种子提示自动生成直接提示注入，测 LLM 及其防御提示的抵抗力",
-   "labels": [
-    "dpi",
-    "robustness",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2409.14729",
-   "code_url": "https://github.com/sherdencooper/PromptFuzz",
-   "card": null,
-   "score": 23.43,
-   "cited_by": 28,
-   "df_metric": 0
-  },
-  {
    "name": "PrivacyLens",
    "kind": "bench",
    "date": "2024-08-29",
@@ -3400,22 +2591,6 @@
    "score": 30.52,
    "cited_by": 27,
    "df_metric": 1
-  },
-  {
-   "name": "Arondight",
-   "kind": "bench",
-   "date": "2024-07-21",
-   "one_liner": "自动生成图文越狱提示红队攻击 VLM，按 OpenAI 14 类禁用场景测攻击成功率",
-   "labels": [
-    "jailbreak",
-    "multimodal"
-   ],
-   "paper_url": "https://arxiv.org/abs/2407.15050",
-   "code_url": "",
-   "card": null,
-   "score": 12.59,
-   "cited_by": 51,
-   "df_metric": 0
   },
   {
    "name": "AIR-Bench 2024",
@@ -3575,22 +2750,6 @@
    "score": 60.25,
    "cited_by": 144,
    "df_metric": 72
-  },
-  {
-   "name": "Knowledge-to-Jailbreak",
-   "kind": "bench",
-   "date": "2024-06-17",
-   "one_liner": "用领域知识自动生成越狱提示，测LLM在医学等专业领域下的安全防护是否失效",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2406.11682",
-   "code_url": "",
-   "card": null,
-   "score": 18.01,
-   "cited_by": 2,
-   "df_metric": 0
   },
   {
    "name": "SPA-VL",
@@ -3802,23 +2961,6 @@
    "df_metric": 0
   },
   {
-   "name": "PureBad",
-   "kind": "bench",
-   "date": "2024-05-27",
-   "one_liner": "100 条有害问答对，混入微调数据模拟 harmful fine-tuning 攻击，看对齐是否被破坏",
-   "labels": [
-    "jailbreak",
-    "poisoning-backdoor",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2405.16833",
-   "code_url": "https://github.com/IBM/SafeLoRA",
-   "card": "card-purebad",
-   "score": 34.89,
-   "cited_by": 150,
-   "df_metric": 5
-  },
-  {
    "name": "CyberSecEval",
    "kind": "bench",
    "date": "2024-04-19",
@@ -3958,23 +3100,6 @@
    "df_metric": 0
   },
   {
-   "name": "CodeAttack",
-   "kind": "bench",
-   "date": "2024-03-12",
-   "one_liner": "把有害请求改写成代码补全任务，测LLM安全对齐能否泛化到代码领域",
-   "labels": [
-    "jailbreak",
-    "dpi",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2403.07865",
-   "code_url": "",
-   "card": null,
-   "score": 23.64,
-   "cited_by": 95,
-   "df_metric": 0
-  },
-  {
    "name": "SEP",
    "kind": "bench",
    "date": "2024-03-11",
@@ -4022,22 +3147,6 @@
    "score": 26.11,
    "cited_by": 515,
    "df_metric": 10
-  },
-  {
-   "name": "Rainbow Teaming",
-   "kind": "bench",
-   "date": "2024-02-26",
-   "one_liner": "用质量-多样性进化搜索自动生成多样化越狱提示，测试并提升LLM安全性",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2402.16822",
-   "code_url": "",
-   "card": null,
-   "score": 25.82,
-   "cited_by": 220,
-   "df_metric": 1
   },
   {
    "name": "CatQA",
@@ -4227,23 +3336,6 @@
    "df_metric": 0
   },
   {
-   "name": "Persuasive Adversarial Prompts (PAP)",
-   "kind": "bench",
-   "date": "2024-01-12",
-   "one_liner": "用40种社会科学说服技巧自动改写有害请求，测试能否说服LLM越狱",
-   "labels": [
-    "jailbreak",
-    "dpi",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2401.06373",
-   "code_url": "https://github.com/CHATS-lab/persuasive_jailbreaker",
-   "card": null,
-   "score": 26.64,
-   "cited_by": 701,
-   "df_metric": 0
-  },
-  {
    "name": "Sorry-Bench",
    "kind": "bench",
    "date": "2024-01-12",
@@ -4396,39 +3488,6 @@
    "score": 20.97,
    "cited_by": 48,
    "df_metric": 0
-  },
-  {
-   "name": "FigStep",
-   "kind": "bench",
-   "date": "2023-11-09",
-   "one_liner": "把有害问句渲染成排版图片喂给视觉语言模型，测其安全对齐是否被跨模态绕过",
-   "labels": [
-    "jailbreak",
-    "multimodal",
-    "robustness"
-   ],
-   "paper_url": "https://arxiv.org/abs/2311.05608",
-   "code_url": "https://github.com/ThuCCSLab/FigStep",
-   "card": "card-figstep",
-   "score": 41.26,
-   "cited_by": 435,
-   "df_metric": 23
-  },
-  {
-   "name": "FigStep-Pro",
-   "kind": "bench",
-   "date": "2023-11-09",
-   "one_liner": "把违禁问题排版成图片文字，诱导视觉语言模型绕过安全对齐输出有害内容",
-   "labels": [
-    "jailbreak",
-    "multimodal"
-   ],
-   "paper_url": "https://arxiv.org/abs/2311.05608",
-   "code_url": "https://github.com/CryptoAILab/FigStep",
-   "card": "card-figstep-pro",
-   "score": 41.26,
-   "cited_by": 435,
-   "df_metric": 23
   },
   {
    "name": "RuLES (Rule-following Language Evaluation Scenarios)",
@@ -4718,22 +3777,6 @@
    "df_metric": 5
   },
   {
-   "name": "FuzzLLM",
-   "kind": "bench",
-   "date": "2023-09-11",
-   "one_liner": "模板组合自动生成越狱提示，模糊测试多款 LLM 的越狱漏洞",
-   "labels": [
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2309.05274",
-   "code_url": "https://github.com/RainJamesY/FuzzLLM",
-   "card": null,
-   "score": 12.06,
-   "cited_by": 76,
-   "df_metric": 0
-  },
-  {
    "name": "Do-Not-Answer",
    "kind": "bench",
    "date": "2023-08-25",
@@ -4751,23 +3794,6 @@
    "score": 15.65,
    "cited_by": 211,
    "df_metric": 5
-  },
-  {
-   "name": "DangerousQA",
-   "kind": "bench",
-   "date": "2023-08-18",
-   "one_liner": "200 条种族/性别/违法/有毒类有害问题，配 CoU 越狱模板测 LLM 是否顺从作答",
-   "labels": [
-    "jailbreak",
-    "toxicity-bias",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2308.09662",
-   "code_url": "https://github.com/declare-lab/red-instruct",
-   "card": null,
-   "score": 31.65,
-   "cited_by": 278,
-   "df_metric": 7
   },
   {
    "name": "HarmfulQA",
@@ -4882,24 +3908,6 @@
    "score": 72.63,
    "cited_by": 3573,
    "df_metric": 321
-  },
-  {
-   "name": "Beaver-dam-7B",
-   "kind": "bench",
-   "date": "2023-07-10",
-   "one_liner": "用 BeaverTails 人工标注 QA 对评 14 类危害的审核器（beaver-dam-7b）判别能力",
-   "labels": [
-    "guardrail-eval",
-    "toxicity-bias",
-    "jailbreak",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2307.04657",
-   "code_url": "https://github.com/PKU-Alignment/beavertails",
-   "card": null,
-   "score": 29.73,
-   "cited_by": 1025,
-   "df_metric": 3
   },
   {
    "name": "BeaverTails",
