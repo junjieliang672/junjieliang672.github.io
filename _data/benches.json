@@ -50,7 +50,7 @@
   }
  },
  "counts": {
-  "bench": 238
+  "bench": 239
  },
  "rows": [
   {
@@ -553,6 +553,23 @@
    "code_url": "",
    "score": 45.99,
    "cited_by": 16,
+   "df_metric": 0
+  },
+  {
+   "name": "MedPriv-Bench",
+   "kind": "bench",
+   "date": "2026-03-15",
+   "one_liner": "测LLM医疗问答中隐私保护(防患者再识别)与临床回答效用之间的权衡",
+   "labels": [
+    "llm",
+    "privacy",
+    "rag",
+    "overrefusal-utility"
+   ],
+   "paper_url": "https://arxiv.org/abs/2603.14265",
+   "code_url": "",
+   "score": null,
+   "cited_by": 1,
    "df_metric": 0
   },
   {
