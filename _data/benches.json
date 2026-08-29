@@ -50,9 +50,57 @@
   }
  },
  "counts": {
-  "bench": 239
+  "bench": 245
  },
  "rows": [
+  {
+   "name": "CTF-ABACUS",
+   "kind": "bench",
+   "date": "2026-08-26",
+   "one_liner": "审计LLM agent做CTF渗透测试的行动轨迹，区分真实漏洞利用与走捷径拿flag",
+   "labels": [
+    "harmful-capability",
+    "agent-tool",
+    "agent-code"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.26237",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "KnownLieBench",
+   "kind": "bench",
+   "date": "2026-08-26",
+   "one_liner": "测LLM客服agent在明知用户权益的情况下,是否因利益冲突而说谎欺骗用户",
+   "labels": [
+    "deception-alignment",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.26372",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "MMJailBench",
+   "kind": "bench",
+   "date": "2026-08-26",
+   "one_liner": "拆分意图/措辞/视觉语义/指令载体四因子，量化归因 MLLM 越狱漏洞来源",
+   "labels": [
+    "jailbreak",
+    "multimodal",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.25490",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "EviSafe / EviSafeBench",
    "kind": "bench",
@@ -1079,6 +1127,21 @@
    "score": 29.01,
    "cited_by": 37,
    "df_metric": 3
+  },
+  {
+   "name": "CyberNative",
+   "kind": "bench",
+   "date": "2025-10-13",
+   "one_liner": "配对『有漏洞代码-修复后安全代码』的DPO数据集，测/训模型是否能识别并生成安全代码",
+   "labels": [
+    "code-security",
+    "llm"
+   ],
+   "paper_url": "",
+   "code_url": "https://huggingface.co/datasets/CyberNative/Code_Vulnerability_Security_DPO",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 1
   },
   {
    "name": "Pre-Exec Bench",
@@ -2384,6 +2447,18 @@
    "score": 30.53,
    "cited_by": 351,
    "df_metric": 8
+  },
+  {
+   "name": "PersuasionBench",
+   "kind": "bench",
+   "date": "2024-10-03",
+   "one_liner": "测LLM说服能力（含生成说服性文本、跨行为迁移说服力），非安全攻击类评测",
+   "labels": [],
+   "paper_url": "https://arxiv.org/abs/2410.02653",
+   "code_url": "https://behavior-in-the-wild.github.io/measure-persuasion",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
   },
   {
    "name": "PrivacyLens",
@@ -3961,6 +4036,18 @@
    "score": 18.13,
    "cited_by": 1818,
    "df_metric": 11
+  },
+  {
+   "name": "Perspectrum",
+   "kind": "bench",
+   "date": "2019-06-09",
+   "one_liner": "论证/观点检索数据集（claims-perspectives-evidence），测立场匹配与观点归纳，非安全评测",
+   "labels": [],
+   "paper_url": "https://arxiv.org/abs/1906.03538",
+   "code_url": "https://github.com/CogComp/perspectrum",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
   }
  ]
 }
