@@ -50,9 +50,73 @@
   }
  },
  "counts": {
-  "bench": 245
+  "bench": 249
  },
  "rows": [
+  {
+   "name": "Cautious Bench",
+   "kind": "bench",
+   "date": "2026-08-27",
+   "one_liner": "测 agent 护栏是否因物体名字听起来危险而误拒已授权动作（name-superstition 过度拒答）",
+   "labels": [
+    "overrefusal-utility",
+    "guardrail-eval",
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.27009",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "PLCBench",
+   "kind": "bench",
+   "date": "2026-08-27",
+   "one_liner": "硬件在环测试LLM agent能否攻破真实PLC并对工业物理过程造成持续破坏",
+   "labels": [
+    "harmful-capability",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.26882",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Trap-LIBERO",
+   "kind": "bench",
+   "date": "2026-08-27",
+   "one_liner": "对VLA机器人策略做后门投毒：隐藏文本触发词让机器人执行攻击者指定的失败动作",
+   "labels": [
+    "poisoning-backdoor",
+    "multimodal",
+    "agent-embodied"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.26578",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Trap-RoboTwin",
+   "kind": "bench",
+   "date": "2026-08-27",
+   "one_liner": "给VLA机器人模型植入隐蔽文本触发的后门，诱导其在指定条件下产生预设失败动作",
+   "labels": [
+    "poisoning-backdoor",
+    "agent-embodied",
+    "multimodal"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.26578",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "CTF-ABACUS",
    "kind": "bench",
