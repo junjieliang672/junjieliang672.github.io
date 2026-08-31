@@ -50,9 +50,74 @@
   }
  },
  "counts": {
-  "bench": 249
+  "bench": 255
  },
  "rows": [
+  {
+   "name": "EvoHarmBench",
+   "kind": "bench",
+   "date": "2026-08-28",
+   "one_liner": "用5002条真实规避样本迭代进化生成绕过策略，测LLM内容审核系统抗动态对抗规避的能力",
+   "labels": [
+    "guardrail-eval",
+    "robustness",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.27844",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "GUISE (Generalized Undercover Instruction Safety Evaluation)",
+   "kind": "bench",
+   "date": "2026-08-28",
+   "one_liner": "测试LLM能否识破用复杂情境包装过的有害请求，同时检验是否误拒安全请求",
+   "labels": [
+    "jailbreak",
+    "overrefusal-utility",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.28233",
+   "code_url": "",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
+   "name": "LongPIBench",
+   "kind": "bench",
+   "date": "2026-08-28",
+   "one_liner": "测长文档（评审/简历/代码/邮件）中藏注入指令时，LLM及其防御机制是否被绕过",
+   "labels": [
+    "ipi",
+    "llm",
+    "robustness",
+    "guardrail-eval"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.28411",
+   "code_url": "https://github.com/liu00222/LongPIBench",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
+   "name": "MOSAIC",
+   "kind": "bench",
+   "date": "2026-08-28",
+   "one_liner": "16000样本测试对抗性改写攻击下机器生成文本检测器的鲁棒性，评的是检测器而非LLM本身安全",
+   "labels": [
+    "robustness",
+    "llm",
+    "other:mgt-detection-evasion"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.28009",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "Cautious Bench",
    "kind": "bench",
@@ -1089,6 +1154,24 @@
    "df_metric": 1
   },
   {
+   "name": "SCONE-bench",
+   "kind": "bench",
+   "date": "2025-12-01",
+   "one_liner": "让 agent 分析真实历史智能合约漏洞并编写利用脚本实际获利，测网络攻击危险能力",
+   "labels": [
+    "harmful-capability",
+    "code-security",
+    "agent-tool",
+    "agent-code",
+    "llm"
+   ],
+   "paper_url": "https://www.anthropic.com/research/smart-contracts",
+   "code_url": "https://github.com/anthropics/scone-bench",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
    "name": "BrowseSafe",
    "kind": "bench",
    "date": "2025-11-25",
@@ -1831,6 +1914,20 @@
    "score": 24.1,
    "cited_by": 46,
    "df_metric": 3
+  },
+  {
+   "name": "NeoQA",
+   "kind": "bench",
+   "date": "2025-05-09",
+   "one_liner": "用虚构新闻事件测RAG系统是否真正依据检索证据回答而非用预训练知识蒙对",
+   "labels": [
+    "rag"
+   ],
+   "paper_url": "https://arxiv.org/abs/2505.05949",
+   "code_url": "https://github.com/amazon-science/NeoQA",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
   },
   {
    "name": "OET (Optimization-based prompt injection Evaluation Toolkit)",
