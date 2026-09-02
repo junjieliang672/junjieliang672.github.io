@@ -50,9 +50,40 @@
   }
  },
  "counts": {
-  "bench": 243
+  "bench": 245
  },
  "rows": [
+  {
+   "name": "Authorization-Equivalence Audit (96-condition tool-use guardrail audit)",
+   "kind": "bench",
+   "date": "2026-08-30",
+   "one_liner": "固定行动只改变必需值来源(用户/工具)，测护栏能否分清合法授权与伪装成工具结果的攻击",
+   "labels": [
+    "guardrail-eval",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.29942",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Fake Private Information Unlearning Audit Dataset",
+   "kind": "bench",
+   "date": "2026-08-30",
+   "one_liner": "构造虚假隐私信息数据集，白盒审计 LLM unlearning 是否真正删除而非只是掩盖敏感信息",
+   "labels": [
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.29943",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "ICWBench",
    "kind": "bench",
