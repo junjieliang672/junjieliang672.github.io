@@ -50,9 +50,93 @@
   }
  },
  "counts": {
-  "bench": 245
+  "bench": 251
  },
  "rows": [
+  {
+   "name": "CIPR (Coding In Poisoned Repos)",
+   "kind": "bench",
+   "date": "2026-08-31",
+   "one_liner": "测编码 agent 在处理含隐藏恶意指令的第三方代码仓库时，任务/技能/措辞如何影响被攻击成功率",
+   "labels": [
+    "ipi",
+    "agent-code",
+    "agent-tool",
+    "code-security"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.30686",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "EvoSkillBench",
+   "kind": "bench",
+   "date": "2026-08-31",
+   "one_liner": "测攻击者能否诱导自演进agent把恶意技能存进技能库并被反复检索复用",
+   "labels": [
+    "dpi",
+    "poisoning-backdoor",
+    "jailbreak",
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.30429",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "EvoSkillSafetyBench",
+   "kind": "bench",
+   "date": "2026-08-31",
+   "one_liner": "测自进化agent的技能库是否会被多轮对话诱导生成并持久存储恶意技能",
+   "labels": [
+    "poisoning-backdoor",
+    "agent-tool",
+    "dpi",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.30429",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "LASE-Bench",
+   "kind": "bench",
+   "date": "2026-08-31",
+   "one_liner": "测试针对长链路多工具调用agent的隐蔽间接提示注入攻击成功率与常见防御的抵御效果",
+   "labels": [
+    "ipi",
+    "agent-tool",
+    "agent-code",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.30441",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SD-A (Strategic-Dishonesty diagnostic)",
+   "kind": "bench",
+   "date": "2026-08-31",
+   "one_liner": "诊断集：测越狱判定器能否识破表面有害、实则故意错误的'策略性说谎'伪越狱回答",
+   "labels": [
+    "jailbreak",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.00498",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "Authorization-Equivalence Audit (96-condition tool-use guardrail audit)",
    "kind": "bench",
@@ -85,21 +169,6 @@
    "df_metric": 0
   },
   {
-   "name": "ICWBench",
-   "kind": "bench",
-   "date": "2026-08-29",
-   "one_liner": "测LLM能否照指令生成隐藏水印且不牺牲答案质量，三类可验证水印指令族×14个模型",
-   "labels": [
-    "llm",
-    "other:watermark-instruction-following"
-   ],
-   "paper_url": "https://arxiv.org/abs/2608.29030",
-   "code_url": "",
-   "score": null,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
    "name": "LongPIBench",
    "kind": "bench",
    "date": "2026-08-28",
@@ -113,6 +182,21 @@
    "paper_url": "https://arxiv.org/abs/2608.28411",
    "code_url": "https://github.com/liu00222/LongPIBench",
    "score": 32.59,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SafetyNIAH (Safety Needle-in-a-Haystack)",
+   "kind": "bench",
+   "date": "2026-08-27",
+   "one_liner": "把有害内容当作'针'埋进不同长度文本中，测安全护栏检测召回率随上下文变长的衰减",
+   "labels": [
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2608.27580",
+   "code_url": "",
+   "score": null,
    "cited_by": 0,
    "df_metric": 0
   },
@@ -371,6 +455,21 @@
    "code_url": "",
    "score": 22.62,
    "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "RoboTrustBench",
+   "kind": "bench",
+   "date": "2026-06-01",
+   "one_liner": "评机器人视频世界模型能否拒绝不安全/破坏性操作指令及物理常识推理能力",
+   "labels": [
+    "multimodal",
+    "agent-embodied"
+   ],
+   "paper_url": "https://arxiv.org/abs/2606.01600",
+   "code_url": "https://huiqiongli.github.io/RoboTrustBench/",
+   "score": null,
+   "cited_by": 4,
    "df_metric": 0
   },
   {
