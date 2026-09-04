@@ -54,6 +54,38 @@
  },
  "rows": [
   {
+   "name": "C-SafeQA",
+   "kind": "bench",
+   "date": "2026-09-01",
+   "one_liner": "中文安全问答基准：用对抗性改写测试LLM回复及7个安全判别器的检测/误报权衡",
+   "labels": [
+    "jailbreak",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.01210",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "EAL-Bench",
+   "kind": "bench",
+   "date": "2026-09-01",
+   "one_liner": "测试LLM agent的持久化记忆是否会内生地捏造出虚假授权，并被下游agent当真执行",
+   "labels": [
+    "llm",
+    "agent-tool",
+    "other:authorization-laundering"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.01836",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
    "name": "CIPR (Coding In Poisoned Repos)",
    "kind": "bench",
    "date": "2026-08-31",
@@ -65,23 +97,6 @@
     "code-security"
    ],
    "paper_url": "https://arxiv.org/abs/2608.30686",
-   "code_url": "",
-   "score": null,
-   "cited_by": 0,
-   "df_metric": 0
-  },
-  {
-   "name": "EvoSkillBench",
-   "kind": "bench",
-   "date": "2026-08-31",
-   "one_liner": "测攻击者能否诱导自演进agent把恶意技能存进技能库并被反复检索复用",
-   "labels": [
-    "dpi",
-    "poisoning-backdoor",
-    "jailbreak",
-    "agent-tool"
-   ],
-   "paper_url": "https://arxiv.org/abs/2608.30429",
    "code_url": "",
    "score": null,
    "cited_by": 0,
@@ -1222,22 +1237,6 @@
    "score": 28.94,
    "cited_by": 39,
    "df_metric": 3
-  },
-  {
-   "name": "Pre-Exec Bench",
-   "kind": "bench",
-   "date": "2025-10-10",
-   "one_liner": "测护栏模型能否在 agent 执行工具前，从多样工具轨迹中检测、分类并解释注入的风险计划",
-   "labels": [
-    "guardrail-eval",
-    "agent-tool",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2510.09781",
-   "code_url": "https://github.com/HowieHwong/Agentic-Guardian",
-   "score": 31.84,
-   "cited_by": 25,
-   "df_metric": 0
   },
   {
    "name": "AdvCLI",
@@ -2935,21 +2934,6 @@
    "code_url": "https://github.com/justincui03/or-bench",
    "score": 30.71,
    "cited_by": 220,
-   "df_metric": 1
-  },
-  {
-   "name": "OR-Bench-Hard-1K",
-   "kind": "bench",
-   "date": "2024-05-31",
-   "one_liner": "约 1000 条看似有害实则无害的难题，测 LLM 是否过度拒答，附有害对照组",
-   "labels": [
-    "overrefusal-utility",
-    "llm"
-   ],
-   "paper_url": "https://arxiv.org/abs/2405.20947",
-   "code_url": "https://github.com/justincui03/or-bench",
-   "score": 35.41,
-   "cited_by": 220,
    "df_metric": 5
   },
   {
@@ -4146,6 +4130,18 @@
    ],
    "paper_url": "https://huggingface.co/datasets/ai4privacy/pii-masking-300k",
    "code_url": "https://huggingface.co/datasets/ai4privacy/pii-masking-300k",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
+   "name": "SCOPE-R",
+   "kind": "bench",
+   "date": "",
+   "one_liner": "查证不到名为 SCOPE-R 的 LLM/agent 安全评测集，无法确定其定义与来源",
+   "labels": [],
+   "paper_url": "",
+   "code_url": "",
    "score": null,
    "cited_by": null,
    "df_metric": 0
