@@ -50,9 +50,41 @@
   }
  },
  "counts": {
-  "bench": 251
+  "bench": 255
  },
  "rows": [
+  {
+   "name": "Counter-GEO-Bench",
+   "kind": "bench",
+   "date": "2026-09-02",
+   "one_liner": "测RAG场景下GEO优化的虚假信息网页能否骗过LLM及现有护栏，导致答案失真",
+   "labels": [
+    "ipi",
+    "rag",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.02316",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "3R-Bench",
+   "kind": "bench",
+   "date": "2026-09-01",
+   "one_liner": "测试LLM是否因伪造的对话历史（拒绝/同意/拆分请求）而改变对网络安全类有害请求的拒答率",
+   "labels": [
+    "jailbreak",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.00578",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "C-SafeQA",
    "kind": "bench",
@@ -665,6 +697,21 @@
    "score": 25.52,
    "cited_by": 2,
    "df_metric": 1
+  },
+  {
+   "name": "PrimeVul4J",
+   "kind": "bench",
+   "date": "2026-04-14",
+   "one_liner": "Java 版漏洞检测数据集，测 LLM/代码模型能否判断函数是否含安全漏洞",
+   "labels": [
+    "code-security",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2604.10767",
+   "code_url": "",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
   },
   {
    "name": "AudioSafetyBench",
@@ -1531,6 +1578,23 @@
    "code_url": "",
    "score": 37.2,
    "cited_by": 24,
+   "df_metric": 0
+  },
+  {
+   "name": "FaultLine",
+   "kind": "bench",
+   "date": "2025-07-21",
+   "one_liner": "测LLM agent能否自动追踪漏洞路径并生成可验证的漏洞利用测试(PoV)",
+   "labels": [
+    "harmful-capability",
+    "code-security",
+    "agent-code",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2507.15241",
+   "code_url": "",
+   "score": null,
+   "cited_by": null,
    "df_metric": 0
   },
   {
