@@ -50,9 +50,27 @@
   }
  },
  "counts": {
-  "bench": 241
+  "bench": 242
  },
  "rows": [
+  {
+   "name": "MechAudit-40",
+   "kind": "bench",
+   "date": "2026-09-06",
+   "one_liner": "用模型内部表征变化检测40种LLM攻击（越狱/投毒/后门/检索污染），评的是白盒检测器本身",
+   "labels": [
+    "jailbreak",
+    "poisoning-backdoor",
+    "rag",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.06612",
+   "code_url": "",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
   {
    "name": "C-SafeQA",
    "kind": "bench",
