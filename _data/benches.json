@@ -50,9 +50,56 @@
   }
  },
  "counts": {
-  "bench": 242
+  "bench": 246
  },
  "rows": [
+  {
+   "name": "MOLE",
+   "kind": "bench",
+   "date": "2026-09-07",
+   "one_liner": "在30天、150个AI账户的模拟工作环境里，测监测器能否从routine工作中揪出12类隐蔽恶意行为",
+   "labels": [
+    "deception-alignment",
+    "guardrail-eval",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.06966",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "VEX-Bench",
+   "kind": "bench",
+   "date": "2026-09-07",
+   "one_liner": "测LLM代理能否判断上游依赖已知漏洞在下游项目中是否真实可被利用，75个真实GitHub案例",
+   "labels": [
+    "code-security",
+    "agent-code",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.08040",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "AURA-Eval",
+   "kind": "bench",
+   "date": "2026-09-06",
+   "one_liner": "用157条轨迹变造出1249个场景，测LLM agent在工具调用中能否识别风险并选择安全替代方案",
+   "labels": [
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.06783",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "MechAudit-40",
    "kind": "bench",
@@ -1429,6 +1476,22 @@
    "code_url": "",
    "score": 37.1,
    "cited_by": 24,
+   "df_metric": 0
+  },
+  {
+   "name": "SpearMail",
+   "kind": "bench",
+   "date": "2025-07-21",
+   "one_liner": "14672封LLM生成的矛枪钓鱼邮件基准，用来测钓鱼检测器PiMRef的召回/误报表现",
+   "labels": [
+    "harmful-capability",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2507.15393",
+   "code_url": "",
+   "score": null,
+   "cited_by": 4,
    "df_metric": 0
   },
   {
