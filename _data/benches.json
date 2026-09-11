@@ -50,9 +50,74 @@
   }
  },
  "counts": {
-  "bench": 246
+  "bench": 251
  },
  "rows": [
+  {
+   "name": "DefTEval",
+   "kind": "bench",
+   "date": "2026-09-08",
+   "one_liner": "测视频LLM像素级对抗防御能否挡住利用采样/压缩/融合环节藏毒的攻击",
+   "labels": [
+    "multimodal",
+    "robustness",
+    "guardrail-eval",
+    "jailbreak"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.08331",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "PrivEscalate",
+   "kind": "bench",
+   "date": "2026-09-08",
+   "one_liner": "测 LLM agent 在 531 个容器化场景中自动完成 Linux 提权攻击的能力",
+   "labels": [
+    "harmful-capability",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.09087",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SchemeArena",
+   "kind": "bench",
+   "date": "2026-09-08",
+   "one_liner": "400个场景测LLM agent在工具环境+监督压力下是否隐蔽追求错位目标（scheming），并配套监控器SCOUT",
+   "labels": [
+    "deception-alignment",
+    "agent-tool",
+    "guardrail-eval"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.08126",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "Style Over Substance Judge-Flip Dataset",
+   "kind": "bench",
+   "date": "2026-09-08",
+   "one_liner": "给已固定的回复套上教育免责声明等文风包装，测安全裁判LLM是否被外观骗改判",
+   "labels": [
+    "guardrail-eval",
+    "robustness",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.08236",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "MOLE",
    "kind": "bench",
@@ -556,7 +621,7 @@
    "code_url": "",
    "score": 27.46,
    "cited_by": 1,
-   "df_metric": 0
+   "df_metric": 1
   },
   {
    "name": "MTID (Multi-Turn Intent Dataset)",
@@ -590,6 +655,22 @@
    "code_url": "https://github.com/AI-secure/DecodingTrust-Agent",
    "score": 41.72,
    "cited_by": 7,
+   "df_metric": 0
+  },
+  {
+   "name": "SOTOPIA-TOM",
+   "kind": "bench",
+   "date": "2026-05-04",
+   "one_liner": "测多智能体社交模拟中LLM能否恰当分享/保密信息、正确找人问、不泄露隐私",
+   "labels": [
+    "privacy",
+    "multi-agent",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2605.02307",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
    "df_metric": 0
   },
   {
