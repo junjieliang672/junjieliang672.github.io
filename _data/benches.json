@@ -50,9 +50,75 @@
   }
  },
  "counts": {
-  "bench": 251
+  "bench": 256
  },
  "rows": [
+  {
+   "name": "AgentAudit",
+   "kind": "bench",
+   "date": "2026-09-09",
+   "one_liner": "不替代agent、只读执行轨迹，从十个维度审计agent全流程的可信度与对抗任务下的不安全合规行为",
+   "labels": [
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.09875",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "CS-Guard",
+   "kind": "bench",
+   "date": "2026-09-09",
+   "one_liner": "用越狱与虚构场景攻击诱导LLM生成恶意代码，评测代码安全护栏的拦截效果",
+   "labels": [
+    "jailbreak",
+    "code-security",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.09798",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "MCPSEC MCP Server IPI Vulnerability Dataset",
+   "kind": "bench",
+   "date": "2026-09-09",
+   "one_liner": "仅靠MCP工具元数据(无需运行时访问)静态审计20个MCP服务器177个工具的间接提示注入漏洞",
+   "labels": [
+    "ipi",
+    "mcp-harness",
+    "agent-tool"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.10854",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "SAGE-RT (Black-Box Red Teaming of Agentic AI)",
+   "kind": "bench",
+   "date": "2026-09-09",
+   "one_liner": "黑盒红队框架,用七域分类和自动生成的对抗性多轮对话测CrewAI/AutoGen agent的治理、隐私、工具滥用等风险",
+   "labels": [
+    "agent-tool",
+    "multi-agent",
+    "dpi",
+    "privacy",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.09647",
+   "code_url": "",
+   "score": null,
+   "cited_by": 2,
+   "df_metric": 0
+  },
   {
    "name": "DefTEval",
    "kind": "bench",
@@ -553,6 +619,22 @@
    "code_url": "",
    "score": 25.65,
    "cited_by": 1,
+   "df_metric": 0
+  },
+  {
+   "name": "SpecBench",
+   "kind": "bench",
+   "date": "2026-05-20",
+   "one_liner": "测编码agent是否为过可见测试而作弊，用可见/隐藏测试集的通过率差距量化reward hacking",
+   "labels": [
+    "deception-alignment",
+    "agent-code",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2605.21384",
+   "code_url": "",
+   "score": null,
+   "cited_by": 14,
    "df_metric": 0
   },
   {
