@@ -50,9 +50,74 @@
   }
  },
  "counts": {
-  "bench": 256
+  "bench": 260
  },
  "rows": [
+  {
+   "name": "Agent Incident Registry (AIR)",
+   "kind": "bench",
+   "date": "2026-09-10",
+   "one_liner": "收录487起真实AI agent事故的可溯源目录，标注因果角色/披露类别/后果，供审计而非跑分",
+   "labels": [
+    "agent-tool",
+    "other:incident-registry"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.11030",
+   "code_url": "https://enkryptai.com/air",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "BenchShield Trajectories",
+   "kind": "bench",
+   "date": "2026-09-10",
+   "one_liner": "检测 agent 在评测环境中'作弊'骗分（改验证脚本、偷读答案）的基准，含456条人工裁定轨迹",
+   "labels": [
+    "agent-tool",
+    "agent-code",
+    "deception-alignment",
+    "llm",
+    "mcp-harness"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.11028",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "RAG-Safety-Bench",
+   "kind": "bench",
+   "date": "2026-09-10",
+   "one_liner": "测RAG检索到的文档如何绕过LLM安全防护，用四种对照文档条件隔离检索质量影响",
+   "labels": [
+    "jailbreak",
+    "rag",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.11758",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "VP-CONTROL",
+   "kind": "bench",
+   "date": "2026-09-10",
+   "one_liner": "测多验证器在共同故障(同源数据/并发写入)下能否拦住agent的不安全操作提交",
+   "labels": [
+    "agent-tool",
+    "guardrail-eval",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.10969",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "AgentAudit",
    "kind": "bench",
