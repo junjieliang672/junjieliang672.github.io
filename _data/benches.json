@@ -50,9 +50,25 @@
   }
  },
  "counts": {
-  "bench": 260
+  "bench": 265
  },
  "rows": [
+  {
+   "name": "MUMBench (Multi-User Memory Benchmark)",
+   "kind": "bench",
+   "date": "2026-09-11",
+   "one_liner": "测多用户共享记忆agent能否正确区分私有/可共享信息并执行增删改查而不泄露隐私",
+   "labels": [
+    "privacy",
+    "agent-tool",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.12320",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
   {
    "name": "Agent Incident Registry (AIR)",
    "kind": "bench",
@@ -81,6 +97,21 @@
     "mcp-harness"
    ],
    "paper_url": "https://arxiv.org/abs/2609.11028",
+   "code_url": "",
+   "score": null,
+   "cited_by": 0,
+   "df_metric": 0
+  },
+  {
+   "name": "GuardrailLoop",
+   "kind": "bench",
+   "date": "2026-09-10",
+   "one_liner": "用崩溃注入和2×2实验测自我改进agent能否守住策略、算力预算和崩溃恢复三条契约",
+   "labels": [
+    "agent-tool",
+    "other:agent-self-improvement-audit"
+   ],
+   "paper_url": "https://arxiv.org/abs/2609.12216",
    "code_url": "",
    "score": null,
    "cited_by": 0,
@@ -2731,6 +2762,21 @@
    "df_metric": 2
   },
   {
+   "name": "PersonaChat",
+   "kind": "bench",
+   "date": "2024-10-05",
+   "one_liner": "PersonaChat 本是 2018 年的人设对话数据集，非安全评测集，常被后续研究借用来测人设诱导下的毒性/偏见",
+   "labels": [
+    "llm",
+    "toxicity-bias"
+   ],
+   "paper_url": "https://arxiv.org/abs/1801.07243",
+   "code_url": "",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 1
+  },
+  {
    "name": "ASB",
    "kind": "bench",
    "date": "2024-10-03",
@@ -3161,6 +3207,22 @@
    "df_metric": 0
   },
   {
+   "name": "ALOE",
+   "kind": "bench",
+   "date": "2024-05-03",
+   "one_liner": "ALOE其实是一系列医疗领域微调LLM(非纯安全评测集)，用红队越狱模板和毒性/偏见测试评估其安全对齐效果",
+   "labels": [
+    "jailbreak",
+    "toxicity-bias",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2405.01886",
+   "code_url": "https://huggingface.co/HPAI-BSC",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
+  },
+  {
    "name": "CyberSecEval",
    "kind": "bench",
    "date": "2024-04-19",
@@ -3399,6 +3461,24 @@
    "score": 44.64,
    "cited_by": 379,
    "df_metric": 89
+  },
+  {
+   "name": "PANDORA",
+   "kind": "bench",
+   "date": "2024-02-13",
+   "one_liner": "向GPTs的RAG知识库投毒恶意文档，让检索到该文档的LLM被间接越狱",
+   "labels": [
+    "jailbreak",
+    "ipi",
+    "rag",
+    "poisoning-backdoor",
+    "llm"
+   ],
+   "paper_url": "https://arxiv.org/abs/2402.08416",
+   "code_url": "",
+   "score": null,
+   "cited_by": null,
+   "df_metric": 0
   },
   {
    "name": "MIMIR",
