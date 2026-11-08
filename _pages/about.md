@@ -28,3 +28,10 @@ Hi! I’m currently a Security Research Engineer at [ByteDance](https://www.byte
 My research interests span Longitudinal Data Anlaysis, Natural Language Understanding, LLM Security and Information Retrieval. 
 
 I like to have fun and stay fit! I'm into snowboarding, badminton, weight training, math and RTS games! My all-time favorite games are [AOE2](https://www.ageofempires.com/games/aoeiide/) and [Don't Starve Together](https://www.klei.com/games/dont-starve-together).
+
+### Open source for everyday use
+
+I also love exploring and building open-source tools I use every day. Two of them are public:
+
+- **[Marmota](https://github.com/junjieliang672/marmota)**: a terminal file manager that works beside my Claude Code and Codex sessions. It shows what each session is doing and what it changed, and lets me write to any of them without leaving my files. [Take the tour](https://junjieliang672.github.io/marmota/tutorial.html).
+- **[MarmotIM](https://github.com/junjieliang672/MarmotIM)** (土拨鼠输入法): a macOS input method that mixes Wubi and Pinyin, and reorders its suggestions as it learns how I type.
