@@ -724,3 +724,25 @@ progress {
      display: block;
      height: inherit;
  }
+
+// About page: the line under the name, the first paragraph a size up, the
+// hobbies paragraph quieter; on a phone the photo floats beside the text
+// instead of filling the width above it.
+.post-header .desc {
+  font-size: 1.125rem;
+  color: #666666;
+  margin-top: 0.25rem;
+}
+.lead-in {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+.aside {
+  color: #666666;
+}
+html[data-theme='dark'] {
+  .post-header .desc, .aside { color: #b4b4b4; }
+}
+@media (max-width: 575px) {
+  .profile { width: 40%; }
+}

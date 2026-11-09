@@ -115,7 +115,7 @@ contact_note: >
 # -----------------------------------------------------------------------------
 
 blog_name: LLM Security 雷达 — fully driven by AI
-blog_nav_title: radar # your blog must have a title for it to be displayed in the nav bar
+blog_nav_title: # radar moved off the site (2026-11-08): empty hides the nav link
 blog_description: LLM / agent security 的每日速览、知识卡（人物与研究组）与资讯卡（评测集 / 事故）
 permalink: /radar/:year/:title/
 
@@ -174,7 +174,7 @@ collections:
     output: true
     permalink: /projects/:path/
 
-news_scrollable: true # adds a vertical scroll bar if there are more than 3 news items
+news_scrollable: false # true: news past the third scroll in a short box
 news_limit: 5 # leave blank to include all the news in the `_news` folder
 
 # -----------------------------------------------------------------------------
